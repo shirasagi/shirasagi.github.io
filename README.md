@@ -16,4 +16,4 @@ Allow access and automatic refreshing. (vm)
 $ jekyll s --host 0.0.0.0 --force_polling
 ```
 
-access to http://127.0.0.1:4000/
+Access to http://127.0.0.1:4000/
