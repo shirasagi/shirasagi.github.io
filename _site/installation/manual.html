@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+    <meta charset="UTF-8">
+    <title>Manual</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/github-light.css" media="screen">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/javascripts/script.js"></script>
+  </head>
+  <body>
+
+    <section class="page-header">
+      <h1 class="project-name"><a href="http://shirasagi.github.io">SHIRASAGI</a></h1>
+    </section>
+
+    <section class="main-content">
+      <h1>Manual</h1>
+
+      <h2>Packages</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ su -
+# yum -y install ImageMagick ImageMagick-devel
+</code></pre></div>
+<h2>MongoDB</h2>
+
+<p><a href="http://docs.mongodb.org/manual/installation/">Official installation</a></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># vi /etc/yum.repos.d/CentOS-Base.repo
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">[mongodb-org-3.0]
+name=MongoDB Repository
+baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/x86_64/
+gpgcheck=0
+enabled=0
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text"># yum install -y --enablerepo=mongodb-org-3.0 mongodb-org
+# /sbin/service mongod start
+# /sbin/chkconfig mongod on
+</code></pre></div>
+<h2>Ruby(RVM)</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+# \curl -sSL https://get.rvm.io | sudo bash -s stable
+# source /etc/profile
+# rvm install 2.2.2
+</code></pre></div>
+<h2>SHIRASAGI</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
+$ cd /var/www/shirasagi
+$ cp -n config/samples/* config/
+# bundle install
+# rake unicorn:start
+</code></pre></div>
+<blockquote>
+<p>http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。</p>
+</blockquote>
+
+<h2>ふりがな機能</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># cd /usr/local/src
+# wget http://mecab.googlecode.com/files/mecab-0.996.tar.gz \
+    http://mecab.googlecode.com/files/mecab-ipadic-2.7.0-20070801.tar.gz \
+    http://mecab.googlecode.com/files/mecab-ruby-0.996.tar.gz \
+    https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+
+# cd /usr/local/src
+# tar xvzf mecab-0.996.tar.gz &amp;&amp; cd mecab-0.996
+# ./configure --enable-utf8-only &amp;&amp; make &amp;&amp; make install
+
+# cd /usr/local/src
+# tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz &amp;&amp; cd mecab-ipadic-2.7.0-20070801
+# patch -p1 &lt; ../mecab-ipadic-2.7.0-20070801.patch
+
+  # もしくは:
+  # patch -p1 &lt; /var/www/shirasagi/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+
+# ./configure --with-charset=UTF-8 &amp;&amp; make &amp;&amp; make install
+
+# cd /usr/local/src
+# tar xvzf mecab-ruby-0.996.tar.gz &amp;&amp; cd mecab-ruby-0.996
+# ruby extconf.rb &amp;&amp; make &amp;&amp; make install
+
+# echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf
+# ldconfig
+</code></pre></div>
+<h2>読み上げ機能</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># cd /usr/local/src
+# wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
+    http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
+    http://downloads.sourceforge.net/lame/lame-3.99.5.tar.gz \
+    http://downloads.sourceforge.net/sox/sox-14.4.1.tar.gz
+
+# cd /usr/local/src
+# tar xvzf hts_engine_API-1.08.tar.gz &amp;&amp; cd hts_engine_API-1.08
+# ./configure &amp;&amp; make &amp;&amp; make install
+
+# cd /usr/local/src
+# tar xvzf open_jtalk-1.07.tar.gz &amp;&amp; cd open_jtalk-1.07
+# sed -i &quot;s/#define MAXBUFLEN 1024/#define MAXBUFLEN 10240/&quot; bin/open_jtalk.c
+# sed -i &quot;s/0x00D0 SPACE/0x000D SPACE/&quot; mecab-naist-jdic/char.def
+# ./configure --with-charset=UTF-8 &amp;&amp; make &amp;&amp; make install
+
+# cd /usr/local/src
+# tar xvzf lame-3.99.5.tar.gz &amp;&amp; cd lame-3.99.5
+# ./configure &amp;&amp; make &amp;&amp; make install
+
+# cd /usr/local/src
+# tar xvzf sox-14.4.1.tar.gz &amp;&amp; cd sox-14.4.1
+# ./configure &amp;&amp; make &amp;&amp; make install
+
+# ldconfig
+</code></pre></div>
+<h2>データベース操作</h2>
+
+<p>カレントディレクトリを移動</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ cd /var/www/shirasagi
+</code></pre></div>
+<p>インデックスの作成</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake db:create_indexes
+</code></pre></div>
+<p>管理者ユーザーの作成</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake ss:create_user data=&#39;{ name: &quot;システム管理者&quot;, email: &quot;sys@example.jp&quot;, password: &quot;pass&quot; }&#39;
+</code></pre></div>
+<p>サイトの作成</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake ss:create_site data=&#39;{ name: &quot;サイト名&quot;, host: &quot;www&quot;, domains: &quot;localhost:3000&quot; }&#39;
+</code></pre></div>
+<h2>サンプルデータ</h2>
+
+<p>ユーザー、グループデータの登録</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake db:seed name=users site=www
+</code></pre></div>
+<p>サイトデータの登録</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake db:seed name=demo site=www
+</code></pre></div>
+<h2>CMS管理コマンド</h2>
+
+<p>予約公開/非公開</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake cms:release_pages
+</code></pre></div>
+<p>静的ページ書き出し（トップページ＋一覧ページ）</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">rake cms:generate_nodes site=www
+</code></pre></div>
+<p>静的ページ書き出し（ページ）</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ rake cms:generate_pages site=www
+</code></pre></div>
+<h2>定期実行設定(cron)</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># 予約公開＆書き出し
+*/15 * * * * /bin/bash -l -c &#39;cd /var/www/shirasagi &amp;&amp; bundle exec rake cms:release_pages &amp;&amp; bundle exec rake cms:generate_nodes&#39; &gt;/dev/null
+0 * * * * /bin/bash -l -c &#39;cd /var/www/shirasagi &amp;&amp; bundle exec rake cms:generate_pages&#39; &gt;/dev/null
+</code></pre></div>
+<h2>開発ツール(Egg: モジュール管理)</h2>
+
+<p>インストール</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/egg install sample-egg -v 1.0.0
+</code></pre></div>
+<p>アンインストール</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/egg uninstall sample-egg
+</code></pre></div>
+<p>圧縮ファイル生成</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/egg pack sample-egg -v 1.0.0
+</code></pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/shirasagi/shirasagi">SHIRASAGI</a> is maintained by <a href="https://github.com/shirasagi">SHIRASAGI Project</a>.</span>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+    </section>
+
+  </body>
+</html>
