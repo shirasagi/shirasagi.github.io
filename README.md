@@ -2,18 +2,15 @@
 
 http://shirasagi.github.io/
 
-## Git clone
+## Jekyll server for development
 
-```
-$ git clone -b gh-pages --depth 1 git@github.com:shirasagi/shirasagi.git gh-pages
-```
-
-## Jekyll server
+Simple command.
 
 ```
 $ jekyll s
 ```
 
+Allow access and automatic refreshing. (vm)
 ```
 $ jekyll s --host 0.0.0.0 --force_polling
 ```
