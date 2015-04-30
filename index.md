@@ -3,7 +3,7 @@ layout: top
 title: SHIRASAGI
 ---
 
-# Repository
+# SHIRASAGI Repository
 
 development(master)
 
