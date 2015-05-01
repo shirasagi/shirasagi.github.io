@@ -69,10 +69,6 @@ $ cp -n config/samples/* config/
 # cd /usr/local/src
 # tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
 # patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-
-  # もしくは:
-  # patch -p1 < /var/www/shirasagi/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
-
 # ./configure --with-charset=UTF-8 && make && make install
 
 # cd /usr/local/src
@@ -83,7 +79,9 @@ $ cp -n config/samples/* config/
 # ldconfig
 ```
 
-## 読み上げ機能
+> mecab ビルド後に `ldconfig` が必要なケースがあります。
+
+## 音声読み上げ
 
 ```
 # cd /usr/local/src
@@ -112,6 +110,8 @@ $ cp -n config/samples/* config/
 
 # ldconfig
 ```
+
+> [モジュール - 音声読み上げ](../module/voice.html)
 
 ## データベース操作
 
@@ -153,50 +153,4 @@ $ rake db:seed name=users site=www
 $ rake db:seed name=demo site=www
 ```
 
-## CMS管理コマンド
-
-予約公開/非公開
-
-```
-$ rake cms:release_pages
-```
-
-静的ページ書き出し（トップページ＋一覧ページ）
-
-```
-rake cms:generate_nodes site=www
-```
-
-静的ページ書き出し（ページ）
-
-```
-$ rake cms:generate_pages site=www
-```
-
-## 定期実行設定(cron)
-
-```
-# 予約公開＆書き出し
-*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:release_pages && bundle exec rake cms:generate_nodes' >/dev/null
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:generate_pages' >/dev/null
-```
-
-## 開発ツール(Egg: モジュール管理)
-
-インストール
-
-```
-$ bin/egg install sample-egg -v 1.0.0
-```
-
-アンインストール
-
-```
-$ bin/egg uninstall sample-egg
-```
-
-圧縮ファイル生成
-
-```
-$ bin/egg pack sample-egg -v 1.0.0
-```
+> http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインできます。

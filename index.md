@@ -3,23 +3,26 @@ layout: top
 title: SHIRASAGI
 ---
 
-# SHIRASAGI Repository
+## リポジトリ(GitHub)
 
-development(master)
+- [master - development](https://github.com/shirasagi/shirasagi)
+- [stable - release](https://github.com/shirasagi/shirasagi/tree/stable)
 
-- https://github.com/shirasagi/shirasagi
+## インストール
 
-stable
+- [自動インストール - Vagrant](installation/vagrant.html)
+- [手動インストール](installation/manual.html)
+- [nginx](installation/nginx.html)
+- [Unicorn](installation/unicorn.html)
 
-- https://github.com/shirasagi/shirasagi/tree/stable
+## 設定
 
-# Installation
+- [管理コマンド](setting/cmd.html)
+- [定期実行](setting/cron.html)
+- [環境設定](setting/env.html)
+- [メール送信](setting/mail.html)
 
-- [Manual installation](installation/manual.html)
-- [Automatic installation - Vagrant](installation/vagrant.html)
-- [Reverse proxy - nginx](installation/nginx.html)
-
-# Modules
+## モジュール
 
 - [組織変更](module/chorg.html)
-
+- [音声読み上げ](module/voice.html)
