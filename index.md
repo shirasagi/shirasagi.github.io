@@ -11,7 +11,7 @@ title: SHIRASAGI
 ## インストール
 
 - [自動インストール - Vagrant](installation/vagrant.html)
-- [手動インストール](installation/manual.html)
+- [手動インストール - CentOS](installation/manual.html)
 - [nginx](installation/nginx.html)
 - [Unicorn](installation/unicorn.html)
 
