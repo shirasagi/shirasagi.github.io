@@ -33,11 +33,11 @@ enabled=0
 ```
 server {
     listen 80;
-    # server_name にドメイン名を適切に設定する。
-    # SHIRASAGI の管理画面からサイトの設定を確認し、
-    # ドメインに公開ドメインが設定されていることを確認する。
+
+    # サイトのドメイン名を設定する。
     server_name example.jp;
-    # root にSHIRASAGI をインストールしたディレクトリ下の `public/sites/w/w/w/_/` を指定する。
+
+    # SHIRASAGI をインストールしたディレクトリ下の `public/sites/w/w/w/_/` を指定する。
     root /var/www/ss/public/sites/w/w/w/_/;
 
     location @app {
@@ -88,7 +88,7 @@ server {
 server {
     ...
     location /. {
-        try_files $uri $uri @app;
+        try_files $uri @app;
         auth_basic "Secret";
         auth_basic_user_file /etc/nginx/.htpasswd;
     }
