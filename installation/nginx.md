@@ -21,6 +21,7 @@ enabled=0
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
 # /sbin/service nginx start
+# #CentOS7# systemctl start nginx.service
 # /sbin/chkconfig nginx on
 ```
 
@@ -38,7 +39,7 @@ server {
     server_name example.jp;
 
     # SHIRASAGI をインストールしたディレクトリ下の `public/sites/w/w/w/_/` を指定する。
-    root /var/www/ss/public/sites/w/w/w/_/;
+    root /var/www/shirasagi/public/sites/w/w/w/_/;
 
     location @app {
         if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log  off; }
@@ -65,6 +66,11 @@ server {
         try_files $uri @app;
     }
 }
+```
+
+```
+# /sbin/service nginx restart
+# #CentOS7# systemctl restart nginx
 ```
 
 ## 管理画面にBasic認証を設定する
