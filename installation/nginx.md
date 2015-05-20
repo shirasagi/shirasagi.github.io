@@ -21,7 +21,7 @@ enabled=0
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
 # /sbin/service nginx start
-# #CentOS7# systemctl start nginx.service
+# # [CentOS7] systemctl start nginx.service
 # /sbin/chkconfig nginx on
 ```
 
@@ -70,7 +70,7 @@ server {
 
 ```
 # /sbin/service nginx restart
-# #CentOS7# systemctl restart nginx
+# # [CentOS7] systemctl restart nginx
 ```
 
 ## 管理画面にBasic認証を設定する
