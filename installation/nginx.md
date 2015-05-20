@@ -20,9 +20,9 @@ enabled=0
 ```
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
-# /sbin/service nginx start
+# service nginx start
 # # [CentOS7] systemctl start nginx.service
-# /sbin/chkconfig nginx on
+# chkconfig nginx on
 ```
 
 ## シラサギの設定を追加する
@@ -69,7 +69,7 @@ server {
 ```
 
 ```
-# /sbin/service nginx restart
+# service nginx restart
 # # [CentOS7] systemctl restart nginx
 ```
 
