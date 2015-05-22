@@ -6,8 +6,8 @@ title: SHIRASAGI の更新
 ## ソースコードの更新
 
 ```
-# cd /var/www/shirasagi
-# git pull
+$ cd /var/www/shirasagi
+$ git pull
 ```
 
 ### (アーカイブを利用する場合)

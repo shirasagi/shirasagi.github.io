@@ -50,7 +50,7 @@ $ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/
 $ cd /var/www/shirasagi
 $ cp -n config/samples/* config/
 # bundle install
-# rake unicorn:start
+$ rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
