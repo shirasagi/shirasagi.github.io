@@ -1,7 +1,11 @@
 ---
 layout: default
-title: nginx
+title: nginx のインストール
 ---
+
+## nginx
+
+- [Official Site](http://nginx.org/)
 
 ## Install
 

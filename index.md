@@ -8,12 +8,19 @@ title: SHIRASAGI
 - [master - development](https://github.com/shirasagi/shirasagi)
 - [stable - release](https://github.com/shirasagi/shirasagi/tree/stable)
 
-## インストール
+## インストール手順
 
 - [自動インストール - Vagrant](installation/vagrant.html)
 - [手動インストール - CentOS](installation/manual.html)
-- [nginx](installation/nginx.html)
-- [Unicorn](installation/unicorn.html)
+- [nginx のインストール](installation/nginx.html)
+- [Unicorn のインストール](installation/unicorn.html)
+
+## アップデート手順
+
+- [Ruby の更新](updation/ruby.html)
+- [MongoDB の更新](updation/mongodb.html)
+- [SHIRASAGI の更新](updation/manual.html)
+- [バックアップとリストア](updation/backup.html)
 
 ## 設定
 

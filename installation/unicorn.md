@@ -1,9 +1,11 @@
 ---
 layout: default
-title: Unicorn
+title: Unicorn のインストール
 ---
 
-[Official Site](http://unicorn.bogomips.org/)
+## Unicorn
+
+- [Official Site](http://unicorn.bogomips.org/)
 
 ## Install
 
