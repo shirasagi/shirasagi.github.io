@@ -33,3 +33,7 @@ title: SHIRASAGI
 
 - [組織変更](module/chorg.html)
 - [音声読み上げ](module/voice.html)
+
+## トラブルシューティング
+
+- [インストール](trouble-shooting/installation.html)

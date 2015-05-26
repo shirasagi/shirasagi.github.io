@@ -2,6 +2,10 @@
 
 http://shirasagi.github.io/
 
+## Source code repository
+
+https://github.com/shirasagi/shirasagi
+
 ## Jekyll server for development
 
 Simple command.
