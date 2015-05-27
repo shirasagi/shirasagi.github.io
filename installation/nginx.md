@@ -25,8 +25,9 @@ enabled=0
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
 # service nginx start
-# # [CentOS7] systemctl start nginx.service
+# # [CentOS7] systemctl start nginx
 # chkconfig nginx on
+# # [CentOS7] systemctl enable nginx
 ```
 
 ## シラサギの設定を追加する
