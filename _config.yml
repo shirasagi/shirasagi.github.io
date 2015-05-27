@@ -6,3 +6,5 @@ author: "SHIRASAGI Project"
 #markdown: kramdown
 markdown: redcarpet
 exclude: ["vendor", "Gemfile", "Gemfile.lock"]
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]

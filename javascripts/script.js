@@ -1,3 +1,4 @@
+/*
 $(function(){
   $(".main-content").each(function(){
    // autolink
@@ -5,3 +6,4 @@ $(function(){
      '<a href="$1">$1</a>'));
   });
 });
+*/

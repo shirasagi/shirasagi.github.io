@@ -24,16 +24,20 @@ title: SHIRASAGI 開発マニュアル
 
 ## 設定
 
-- [管理コマンド](setting/cmd.html)
-- [定期実行](setting/cron.html)
-- [環境設定](setting/env.html)
-- [メール送信](setting/mail.html)
+- [管理コマンド](settings/cmd.html)
+- [定期実行](settings/cron.html)
+- [環境設定](settings/env.html)
+- [メール送信](settings/mail.html)
 
 ## モジュール
 
-- [組織変更](module/chorg.html)
-- [音声読み上げ](module/voice.html)
+- [組織変更](modules/chorg.html)
+- [音声読み上げ](modules/voice.html)
+
+## ソースコード
+
+- [Gems](source_codes/gems.html)
 
 ## トラブルシューティング
 
-- [インストール](trouble-shooting/installation.html)
+- [インストール](trouble-shootings/installation.html)

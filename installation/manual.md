@@ -113,7 +113,7 @@ $ rake unicorn:start
 # ldconfig
 ```
 
-> [モジュール - 音声読み上げ](../module/voice.html)
+> [モジュール - 音声読み上げ](../modules/voice.html)
 
 ## データベース操作
 
