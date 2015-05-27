@@ -1,6 +1,6 @@
 ---
 layout: top
-title: SHIRASAGI
+title: SHIRASAGI 開発マニュアル
 ---
 
 ## リポジトリ(GitHub)
