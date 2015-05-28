@@ -29,10 +29,13 @@ title: SHIRASAGI 開発マニュアル
 - [環境設定](settings/env.html)
 - [メール送信](settings/mail.html)
 
-## モジュール
+## 機能
 
-- [組織変更](modules/chorg.html)
-- [音声読み上げ](modules/voice.html)
+- [ログイン](features/login.html)
+- [端末別表示](features/cms/mobile.html)
+- [ふりがな](features/kana.html)
+- [音声読み上げ](features/voice.html)
+- [組織変更](features/chorg.html)
 
 ## ソースコード
 
