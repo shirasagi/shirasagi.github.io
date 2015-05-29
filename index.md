@@ -14,6 +14,7 @@ title: SHIRASAGI 開発マニュアル
 - [手動インストール - CentOS](installation/manual.html)
 - [nginx のインストール](installation/nginx.html)
 - [Unicorn のインストール](installation/unicorn.html)
+- [Fuseki のインストール](installation/fuseki.html) ※ OpenData Plugin のみ
 
 ## アップデート手順
 
