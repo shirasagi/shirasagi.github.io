@@ -143,16 +143,41 @@ $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "local
 
 ## サンプルデータ
 
-ユーザー、グループデータの登録
+SHIRASAGI では、ユーザー、グループのサンプルと、2 種類のデモデータ（OpenData Plugin では、オープンデータデモデータ）を提供しています。
+
+まず、ユーザー、グループのサンプルを登録し、2 種類のデモデータのうち 1 つ（OpenData Plugin では、オープンデータデモデータ）を登録します。
+
+### ユーザー、グループデータの登録
 
 ```
 $ rake db:seed name=users site=www
 ```
 
-サイトデータの登録
+### 自治体デモ
+
+自治体デモデータの登録
 
 ```
 $ rake db:seed name=demo site=www
 ```
 
-> http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインできます。
+### 企業デモ
+
+企業デモデータの登録
+
+```
+$ rake db:seed name=company site=www
+```
+
+### オープンデータデモ
+
+オープンデータデモデータの登録。ただし、[OpenData Plugin](https://github.com/shirasagi/opendata) をご利用の方のみ。
+
+```
+$ rake db:seed name=opendata site=www
+```
+
+### デモデータの確認。
+
+> http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインし、
+サイト名をクリックすると、登録したデモデータを確認・編集することができます。
