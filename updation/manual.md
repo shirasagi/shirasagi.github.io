@@ -12,15 +12,32 @@ $ git pull
 
 ### (アーカイブを利用する場合)
 
+### SHIRASAGI
+
 ```
 $ cd /var/www
 $ wget https://github.com/shirasagi/shirasagi/archive/stable.tar.gz -O shirasagi-stable.tar.gz
 
-$ tar xzf shirasagi-stable.tar.gz && cd shirasagi
+$ tar xzf shirasagi-stable.tar.gz
+$ cd shirasagi
 $ rm -rf app bin db doc lib spec vendor config/*/* public/assets*
 $ cd ../
 $ \cp -af shirasagi-stable/* shirasagi/
 $ rm -rf shirasagi-stable*
+```
+
+### オープンデータプラグイン
+
+```
+$ cd /var/www
+$ wget https://github.com/shirasagi/opendata/archive/stable.tar.gz -O opendata-stable.tar.gz
+
+$ tar xzf opendata-stable.tar.gz
+$ cd shirasagi
+$ rm -rf app bin db doc lib spec vendor config/*/* public/assets*
+$ cd ../
+$ \cp -af opendata-stable/* shirasagi/
+$ rm -rf opendata-stable*
 ```
 
 ## 設定ファイルの更新（差分を追加）
@@ -30,11 +47,13 @@ $ cp -n config/samples/* config/
 ```
 
 ## Gem の更新
+
 ```
 # bundle install
 ```
 
 ## DB の差分更新
+
 ```
 $ rake ss:migrate
 ```
