@@ -43,13 +43,26 @@ enabled=0
 # gem install bundler
 ```
 
-## SHIRASAGI
+## Download
+
+### SHIRASAGI
 
 ```
 $ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
+```
+
+### オープンデータプラグイン
+
+```
+$ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/shirasagi
+```
+
+## Preparation
+
+```
 $ cd /var/www/shirasagi
 $ cp -n config/samples/* config/
-# bundle install
+$ bundle install
 $ rake unicorn:start
 ```
 
@@ -182,3 +195,6 @@ $ rake db:seed name=opendata site=www
 
 > http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したデモデータを確認・編集することができます。
+
+> オープンデータプラグインをご利用の方で、サイトデータの登録に失敗する方やログイン出来ない方は、
+> `shirasagi/opendata` を `git clone` しているかどうかを確認して下さい。

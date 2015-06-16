@@ -8,7 +8,17 @@ http://shirasagi.github.io/
 
 https://github.com/shirasagi/shirasagi
 
-## Jekyll server for development
+## Development
+
+### Download and Prepare
+
+```
+$ git clone https://github.com/shirasagi/shirasagi.github.io.git
+$ cd shirasagi.github.io.git
+$ bundle install
+```
+
+### Starting Jekyll Server
 
 Simple command.
 

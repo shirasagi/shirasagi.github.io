@@ -5,8 +5,10 @@ title: SHIRASAGI 開発マニュアル
 
 ## リポジトリ(GitHub)
 
-- [master - development](https://github.com/shirasagi/shirasagi)
-- [stable - release](https://github.com/shirasagi/shirasagi/tree/stable)
+|                          | master | stable |
+|--------------------------|--------|-------------|
+| [SHIRASAGI](https://github.com/shirasagi/shirasagi)                | [development](https://github.com/shirasagi/shirasagi) | [release](https://github.com/shirasagi/shirasagi/tree/stable) |
+| [オープンデータプラグイン](https://github.com/shirasagi/opendata) | [development](https://github.com/shirasagi/opendata)  | [release](https://github.com/shirasagi/opendata/tree/stable) |
 
 ## インストール手順
 
