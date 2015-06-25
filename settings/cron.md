@@ -10,6 +10,14 @@ title: 定期実行
 0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:generate_pages' >/dev/null
 ```
 
+## メールマガジン配信予約
+
+```
+*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ezine:deliver' >/dev/null
+```
+
+> メールマガジンの配信予約機能を利用しない方は、本設定は不要です
+
 ## RSS取込
 
 ```
@@ -33,3 +41,4 @@ title: 定期実行
 ```
 5 0 * * * /usr/bin/mongodump --db ss -o /var/db_backups/$(date +\%Y\%m\%d)
 ```
+
