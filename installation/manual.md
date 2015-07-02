@@ -34,9 +34,9 @@ enabled=0
 # systemctl enable mongod
 ```
 
-> [ CentOS 6 ]
-> /sbin/service mongod start
-> /sbin/chkconfig mongod on
+> [ CentOS 6 ]<br />
+> /sbin/service mongod start<br />
+> /sbin/chkconfig mongod on<br />
 
 ## Ruby(RVM) のインストール
 
@@ -203,4 +203,3 @@ $ rake db:seed name=opendata site=www
 
 > http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したデモデータを確認・編集することができます。
-

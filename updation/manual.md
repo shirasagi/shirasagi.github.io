@@ -40,12 +40,6 @@ $ \cp -af opendata-stable/* shirasagi/
 $ rm -rf opendata-stable*
 ```
 
-## 設定ファイルの更新（差分を追加）
-
-```
-$ cp -n config/samples/* config/
-```
-
 ## Gem の更新
 
 ```

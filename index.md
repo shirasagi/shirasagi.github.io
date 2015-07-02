@@ -27,9 +27,9 @@ title: SHIRASAGI 開発マニュアル
 
 ## 設定
 
+- [環境設定](settings/env.html)
 - [管理コマンド](settings/cmd.html)
 - [定期実行](settings/cron.html)
-- [環境設定](settings/env.html)
 - [メール送信](settings/mail.html)
 
 ## 機能

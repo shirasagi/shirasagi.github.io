@@ -4,12 +4,18 @@ html, body {
   font-size: 14px;
 }
 .main-content h2 {
+  margin-bottom: 20px;
   padding-bottom: 5px;
   border-bottom: 2px solid #cdc;
 }
+.main-content h3 {
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ded;
+}
 .main-content table th, .main-content table td {
-  //font-size: 80%;
+  font-size: 95%;
 }
 .main-content p {
-  white-space: pre;
+  /* white-space: pre; */
 }
