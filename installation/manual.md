@@ -3,14 +3,16 @@ layout: default
 title: Manual
 ---
 
-## Packages
+CentOS 7 向けのインストールマニュアルです。
+
+## パッケージのダウンロード
 
 ```
 $ su -
 # yum -y install wget git ImageMagick ImageMagick-devel
 ```
 
-## MongoDB
+## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
@@ -28,11 +30,15 @@ enabled=0
 
 ```
 # yum install -y --enablerepo=mongodb-org-3.0 mongodb-org
-# /sbin/service mongod start
-# /sbin/chkconfig mongod on
+# systemctl start mongod
+# systemctl enable mongod
 ```
 
-## Ruby(RVM)
+> [ CentOS 6 ]
+> /sbin/service mongod start
+> /sbin/chkconfig mongod on
+
+## Ruby(RVM) のインストール
 
 ```
 # gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
@@ -43,7 +49,7 @@ enabled=0
 # gem install bundler
 ```
 
-## Download
+## ダウンロード
 
 ### SHIRASAGI
 
@@ -57,16 +63,10 @@ $ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/
 $ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/shirasagi
 ```
 
-> オープンデータプラグインは、SHIRASAGI が持つ全機能に加え、データカタログ、
-> アプリマーケット、アイデアボックス、マイページ、CSV to RDF 変換などのオープンデータに関する機能を持っている反面、
-> SHIRASAGI より少し余分にリソースを消費します。
-> オープンデータプラグインが持つ機能に関しては[リリースノート](http://www.ss-proj.org/release/284.html)を参照してください。
->
-> CMSの機能のみが必要であれば *SHIRASAGI* を、
-> オープンデータに関する追加機能が必要であれば *オープンデータプラグイン* をダウンロードし、
-> 必要とする機能に応じて *SHIRASAGI* か *オープンデータプラグイン* のどちらかをダウンロードしてください。
+> オープンデータプラグインは、SHIRASAGI の機能に加え、データカタログや RDF 変換等の機能を含んでいます。
+> オープンデータに関する機能をご利用の場合はこちらのソースコードのみをダウンロードしてください。
 
-## Preparation
+## Web サーバの起動
 
 ```
 $ cd /var/www/shirasagi
@@ -77,7 +77,7 @@ $ rake unicorn:start
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
 
-## ふりがな機能
+## ふりがな機能のインストール
 
 ```
 # cd /usr/local/src
@@ -105,7 +105,7 @@ $ rake unicorn:start
 
 > mecab ビルド後に `ldconfig` が必要なケースがあります。
 
-## 音声読み上げ
+## 音声読み上げ機能のインストール
 
 ```
 # cd /usr/local/src
@@ -135,9 +135,7 @@ $ rake unicorn:start
 # ldconfig
 ```
 
-> [モジュール - 音声読み上げ](../features/voice.html)
-
-## 新規サイト構築
+## 新規サイトの作成
 
 カレントディレクトリを移動
 
@@ -145,9 +143,7 @@ $ rake unicorn:start
 $ cd /var/www/shirasagi
 ```
 
-データベースの作成
-
-MongoDB の場合、インデックスを作成すると、自動的にデータベースも作成されます。
+データベースの作成（インデックスの作成）
 
 ```
 $ rake db:drop
@@ -166,67 +162,45 @@ $ rake ss:create_user data='{ name: "システム管理者", email: "sys@example
 $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ```
 
-> 「インデックスの作成」「管理者ユーザーの作成」「サイトの作成」を実行すると、
-> SHIRASAGI の管理画面 http://localhost:3000/.mypage を利用して、
-> CSS ファイルを作成し、JavaScript を書き、レイアウト、パーツを書き、
-> フォルダーを作成し、記事を書くことでゼロからサイトを構築することができます。
->
-> しかし、ゼロからサイトを構築するのは多大な手間なので、次節で説明する
-> 「ユーザー/グループデータ」を登録して雛形となるユーザーとグループを登録し、
-> 3 つのデモデータ「自治体デモ」「企業デモ」「オープンデータデモ」のうち、
-> どれか一つを登録して雛形となるサイトを構築し、ひな形を編集することで
-> 労力を節約することができます。
+> 以上の操作でサイトを構築するための最低限のデータが作成できました。
+> 雛形となるサイトのデータセットが必要な場合は、次節のサンプルデータをご利用ください。
 
 ## サンプルデータ
 
-SHIRASAGI では、ユーザー/グループのサンプルと、3 種類のデモデータを提供しています。
-まず、ユーザー、グループのサンプルを登録し、3 種類のデモデータのうち 1 つを登録します。
-
-> ただし、オープンデータデモは、オープンデータプラグインでのみ提供されています。
-
-### ユーザー/グループデータ
+### ユーザー/グループデータのインポート
 
 ```
 $ rake db:seed name=users site=www
 ```
 
-上記のコマンドを実行すると、雛形となるユーザーとグループを登録します。
+### サイトデータのインポート
 
-### 自治体デモ
+サイトデータはご利用に合わせていずれかをインポートしてください。
+サイトデータの詳細は[オンラインデモ](http://www.ss-proj.org/download/demo.html)をご確認ください。
 
-自治体デモの登録
+#### 自治体サンプル
 
 ```
 $ rake db:seed name=demo site=www
 ```
 
-[自治体サンプル](http://demo.ss-proj.org/)にあるようなサイトを構築します。
-
-### 企業デモ
-
-企業デモの登録
+#### 企業サンプル
 
 ```
 $ rake db:seed name=company site=www
 ```
 
-[企業サンプル](http://company.demo.ss-proj.org/)にあるようなサイトを構築します。
-
-### オープンデータデモ
-
-*オープンデータプラグイン* をご利用の方のみ、
-次のコマンドでオープンデータデモの登録が可能です。
+#### オープンデータサンプル（オープンデータプラグインのみ）
 
 ```
 $ rake db:seed name=opendata site=www
 ```
 
-[オープンデータサンプル](http://opendata.demo.ss-proj.org/)にあるようなサイトを構築します。
+> サイトデータの登録に失敗する方やログイン出来ない方は、
+> `shirasagi/opendata` を `git clone` しているかどうか確認して下さい。
 
-### デモデータの確認
+### サイトの確認
 
 > http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したデモデータを確認・編集することができます。
 
-> オープンデータプラグインをご利用の方で、サイトデータの登録に失敗する方やログイン出来ない方は、
-> `shirasagi/opendata` を `git clone` しているかどうかを確認して下さい。

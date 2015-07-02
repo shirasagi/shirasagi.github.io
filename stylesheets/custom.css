@@ -1,6 +1,15 @@
 /* csutom.css */
 
+html, body {
+  font-size: 14px;
+}
 .main-content h2 {
   padding-bottom: 5px;
   border-bottom: 2px solid #cdc;
+}
+.main-content table th, .main-content table td {
+  //font-size: 80%;
+}
+.main-content p {
+  white-space: pre;
 }

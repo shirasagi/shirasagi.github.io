@@ -24,11 +24,14 @@ enabled=0
 ```
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
-# service nginx start
-# # [CentOS7] systemctl start nginx
-# chkconfig nginx on
-# # [CentOS7] systemctl enable nginx
+# systemctl start nginx
+# systemctl enable nginx
 ```
+
+> [ CentOS 6 ]
+> service nginx start
+> chkconfig nginx on
+
 
 ## シラサギの設定を追加する
 
@@ -74,9 +77,10 @@ server {
 ```
 
 ```
-# service nginx restart
-# # [CentOS7] systemctl restart nginx
+# systemctl restart nginx
 ```
+> [ CentOS 6 ]
+> service nginx restart
 
 ## 管理画面にBasic認証を設定する
 

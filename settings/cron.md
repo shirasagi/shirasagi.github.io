@@ -3,6 +3,8 @@ layout: default
 title: 定期実行
 ---
 
+日時の設定は目安として記載しています。
+
 ## ページ予約公開＆書き出し
 
 ```
@@ -26,9 +28,7 @@ title: 定期実行
 
 > RSS取込フォルダーを利用しない方は、本設定は不要です。
 
-## Webクロール
-
-※ [オープンデータプラグイン](https://github.com/shirasagi/opendata) をご利用の方のみ
+## Webクロール（オープンデータ）
 
 ```
 5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake opendata:crawl site=www' >/dev/null
