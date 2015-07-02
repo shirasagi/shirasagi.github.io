@@ -5,10 +5,10 @@ title: SHIRASAGI 開発マニュアル
 
 ## リポジトリ(GitHub)
 
-|                          | master | stable |
-|--------------------------|--------|-------------|
-| [SHIRASAGI](https://github.com/shirasagi/shirasagi)                | [development](https://github.com/shirasagi/shirasagi) | [release](https://github.com/shirasagi/shirasagi/tree/stable) |
-| [オープンデータプラグイン](https://github.com/shirasagi/opendata) | [development](https://github.com/shirasagi/opendata)  | [release](https://github.com/shirasagi/opendata/tree/stable) |
+| | master | stable |
+|---|---|---|
+| SHIRASAGI | [development](https://github.com/shirasagi/shirasagi) | [release](https://github.com/shirasagi/shirasagi/tree/stable) |
+| オープンデータプラグイン | [development](https://github.com/shirasagi/opendata) | [release](https://github.com/shirasagi/opendata/tree/stable) |
 
 ## インストール手順
 
@@ -16,7 +16,7 @@ title: SHIRASAGI 開発マニュアル
 - [手動インストール - CentOS](installation/manual.html)
 - [nginx のインストール](installation/nginx.html)
 - [Unicorn のインストール](installation/unicorn.html)
-- [Fuseki のインストール](installation/fuseki.html) ※ [オープンデータプラグイン](https://github.com/shirasagi/opendata) をご利用の方のみ
+- [Fuseki のインストール](installation/fuseki.html) （オープンデータプラグイン）
 
 ## アップデート手順
 
@@ -43,6 +43,7 @@ title: SHIRASAGI 開発マニュアル
 ## ソースコード
 
 - [Gems](source_codes/gems.html)
+- [DB定義](source_codes/db.html)
 
 ## トラブルシューティング
 
