@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!--  created with free sitemap generation system www.sitemapxml.jp  --> 
+<url>
+  <loc>http://shirasagi.github.io/</loc>
+  <priority>1.0</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/vagrant.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/manual.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/nginx.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/unicorn.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/fuseki.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/updation/ruby.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/updation/mongodb.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/updation/manual.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/updation/backup.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/settings/env.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/settings/cmd.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/settings/cron.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/settings/mail.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/features/login.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/features/cms/mobile.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/features/kana.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/features/voice.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/features/chorg.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/source_codes/gems.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/source_codes/db.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/trouble-shootings/installation.html</loc>
+  <priority>0.8</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+<url>
+  <loc>http://shirasagi.github.io/installation/config-opendata.ttl</loc>
+  <priority>0.7</priority>
+  <lastmod>2015-07-08T20:06:45+09:00</lastmod>
+</url>
+
+</urlset>
