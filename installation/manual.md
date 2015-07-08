@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Manual
+title: インストールマニュアル
 ---
 
 CentOS 7 向けのインストールマニュアルです。
@@ -34,9 +34,9 @@ enabled=0
 # systemctl enable mongod
 ```
 
-> [ CentOS 6 ]<br />
-> /sbin/service mongod start<br />
-> /sbin/chkconfig mongod on<br />
+> [ CentOS 6 ] <br />
+> /sbin/service mongod start <br />
+> /sbin/chkconfig mongod on <br />
 
 ## Ruby(RVM) のインストール
 

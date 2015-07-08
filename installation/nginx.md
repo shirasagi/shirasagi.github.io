@@ -28,9 +28,9 @@ enabled=0
 # systemctl enable nginx
 ```
 
-> [ CentOS 6 ]
-> service nginx start
-> chkconfig nginx on
+> [ CentOS 6 ] <br />
+> service nginx start <br />
+> chkconfig nginx on <br />
 
 
 ## シラサギの設定を追加する
