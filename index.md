@@ -31,6 +31,7 @@ title: SHIRASAGI 開発マニュアル
 - [管理コマンド](settings/cmd.html)
 - [定期実行](settings/cron.html)
 - [メール送信](settings/mail.html)
+- [OAuth 認証](settings/oauth.html) （オープンデータプラグイン）
 
 ## 機能
 

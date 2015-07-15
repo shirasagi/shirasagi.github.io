@@ -70,7 +70,7 @@ $ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/s
 
 ```
 $ cd /var/www/shirasagi
-$ cp -n config/samples/* config/
+$ cp -n config/samples/*.{rb,yml} config/
 $ bundle install
 $ rake unicorn:start
 ```
