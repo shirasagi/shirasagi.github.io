@@ -6,6 +6,7 @@ title: メール送信
 ## 設定ファイル
 
 ```
+$ cp -n config/defaults/mail.yml config
 $ vi config/mail.yml
 ```
 
@@ -45,4 +46,3 @@ production:
   default_from:
   default_charset: iso-2022-jp
 ```
-

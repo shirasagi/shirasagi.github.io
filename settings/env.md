@@ -16,6 +16,7 @@ title: 環境設定
 下記の設定ファイルで変更することができます。
 
 ```
+$ cp -n config/defaults/environment.yml config
 $ vi config/environment.yml
 ```
 
