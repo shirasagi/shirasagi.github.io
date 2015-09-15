@@ -5,6 +5,19 @@ title: インストールマニュアル
 
 CentOS 7 向けのインストールマニュアルです。
 
+## セキュリティ設定
+
+環境に応じて適宜セキュリティを設定してください。<br />
+下記は検証環境用に SELlinux, Firewalld を無効にしています。
+
+```
+$ su -
+# setenforce 0
+# sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
+# systemctl stop firewalld
+# systemctl disable firewalld
+```
+
 ## パッケージのダウンロード
 
 ```
