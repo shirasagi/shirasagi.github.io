@@ -1,13 +1,13 @@
 ---
 layout: default
-title: nginx のインストール
+title: Nginx のインストール
 ---
 
-## nginx
+## Nginx
 
 - [Official Site](http://nginx.org/)
 
-## Install
+## Nginx のインストール
 
 ```
 # vi /etc/yum.repos.d/CentOS-Base.repo
@@ -32,49 +32,141 @@ enabled=0
 > service nginx start <br />
 > chkconfig nginx on <br />
 
+## 標準の設定を追加する
 
-## シラサギの設定を追加する
+```
+# vi /etc/nginx/conf.d/httpd.conf
+```
+
+```
+server_tokens off;
+server_name_in_redirect off;
+etag off;
+client_max_body_size 100m;
+client_body_buffer_size 256k;
+
+gzip on;
+gzip_http_version 1.0;
+gzip_comp_level 1;
+gzip_proxied any;
+gzip_vary on;
+gzip_buffers 4 8k;
+gzip_min_length 1000;
+gzip_types text/plain
+           text/xml
+           text/css
+           text/javascript
+           application/xml
+           application/xhtml+xml
+           application/rss+xml
+           application/atom_xml
+           application/javascript
+           application/x-javascript
+           application/x-httpd-php;
+gzip_disable "MSIE [1-6]\.";
+gzip_disable "Mozilla/4";
+
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Remote-Addr $remote_addr;
+proxy_set_header X-Forwarded-Host $http_host;
+proxy_set_header X-Forwarded-Server $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header Accept-Encoding "";
+proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+proxy_hide_header X-Pingback;
+proxy_hide_header Link;
+proxy_hide_header ETag;
+proxy_cache_path /var/cache/nginx/proxy_cache levels=1:2 keys_zone=my-key:8m max_size=50m inactive=120m;
+proxy_temp_path /var/cache/nginx/proxy_temp;
+proxy_buffers 8 64k;
+proxy_buffer_size 64k;
+proxy_max_temp_file_size 0;
+proxy_connect_timeout 30;
+proxy_read_timeout 120;
+proxy_send_timeout 10;
+proxy_cache_use_stale timeout invalid_header http_500 http_502 http_503 http_504;
+proxy_cache_lock on;
+proxy_cache_lock_timeout 5s;
+```
+
+> 各設定値は環境に応じて変更してください。
+
+## 共通の設定を追加する
+
+```
+# mkdir /etc/nginx/conf.d/common/
+# vi /etc/nginx/conf.d/common/drop.conf
+```
+
+```
+location = /favicon.ico                      { expires 1h; access_log off; log_not_found off; }
+location = /robots.txt                       { expires 1h; access_log off; log_not_found off; }
+location = /apple-touch-icon.png             { expires 1h; access_log off; log_not_found off; }
+location = /apple-touch-icon-precomposed.png { expires 1h; access_log off; log_not_found off; }
+```
+
+## シラサギの設定を追加する (1)
+
+
+```
+# mkdir /etc/nginx/conf.d/server/
+# vi /etc/nginx/conf.d/server/shirasagi.conf
+```
+
+```
+#
+# `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
+#
+include conf.d/common/drop.conf;
+
+location @app {
+    if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
+    proxy_pass http://127.0.0.1:3000;
+    proxy_set_header X-Accel-Mapping /var/www/shirasagi/private/files/ss_files/=/fs/;
+}
+location / {
+    try_files $uri $uri/index.html @app;
+}
+location /fs/ {
+    internal;
+    alias /var/www/shirasagi/private/files/ss_files/;
+}
+location /assets/ {
+    root /var/www/shirasagi/public/;
+    expires 1h;
+    access_log off;
+}
+location ~* \.(ico|css|js|gif|jpe?g|png)$ {
+    expires 1h;
+    access_log off;
+    log_not_found off;
+    try_files $uri @app;
+}
+```
+
+## シラサギの設定を追加する (2)
 
 ```
 # vi /etc/nginx/conf.d/virtual.conf
 ```
 
 ```
+#
+# `example.jp` はサイトのドメインに変更してください。
+# `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
+#
 server {
+    include conf.d/server/shirasagi.conf;
     listen 80;
-
-    # サイトのドメイン名を設定する。
     server_name example.jp;
-
-    # SHIRASAGI をインストールしたディレクトリ下の `public/sites/w/w/w/_/` を指定する。
     root /var/www/shirasagi/public/sites/w/w/w/_/;
-
-    location @app {
-        if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log  off; }
-        proxy_pass http://127.0.0.1:3000;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Host $http_host;
-        proxy_set_header X-Forwarded-Server $host;
-    }
-    location / {
-        expires 1h;
-        try_files $uri $uri/index.html @app;
-    }
-    location /assets/ {
-        # root にSHIRASAGI をインストールしたディレクトリ下の `public` を指定する。
-        root /var/www/ss/public/;
-        expires 1h;
-        access_log off;
-    }
-    location ~* \.(ico|css|js|gif|jpe?g|png)$ {
-        expires 1h;
-        access_log off;
-        log_not_found off;
-        try_files $uri @app;
-    }
 }
 ```
+
+> `include ..` の箇所に設定(1)を記載して `virtual.conf` にまとめることもできます。
+
+## Nginx の再起動
 
 ```
 # systemctl restart nginx

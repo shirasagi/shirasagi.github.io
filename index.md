@@ -15,7 +15,7 @@ title: SHIRASAGI 開発マニュアル
 - [自動インストール - Vagrant](installation/vagrant.html)
 - [手動インストール - CentOS](installation/manual.html)
 - [手動インストール - Ubuntu](installation/ubuntu.html)
-- [nginx のインストール](installation/nginx.html)
+- [Nginx のインストール](installation/nginx.html)
 - [Unicorn のインストール](installation/unicorn.html)
 - [Fuseki のインストール](installation/fuseki.html) （オープンデータプラグイン）
 
