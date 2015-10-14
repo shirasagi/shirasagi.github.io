@@ -123,7 +123,7 @@ include conf.d/common/drop.conf;
 location @app {
     if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
     proxy_pass http://127.0.0.1:3000;
-    proxy_set_header X-Accel-Mapping /var/www/shirasagi/private/files/=/private_files/;
+    proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
 }
 location / {
     try_files $uri $uri/index.html @app;
@@ -135,7 +135,7 @@ location /assets/ {
 }
 location /private_files/ {
     internal;
-    alias /var/www/shirasagi/private/files/;
+    alias /var/www/shirasagi/;
 }
 ```
 
