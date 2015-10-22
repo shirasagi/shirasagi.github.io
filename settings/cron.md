@@ -23,7 +23,7 @@ title: 定期実行
 ## RSS取込
 
 ```
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake rss:import_pages' >/dev/null
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake rss:import_items' >/dev/null
 ```
 
 > RSS取込フォルダーを利用しない方は、本設定は不要です。
