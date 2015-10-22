@@ -163,12 +163,6 @@ $ rake db:drop
 $ rake db:create_indexes
 ```
 
-管理者ユーザーの作成
-
-```
-$ rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
-```
-
 サイトの作成
 
 ```
@@ -180,39 +174,31 @@ $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "local
 
 ## サンプルデータ
 
-### ユーザー/グループデータのインポート
+サンプルデータはご利用に合わせていずれかをインポートしてください。
+サンプルデータの詳細は[オンラインデモ](http://www.ss-proj.org/download/demo.html)をご確認ください。
 
-```
-$ rake db:seed name=users site=www
-```
-
-### サイトデータのインポート
-
-サイトデータはご利用に合わせていずれかをインポートしてください。
-サイトデータの詳細は[オンラインデモ](http://www.ss-proj.org/download/demo.html)をご確認ください。
-
-#### 自治体サンプル
+### 自治体サンプル
 
 ```
 $ rake db:seed name=demo site=www
 ```
 
-#### 企業サンプル
+### 企業サンプル
 
 ```
 $ rake db:seed name=company site=www
 ```
 
-#### オープンデータサンプル（オープンデータプラグインのみ）
+### オープンデータサンプル（オープンデータプラグインのみ）
 
 ```
 $ rake db:seed name=opendata site=www
 ```
 
 > サイトデータの登録に失敗する方やログイン出来ない方は、
-> `shirasagi/opendata` を `git clone` しているかどうか確認して下さい。
+`shirasagi/opendata` を `git clone` しているかどうか確認して下さい。
 
-### サイトの確認
+## サイトの確認
 
-> http://localhost:3000/.mypage から `admin@example.jp`, `pass` のアカウントでログインし、
+> http://localhost:3000/.mypage から `admin`, `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したデモデータを確認・編集することができます。
