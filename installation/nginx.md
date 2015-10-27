@@ -35,7 +35,7 @@ enabled=0
 ## 標準の設定を追加する
 
 ```
-# vi /etc/nginx/conf.d/httpd.conf
+# vi /etc/nginx/conf.d/http.conf
 ```
 
 ```
