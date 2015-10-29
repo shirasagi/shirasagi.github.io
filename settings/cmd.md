@@ -19,16 +19,22 @@ $ rake ss:migrate
 $ rake ss:create_user data='{ name: "Name", uid: "UID", email: "Email", password: "password" }'
 ```
 
-管理権限の付与（CMS）
+システム管理権限の付与（SYS）
 
 ```
-$ rake cms:set_admin_role site=www user=admin
+$ rake sys:set_admin_role user=admin
 ```
 
-管理権限の付与（GWS）
+サイト管理権限の付与（CMS）
 
 ```
-$ rake gws:set_admin_role site=シラサギ市 user=admin
+$ rake cms:set_admin_role user=admin site=www
+```
+
+GWS管理権限の付与（GWS）
+
+```
+$ rake gws:set_admin_role user=admin site=シラサギ市
 ```
 
 ## CMS - コンテンツ管理
