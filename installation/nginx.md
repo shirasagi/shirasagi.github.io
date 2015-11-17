@@ -197,10 +197,12 @@ server {
 ```
 
 ## セキュリティ関連の設定
+
 SELlinux, Firewalld が有効な場合はそれぞれについて設定します。
 
 
 - SELlinux
+
 ```
 管理用コマンドの導入
 # yum -y install policycoreutils-python
@@ -213,6 +215,7 @@ selinux制限許可(SHIRASAI関連ファイル, unicorn)
 
 
 - Firewalld
+
 ```
 unicorn 3000番ポートを解放する
 # firewall-cmd --add-port=3000/tcp --permanent
