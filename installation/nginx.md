@@ -119,10 +119,13 @@ location = /apple-touch-icon-precomposed.png { expires 1h; access_log off; log_n
 # `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 #
 include conf.d/common/drop.conf;
+root /var/www/shirasagi/public/sites/w/w/w/_/;
 
 location @app {
     if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
+    include conf.d/http.conf;
     proxy_pass http://127.0.0.1:3000;
+    proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
 }
 location / {
     try_files $uri $uri/index.html @app;
@@ -147,15 +150,12 @@ location /private_files/ {
 ```
 #
 # `example.jp` はサイトのドメインに変更してください。
-# `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 #
 server {
     include conf.d/server/shirasagi.conf;
-    listen 80;
     server_name example.jp;
-    root /var/www/shirasagi/public/sites/w/w/w/_/;
 }
-proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
+
 ```
 
 > `include ..` の箇所に設定(1)を記載して `virtual.conf` にまとめることもできます。
