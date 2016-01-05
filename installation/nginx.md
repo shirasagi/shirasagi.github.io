@@ -34,6 +34,10 @@ enabled=0
 
 ## 標準の設定を追加する
 
+各設定値は環境に応じて変更してください。
+
+#### (1) http 用標準設定
+
 ```
 # vi /etc/nginx/conf.d/http.conf
 ```
@@ -66,17 +70,8 @@ gzip_types text/plain
 gzip_disable "MSIE [1-6]\.";
 gzip_disable "Mozilla/4";
 
-proxy_set_header Host $host;
-proxy_set_header X-Real-IP $remote_addr;
-proxy_set_header Remote-Addr $remote_addr;
-proxy_set_header X-Forwarded-Host $http_host;
-proxy_set_header X-Forwarded-Server $host;
-proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-proxy_set_header Accept-Encoding "";
-proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-proxy_hide_header X-Pingback;
-proxy_hide_header Link;
-proxy_hide_header ETag;
+proxy_headers_hash_bucket_size 128;
+proxy_headers_hash_max_size 1024;
 proxy_cache_path /var/cache/nginx/proxy_cache levels=1:2 keys_zone=my-key:8m max_size=50m inactive=120m;
 proxy_temp_path /var/cache/nginx/proxy_temp;
 proxy_buffers 8 64k;
@@ -90,9 +85,27 @@ proxy_cache_lock on;
 proxy_cache_lock_timeout 5s;
 ```
 
-> 各設定値は環境に応じて変更してください。
+#### (2) location 用ヘッダー設定
 
-## 共通の設定を追加する
+```
+# vi /etc/nginx/conf.d/http_proxy.conf
+```
+
+```
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Remote-Addr $remote_addr;
+proxy_set_header X-Forwarded-Host $http_host;
+proxy_set_header X-Forwarded-Server $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header Accept-Encoding "";
+proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+proxy_hide_header X-Pingback;
+proxy_hide_header Link;
+proxy_hide_header ETag;
+```
+
+#### (3) server 用キャッシュ設定
 
 ```
 # mkdir /etc/nginx/conf.d/common/
@@ -106,8 +119,25 @@ location = /apple-touch-icon.png             { expires 1h; access_log off; log_n
 location = /apple-touch-icon-precomposed.png { expires 1h; access_log off; log_not_found off; }
 ```
 
-## シラサギの設定を追加する (1)
+## シラサギの設定を追加する
 
+#### (1) ドメイン/ポートの設定
+
+```
+# vi /etc/nginx/conf.d/virtual.conf
+```
+
+```
+server {
+    include conf.d/server/shirasagi.conf;
+    server_name example.jp;
+}
+```
+
+> `example.jp` はサイトのドメインに変更してください。<br />
+> `include ...` の箇所は直接記述しても構いません。
+
+#### (2) プロキシーの設定
 
 ```
 # mkdir /etc/nginx/conf.d/server/
@@ -115,14 +145,14 @@ location = /apple-touch-icon-precomposed.png { expires 1h; access_log off; log_n
 ```
 
 ```
-#
-# `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
-#
 include conf.d/common/drop.conf;
+root /var/www/shirasagi/public/sites/w/w/w/_/;
 
 location @app {
+    include conf.d/http_proxy.conf;
     if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
     proxy_pass http://127.0.0.1:3000;
+    proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
 }
 location / {
     try_files $uri $uri/index.html @app;
@@ -137,28 +167,7 @@ location /private_files/ {
     alias /var/www/shirasagi/;
 }
 ```
-
-## シラサギの設定を追加する (2)
-
-```
-# vi /etc/nginx/conf.d/virtual.conf
-```
-
-```
-#
-# `example.jp` はサイトのドメインに変更してください。
-# `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
-#
-server {
-    include conf.d/server/shirasagi.conf;
-    listen 80;
-    server_name example.jp;
-    root /var/www/shirasagi/public/sites/w/w/w/_/;
-}
-proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
-```
-
-> `include ..` の箇所に設定(1)を記載して `virtual.conf` にまとめることもできます。
+> `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 
 ## Nginx の再起動
 
