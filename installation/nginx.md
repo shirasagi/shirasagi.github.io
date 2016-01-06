@@ -88,7 +88,7 @@ proxy_cache_lock_timeout 5s;
 #### (2) location 用ヘッダー設定
 
 ```
-# vi /etc/nginx/conf.d/http_header.conf
+# vi /etc/nginx/conf.d/header.conf
 ```
 
 ```
@@ -149,7 +149,7 @@ include conf.d/common/drop.conf;
 root /var/www/shirasagi/public/sites/w/w/w/_/;
 
 location @app {
-    include conf.d/http_header.conf;
+    include conf.d/header.conf;
     if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
     proxy_pass http://127.0.0.1:3000;
     proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
