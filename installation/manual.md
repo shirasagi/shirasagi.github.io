@@ -84,7 +84,7 @@ $ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/s
 ```
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
-$ bundle install
+$ bundle install --without development test
 $ rake unicorn:start
 ```
 
