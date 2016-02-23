@@ -327,6 +327,20 @@ $ rake ss:models
 ||user_count|Integer|ユーザ数|
 ||ldap|*LdapArray|LDAPインポート結果|
 ||results|Hash|Results|
+|ss_files|_id|Integer|ID|
+|(ファイル)|created|DateTime|作成日時|
+||updated|DateTime|更新日時|
+||text_index|String|Text index|
+||user_id|Object|ユーザー|
+||model|String|モデル|
+||state|String|状態|
+||name|String|ファイル名（表示用）|
+||filename|String|ファイル名|
+||size|Integer|ファイルサイズ|
+||content_type|String|Content Type|
+||site_id|Object|Site|
+||permission_level|Integer|権限レベル|
+||group_ids|*ObjectIds|管理グループ|
 |ss_groups|_id|Integer|ID|
 |(グループ)|created|DateTime|作成日時|
 ||updated|DateTime|更新日時|
