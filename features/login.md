@@ -16,10 +16,10 @@ title: ログイン
 
 `config/sns.yml`
 
-```
+~~~
 remote_login: true
-```
+~~~
 
 ## ソースコード
 
-- https://github.com/shirasagi/shirasagi/blob/master/config/samples/sns.yml
+- <https://github.com/shirasagi/shirasagi/blob/master/config/samples/sns.yml>

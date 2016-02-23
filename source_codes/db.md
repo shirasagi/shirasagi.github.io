@@ -5,9 +5,9 @@ title: DB定義
 
 ## 出力コマンド
 
-```
+~~~
 $ rake ss:models
-```
+~~~
 
 ## DB定義
 

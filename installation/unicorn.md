@@ -9,18 +9,18 @@ title: Unicorn のインストール
 
 ## Install
 
-```
+~~~
 # cd /var/www/shirasagi
 # bundle install --without development test
-```
+~~~
 
 ## 設定ファイル
 
-```
+~~~
 $ vi config/unicorn.rb
-```
+~~~
 
-```
+~~~
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 2)
 listen 3000
 timeout 120
@@ -30,7 +30,7 @@ root = File.expand_path("../../", __FILE__)
 pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.stderr.log"
 stdout_path "#{root}/log/unicorn.stdout.log"
-```
+~~~
 
 worker_processes
 
@@ -68,28 +68,28 @@ stdout_path
 
 ## 自動起動設定 (簡易版)
 
-```
+~~~
 $ crontab -e
-```
+~~~
 
-```
+~~~
 @reboot /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake unicorn:start'
-```
+~~~
 
 ## 自動起動設定 (CentOS 7)
 
-```
+~~~
 # rvm wrapper 2.2.2 start unicorn # Ruby のバージョンを入力
 # cp /var/www/shirasagi/bin/unicorn-centos7.service /etc/systemd/system/unicorn.service
 # chmod +x /etc/systemd/system/unicorn.service
 # systemctl enable unicorn
-```
+~~~
 
 ## 自動起動設定 (CentOS 6)
 
-```
+~~~
 # rvm wrapper 2.2.2 start unicorn # Ruby のバージョンを入力
 # cp /var/www/shirasagi/bin/unicorn-centos6.sh /etc/rc.d/init.d/unicorn
 # chmod +x /etc/rc.d/init.d/unicorn
 # /sbin/chkconfig unicorn on
-```
+~~~

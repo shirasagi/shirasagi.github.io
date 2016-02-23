@@ -9,24 +9,24 @@ title: Nginx のインストール
 
 ## Nginx のインストール
 
-```
+~~~
 # vi /etc/yum.repos.d/CentOS-Base.repo
-```
+~~~
 
-```
+~~~
 [nginx]
 name=nginx repo
 baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck=0
 enabled=0
-```
+~~~
 
-```
+~~~
 # yum -y --enablerepo=nginx install nginx
 # nginx -t
 # systemctl start nginx
 # systemctl enable nginx
-```
+~~~
 
 > [ CentOS 6 ] <br />
 > service nginx start <br />
@@ -38,11 +38,11 @@ enabled=0
 
 #### (1) http 用標準設定
 
-```
+~~~
 # vi /etc/nginx/conf.d/http.conf
-```
+~~~
 
-```
+~~~
 server_tokens off;
 server_name_in_redirect off;
 etag off;
@@ -83,15 +83,15 @@ proxy_send_timeout 10;
 proxy_cache_use_stale timeout invalid_header http_500 http_502 http_503 http_504;
 proxy_cache_lock on;
 proxy_cache_lock_timeout 5s;
-```
+~~~
 
 #### (2) location 用ヘッダー設定
 
-```
+~~~
 # vi /etc/nginx/conf.d/header.conf
-```
+~~~
 
-```
+~~~
 proxy_set_header Host $host;
 proxy_set_header X-Real-IP $remote_addr;
 proxy_set_header Remote-Addr $remote_addr;
@@ -103,48 +103,48 @@ proxy_set_header X-Sendfile-Type X-Accel-Redirect;
 proxy_hide_header X-Pingback;
 proxy_hide_header Link;
 proxy_hide_header ETag;
-```
+~~~
 
 #### (3) server 用キャッシュ設定
 
-```
+~~~
 # mkdir /etc/nginx/conf.d/common/
 # vi /etc/nginx/conf.d/common/drop.conf
-```
+~~~
 
-```
+~~~
 location = /favicon.ico                      { expires 1h; access_log off; log_not_found off; }
 location = /robots.txt                       { expires 1h; access_log off; log_not_found off; }
 location = /apple-touch-icon.png             { expires 1h; access_log off; log_not_found off; }
 location = /apple-touch-icon-precomposed.png { expires 1h; access_log off; log_not_found off; }
-```
+~~~
 
 ## シラサギの設定を追加する
 
 #### (1) ドメイン/ポートの設定
 
-```
+~~~
 # vi /etc/nginx/conf.d/virtual.conf
-```
+~~~
 
-```
+~~~
 server {
     include conf.d/server/shirasagi.conf;
     server_name example.jp;
 }
-```
+~~~
 
 > `example.jp` はサイトのドメインに変更してください。<br />
 > `include ...` の箇所は直接記述しても構いません。
 
 #### (2) プロキシーの設定
 
-```
+~~~
 # mkdir /etc/nginx/conf.d/server/
 # vi /etc/nginx/conf.d/server/shirasagi.conf
-```
+~~~
 
-```
+~~~
 include conf.d/common/drop.conf;
 root /var/www/shirasagi/public/sites/w/w/w/_/;
 
@@ -166,14 +166,14 @@ location /private_files/ {
     internal;
     alias /var/www/shirasagi/;
 }
-```
+~~~
 > `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 
 ## Nginx の再起動
 
-```
+~~~
 # systemctl restart nginx
-```
+~~~
 > [ CentOS 6 ]
 > service nginx restart
 
@@ -181,20 +181,20 @@ location /private_files/ {
 
 パスワードファイルを作成する。
 
-```
+~~~
 # yum -y install httpd-tools
 # cd /etc/nginx
 # htpasswd -cm .htpasswd username
 > パスワードを入力する
-```
+~~~
 
 設定を追加する。
 
-```
+~~~
 # vi /etc/nginx/conf.d/virtual.conf
-```
+~~~
 
-```
+~~~
 server {
     ...
     location /. {
@@ -203,7 +203,7 @@ server {
         auth_basic_user_file /etc/nginx/.htpasswd;
     }
 }
-```
+~~~
 
 ## セキュリティ関連の設定
 
@@ -212,7 +212,7 @@ SELlinux, Firewalld が有効な場合はそれぞれについて設定します
 
 - SELlinux
 
-```
+~~~
 管理用コマンドの導入
 # yum -y install policycoreutils-python
 
@@ -220,13 +220,13 @@ selinux制限許可(SHIRASAI関連ファイル, unicorn)
 # restorecon -RF /var/www/shirasagi/public
 # restorecon -RF /var/www/shirasagi/private
 # semanage port -a -t http_port_t -p tcp 3000
-```
+~~~
 
 
 - Firewalld
 
-```
+~~~
 unicorn 3000番ポートを解放する
 # firewall-cmd --add-port=3000/tcp --permanent
 # firewall-cmd --reload
-```
+~~~

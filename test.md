@@ -31,11 +31,11 @@ text
 text
 text
 
-```
+~~~
 code
 code
 code
-```
+~~~
 
 > bqbq
 > bqbq
