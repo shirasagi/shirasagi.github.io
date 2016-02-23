@@ -11,7 +11,7 @@ title: Unicorn のインストール
 
 ```
 # cd /var/www/shirasagi
-# bundle install
+# bundle install --without development test
 ```
 
 ## 設定ファイル

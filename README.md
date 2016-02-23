@@ -15,7 +15,7 @@ https://github.com/shirasagi/shirasagi
 ```
 $ git clone https://github.com/shirasagi/shirasagi.github.io.git
 $ cd shirasagi.github.io.git
-$ bundle install
+$ bundle install --without development test
 ```
 
 ### Starting Jekyll Server

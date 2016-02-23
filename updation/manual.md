@@ -43,7 +43,7 @@ $ rm -rf opendata-stable*
 ## Gem の更新
 
 ```
-# bundle install
+# bundle install --without development test
 ```
 
 ## DB の差分更新
