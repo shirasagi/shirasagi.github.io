@@ -10,42 +10,42 @@ CentOS 7 向けのインストールマニュアルです。
 環境に応じて適宜セキュリティを設定してください。<br />
 下記は検証環境用に SELlinux, Firewalld を無効にしています。
 
-```
+~~~
 $ su -
 # setenforce 0
 # sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
 # systemctl stop firewalld
 # systemctl disable firewalld
-```
+~~~
 
 ## パッケージのダウンロード
 
-```
+~~~
 $ su -
 # yum -y install wget git ImageMagick ImageMagick-devel
-```
+~~~
 
 ## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
-```
+~~~
 # vi /etc/yum.repos.d/CentOS-Base.repo
-```
+~~~
 
-```
+~~~
 [mongodb-org-3.0]
 name=MongoDB Repository
 baseurl=http://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.0/x86_64/
 gpgcheck=0
 enabled=0
-```
+~~~
 
-```
+~~~
 # yum install -y --enablerepo=mongodb-org-3.0 mongodb-org
 # systemctl start mongod
 # systemctl enable mongod
-```
+~~~
 
 > [ CentOS 6 ] <br />
 > /sbin/service mongod start <br />
@@ -53,46 +53,46 @@ enabled=0
 
 ## Ruby(RVM) のインストール
 
-```
+~~~
 # gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 # \curl -sSL https://get.rvm.io | sudo bash -s stable
 # source /etc/profile
 # rvm install 2.2.2
 # rvm use 2.2.2 --default
 # gem install bundler
-```
+~~~
 
 ## ダウンロード
 
 ### SHIRASAGI
 
-```
+~~~
 $ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
-```
+~~~
 
 ### オープンデータプラグイン
 
-```
+~~~
 $ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/shirasagi
-```
+~~~
 
 > オープンデータプラグインは、SHIRASAGI の機能に加え、データカタログや RDF 変換等の機能を含んでいます。
 > オープンデータに関する機能をご利用の場合はこちらのソースコードのみをダウンロードしてください。
 
 ## Web サーバの起動
 
-```
+~~~
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
 $ bundle install --without development test
 $ rake unicorn:start
-```
+~~~
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
 
 ## ふりがな機能のインストール
 
-```
+~~~
 # cd /usr/local/src
 # wget http://mecab.googlecode.com/files/mecab-0.996.tar.gz \
     http://mecab.googlecode.com/files/mecab-ipadic-2.7.0-20070801.tar.gz \
@@ -114,13 +114,13 @@ $ rake unicorn:start
 
 # echo "/usr/local/lib" >> /etc/ld.so.conf
 # ldconfig
-```
+~~~
 
 > mecab ビルド後に `ldconfig` が必要なケースがあります。
 
 ## 音声読み上げ機能のインストール
 
-```
+~~~
 # cd /usr/local/src
 # wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
     http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
@@ -146,28 +146,28 @@ $ rake unicorn:start
 # ./configure && make && make install
 
 # ldconfig
-```
+~~~
 
 ## 新規サイトの作成
 
 カレントディレクトリを移動
 
-```
+~~~
 $ cd /var/www/shirasagi
-```
+~~~
 
 データベースの作成（インデックスの作成）
 
-```
+~~~
 $ rake db:drop
 $ rake db:create_indexes
-```
+~~~
 
 サイトの作成
 
-```
+~~~
 $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
-```
+~~~
 
 > 以上の操作でサイトを構築するための最低限のデータが作成できました。
 > 雛形となるサイトのデータセットが必要な場合は、次節のサンプルデータをご利用ください。
@@ -179,21 +179,21 @@ $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "local
 
 ### 自治体サンプル
 
-```
+~~~
 $ rake db:seed name=demo site=www
-```
+~~~
 
 ### 企業サンプル
 
-```
+~~~
 $ rake db:seed name=company site=www
-```
+~~~
 
 ### オープンデータサンプル（オープンデータプラグインのみ）
 
-```
+~~~
 $ rake db:seed name=opendata site=www
-```
+~~~
 
 > サイトデータの登録に失敗する方やログイン出来ない方は、
 `shirasagi/opendata` を `git clone` しているかどうか確認して下さい。

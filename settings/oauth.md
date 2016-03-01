@@ -15,19 +15,19 @@ Facebook、Twitter などのソーシャルアカウントでオープンデー�
 
 ## 設定ファイル
 
-```
+~~~
 $ cp -n config/defaults/oauth.yml config
 $ vi config/oauth.yml
-```
+~~~
 
 ## OAuth の有効化
 
-```
+~~~
 roduction: &production
   # prefix_path must be set to same path as member/login node.
   prefix_path: "/auth"   # コメントを外す
   ...
-```
+~~~
 
 ## OAuth の設定
 
@@ -47,9 +47,9 @@ roduction: &production
 
 設定変更を反映させるため Unicorn を再起動します。
 
-```
+~~~
 $ rake unicorn:restart
-```
+~~~
 
 Unicorn の再起動には 2, 3 分かかる場合があります。
 

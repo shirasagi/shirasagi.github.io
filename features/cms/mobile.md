@@ -16,14 +16,14 @@ title: 端末別表示
 
 HTML 記述例
 
-```
+~~~
 <footer id="ss-pc" style="display: none">PC View</footer>
 <footer id="ss-mb" style="display: none">Mobile View</footer>
-```
+~~~
 
 ### ソースコード
 
-- https://github.com/shirasagi/shirasagi/blob/master/app/assets/javascripts/ss/lib/mobile.coffee
+- <https://github.com/shirasagi/shirasagi/blob/master/app/assets/javascripts/ss/lib/mobile.coffee>
 
 ## フィーチャーフォン端末での表示
 
@@ -40,13 +40,13 @@ HTML 記述例
 
 `config/mobile.yml`
 
-```
+~~~
 location: /mobile
-```
+~~~
 
 ### ソースコード
 
-- https://github.com/shirasagi/shirasagi/blob/master/config/samples/mobile.yml
-- https://github.com/shirasagi/shirasagi/blob/master/app/controllers/concerns/mobile/public_filter.rb
-- https://github.com/shirasagi/shirasagi/blob/master/lib/mobile/converter.rb
+- <https://github.com/shirasagi/shirasagi/blob/master/config/samples/mobile.yml>
+- <https://github.com/shirasagi/shirasagi/blob/master/app/controllers/concerns/mobile/public_filter.rb>
+- <https://github.com/shirasagi/shirasagi/blob/master/lib/mobile/converter.rb>
 

@@ -14,11 +14,11 @@ title: ふりがな
 
 `config/kana.yml`
 
-```
+~~~
 location: /kana
-```
+~~~
 
 ## ソースコード
 
-- https://github.com/shirasagi/shirasagi/blob/master/config/samples/kana.yml
-- https://github.com/shirasagi/shirasagi/blob/master/app/controllers/concerns/kana/public_filter.rb
+- <https://github.com/shirasagi/shirasagi/blob/master/config/samples/kana.yml>
+- <https://github.com/shirasagi/shirasagi/blob/master/app/controllers/concerns/kana/public_filter.rb>

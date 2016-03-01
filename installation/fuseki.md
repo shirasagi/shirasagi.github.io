@@ -21,40 +21,40 @@ Fuseki が実行できる RDF クエリは [SPARQL1.1](http://ja.wikipedia.org/w
 
 Fuseki のインストールの前に Java をインストールします。
 
-```
+~~~
 $ su -
 # yum install java-1.8.0-openjdk
-```
+~~~
 
 Fuseki をダウンロードします。
 
-```
+~~~
 $ cd /tmp
 $ wget http://ftp.jaist.ac.jp/pub/apache/jena/binaries/jena-fuseki1-1.1.2-distribution.tar.gz
-```
+~~~
 
 Fuseki を /var/lib の下に展開します。
 
-```
+~~~
 $ su -
 # cd /var/lib
 # tar zxvf /tmp/jena-fuseki1-1.1.2-distribution.tar.gz
-```
+~~~
 
 Fuseki を設定します。
 
-```
+~~~
 $ su -
 # ln -s /var/lib/jena-fuseki1-1.1.2 /var/lib/fuseki
 # cd /var/lib/fuseki
 # cp -p config-tdb.ttl config-opendata.ttl
 # mkdir -p DB/opendata
 # vi config-opendata.ttl
-```
+~~~
 
 次の diff を参考に config-opendata.ttl を適切に設定してください。
 
-```
+~~~
 --- config-tdb.ttl      2015-03-08 18:49:16.000000000 +0900
 +++ config-opendata.ttl 2015-05-29 13:38:26.595464858 +0900
 @@ -18,8 +18,7 @@
@@ -95,15 +95,15 @@ $ su -
  ## Read-only TDB dataset (only read services enabled).
 
  <#service_tdb_read_only> rdf:type fuseki:Service ;
- ```
+ ~~~
 
  config-opendata.ttl は[ここ](./config-opendata.ttl)からダウンロードすることもできます。
 
 次のコマンドを実行し fuseki を起動します。
 
-```
+~~~
 # ./fuseki-server -v --update --config=config-opendata.ttl
-```
+~~~
 
 ブラウザで、http://localhost:3030/ にアクセスしてみてください。
 fuseki が正常に起動していれば、fuseki の管理コンソールが表示されます。
@@ -112,14 +112,14 @@ fuseki が正常に起動していれば、fuseki の管理コンソールが表
 
 `config/opendata.yml` をテキストエディタで開きます。
 
-```
+~~~
 $ vi config/opendata.yml
-```
+~~~
 
 `disable: false` となっている箇所を、`disable: true` に変更し、
 SHIRASAGI を再起動します（以下を参考に）。
 
-```
+~~~
 # Fuseki Server
 
 production: &production
@@ -129,7 +129,7 @@ production: &production
     host: 127.0.0.1
     port: 3030
     dataset: opendata
-```
+~~~
 
 ## オープンデータプラグインと Fuseki の連携確認
 
