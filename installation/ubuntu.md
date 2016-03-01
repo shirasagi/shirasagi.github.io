@@ -33,11 +33,10 @@ $ sudo su
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
 # /usr/local/rvm/bin/rvm requirements
-# rvm install 2.2.2
-# rvm use 2.2.2 --default
+# rvm install 2.3.0
+# rvm use 2.3.0 --default
 # gem install bundler
 ```
 
 ---
 その他のインストール手順は [CentOS](manual.html) を参考にしてください。
-
