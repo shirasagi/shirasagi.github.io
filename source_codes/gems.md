@@ -18,6 +18,7 @@ jbuilder|JSON|MIT
 sdoc|API Document|MIT
 
 ## Additional Gems
+
 Name|Description|License
 :--|:--|:--
 unicorn|HTTP Server|GPLv2+, Ruby
