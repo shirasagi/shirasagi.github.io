@@ -42,7 +42,7 @@ enabled=0
 ~~~
 
 ~~~
-# yum install -y --enablerepo=mongodb-org-3.0 mongodb-org
+# yum install -y --enablerepo=mongodb-org-3.2 mongodb-org
 # systemctl start mongod
 # systemctl enable mongod
 ~~~
