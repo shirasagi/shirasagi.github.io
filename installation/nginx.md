@@ -10,7 +10,7 @@ title: Nginx のインストール
 ## Nginx のインストール
 
 ~~~
-# vi /etc/yum.repos.d/CentOS-Base.repo
+# vi /etc/yum.repos.d/nginx.repo
 ~~~
 
 ~~~
