@@ -34,6 +34,7 @@ title: SHIRASAGI 開発マニュアル
 - [定期実行](settings/cron.html)
 - [メール送信](settings/mail.html)
 - [セッションタイムアウト](settings/session.html)
+- [OEM開発](settings/oem.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータプラグイン）
 
 ## 機能
