@@ -30,6 +30,7 @@ title: SHIRASAGI 開発マニュアル
 
 - [環境設定](settings/env.html)
 - [管理コマンド](settings/cmd.html)
+- [非同期実行 / バッググラウンドジョブ](settings/job.html)
 - [定期実行](settings/cron.html)
 - [メール送信](settings/mail.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータプラグイン）
