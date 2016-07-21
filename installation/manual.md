@@ -195,6 +195,12 @@ $ rake db:seed name=demo site=www
 $ rake db:seed name=company site=www
 ~~~
 
+### 子育て支援サンプル
+
+~~~
+$ rake db:seed name=childcare site=www
+~~~
+
 ### オープンデータサンプル（オープンデータプラグインのみ）
 
 ~~~
