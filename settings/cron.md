@@ -28,6 +28,15 @@ title: 定期実行
 
 > RSS取込フォルダーを利用しない方は、本設定は不要です。
 
+## リンクチェック
+
+~~~
+00 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:check_links site=www email=admin@example.jp'
+~~~
+
+> `email=admin@example.jp` の箇所にリンクチェック結果を送信するメールアドレスを設定します。
+> `site=www` の箇所は、実際のサイト名に合わせてください。
+
 ## Webクロール（オープンデータ）
 
 ~~~
