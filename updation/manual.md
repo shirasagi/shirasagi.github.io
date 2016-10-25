@@ -26,19 +26,8 @@ $ \cp -af shirasagi-stable/* shirasagi/
 $ rm -rf shirasagi-stable*
 ~~~
 
-### オープンデータプラグイン
-
-~~~
-$ cd /var/www
-$ wget https://github.com/shirasagi/opendata/archive/stable.tar.gz -O opendata-stable.tar.gz
-
-$ tar xzf opendata-stable.tar.gz
-$ cd shirasagi
-$ rm -rf app bin db doc lib spec vendor config/*/* public/assets*
-$ cd ../
-$ \cp -af opendata-stable/* shirasagi/
-$ rm -rf opendata-stable*
-~~~
+> v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
+> オープンデータのアップデート手順は SHIRASAGI のアップデート手順と同じです。
 
 ## Gem の更新
 
