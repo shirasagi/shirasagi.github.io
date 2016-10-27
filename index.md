@@ -36,6 +36,7 @@ title: SHIRASAGI 開発マニュアル
 - [セッションタイムアウト](settings/session.html)
 - [OEM開発](settings/oem.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータプラグイン）
+- [ファイルサイズ制限](settings/file_size_limit.html)
 
 ## 機能
 
