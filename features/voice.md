@@ -50,6 +50,7 @@ SHIRASAGI の読み上げ機能は、内部では OpenJTalk を使っており�
 速度、トーンなどを調整することができます。
 
 - 読み上げ速度を速くしたい場合、"-r 1.5" を追加（標準の 1.5 倍の速度で読み上げます）
+
   ~~~
   openjtalk:
     bin: /usr/local/bin/open_jtalk
@@ -61,6 +62,7 @@ SHIRASAGI の読み上げ機能は、内部では OpenJTalk を使っており�
   ~~~
 
 - 読み上げ速度を遅くしたい場合、"-r 0.8" を追加（標準の 0.8 倍の速度で読み上げます）
+
   ~~~
   openjtalk:
     bin: /usr/local/bin/open_jtalk
