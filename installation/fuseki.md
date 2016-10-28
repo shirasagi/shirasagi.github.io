@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Fuseki のインストールとオープンデータプラグインの設定
+title: Fuseki のインストールとオープンデータの設定
 ---
 
 ## Fuseki
@@ -11,11 +11,11 @@ Fuseki は Apache Jena Project によって提供されています。
 
 Fuseki とは、RDF ファイルを永続化し、RDF クエリで検索することができる RDF データベースサービスです。
 
-オープンデータプラグインは、データストアに [RDF](http://ja.wikipedia.org/wiki/Resource_Description_Framework) ファイルが登録されると、
+オープンデータは、データストアに [RDF](http://ja.wikipedia.org/wiki/Resource_Description_Framework) ファイルが登録されると、
 事前に設定された Fuseki に RDF ファイルを登録し、Fuseki による RDF クエリの検索機能を提供しています。
 
 Fuseki が実行できる RDF クエリは [SPARQL1.1](http://ja.wikipedia.org/wiki/SPARQL) 形式で、
-オープンデータプラグインは [Turtle](http://www.w3.org/TR/turtle/) 形式の RDF ファイルをサポートしています。
+オープンデータは [Turtle](http://www.w3.org/TR/turtle/) 形式の RDF ファイルをサポートしています。
 
 ## Install
 
@@ -108,7 +108,7 @@ $ su -
 ブラウザで、http://localhost:3030/ にアクセスしてみてください。
 fuseki が正常に起動していれば、fuseki の管理コンソールが表示されます。
 
-## オープンデータプラグインの設定
+## オープンデータの設定
 
 `config/opendata.yml` をテキストエディタで開きます。
 
@@ -131,9 +131,9 @@ production: &production
     dataset: opendata
 ~~~
 
-## オープンデータプラグインと Fuseki の連携確認
+## オープンデータと Fuseki の連携確認
 
-オープンデータプラグインに適当なデータセットを作成し、TTL ファイルをリソースとして登録します。
+オープンデータに適当なデータセットを作成し、TTL ファイルをリソースとして登録します。
 
 ブラウザで http://localhost:3000/sparql にアクセスし、「Run Query」ボタンをクリックしてください。
 正しく連携できていれば、上で登録した TTL ファイルが検索結果として得られます。

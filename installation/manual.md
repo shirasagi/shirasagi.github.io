@@ -70,14 +70,8 @@ enabled=0
 $ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ~~~
 
-### オープンデータプラグイン
-
-~~~
-$ git clone -b stable --depth 1 https://github.com/shirasagi/opendata /var/www/shirasagi
-~~~
-
-> オープンデータプラグインは、SHIRASAGI の機能に加え、データカタログや RDF 変換等の機能を含んでいます。
-> オープンデータに関する機能をご利用の場合はこちらのソースコードのみをダウンロードしてください。
+> v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
+> オープンデータに関する機能をご利用の場合も SHIRASAGI のソースコードをダウンロードしてください。
 
 ## Web サーバの起動
 
@@ -201,16 +195,13 @@ $ rake db:seed name=company site=www
 $ rake db:seed name=childcare site=www
 ~~~
 
-### オープンデータサンプル（オープンデータプラグインのみ）
+### オープンデータサンプル
 
 ~~~
 $ rake db:seed name=opendata site=www
 ~~~
 
-> サイトデータの登録に失敗する方やログイン出来ない方は、
-`shirasagi/opendata` を `git clone` しているかどうか確認して下さい。
-
 ## サイトの確認
 
-> http://localhost:3000/.mypage から `admin`, `pass` のアカウントでログインし、
+<http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したデモデータを確認・編集することができます。

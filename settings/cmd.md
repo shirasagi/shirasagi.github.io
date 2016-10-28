@@ -81,7 +81,7 @@ RSS の取り込み
 $ rake rss:import_items
 ~~~
 
-Webクロール（オープンデータ）
+クローリングリソースの更新（オープンデータ）
 
 ~~~
 $ rake opendata:crawl site=www

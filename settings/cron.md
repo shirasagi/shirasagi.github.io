@@ -29,7 +29,7 @@ title: 定期実行
 ## オープンデータ
 
 ~~~
-## Webクロール
+## クローリングリソースの更新
 ## - site=www の箇所は、実際のサイト名に合わせてください。
 5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake opendata:crawl site=www' >/dev/null
 ~~~
@@ -47,4 +47,3 @@ title: 定期実行
 ## DBバックアップ
 5 0 * * * /usr/bin/mongodump --db ss -o /var/db_backups/$(date +\%Y\%m\%d)
 ~~~
-

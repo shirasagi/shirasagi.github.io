@@ -5,10 +5,10 @@ title: SHIRASAGI 開発マニュアル
 
 ## リポジトリ(GitHub)
 
-| | master | stable |
-|---|---|---|
-| SHIRASAGI | [development](https://github.com/shirasagi/shirasagi) | [release](https://github.com/shirasagi/shirasagi/tree/stable) |
-| オープンデータプラグイン | [development](https://github.com/shirasagi/opendata) | [release](https://github.com/shirasagi/opendata/tree/stable) |
+- master
+  - [development](https://github.com/shirasagi/shirasagi)
+- stable
+  - [release](https://github.com/shirasagi/shirasagi/tree/stable)
 
 ## インストール手順
 
@@ -17,7 +17,7 @@ title: SHIRASAGI 開発マニュアル
 - [手動インストール - Ubuntu](installation/ubuntu.html)
 - [Nginx のインストール](installation/nginx.html)
 - [Unicorn のインストール](installation/unicorn.html)
-- [Fuseki のインストール](installation/fuseki.html) （オープンデータプラグイン）
+- [Fuseki のインストール](installation/fuseki.html) （オープンデータ利用時）
 
 ## アップデート手順
 
@@ -35,7 +35,7 @@ title: SHIRASAGI 開発マニュアル
 - [メール送信](settings/mail.html)
 - [セッションタイムアウト](settings/session.html)
 - [OEM開発](settings/oem.html)
-- [OAuth 認証](settings/oauth.html) （オープンデータプラグイン）
+- [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
 - [ファイルサイズ制限](settings/file_size_limit.html)
 
 ## 機能

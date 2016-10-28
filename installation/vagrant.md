@@ -16,12 +16,9 @@ title: Vagrant
 
 - <https://github.com/shirasagi/ss-vagrant>
 
+> v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされましたので、
+> shirasagi vagrant virtualbox でオープンデータの機能をお試しいただけます。
+
 ## EY Cloud Recipes (Engine Yard Cloud)
 
 - <https://github.com/snkmr/ey-cloud-recipes>
-
-## オープンデータプラグイン
-
-オープンデータプラグインの Vagrant はありませんので、
-上記の Vagrant Box のいずれかをダウンロードし、起動後、
-[手動インストール - CentOS](./manual.html)を参考に手動でインストールしてください。
