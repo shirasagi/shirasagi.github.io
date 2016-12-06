@@ -54,3 +54,7 @@ title: SHIRASAGI 開発マニュアル
 ## トラブルシューティング
 
 - [インストール](trouble-shootings/installation.html)
+
+## 開発資料
+
+- [ディレクトリ構成](devel/directories.html)
