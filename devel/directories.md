@@ -35,7 +35,7 @@ app/ 以下のファイルは、モジュール別にディレクトリを分け
     - lib/ に含まれるファイルは assets:precompile の対象外に設定しています。
 - controllers
   - concern
-    - ファイル名には、その役割から _filter のプレフィックスが付与されています。
+    - ファイル名には、その役割から _filter のサフィックスが付与されています。
   - concern/$module/base_filter.rb
     - レイヤーごとのログイン処理などが含まれています。
     - cms/base_filter.rb, sns/base_filter.rb, gws/base_filter.rb
