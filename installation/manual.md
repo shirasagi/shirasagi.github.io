@@ -25,6 +25,41 @@ $ su -
 # yum -y install wget git ImageMagick ImageMagick-devel
 ~~~
 
+## ImageMagick のポリシー修正
+
+~~~
+# vi /etc/ImageMagick/policy.xml
+~~~
+
+~~~
+<policymap>
+  <!-- <policy domain="system" name="precision" value="6"/> -->
+  <!-- <policy domain="resource" name="temporary-path" value="/tmp"/> -->
+  <!-- <policy domain="resource" name="memory" value="2GiB"/> -->
+  <!-- <policy domain="resource" name="map" value="4GiB"/> -->
+  <!-- <policy domain="resource" name="area" value="1GB"/> -->
+  <!-- <policy domain="resource" name="disk" value="16EB"/> -->
+  <!-- <policy domain="resource" name="file" value="768"/> -->
+  <!-- <policy domain="resource" name="thread" value="4"/> -->
+  <!-- <policy domain="resource" name="throttle" value="0"/> -->
+  <!-- <policy domain="resource" name="time" value="3600"/> -->
+  <policy domain="coder" rights="none" pattern="EPHEMERAL" />
+  <policy domain="coder" rights="read" pattern="HTTPS" />
+  <policy domain="coder" rights="none" pattern="HTTP" />
+  <policy domain="coder" rights="none" pattern="URL" />
+  <policy domain="coder" rights="none" pattern="FTP" />
+  <policy domain="coder" rights="none" pattern="MVG" />
+  <policy domain="coder" rights="none" pattern="MSL" />
+  <policy domain="coder" rights="none" pattern="TEXT" />
+  <!--policy domain="coder" rights="read | write" pattern="LABEL" /-->
+  <policy domain="path" rights="none" pattern="@*" />
+  <policy domain="coder" rights="read | write" pattern="JPEG" />
+  <policy domain="coder" rights="read | write" pattern="PNG" />
+</policymap>
+~~~
+
+参考: <https://github.com/diaspora/diaspora/issues/6828>
+
 ## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
