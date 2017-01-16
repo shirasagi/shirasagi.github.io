@@ -58,3 +58,5 @@ title: SHIRASAGI 開発マニュアル
 ## 開発資料
 
 - [ディレクトリ構成](devel/directories.html)
+- [システム設定（config）](devel/config.html)
+- [Job の開発](devel/job.html)
