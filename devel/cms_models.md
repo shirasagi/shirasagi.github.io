@@ -7,7 +7,7 @@ title: CMS機能の主要モデル
 
 シラサギCMS機能の独自開発を行う際には次の要素を拡張することが多いです。
 
-要素 | 基底クラス | 抽象モジュール | mongo collection
+要素 | 標準クラス | 抽象モジュール | mongo collection
 -----------|---------------------|-----
 ページ | Cms::Page  | Cms::Model::Page | cms_pages
 フォルダー | Cms::Node  | Cms::Model::Node | cms_nodes
@@ -128,11 +128,11 @@ end
 ~~~
 
 独自の種別を追加する際には、`module`、`class`、`route`を拡張機能に合わせて変更ください。<br />
-それぞれの`class`で抽象モジュールを`include`する為`mongo collection`は基底クラスに一致します。
+それぞれの`class`で抽象モジュールを`include`する為`mongo collection`は標準クラスに一致します。
 
 ## 属性
 
-各基底クラスの主要属性として、
+各標準クラスの主要属性として、
 それぞれの抽象モジュール 及び`SS::Document`、`Cms::Content`に
 定義されているものを抜粋します。<br />
 属性については、今後の開発により変更が発生する場合があります。
