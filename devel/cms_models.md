@@ -83,14 +83,15 @@ title: CMS機能の主要モデル
 
 ## 種別クラス（ポリモーフィック・モデル）
 ページ、フォルダー、パーツは class と route 属性により機能毎に種別分けされています。
-- 例）記事ページ
-  - `class`: Article::Page
-  - `route`: "article/page"
+  - 例）記事ページ
+    - `class`: Article::Page
+    - `route`: "article/page"
 
 各種別のクラスはシラサギ独自の命名規則に従って作成されています。<br />
 以下に、記事モジュールのページ、フォルダー、パーツを例に示します。
 
-** ページ **
+### ページ
+
 ~~~ruby
 class Article::Page
   include Cms::Model::Page
@@ -99,7 +100,8 @@ class Article::Page
   default_scope ->{ where(route: "article/page") }
 end
 ~~~
-** フォルダー **
+
+### フォルダー
 ~~~ruby
 module Article::Node
   class Page
@@ -110,7 +112,8 @@ module Article::Node
   end
 end
 ~~~
-** パーツ **
+
+### パーツ
 
 ~~~ruby
 module Article::Part
@@ -134,7 +137,7 @@ end
 属性については、今後の開発により変更が発生する場合があります。
 
  field | 説明　| 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part
------------|---------------------|-----
+--- | --- | --- | --- | --- | ---
 id | シーケンシャルID | 1 | ○ | ○ | ○
 name | タイトル | "ふれあいフェスティバル" | ○ | ○ | ○
 index_name | 一覧表示用タイトル | "ふれあい記事" | ○ | ○ | ○
