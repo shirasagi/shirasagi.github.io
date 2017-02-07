@@ -83,6 +83,7 @@ title: CMS機能の主要モデル
 
 ## 種別クラス（ポリモーフィック・モデル）
 ページ、フォルダー、パーツは class と route 属性により機能毎に種別分けされています。
+
   - 例）記事ページ
     - `class`: Article::Page
     - `route`: "article/page"
@@ -136,7 +137,7 @@ end
 定義されているものを抜粋します。<br />
 属性については、今後の開発により変更が発生する場合があります。
 
- field | 説明　| 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part
+field | 説明　| 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part
 --- | --- | --- | --- | --- | ---
 id | シーケンシャルID | 1 | ○ | ○ | ○
 name | タイトル | "ふれあいフェスティバル" | ○ | ○ | ○
