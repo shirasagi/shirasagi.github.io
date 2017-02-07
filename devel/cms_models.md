@@ -137,24 +137,25 @@ end
 定義されているものを抜粋します。<br />
 属性については、今後の開発により変更が発生する場合があります。
 
-field | 説明　| 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part |
+field | 説明 | 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part |
 --- | --- | --- | --- | --- | --- |
-id | シーケンシャルID | 1 | ○ | ○ | ○ |
-name | タイトル | "ふれあいフェスティバル" | ○ | ○ | ○ |
-index_name | 一覧表示用タイトル | "ふれあい記事" | ○ | ○ | ○ |
-filename | ファイル名 | "docs/page1.html" | ○ | ○ | ○ |
-depth | ファイル名の深さ、スラッシュ(/)区切り | 2 | ○ | ○ | ○ |
-order | 並び順 | 10 | ○ | ○ | ○ |
-state | 公開状態 | "public" or "closed" | ○ | ○ | ○ |
-released | 公開日時 | "2016-10-28T17:49:33+09:00" | ○ | ○ | ○ |
-created | 作成日時 | "2016-10-28T17:49:33+09:00" | ○ | ○ | ○ |
-updated | 更新日時 | "2016-10-28T17:49:33+09:00" | ○ | ○ | ○ |
-route | 機能種別 | "article/page" | ○ | ○ | ○ |
-category_ids | カテゴリフォルダーのID配列 |[1,2,3] | ○ | 別addonで定義されている | |
-view_route | 既定のモジュール機能 | "article/page" | | ○ | |
-shortcut | コンテンツ画面へのショートカット表示 | "show" or "hide" | | ○ | |
-mobile_view | モバイル時の表示 | "show" or "hide" | | | ○ |
-ajax_view | Ajaxパーツの有効 | "enabled" or "disabled" | | | ○ |
+id | シーケンシャルID | 1 | 〇 | 〇 | 〇 |
+name | タイトル | "ふれあいフェスティバル" | 〇 | 〇 | 〇 |
+index_name | 一覧表示用タイトル | "ふれあい記事" | 〇 | 〇 | 〇 |
+filename | ファイル名 | "docs/page1.html" | 〇 | 〇 | 〇 |
+depth | ファイル名の深さ、スラッシュ(/)区切り | 2 | 〇 | 〇 | 〇 |
+order | 並び順 | 10 | 〇 | 〇 | 〇 |
+state | 公開状態 | "public", "closed" | 〇 | 〇 | 〇 |
+released | 公開日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
+created | 作成日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
+updated | 更新日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
+route | 機能種別 | "article/page" | 〇 | 〇 | 〇 |
+category_ids | カテゴリフォルダーのID配列 |[1,2,3] | 〇 | 別addonで定義済み | |
+view_route | 既定のモジュール機能 | "article/page" | | 〇 | |
+shortcut | コンテンツ画面へのショートカット表示 | "show", "hide" | | 〇 | |
+mobile_view | モバイル時の表示 | "show", "hide" | | | 〇 |
+ajax_view | Ajaxパーツの有効 | "enabled", "disabled" | | | 〇 |
+
 <!--
 text_index | 検索用CSV文字列 | --- | --- | --- | --- |
 first_released | 公開日時（画面上で編集不可） | --- | --- | --- | --- |
