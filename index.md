@@ -59,5 +59,6 @@ title: SHIRASAGI 開発マニュアル
 
 - [ディレクトリ構成](devel/directories.html)
 - [システム設定（config）](devel/config.html)
-- [Job の開発](devel/job.html)
+- [公開系の開発](devel/cms_public.html)
 - [CMSの主要モデル](devel/cms_models.html)
+- [Job の開発](devel/job.html)
