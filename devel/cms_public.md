@@ -259,7 +259,7 @@ end
 ### View
 
 ~~~
-# app/views/article/agents/parts/page/index.html.erb
+# app/views/article/agents/parts/page/index.erb
 
 パーツ名: <%= @cur_part.name %>
 ~~~
