@@ -62,3 +62,4 @@ title: SHIRASAGI 開発マニュアル
 - [公開系の開発](devel/cms_public.html)
 - [CMSの主要モデル](devel/cms_models.html)
 - [Job の開発](devel/job.html)
+- [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
