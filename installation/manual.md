@@ -192,51 +192,56 @@ $ rake db:drop
 $ rake db:create_indexes
 ~~~
 
-管理者ユーザーの作成
+### サンプルデータを利用する
 
-```
-$ rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
-```
+サンプルデータはご利用に合わせていずれかをインポートしてください。<br />
+サンプルデータの詳細は[オンラインデモ](http://www.ss-proj.org/download/demo.html)をご確認ください。<br />
+各サンプルデータには以下の内容が含まれています。
 
-サイトの作成
+- ユーザー
+- グループ
+- サイトコンテンツ
+
+#### サイトの作成
 
 ~~~
 $ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ~~~
 
-> 以上の操作でサイトを構築するための最低限のデータが作成できました。
-> 雛形となるサイトのデータセットが必要な場合は、次節のサンプルデータをご利用ください。
-
-## サンプルデータ
-
-サンプルデータはご利用に合わせていずれかをインポートしてください。
-サンプルデータの詳細は[オンラインデモ](http://www.ss-proj.org/download/demo.html)をご確認ください。
-
-### 自治体サンプル
+#### サンプルデータの適用
 
 ~~~
-$ rake db:seed name=demo site=www
-~~~
+## 自治体サンプル
+$ rake db:seed site=www name=demo
 
-### 企業サンプル
+## 企業サンプル
+$ rake db:seed site=www name=company
 
-~~~
-$ rake db:seed name=company site=www
-~~~
+## 子育て支援サンプル
+$ rake db:seed site=www name=childcare
 
-### 子育て支援サンプル
-
+## オープンデータサンプル
+$ rake db:seed site=www name=opendata
 ~~~
-$ rake db:seed name=childcare site=www
-~~~
-
-### オープンデータサンプル
-
-~~~
-$ rake db:seed name=opendata site=www
-~~~
-
-## サイトの確認
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
-サイト名をクリックすると、登録したデモデータを確認・編集することができます。
+サイト名をクリックすると、登録したサンプルデータを確認・編集することができます。
+
+### サンプルデータを利用しない
+
+#### 管理者ユーザーの作成
+
+~~~
+$ rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+~~~
+
+#### サイトの作成
+
+管理画面に管理者ユーザーでログイン後、以下の手順でサイトを作成してください。
+
+- ログイン後のマイページ画面から、[システム設定] へ移動する。
+- [グループ] からサイト管理用のグループを作成する。
+- [ユーザー] からユーザーを作成・編集してグループに所属させる。
+- [サイト] からサイトを新規に作成し、管理グループを適用する。
+
+[ユーザー管理コマンド](/settings/cmd.html)もご確認ください。
