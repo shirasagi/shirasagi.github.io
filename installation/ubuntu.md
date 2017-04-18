@@ -33,8 +33,8 @@ $ sudo su
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
 # /usr/local/rvm/bin/rvm requirements
-# rvm install 2.3.0
-# rvm use 2.3.0 --default
+# rvm install 2.3.4
+# rvm use 2.3.4 --default
 # gem install bundler
 ~~~
 
