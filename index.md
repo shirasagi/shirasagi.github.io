@@ -37,6 +37,7 @@ title: SHIRASAGI 開発マニュアル
 - [OEM開発](settings/oem.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
 - [ファイルサイズ制限](settings/file_size_limit.html)
+- [サブディレクトリ設定](settings/subdir.html)
 
 ## 機能
 
