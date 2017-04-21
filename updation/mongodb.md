@@ -7,5 +7,5 @@ title: MongoDB の更新
 
 ~~~
 $ su -
-# yum update -y --enablerepo=mongodb-org-3.2 mongodb-org
+# yum update -y --enablerepo=mongodb-org-3.4 mongodb-org
 ~~~

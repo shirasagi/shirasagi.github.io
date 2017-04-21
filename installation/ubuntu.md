@@ -20,7 +20,7 @@ $ sudo su
 
 ~~~
 # apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-# echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+# echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 # apt-get update
 # apt-get install -y mongodb-org
 ~~~
@@ -33,8 +33,8 @@ $ sudo su
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
 # /usr/local/rvm/bin/rvm requirements
-# rvm install 2.3.0
-# rvm use 2.3.0 --default
+# rvm install 2.3.4
+# rvm use 2.3.4 --default
 # gem install bundler
 ~~~
 

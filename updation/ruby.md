@@ -8,6 +8,6 @@ title: Ruby の更新
 ~~~
 $ su -
 # rvm get latest
-# rvm install 2.3.0
-# rvm use 2.3.0 --default
+# rvm install 2.3.4
+# rvm use 2.3.4 --default
 ~~~
