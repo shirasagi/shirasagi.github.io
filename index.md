@@ -46,6 +46,7 @@ title: SHIRASAGI 開発マニュアル
 - [ふりがな](features/kana.html)
 - [音声読み上げ](features/voice.html)
 - [組織変更](features/chorg.html)
+- [閲覧履歴とレコメンド](features/recommend.html)
 
 ## ソースコード
 
