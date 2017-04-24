@@ -61,6 +61,7 @@ title: SHIRASAGI 開発マニュアル
 ## 開発資料
 
 - [ディレクトリ構成](devel/directories.html)
+- [JavaScript構成](devel/javascripts.html)
 - [システム設定（config）](devel/config.html)
 - [公開系の開発](devel/cms_public.html)
 - [CMSの主要モデル](devel/cms_models.html)
