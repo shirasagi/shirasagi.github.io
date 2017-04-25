@@ -66,3 +66,5 @@ title: SHIRASAGI 開発マニュアル
 - [CMSの主要モデル](devel/cms_models.html)
 - [Job の開発](devel/job.html)
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
+- [JavaScript構成](devel/javascripts.html)
+- [モーダル検索UI（SearchUI）](devel/search_ui.html)
