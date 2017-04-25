@@ -3,14 +3,16 @@ layout: top
 title: SearchUI
 ---
 
-シラサギでは以下のような選択UIがあります。
+シラサギでは以下のようなオブジェクト選択UIがあります。
 
 - モーダルを展開しオブジェクトを選択可能
-- 複数選択、単数選択の箇所がある
-- 検索が可能
+- 複数選択、単数選択にカスタマイズ可能
+- モーダル内で検索可能
 
 本ドキュメントでは `Cms::Page` の選択UIを構成する要素について説明します。<br />
-動作等は管理画面の関連ページアドオンにて確認できます。
+動作は管理画面の関連ページアドオンにて確認できます。
+
+![関連ページ選択](/images/search_ui.png)
 
 ### 関連ページ選択の動作
 
@@ -25,7 +27,7 @@ title: SearchUI
 
 `app/assets/javascripts/ss/lib/search_ui.coffee.erb`
 
-選択UIのJavaScriptです。<br />
+選択UIの`JavaScript`です。<br />
 次の箇所で実行しています。<br />
 
 - モーダルの呼び出し側
@@ -69,19 +71,19 @@ class @SS_SearchUI
   - ページ選択後の削除リンクに該当します。
 
 - `@render`
-  - モーダルを呼び出す側のviewでスクリプトを初期設定します。
+  - モーダルを呼び出す側の`view`でスクリプトを初期設定します。
   - `ss/script.coffee.erb` で呼び出しています。
   - `.ajax-selected` (テーブル)要素に対して選択した項目を追加します。
 
 - `@modal`
-  - モーダル内部の選択viewでスクリプトを初期設定します。
+  - モーダル内部の選択`view`でスクリプトを初期設定します。
 
 
 ### モーダル呼び出し側 view
 
 `app/views/cms/agents/addons/related_page/_form.html.erb`
 
-選択モーダルを呼び出す側のviewです。<br />
+選択モーダルを呼び出す側の`view`です。<br />
 アドオンの関連ページ選択部分になります。
 
 ~~~
@@ -137,7 +139,7 @@ class @SS_SearchUI
 `app/controllers/apis/pages_controller`
 
 モーダル展開側のコントローラとモジュールです。<br />
-名前空間に `api` を含む規則としています。
+名前空間に`api`を含む規則としています。
 
 ~~~
 module Cms::ApiFilter
@@ -186,7 +188,7 @@ end
 
 `app/views/cms/apis/pages/index.html.erb`
 
-モーダル展開側(モーダル内部)のviewです。
+モーダル展開側(モーダル内部)の`view`です。
 
 ~~~
 <%= jquery do %> SS_SearchUI.modal(); <% end %>
