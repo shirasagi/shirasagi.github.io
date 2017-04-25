@@ -5,6 +5,11 @@ title: JavaScript構成
 
 シラサギで `JavaScript` を利用する場合は以下の方法になります。
 
+- view に JavaScript を書く
+- app/assets/javascript 配下に CoffeeScript を書く
+- Gemを利用する
+- public/assets/js 配下にライブラリを配置する
+
 ## 1.view に JavaScript を書く
 
 #### jquery ヘルパー
@@ -93,7 +98,7 @@ public/asstes/js/jquery.xdomainajax.js | クロスドメイン用
 
 - @SS
   - 管理画面/公開画面で同じクラス名
-  - SS.render() で管理画面/公開画面で必要なスクリプトを一斉に展開
+  - `SS.render()` で管理画面/公開画面で必要なスクリプトを展開
 
 - @SS_ListUI
   - 管理画面の一覧表示部分 `<ul class-"list-items"> ... </ul>`
