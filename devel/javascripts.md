@@ -3,12 +3,12 @@ layout: top
 title: JavaScript構成
 ---
 
-シラサギで `JavaScript` を利用する場合は以下の方法になります。
+シラサギで `JavaScript` を利用する場合、以下の方法があります。
 
-- view に JavaScript を書く
-- app/assets/javascript 配下に CoffeeScript を書く
-- Gemを利用する
-- public/assets/js 配下にライブラリを配置する
+- `view` に `JavaScript` を書く
+- `app/assets/javascripts` 配下に `CoffeeScript` を書く
+- `Gem` を利用する
+- `public/assets/js` 配下にライブラリを配置する
 
 ## 1.view に JavaScript を書く
 
@@ -37,35 +37,38 @@ $(function() {
 ~~~
 
 ブロックの箇所がコンパイルされて展開されます。<br />
-コンパイルの速度面を考慮して deprecated となっています。<br />
-基本的に jquery ヘルパー を利用ください。
+コンパイルの速度面を考慮して `deprecated` となっています。<br />
+基本的に `jquery` ヘルパー を利用ください。
 
 ## 2.アセットファイル (app/assets/javascript)
 
 記述量が多い場合やライブラリとして使い回す箇所は view に直接書かず、<br />
-`app/assets/javascript` 配下にて管理します。<br />
+`app/assets/javascripts` 配下にて管理します。<br />
 `lib/` に含まれるファイル以外は `assets precompile` の対象になります。<br />
 [ディレクトリ構成](http://localhost:3333/devel/directories.html)も参照ください。
 
 #### モジュール
 
-`app/assets/javascript` 配下に、モジュール単位で分割し配置します。
+`app/assets/javascripts` 配下に、モジュール単位で分割し配置します。
 
 例）
-ads/lib/banner.coffee (広告バナーパーツのランダム表示)
+
+~~~
+app/assets/javascripts/ads/lib/banner.coffee (広告バナーパーツのランダム表示)
+~~~
 
 現状、スクリプトは管理側と公開側で厳密に分けられていません。
 
 #### 管理側 JavaScript (基点)
 
-- app/assets/ss/public.coffee.erb
+- app/assets/javascripts/ss/script.coffee.erb
 
 #### 公開側 JavaScript (基点)
 
-- app/assets/cms/public.coffee.erb
+- app/assets/javascripts/cms/public.coffee.erb
 
 ## 3.サードパーティライブラリ （Gemfile）
-Gem化されているサードパーティーライブラリ利用しています。
+Gem化されているサードパーティライブラリ利用しています。
 
 -----|-----
 gem "jquery-rails" | jQuery
@@ -74,7 +77,7 @@ gem 'jquery-minicolors-rails' | jQuery MiniColors
 
 ## 4.サードパーティライブラリ （public/assets/js）
 
-アセットパイプラインに含めたくない、サードパーティライブラリを直接 public/assets に配置しています。
+アセットパイプラインに含めたくない、サードパーティライブラリを直接 `public/assets` に配置しています。
 
 -----|-----
 public/assets/js/ckeditor | WYSIWYGエディタ
@@ -96,21 +99,21 @@ public/asstes/js/jquery.xdomainajax.js | クロスドメイン用
 
 ## 開発時によく使うクラス
 
-- @SS
+- `@SS`
   - 管理画面/公開画面で同じクラス名
   - `SS.render()` で管理画面/公開画面で必要なスクリプトを展開
 
-- @SS_ListUI
+- `@SS_ListUI`
   - 管理画面の一覧表示部分 `<ul class-"list-items"> ... </ul>`
 
-- @SS_SearchUI
+- `@SS_SearchUI`
   - モーダル選択UIのクラス
 
-- @SS_TreeUI
+- `@SS_TreeUI`
   - テーブルのツリー表示
 
-- @Map
+- `@Map`
   - GoogleMapsでの地図表示
 
-- @Openlayers_Map
+- `@Openlayers_Map`
   - Openlayersでの地図表示
