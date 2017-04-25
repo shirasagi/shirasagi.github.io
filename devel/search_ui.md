@@ -139,7 +139,7 @@ class @SS_SearchUI
 `app/controllers/apis/pages_controller`
 
 モーダル展開側のコントローラとモジュールです。<br />
-名前空間に`api`を含む規則としています。
+`Apis`を含む命名規則としています。
 
 ~~~
 module Cms::ApiFilter
