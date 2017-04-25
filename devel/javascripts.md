@@ -9,6 +9,8 @@ title: JavaScript構成
 - `app/assets/javascripts` 配下に `CoffeeScript` を書く
 - `Gem` を利用する
 - `public/assets/js` 配下にライブラリを配置する
+- `vendor/assets/javascripts` 配下にライブラリを配置する
+- `vendor/assets/packages` 配下にライブラリを配置する
 
 ## 1.view に JavaScript を書く
 
@@ -40,12 +42,13 @@ $(function() {
 コンパイルの速度面を考慮して `deprecated` となっています。<br />
 基本的に `jquery` ヘルパー を利用ください。
 
-## 2.アセットファイル (app/assets/javascript)
+## 2.アセットファイル (app/assets/javascripts)
 
 記述量が多い場合やライブラリとして使い回す箇所は view に直接書かず、<br />
 `app/assets/javascripts` 配下にて管理します。<br />
 `lib/` に含まれるファイル以外は `assets precompile` の対象になります。<br />
-[ディレクトリ構成](http://localhost:3333/devel/directories.html)も参照ください。
+基本的に `coffeescript` で記述します。(コンパイルする必要もない単純な物は`JavaScript`でもOK)<br />
+[ディレクトリ構成](/devel/directories.html)も参照ください。
 
 #### モジュール
 
@@ -61,11 +64,11 @@ app/assets/javascripts/ads/lib/banner.coffee (広告バナーパーツのラン�
 
 #### 管理側 JavaScript (基点)
 
-- app/assets/javascripts/ss/script.coffee.erb
+- `app/assets/javascripts/ss/script.coffee.erb`
 
 #### 公開側 JavaScript (基点)
 
-- app/assets/javascripts/cms/public.coffee.erb
+- `app/assets/javascripts/cms/public.coffee.erb`
 
 ## 3.サードパーティライブラリ （Gemfile）
 Gem化されているサードパーティライブラリ利用しています。
@@ -96,6 +99,21 @@ public/asstes/js/css3-mediaqueries.js | IE8以前のブラウザでメディア�
 public/asstes/js/respond.js | IE8以前のブラウザでレスポンシブ対応
 public/asstes/js/selectivizr-min.js | IE8以前のブラウザでCSSセレクタの拡張を行う
 public/asstes/js/jquery.xdomainajax.js | クロスドメイン用
+
+## 5.サードパーティライブラリ （vendor/assets/javascripts）
+
+4のサードパーティライブラリの中でも、パスの依存関係が無く、単純なものはできるだけこちらに配置します。
+
+-----|-----
+vendor/assets/javascripts/jquery.datetimepicker.js | 日付選択
+vendor/assets/javascripts/jquery.multi-select.js | 複数選択ドロップダウンUI
+
+## 6.サードパーティライブラリ （vendor/assets/packages）
+
+5のサードパーティライブラリの中で、CSSが混在する物についてはこちらに配置します。
+
+-----|-----
+vendor/assets/packages/fullcalendar-scheduler | カレンダー(GWSで使用)
 
 ## 開発時によく使うクラス
 

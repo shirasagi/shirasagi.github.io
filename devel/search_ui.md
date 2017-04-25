@@ -135,7 +135,7 @@ class @SS_SearchUI
 
 ### モーダル展開側 controller
 
-`app/controllers/concerns/cms/api_filter.rb`
+`app/controllers/concerns/cms/api_filter.rb`<br />
 `app/controllers/apis/pages_controller`
 
 モーダル展開側のコントローラとモジュールです。<br />
@@ -252,7 +252,7 @@ end
 
 ### モーダル展開側 routes
 
-`app/views/cms/apis/pages/index.html.erb`
+`config/routes/cms/routes_end.rb`
 
 モーダル展開側のコントローラにもルーティングが必要です。<br />
 以下に記述されています。
