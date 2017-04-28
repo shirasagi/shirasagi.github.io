@@ -19,7 +19,7 @@ title: Apache のインストール
 
 ~~~
 # mkdir /usr/local/src/mod_xsendfile; cd $_
-# wget --no-check-certificate https://tn123.org/mod_xsendfile/mod_xsendfile.c
+# wget https://tn123.org/mod_xsendfile/mod_xsendfile.c
 # /usr/bin/apxs -cia mod_xsendfile.c
 ~~~
 
