@@ -65,6 +65,7 @@ title: SHIRASAGI 開発マニュアル
 - [システム設定（config）](devel/config.html)
 - [公開系の開発](devel/cms_public.html)
 - [CMSの主要モデル](devel/cms_models.html)
+- [モデルアドオン設計](devel/model_addon.html)
 - [Job の開発](devel/job.html)
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
 - [JavaScript構成](devel/javascripts.html)
