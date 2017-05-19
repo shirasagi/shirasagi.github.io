@@ -5,7 +5,12 @@ title: インストールマニュアル - Ubuntu
 
 ## 検証環境
 
-Ubuntu Server 14.04 LTS/64bit
+以下の Ubuntu で動作を確認しています。
+
+- Ubuntu Server 14.04 LTS/64bit
+- Ubuntu Server 16.04 LTS/64bit
+
+上記以外のバージョンでも動作可能だとは思いますが、自己責任でインストールしてください。
 
 ## パッケージのダウンロード
 
@@ -16,14 +21,29 @@ $ sudo su
 
 ## MongoDB のインストール
 
-[Official installation](https://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
+### Ubuntu 14.04 (trusty) をご利用の方
 
 ~~~
 # apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
-# echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+# echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 # apt-get update
 # apt-get install -y mongodb-org
+# sudo service mongod start
 ~~~
+
+### Ubuntu 16.04 (xenial) をご利用の方
+
+~~~
+# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+# echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+# apt-get update
+# apt-get install -y mongodb-org
+# sudo systemctl start mongod
+~~~
+
+### 上記以外のバージョンをご利用の方
+
+MongoDB の [Official installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) を参照してください。
 
 ## Ruby(RVM) のインストール
 
@@ -35,7 +55,7 @@ $ sudo su
 # /usr/local/rvm/bin/rvm requirements
 # rvm install 2.3.4
 # rvm use 2.3.4 --default
-# gem install bundler
+# gem install bundler --no-document
 ~~~
 
 ---
