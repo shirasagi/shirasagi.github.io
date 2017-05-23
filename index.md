@@ -16,6 +16,7 @@ title: SHIRASAGI 開発マニュアル
 - [手動インストール - CentOS](installation/manual.html)
 - [手動インストール - Ubuntu](installation/ubuntu.html)
 - [Nginx のインストール](installation/nginx.html)
+- [Apache のインストール](installation/apache.html)
 - [Unicorn のインストール](installation/unicorn.html)
 - [Fuseki のインストール](installation/fuseki.html) （オープンデータ利用時）
 
