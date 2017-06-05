@@ -1,5 +1,5 @@
 ---
-layout: top
+layout: default
 title: リストノード/パーツとループ HTML 変数の定義と拡張
 ---
 
