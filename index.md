@@ -71,3 +71,4 @@ title: SHIRASAGI 開発マニュアル
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
 - [JavaScript構成](devel/javascripts.html)
 - [モーダル検索UI（SearchUI）](devel/search_ui.html)
+- [SS::Document - モデルの基底アドオン](devel/ss_document.html)
