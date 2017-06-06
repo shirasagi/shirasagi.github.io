@@ -110,7 +110,7 @@ $ rake db:seed name=opendata site=www
 GWS サンプル
 
 ~~~
-$ rake db:seed name=gws_demo
+$ rake db:seed name=gws
 ~~~
 
 

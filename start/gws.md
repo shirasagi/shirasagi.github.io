@@ -44,7 +44,7 @@ production: &production
 スケジュール、設備などのサンプルデータが投入されます。
 
 ~~~
-$ rake db:seed name=gws_demo
+$ rake db:seed name=gws
 ~~~
 
 ## 定期実行
