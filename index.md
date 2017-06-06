@@ -20,6 +20,11 @@ title: SHIRASAGI 開発マニュアル
 - [Unicorn のインストール](installation/unicorn.html)
 - [Fuseki のインストール](installation/fuseki.html) （オープンデータ利用時）
 
+## 利用手順
+
+- [グループウェアの始め方](start/gws.html)
+- [ウェブメールの始め方](start/webmail.html)
+
 ## アップデート手順
 
 - [Ruby の更新](updation/ruby.html)
