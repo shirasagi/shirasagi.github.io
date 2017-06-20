@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Rspec
+title: RSpec
 ---
 
-## Rspecとは
+## RSpecとは
 
-RspecはRubyプログラマーのためのビヘイビア駆動開発ツールであり、ビヘイビアを記述するためのドメイン特化言語(DomainSpecific Language:DSL)を提供するフレームワークです。
+RSpecはRubyプログラマーのためのビヘイビア駆動開発ツールであり、ビヘイビアを記述するためのドメイン特化言語(DomainSpecific Language:DSL)を提供するフレームワークです。
 
 ### ビヘイビア
 
@@ -13,25 +13,25 @@ RspecはRubyプログラマーのためのビヘイビア駆動開発ツール�
 
 ### ドメイン特化言語
 
-ドメイン特化言語(DomainSpecific Language:DSL)とは特定の領域(ドメイン)を記述するために作られた言語です。そのうち、DSLを定義する言語とDSLを実行する言語(SHIRASAGIの場合、Rubyのことを示す)が同じであるDSLを言語内DSLと呼びます。RspecはRubyを拡張した言語内DSLとしてプログラムの振る舞いを記述します。
+ドメイン特化言語(DomainSpecific Language:DSL)とは特定の領域(ドメイン)を記述するために作られた言語です。そのうち、DSLを定義する言語とDSLを実行する言語(SHIRASAGIの場合、Rubyのことを示す)が同じであるDSLを言語内DSLと呼びます。RSpecはRubyを拡張した言語内DSLとしてプログラムの振る舞いを記述します。
 
 ## インストール
 
-Rspecはgemパッケージが用意されており、bundlerを使用してインストールします。SHIRASAGIのディレクトリに移動してbundlerを実行することでインストールできます。
+RSpecはgemパッケージが用意されており、bundlerを使用してインストールします。SHIRASAGIのディレクトリに移動してbundlerを実行することでインストールできます。
 
 ~~~bash
 $ cd /var/www/shirasagi
 $ bundle install
 ~~~
 
-Rspecのバージョンを確認するには`--version`オプションを記述します。インストールに成功している場合、正しくバージョンが表示されます。`--version`の代わりに-vを使用できます。
+RSpecのバージョンを確認するには`--version`オプションを記述します。インストールに成功している場合、正しくバージョンが表示されます。`--version`の代わりに-vを使用できます。
 
 ~~~bash
 $ rspec --version
 $ rspec -v
 ~~~
 
-Rspecの使い方を確認するには`--help`オプションを記述します。`--help`の代わりに-hを使用できます。
+RSpecの使い方を確認するには`--help`オプションを記述します。`--help`の代わりに-hを使用できます。
 
 ~~~bash
 $ rspec --help
@@ -40,7 +40,7 @@ $ rspec -h
 
 ## 実行方法
 
-Rspecを実行することで、specディレクトリ以下の_specと付く.rbファイルを実行します。
+RSpecを実行することで、specディレクトリ以下の_specと付く.rbファイルを実行します。
 
 ~~~bash
 $ rspec
@@ -61,7 +61,7 @@ $ rspec spec/features/ads/access_logs_spec.rb:13
 
 ### 実行オプション
 
-Rspecの実行時、`--color`オプションを記述することで実行結果に色付けされます。また、`--format`オプションを記述することで形式フォーマットの変更が可能です。.rspecファイルを用意することで、コマンドを入力せずに実行することが可能です。
+RSpecの実行時、`--color`オプションを記述することで実行結果に色付けされます。また、`--format`オプションを記述することで形式フォーマットの変更が可能です。.rspecファイルを用意することで、コマンドを入力せずに実行することが可能です。
 
 ~~~ruby
 # .rspec
@@ -150,7 +150,7 @@ end
 
 ## before, after, around
 
-before, afterはフックであり、exampleなどの前後に実行したいコードを記述します。例えば、before(:example)を記述した場合、検証前の時点でコードが実行されます。before(:context)を記述した場合、グループ内の検証前にコードが一度だけ実行されます。beforeはbefore(:example)と同じ動作を実行します。before(:suite)に記述した場合、Rspecの実行前にコードが一度だけ実行されます。:exampleは:eachのエイリアス、:contextは:allのエイリアスです。使用例を以下に記述します。
+before, afterはフックであり、exampleなどの前後に実行したいコードを記述します。例えば、before(:example)を記述した場合、検証前の時点でコードが実行されます。before(:context)を記述した場合、グループ内の検証前にコードが一度だけ実行されます。beforeはbefore(:example)と同じ動作を実行します。before(:suite)に記述した場合、RSpecの実行前にコードが一度だけ実行されます。:exampleは:eachのエイリアス、:contextは:allのエイリアスです。使用例を以下に記述します。
 
 ~~~ruby
 # example_spec.rb
@@ -337,7 +337,7 @@ end
 
 ### 一行の構文
 
-Rspecはsubjectで一行の構文を可能にしています。検証でis_expectedを使用することにより、省略した記述が可能です。
+RSpecはsubjectで一行の構文を可能にしています。検証でis_expectedを使用することにより、省略した記述が可能です。
 
 ~~~ruby
 RSpec.describe Array do
@@ -532,15 +532,15 @@ end
 
 ## 設定
 
-### ファイルからRspecのオプションを読み込む
+### ファイルからRSpecのオプションを読み込む
 
-Rspecは3箇所のファイルからオプションを読み込みます。
+RSpecは3箇所のファイルからオプションを読み込みます。
 
-- Local: ./.rspec-local (gitignoreされるRspec設定ファイル)
-- Project: ./.rspec (gitignoreされないRspec設定ファイル)
-- Global: ~/.rspec (ユーザーのホームディレクトリのRspec設定ファイル)
+- Local: ./.rspec-local (gitignoreされるRSpec設定ファイル)
+- Project: ./.rspec (gitignoreされないRSpec設定ファイル)
+- Global: ~/.rspec (ユーザーのホームディレクトリのRSpec設定ファイル)
 
-SPEC_OPTSオプションにRspec設定ファイルのパスを入力することでそのオプションのみを使用できます。Rspec設定ファイルはERB形式でも使用できます。使用例を以下に記述します。
+SPEC_OPTSオプションにRSpec設定ファイルのパスを入力することでそのオプションのみを使用できます。RSpec設定ファイルはERB形式でも使用できます。使用例を以下に記述します。
 
 ~~~ruby
 # .rspec
@@ -649,7 +649,7 @@ end
 ## clear_examples
 -->
 
-## Rspec Expectations
+## RSpec Expectations
 
 rspec-expectationsは期待する成果を定義するために使用します。基本的に以下のように記述します。
 
@@ -1339,7 +1339,7 @@ end
 
 ## 構成マッチャー
 
-Rspecのマッチャーは組み立てできるように作成されています。そのようなマッチャーを構成マッチャーと呼びます。構成マッチャーは以下のような値を許可しています。
+RSpecのマッチャーは組み立てできるように作成されています。そのようなマッチャーを構成マッチャーと呼びます。構成マッチャーは以下のような値を許可しています。
 
 - change { }.by(matcher)
 - change { }.from(matcher).to(matcher)
