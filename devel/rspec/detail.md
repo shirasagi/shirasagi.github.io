@@ -5,7 +5,7 @@ title: RSpec
 
 ## RSpecとは
 
-RSpecはRubyプログラマーのためのビヘイビア駆動開発ツールであり、ビヘイビアを記述するためのドメイン特化言語(DomainSpecific Language:DSL)を提供するフレームワークです。
+RSpecはRubyプログラマーのためのビヘイビア駆動開発ツールであり、ビヘイビアを記述するためのドメイン特化言語(Domain Specific Language : DSL)を提供するフレームワークです。
 
 ### ビヘイビア
 
@@ -13,7 +13,7 @@ RSpecはRubyプログラマーのためのビヘイビア駆動開発ツール�
 
 ### ドメイン特化言語
 
-ドメイン特化言語(DomainSpecific Language:DSL)とは特定の領域(ドメイン)を記述するために作られた言語です。そのうち、DSLを定義する言語とDSLを実行する言語(SHIRASAGIの場合、Rubyのことを示す)が同じであるDSLを言語内DSLと呼びます。RSpecはRubyを拡張した言語内DSLとしてプログラムの振る舞いを記述します。
+ドメイン特化言語(Domain Specific Language : DSL)とは特定の領域(ドメイン)を記述するために作られた言語です。そのうち、DSLを定義する言語とDSLを実行する言語(SHIRASAGIの場合、Rubyのことを示す)が同じであるDSLを言語内DSLと呼びます。RSpecはRubyを拡張した言語内DSLとしてプログラムの振る舞いを記述します。
 
 ## インストール
 
