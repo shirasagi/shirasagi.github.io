@@ -77,3 +77,4 @@ title: SHIRASAGI 開発マニュアル
 - [JavaScript構成](devel/javascripts.html)
 - [モーダル検索UI（SearchUI）](devel/search_ui.html)
 - [SS::Document - モデルの基底モジュール](devel/ss_document.html)
+- [Rspec](devel/rspec/rspec.html)
