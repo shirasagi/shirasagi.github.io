@@ -3,10 +3,6 @@ layout: default
 title: RSpec
 ---
 
-<!--
-[Detail](detail.html)
--->
-
 ## RSpecとは
 
 RSpecはRubyプログラマーのためのビヘイビア駆動開発ツールであり、ビヘイビアを記述するためのドメイン特化言語(Domain Specific Language : DSL)を提供するフレームワークです。
@@ -41,6 +37,213 @@ RSpec.describe "something" do
   context "in another context" do
     it "does another thing" do
     end
+  end
+end
+~~~
+
+### exampleの共有
+
+contextを複数記述するなどの状況の場合、context間に共通の検証が出現することがあります。このような検証は冗長であり、リファクタリングすべきです。shared_examplesを使用することで共通の検証を記述できます。共通の検証が記述されていた箇所にit_behaves_likeを使用することでshared_examplesに記述した検証を実行します。以下に2つのグループで検証を共有している例を記述します。
+
+~~~ruby
+require "set"
+
+RSpec.shared_examples "a collection object" do
+  describe "<<" do
+    it "adds objects to the end of the collection" do
+      collection << 1
+      collection << 2
+      expect(collection.to_a).to match_array([1, 2])
+    end
+  end
+end
+
+RSpec.describe Array do
+  it_behaves_like "a collection object" do
+    let(:collection) { Array.new }
+  end
+end
+
+RSpec.describe Set do
+  it_behaves_like "a collection object" do
+    let(:collection) { Set.new }
+  end
+end
+~~~
+
+it_should_behave_likeを使用することでshared_examplesを使用したパラメータの検証が可能となります。it_has_behaviorはit_should_behave_likeのエイリアスであり、同じように使用できます。以下にit_should_behave_likeの使用例を記述します。subjectのsize, lengthに対して検証を実行するshared_examplesを共有していることがわかります。
+
+~~~ruby
+RSpec.shared_examples "a measurable object" do |measurement, measurement_methods|
+  measurement_methods.each do |measurement_method|
+    it "should return #{measurement} from ##{measurement_method}" do
+      expect(subject.send(measurement_method)).to eq(measurement)
+    end
+  end
+end
+
+RSpec.describe Array, "with 3 items" do
+  subject { [1, 2, 3] }
+  it_should_behave_like "a measurable object", 3, [:size, :length]
+end
+
+RSpec.describe String, "of 6 characters" do
+  subject { "FooBar" }
+  it_should_behave_like "a measurable object", 6, [:size, :length]
+end
+~~~
+
+## before, after, around
+
+before, afterはフックであり、exampleなどの前後に実行したいコードを記述します。例えば、before(:example)を記述した場合、検証前の時点でコードが実行されます。before(:context)を記述した場合、グループ内の検証前にコードが一度だけ実行されます。beforeはbefore(:example)と同じ動作を実行します。before(:suite)に記述した場合、RSpecの実行前にコードが一度だけ実行されます。:exampleは:eachのエイリアス、:contextは:allのエイリアスです。使用例を以下に記述します。
+
+~~~ruby
+# example_spec.rb
+
+require "rspec/expectations"
+
+RSpec.configure do |config|
+  config.before(:suite) do
+    puts "before suite"
+  end
+
+  config.before(:context) do
+    puts "before context"
+  end
+
+  config.before(:example) do
+    puts "before example"
+  end
+
+  config.after(:example) do
+    puts "after example"
+  end
+
+  config.after(:context) do
+    puts "after context"
+  end
+
+  config.after(:suite) do
+    puts "after suite"
+  end
+end
+
+RSpec.describe "ignore" do
+  example "ignore" do
+  end
+end
+~~~
+
+実行すると、以下の結果を返します。
+
+~~~bash
+$ rspec -fd example_spec.rb
+before suite
+before context
+before example
+after example
+.after context
+after suite
+~~~
+
+aroundはbefore, afterを合わせたようなフックです。使用例を以下に記述します。
+
+~~~ruby
+# example_spec.rb
+
+RSpec.describe "if there are around hooks in an outer scope" do
+  around(:example) do |example|
+    puts "first outermost around hook before"
+    example.run
+    puts "first outermost around hook after"
+  end
+
+  around(:example) do |example|
+    puts "second outermost around hook before"
+    example.run
+    puts "second outermost around hook after"
+  end
+
+  describe "outer scope" do
+    around(:example) do |example|
+      puts "first outer around hook before"
+      example.run
+      puts "first outer around hook after"
+    end
+
+    around(:example) do |example|
+      puts "second outer around hook before"
+      example.run
+      puts "second outer around hook after"
+    end
+
+    describe "inner scope" do
+      around(:example) do |example|
+        puts "first inner around hook before"
+        example.run
+        puts "first inner around hook after"
+      end
+
+      around(:example) do |example|
+        puts "second inner around hook before"
+        example.run
+        puts "second inner around hook after"
+      end
+
+      it "they should all be run" do
+        puts "in the example"
+      end
+    end
+  end
+end
+~~~
+
+実行すると、以下の結果を返します。
+
+~~~bash
+$ rspec -fd example_spec.rb
+first outermost around hook before
+second outermost around hook before
+first outer around hook before
+second outer around hook before
+first inner around hook before
+second inner around hook before
+in the example
+second inner around hook after
+first inner around hook after
+second outer around hook after
+first outer around hook after
+second outermost around hook after
+first outermost around hook after
+~~~
+
+### 一行の構文
+
+RSpecはsubjectで一行の構文を可能にしています。検証でis_expectedを使用することにより、省略した記述が可能です。
+
+~~~ruby
+RSpec.describe Array do
+  describe "when first created" do
+    # Rather than:
+    # it "should be empty" do
+    #   subject.should be_empty
+    # end
+
+    it { should be_empty }
+    # or
+    it { is_expected.to be_empty }
+  end
+end
+~~~
+
+### described_class
+
+グループの一番外側がクラスの場合、検証内でdescribed_class()メソッドとして使用できます。使用例を以下に記述します。
+
+~~~ruby
+RSpec.describe Fixnum do
+  it "is available as described_class" do
+    expect(described_class).to eq(Fixnum)
   end
 end
 ~~~
@@ -184,11 +387,3 @@ SHIRASAGIではspec/support配下にヘルパーメソッドを定義してい�
 ## WebMock
 
 WebMockは、外部へのHTTPリクエストをスタブ化します。WebMock.stub_requestを使用することでスタブの登録ができます。WebMock.allow_net_connect!を使用することでstub登録したホスト以外へのアクセスは許可します。
-
-## Travis CI
-
-Travis CIは継続的インテグレーションのためのサービスです。SHIRASAGIではTravis CIを使用しており、Githubにプッシュ、プルリクエストを実行した際にテストコードを自動的に実行します。Travis CIの設定は.travis.ymlに記述します。
-
-## Coveralls
-
-Coverallsはコードカバレッジと呼ばれるテストのカバー率を計測してくれるサービスです。.coveralls.ymlにサービスを指定することで連動させることができます。SHIRASAGIではTravis CIをサービスに指定しています。
