@@ -1,163 +1,141 @@
 ---
 layout: default
-title: CMS機能の主要モデル
+title: RSpecの運用
 ---
 
-### CMS機能の主要モデル
+# RSpecの運用
 
-シラサギCMS機能の独自開発を行う際には次の要素を拡張することが多いです。
+## Specフォルダ
 
-要素 | 標準クラス | 抽象モジュール | mongo collection
------------|---------------------|-----
-ページ | Cms::Page  | Cms::Model::Page | cms_pages
-フォルダー | Cms::Node  | Cms::Model::Node | cms_nodes
-パーツ  | Cms::Part | Cms::Model::Part | cms_parts
+シラサギのRSpecは以下のフォルダで構成されています。
 
-それぞれ機能的な特徴を列挙します。
+- factories
+- features
+- fixtures
+- helpers
+- jobs
+- lib
+- mailers
+- models
+- requests
+- support
+- validators
 
-### Cms::Page
-  - シラサギのページに該当します。
-  - 管理画面からタイトルや本文の内容等、必要な属性を入力し作成することができます。
-  - URLを持ちます。
-    - 公開側のルーティングがあります。
-    - `filename`(ファイル名) をという属性を保持しており、公開側URLとなります。
-      - 例）"docs/page1.html"
-  - 公開画面側アクセス時には基本的に本文の内容等からHTMLを出力します。
-  - 固定ページ、記事ページ等、種別があります。
-    - 開発が必要になった際には、新しいページ種別を追加する事が多いです。
-  - 書き出しが行われます。(例外有)
-    - `Cms::Model::Page` を `include` した状態で書き出されるようになります。
-    - `serve_static_file?` メソッドで書き出しを抑制しているページ種別もあります。
-  - アドオンをモデルに`include`することで以下のような拡張を行えます。
-    - 独自の属性（field）をページに追加できます。
-    - 管理画面側の partial view を追加できます。設定項目の追加に利用できます。
-    - 公開画面側の partial view を追加できます。独自項目の公開側表示に利用できます。
-    - 属性の入出力だけでなく、`Workflow::Addon::Approver`(ワークフロー承認申請) 等、重要な機能としてページと密結合している箇所もあります。
+このうち、スペックを配置しているのは以下のフォルダです。
 
-### Cms::Node
-  - シラサギのフォルダーに該当します。
-  - 管理画面からフォルダー名や設定等、必要な属性を入力し作成することができます。
-  - URLを持ちます。
-    - 公開側のルーティングがあります。
-    - `filename`(ファイル名) をという属性を保持しており、公開側URLとなります。
-      - 例）"docs"
-  - フォルダーには、他の要素（ページ、フォルダー、パーツ、レイアウト）を内部に含めることができます。
-    - `filename`(ファイル名)と`depth`（深さ）の属性で判別しています。
-    - 例）
-    - `filename`: "docs/abc"
-    - `depth`: 2
-  - 記事リスト、カテゴリーリスト等、種別があります。
-    - 開発が必要になった際には、新しいフォルダー種別を追加する事が多いです。
-  - 公開側アクセス時には各機能、コンテンツの内容をHTMLやRSS等で出力します。
-    - 出力内容は以下のパターンが多いです。
-      - 各機能、コンテンツ独自の出力
-        - 例）イベントリスト、掲示板
-      - フォルダーに含まれるページ、もしくはフォルダーを一覧で出力する
-        - 例）記事リスト、カテゴリーリスト
-  - 書き出しが行われます。(例外有)
-    - `Cms::Model::Node` を `include` しただけでは書き出されず、書き出しタスク用の`controller`を作成する必要があります。
-    - 例）`app/controllers/article/agents/tasks/node/pages_controller.rb`
-    - メンバーログイン後の画面等、フォルダーによっては機能的に書き出しを行わない箇所があります。
-  - アドオンをモデルに`include`することで拡張可能です。（ページと同様）
+- features
+- helpers
+- jobs
+- lib
+- mailers
+- models
+- requests
+- validators
 
-### Cms::Part
-  - シラサギのパーツに該当します。
-  - 管理画面からパーツ名や設定等、必要な属性を入力し作成することができます。
-  - URLを持ちます。
-    - 公開側のルーティングがあります。
-    - filename(ファイル名) をという属性を保持しており、公開側URLとなります。
-      - 例）"head.part.html"
-  - 記事リスト、広告バナー等、種別があります。
-    - 開発が必要になった際には、新しいパーツ種別を追加する事が多いです。
-  - 公開側表示はレイアウトにパーツを記述し参照する使い方になります。
-    - 出力内容は以下のパターンが多いです。
-      - リストを作成しHTMLを出力
-        - 例）ページリスト、カテゴリーリスト
-      - 設定したHTMLや各機能のHTMLを出力
-        - 例）広告バナー、スライドショー
-    - 直接URLにアクセスすれば、パーツ自体の内容が出力されます。
-  - パーツ自体の書き出しは行われません。
-    - レイアウトに設定がある場合、ページ、フォルダーの書き出し時に、パーツ内容も書き出されます。
-    - 動的パーツの場合、読み込み用の Ajax JavaScript が書き出されます。
-  - アドオンをモデルに`include`することで拡張することができます。（ページと同様）
+シラサギではモデルのテストをmodels、コントローラー、ビューのテストをfeaturesに記述しています。その他のテストはそれぞれ対応したフォルダに記述しています。rspec-railsにはcontrollers, viewsのフォルダ、exampleが用意されていますが、シラサギでは使用しません。
 
-## 種別クラス（ポリモーフィック・モデル）
-ページ、フォルダー、パーツは class と route 属性により機能毎に種別分けされています。
+### features
 
-  - 例）記事ページ
-    - `class`: Article::Page
-    - `route`: "article/page"
-
-各種別のクラスはシラサギ独自の命名規則に従って作成されています。<br />
-以下に、記事モジュールのページ、フォルダー、パーツを例に示します。
-
-### ページ
+featuresは統合テストのスペックのフォルダです。featureスペックではdescribe以下にletを使用してインスタンスを定義しています。インスタンスにはファクトリー、ヘルパー、パスなどを使用します。
 
 ~~~ruby
-class Article::Page
-  include Cms::Model::Page
-  # 必要なモジュール、アドオンをinclude
+let(:site) { cms_site }
+let(:group) { cms_group }
+let(:item) { create(:cms_test_user, group: group) }
+let(:index_path) { cms_users_path site.id }
+let(:new_path) { new_cms_user_path site.id }
+let(:show_path) { cms_user_path site.id, item }
+let(:edit_path) { edit_cms_user_path site.id, item }
+let(:delete_path) { delete_cms_user_path site.id, item }
+let(:import_path) { import_cms_users_path site.id }
+~~~
 
-  default_scope ->{ where(route: "article/page") }
+シラサギを使用するにはログインが必要です。テストを実行するためにはログインの動作を記述する必要があります。
+
+~~~ruby
+it "#index" do
+  login_cms_user
+  visit index_path
+  expect(current_path).not_to eq sns_login_path
 end
 ~~~
 
-### フォルダー
-~~~ruby
-module Article::Node
-  class Page
-    include Cms::Model::Node
-    # 必要なモジュール、アドオンをinclude
+ログインにはlogin_cms_userというヘルパーを使用します。ログイン後、visitで目的のパスに移動します。
 
-    default_scope ->{ where(route: "article/page") }
+シラサギではJavaScriptを使用した箇所があります。JavaScriptのテストのために処理を待つ必要があります。シラサギではヘルパーを使用してJavaScriptの処理のテストを可能にしています。
+
+featureスペックではステータスコードやcssの有無を検証しています。
+
+~~~ruby
+expect(status_code).to eq 200
+expect(page).to have_no_css("form#item-form")
+~~~
+
+### models
+
+modelsはモデルのスペックのフォルダです。モデルを検証するために使用しています。正しい値を入れたときの動作、不正な値を入れたときの動作、モデルの値の検証を実行します。
+
+~~~ruby
+it "save and find successfully" do
+  expect { model.new(subject).save! }.not_to raise_error
+  expect(model.where(email: subject[:email]).first).not_to be_nil
+  # uid can be nil if email.presents
+  expect(model.where(email: subject[:email]).first.uid).to be_nil
+  expect(model.where(email: subject[:email]).first.has_attribute?(:uid)).to be_falsey
+end
+it "save failed" do
+  expect { model.new(subject).save! }.to raise_error Mongoid::Errors::Validations
+end
+~~~
+
+## factories
+
+factoriesはRSpecのテストデータを作成するファクトリーのフォルダです。以下は`:cms_test_user`というファクトリーを作成する例です。
+
+~~~ruby
+factory :cms_test_user, traits: [:cms_user_rand_name, :cms_user_uid, :cms_user_email]
+~~~
+
+作成したファクトリーは以下のように使用します。
+
+~~~ruby
+let(:item) { create(:cms_test_user, group: group) }
+~~~
+
+ファクトリーはヘルパーメソッドを定義する際に使用できます。
+
+~~~ruby
+def cms_user
+  cms_user = Cms::User.where(email: build(:cms_user).email).first
+  cms_user ||= create(:cms_user, group: cms_group, role: cms_role)
+  cms_user.in_password ||= "pass"
+  cms_user
+end
+~~~
+
+## fixtures
+
+fixturesは画像やcsvといった非データベースのデータのフォルダです。シラサギではインポート、エクスポートのテストなどに使用しています。featureスペックでファイルを添付する場合、以下のように記述します。
+
+~~~ruby
+attach_file "item[in_file]", "#{Rails.root}/spec/fixtures/cms/user/cms_users_1.csv"
+~~~
+
+## support
+
+supportはRSpecで使用するヘルパーメソッドのフォルダです。login_cms_userなどの多用する動作などを記述します。
+
+~~~ruby
+def login_cms_user
+  login_user cms_user
+end
+
+def login_user(user)
+  visit sns_login_path
+  within "form" do
+    fill_in "item[email]", with: user.email
+    fill_in "item[password]", with: "pass"
+    click_button "ログイン"
   end
 end
 ~~~
-
-### パーツ
-
-~~~ruby
-module Article::Part
-  class Page
-    include Cms::Model::Node
-    # 必要なモジュール、アドオンをinclude
-
-    default_scope ->{ where(route: "article/page") }
-  end
-end
-~~~
-
-独自の種別を追加する際には、`module`、`class`、`route`を拡張機能に合わせて変更ください。<br />
-それぞれの`class`で抽象モジュールを`include`する為`mongo collection`は標準クラスに一致します。
-
-## 属性
-
-各標準クラスの主要属性として、
-それぞれの抽象モジュール 及び`SS::Document`、`Cms::Content`に
-定義されているものを抜粋します。<br />
-属性については、今後の開発により変更が発生する場合があります。
-
-field | 説明 | 例 | Cms::Model::Page | Cms::Model::Node | Cms::Model::Part |
---- | --- | --- | --- | --- | --- |
-id | シーケンシャルID | 1 | 〇 | 〇 | 〇 |
-name | タイトル | "ふれあいフェスティバル" | 〇 | 〇 | 〇 |
-index_name | 一覧表示用タイトル | "ふれあい記事" | 〇 | 〇 | 〇 |
-filename | ファイル名 | "docs/page1.html" | 〇 | 〇 | 〇 |
-depth | ファイル名の深さ、スラッシュ(/)区切り | 2 | 〇 | 〇 | 〇 |
-order | 並び順 | 10 | 〇 | 〇 | 〇 |
-state | 公開状態 | "public", "closed" | 〇 | 〇 | 〇 |
-released | 公開日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
-created | 作成日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
-updated | 更新日時 | 2016-10-28T17:49:33+09:00 | 〇 | 〇 | 〇 |
-route | 機能種別 | "article/page" | 〇 | 〇 | 〇 |
-category_ids | カテゴリフォルダーのID配列 |[1,2,3] | 〇 | 別addonで定義済み | |
-view_route | 既定のモジュール機能 | "article/page" | | 〇 | |
-shortcut | コンテンツ画面へのショートカット表示 | "show", "hide" | | 〇 | |
-mobile_view | モバイル時の表示 | "show", "hide" | | | 〇 |
-ajax_view | Ajaxパーツの有効 | "enabled", "disabled" | | | 〇 |
-
-<!--
-text_index | 検索用CSV文字列 | --- | --- | --- | --- |
-first_released | 公開日時（画面上で編集不可） | --- | --- | --- | --- |
-md5 | 書き出し時に埋め込まれるmd5ハッシュ値 | --- | --- | --- | --- |
--->
