@@ -83,6 +83,8 @@ it "save and find successfully" do
   expect(model.where(email: subject[:email]).first.uid).to be_nil
   expect(model.where(email: subject[:email]).first.has_attribute?(:uid)).to be_falsey
 end
+~~~
+~~~ruby
 it "save failed" do
   expect { model.new(subject).save! }.to raise_error Mongoid::Errors::Validations
 end
