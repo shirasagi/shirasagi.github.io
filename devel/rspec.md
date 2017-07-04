@@ -64,11 +64,12 @@ end
 
 シラサギではJavaScriptを使用した箇所があります。JavaScriptのテストのために処理を待つ必要があります。シラサギではヘルパーを使用してJavaScriptの処理のテストを可能にしています。
 
-featureスペックではステータスコードやcssの有無を検証しています。
+featureスペックではステータスコードやcssの有無などを検証しています。
 
 ~~~ruby
 expect(status_code).to eq 200
-expect(page).to have_no_css("form#item-form")
+expect(page).to have_css(".article-pages")
+expect(page).to have_selector(".article-pages article")
 ~~~
 
 ### models
