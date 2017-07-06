@@ -66,34 +66,17 @@ end
 
 ログインにはlogin_cms_userというヘルパーを使用します。ログイン後、visitで目的のパスに移動します。
 
-シラサギではJavaScriptを使用した箇所があります。JavaScriptのテストのために処理を待つ必要があります。シラサギではヘルパーを使用してJavaScriptの処理のテストを可能にしています。
+JavaScriptのテストのために処理を待つ必要がある場合があります。
+その場合、Capybara の機能を利用して、JavaScript の実行により作成される要素が
+存在するかどうかをスペックに書きます。 
 
 ~~~ruby
 visit new_path
 click_on "グループを選択する"
-wait_for_cbox
 click_on group.name
 ~~~
-~~~ruby
-def wait_for_ajax(&block)
-  unless block_given?
-    return wait_for_ajax &method(:finished_all_ajax_requests?)
-  end
 
-  start_at = Time.zone.now.to_f
-  sleep 0.1 while !yield && (Time.zone.now.to_f - start_at) < ajax_timeout
-end
-
-def wait_for_selector(*args)
-  wait_for_ajax do
-    page.has_selector?(*args)
-  end
-end
-
-def wait_for_cbox
-  wait_for_selector("div#ajax-box table.index")
-end
-~~~
+"グループを選択する"をクリックするとJavaScriptが実行され、ダイアログが表示されます。Capybaraは自動的に、ダイアログ内にgroup.nameというテキストを持つリンクまたはボタンが出現するまで待機します。Capybaraの機能で待てない場合、`sleep 10`などをやむなく使用する場合があります。
 
 featureスペックではステータスコードやcssの有無などを検証しています。
 
@@ -222,12 +205,20 @@ end
 describe "cms_users", type: :feature, dbscope: :example do
 ~~~
 
-:typeは[rspec-rails](http://www.rubydoc.info/gems/rspec-rails/frames)で用意された特定のマッチャーが使用できるようになるメタデータです。`type: feature`と記述することで統合テスト用のマッチャーが使用できます。:dbscopeはデータベースを初期化するヘルパーメソッドの実行タイミングを設定できます。:dbscopeのオプションを以下に記述します。
+### :type
+
+:typeは[rspec-rails](http://www.rubydoc.info/gems/rspec-rails/frames)で用意された特定のマッチャーが使用できるようになるメタデータです。`type: feature`と記述することで統合テスト用のマッチャーが使用できます。
+
+### :descope
+
+:dbscopeはデータベースを初期化するヘルパーメソッドの実行タイミングを設定できます。:dbscopeのオプションを以下に記述します。
 
 |オプション|説明|
 |---|---|
 |example|テストを実行する毎にデータベースを初期化します。|
 |context|spec ファイル毎にデータベースを初期化します。context が規定値です。|
+
+### フィルター
 
 シラサギではメタデータをフィルターとして記述しています。以下に使用例を記述します。
 
