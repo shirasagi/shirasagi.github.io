@@ -64,10 +64,10 @@ it "#index" do
 end
 ~~~
 
-ログインにはlogin_cms_userというヘルパーを使用します。ログイン後、visitで目的のパスに移動します。
+ログインには`login_cms_user`というヘルパーを使用します。ログイン後、visitで目的のパスに移動します。
 
 JavaScriptのテストのために処理を待つ必要がある場合があります。
-その場合、Capybara の機能を利用して、JavaScript の実行により作成される要素が
+その場合、Capybaraの機能を利用して、JavaScriptの実行により作成される要素が
 存在するかどうかをスペックに書きます。 
 
 ~~~ruby
@@ -76,7 +76,7 @@ click_on "グループを選択する"
 click_on group.name
 ~~~
 
-"グループを選択する"をクリックするとJavaScriptが実行され、ダイアログが表示されます。Capybaraは自動的に、ダイアログ内にgroup.nameというテキストを持つリンクまたはボタンが出現するまで待機します。Capybaraの機能で待てない場合、`sleep 10`などをやむなく使用する場合があります。
+"グループを選択する"をクリックするとJavaScriptが実行され、ダイアログが表示されます。Capybaraは自動的に、ダイアログ内に`group.name`というテキストを持つリンクまたはボタンが出現するまで待機します。Capybaraの機能で待てない場合、`sleep 10`などをやむなく使用する場合があります。
 
 featureスペックではステータスコードやcssの有無などを検証しています。
 
@@ -150,7 +150,7 @@ attach_file "item[in_file]", "#{Rails.root}/spec/fixtures/cms/user/cms_users_1.c
 
 ## <a name="support"></a> support
 
-supportはRSpecで使用するヘルパーメソッドのディレクトリです。login_cms_userなどの多用する動作などを記述します。
+supportはRSpecで使用するヘルパーメソッドのディレクトリです。`login_cms_user`などの多用する動作などを記述します。
 
 ~~~ruby
 def login_cms_user
@@ -211,7 +211,7 @@ describe "cms_users", type: :feature, dbscope: :example do
 
 ### :descope
 
-:dbscopeはデータベースを初期化するヘルパーメソッドの実行タイミングを設定できます。:dbscopeのオプションを以下に記述します。
+:dbscopeはデータベースを初期化するヘルパーメソッドの実行タイミングを設定できます。:dbscopeのオプションを以下に記述します。`dbscope: :example`と記述することでデータベースを初期化のタイミングを変更できます。
 
 |オプション|説明|
 |---|---|
