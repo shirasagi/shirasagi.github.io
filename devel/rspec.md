@@ -3,8 +3,6 @@ layout: default
 title: RSpecの運用
 ---
 
-# RSpecの運用
-
 ## Specディレクトリ
 
 シラサギのRSpecは以下のディレクトリで構成されています。
@@ -184,9 +182,6 @@ end
 |gws_site|Gws::Groupを返します。|
 |gws_user|Gws::Userを返します。|
 |login_gws_user|gws_userを使用してログインします。|
-|replace_at|ハッシュを置換します。|
-|replace_value_at|ハッシュの値を置換します。|
-|build_config|OpenStructかどうかを判定します。|
 |ss_user|:ss_userを作成します。|
 |ss_group|:ss_groupを作成します。|
 |ss_site|:ss_siteを作成します。|
@@ -207,9 +202,9 @@ describe "cms_users", type: :feature, dbscope: :example do
 
 ### :type
 
-:typeは[rspec-rails](http://www.rubydoc.info/gems/rspec-rails/frames)で用意された特定のマッチャーが使用できるようになるメタデータです。`type: feature`と記述することで統合テスト用のマッチャーが使用できます。
+:typeは[rspec-rails](http://www.rubydoc.info/gems/rspec-rails/frames)で用意された特定のマッチャーが使用できるようになるメタデータです。`type: :feature`と記述することで統合テスト用のマッチャーが使用できます。
 
-### :descope
+### :dbscope
 
 :dbscopeはデータベースを初期化するヘルパーメソッドの実行タイミングを設定できます。:dbscopeのオプションを以下に記述します。`dbscope: :example`と記述することでデータベースを初期化のタイミングを変更できます。
 
