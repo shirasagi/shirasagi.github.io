@@ -79,3 +79,4 @@ title: SHIRASAGI 開発マニュアル
 - [SS::Document - モデルの基底モジュール](devel/ss_document.html)
 - [Rspec](devel/rspec/rspec.html)
 - [Rspecの運用](devel/rspec.html)
+- [アクセシビリティチェック機能](devel/accessibility.html)
