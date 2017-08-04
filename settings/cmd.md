@@ -54,7 +54,7 @@ $ rake cms:release_pages
 フォルダー書き出し (トップページ, 一覧ページ)
 
 ~~~
-$rake cms:generate_nodes site=www
+$ rake cms:generate_nodes site=www
 ~~~
 
 ページ書き出し
