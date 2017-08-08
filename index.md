@@ -55,6 +55,7 @@ title: SHIRASAGI 開発マニュアル
 - [音声読み上げ](features/voice.html)
 - [組織変更](features/chorg.html)
 - [閲覧履歴とレコメンド](features/recommend.html)
+- [サイトのデータ移行](features/site_export.html)
 
 ## ソースコード
 
