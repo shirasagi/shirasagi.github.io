@@ -93,8 +93,8 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 # gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 # \curl -sSL https://get.rvm.io | bash -s stable
 # source /etc/profile
-# rvm install 2.3.4
-# rvm use 2.3.4 --default
+# rvm install 2.4.2
+# rvm use 2.4.2 --default
 # gem install bundler
 ~~~
 
