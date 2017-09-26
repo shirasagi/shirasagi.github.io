@@ -103,7 +103,7 @@ group.save
 $ bin/rake gws:es:info site=シラサギ市
 ~~~
 
-有効にあっている場合、次のような JSON が表示されます。
+有効になっている場合、次のような JSON が表示されます。
 
 ~~~JSON
 {
