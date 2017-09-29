@@ -223,6 +223,9 @@ $ rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
 $ rake db:seed site=www name=opendata
+
+## LPサンプル
+$ rake db:seed site=www name=lp
 ~~~
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
