@@ -77,6 +77,7 @@ title: SHIRASAGI 開発マニュアル
 - [権限/ロール](devel/role.html)
 - [CMSの主要モデル](devel/cms_models.html)
 - [公開系の開発](devel/cms_public.html)
+- [ファイル機能（SS::File）](devel/ss_file.html)
 - [モーダル検索UI (SearchUI)](devel/search_ui.html)
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
 - [アクセシビリティチェック機能](devel/accessibility.html)
