@@ -17,7 +17,7 @@ title: ファイル機能（SS::File）
 次のような特徴があります。
 
 - 物理ファイルとデータベースに格納されたドキュメントは1対1で対応する。
-- 物理ファイルは [private ディレクトリ](/devel/directories.html#a-nameprivatea-private) 配下に保存される。
+- 物理ファイルは [private ディレクトリ](/devel/directories.html#-private) 配下に保存される。
 - 書き出されていない場合、ファイルの閲覧はコントローラーを介した動的処理となる。
 
 なお、アップローダー機能は公開側ディレクトリへのファイル直接アップロードとなる為、本稿とは設計が異なります。
@@ -95,7 +95,7 @@ CMSやGWS、WEBメールを含むシラサギの画面より `SS::File` を閲�
   - 例
   - `public/sites/w/w/w/_/fs/1/2/3/_/filename.jpg`
 - ページ非公開時に書き出したファイルを削除します。
-- [ページの定期書き出し](/settings/cmd.html#cms---) に `attachments=1` オプションを付与することでページ書き出し時に添付のファイルも書き出します。
+- [ページの定期書き出し](/settings/cmd.html#cms---コンテンツ管理) に `attachments=1` オプションを付与することでページ書き出し時に添付のファイルも書き出します。
 
 ### サムネイル（SS::Relation::Thumb）
 
@@ -147,7 +147,7 @@ CMSやGWS、WEBメールを含むシラサギの画面より `SS::File` を閲�
 
 - `file`
   - 標準の設定
-  - 物理ファイルを [private ディレクトリ](/devel/directories.html#a-nameprivatea-private) 配下に保存
+  - 物理ファイルを [private ディレクトリ](/devel/directories.html#-private) 配下に保存
 
 - `grid_fs`
   - `MongoDB` の `GridFS` を使用し、物理ファイルを `BSON` 形式でデータベースに保存
