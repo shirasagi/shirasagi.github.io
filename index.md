@@ -85,3 +85,4 @@ title: SHIRASAGI 開発マニュアル
 - [Rspec](devel/rspec/rspec.html)
 - [Rspecの運用](devel/rspec.html)
 - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
+- [ウェブ・メール開発環境の構築](devel/webmail.html)
