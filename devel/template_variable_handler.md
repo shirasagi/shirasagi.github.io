@@ -59,6 +59,10 @@ rescue => e
 end
 ~~~
 
+## テンプレートの追加
+
+template_variable_handlerによって追加したテンプレートはmoduleをincludeすることで使用できます。使用例として、Cms::Contentをincludeしたモデルに対してテンプレートを追加したい場合、Cms::TemplateVariableというモジュールにtemplate_variable_handlerを記述し、Cms::TemplateVariableをincludeすることで対応しています。
+
 ## テンプレートの使用例
 
 テンプレートはループHTMLなどに#{name}のように記述することで使用できます。標準機能のフォルダーリストでは、以下のように使用しています。
