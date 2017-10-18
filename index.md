@@ -74,6 +74,7 @@ title: SHIRASAGI 開発マニュアル
 - [システム設定 (config)](devel/config.html)
 - [モデルの基底モジュール (SS::Document)](devel/ss_document.html)
 - [モデルアドオン設計](devel/model_addon.html)
+- [template_variable_handler](devel/template_variable_handler.html)
 - [権限/ロール](devel/role.html)
 - [CMSの主要モデル](devel/cms_models.html)
 - [公開系の開発](devel/cms_public.html)
