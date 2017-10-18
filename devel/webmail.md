@@ -33,7 +33,10 @@ $ sudo yum install dovecot
 Dovecot の次の設定ファイルを編集します。
 
 - `/etc/dovecot/conf.d/10-auth.conf`
+- `/etc/dovecot/conf.d/10-mail.conf`
 - `/etc/dovecot/conf.d/10-master.conf`
+- `/etc/dovecot/conf.d/20-imap.conf`
+- `/etc/dovecot/conf.d/90-quota.conf`
 - `/etc/dovecot/conf.d/auth-static.conf.ext`
 - `/etc/dovecot/users`
 
@@ -43,22 +46,13 @@ Dovecot の次の設定ファイルを編集します。
 
 ~~~diff
 --- 10-auth.conf.orig	2013-04-17 22:59:47.000000000 +0900
-+++ 10-auth.conf	2017-10-17 20:26:38.697196003 +0900
-@@ -7,7 +7,7 @@
- # matches the local IP (ie. you're connecting from the same computer), the
- # connection is considered secure and plaintext authentication is allowed.
- # See also ssl=required setting.
--#disable_plaintext_auth = yes
-+disable_plaintext_auth = no
- 
- # Authentication cache size (e.g. 10M). 0 means it's disabled. Note that
- # bsdauth, PAM and vpopmail require cache_key to be set for caching to be used.
++++ 10-auth.conf	2017-10-18 11:31:05.818193658 +0900
 @@ -97,7 +97,7 @@
  #   plain login digest-md5 cram-md5 ntlm rpa apop anonymous gssapi otp skey
  #   gss-spnego
  # NOTE: See also disable_plaintext_auth setting.
 -auth_mechanisms = plain
-+auth_mechanisms = cram-md5 plain
++auth_mechanisms = cram-md5
  
  ##
  ## Password and user databases
@@ -77,6 +71,22 @@ Dovecot の次の設定ファイルを編集します。
 -#!include auth-static.conf.ext
 +!include auth-static.conf.ext
 ~~~
+
+#### /etc/dovecot/conf.d/10-mail.conf
+
+~~~diff
+--- 10-mail.conf.orig	2017-08-03 15:50:49.000000000 +0900
++++ 10-mail.conf	2017-10-18 11:58:39.633114925 +0900
+@@ -206,6 +206,7 @@
+ # Space separated list of plugins to load for all services. Plugins specific to
+ # IMAP, LDA, etc. are added to this list in their own .conf files.
+ #mail_plugins = 
++mail_plugins = quota
+ 
+ ##
+ ## Mailbox handling optimizations
+~~~
+
 
 #### /etc/dovecot/conf.d/10-master.conf
 
@@ -112,9 +122,58 @@ Dovecot の次の設定ファイルを編集します。
    #user = $default_internal_user
 ~~~
 
+#### /etc/dovecot/conf.d/20-imap.conf
+
+~~~diff
+--- 20-imap.conf.orig	2013-05-20 05:18:00.000000000 +0900
++++ 20-imap.conf	2017-10-18 11:59:13.175050143 +0900
+@@ -53,7 +53,7 @@
+ 
+ protocol imap {
+   # Space separated list of plugins to load (default is global mail_plugins).
+-  #mail_plugins = $mail_plugins
++  mail_plugins = $mail_plugins imap_quota
+ 
+   # Maximum number of IMAP connections allowed for a user from each IP address.
+   # NOTE: The username is compared case-sensitively.
+~~~
+
+#### /etc/dovecot/conf.d/90-quota.conf
+
+~~~diff
+--- 90-quota.conf.orig	2013-04-17 22:59:47.000000000 +0900
++++ 90-quota.conf	2017-10-18 12:02:31.762633631 +0900
+@@ -15,13 +15,13 @@
+ # to give additional 100 MB when saving to Trash:
+ 
+ plugin {
+-  #quota_rule = *:storage=1G
+-  #quota_rule2 = Trash:storage=+100M
++  quota_rule = *:storage=1G
++  quota_rule2 = Trash:storage=+100M
+ 
+   # LDA/LMTP allows saving the last mail to bring user from under quota to
+   # over quota, if the quota doesn't grow too high. Default is to allow as
+   # long as quota will stay under 10% above the limit. Also allowed e.g. 10M.
+-  #quota_grace = 10%%
++  quota_grace = 10%%
+ }
+ 
+ ##
+@@ -65,7 +65,7 @@
+ 
+ plugin {
+   #quota = dirsize:User quota
+-  #quota = maildir:User quota
++  quota = maildir:User quota
+   #quota = dict:User quota::proxy::quota
+   #quota = fs:User quota
+ }
+~~~
+
 #### /etc/dovecot/conf.d/auth-static.conf.ext
 
-~~~
+~~~diff
 --- auth-static.conf.ext.orig	2013-05-20 05:18:00.000000000 +0900
 +++ auth-static.conf.ext	2017-10-17 20:28:20.423883735 +0900
 @@ -22,3 +22,8 @@
@@ -135,7 +194,7 @@ Dovecot の次の設定ファイルを編集します。
 このファイルには IMAP の利用ユーザーとそのパスワードを登録します。
 まず `doveadm` コマンドを実行し、ハッシュ化されたパスワードを生成します。
 
-~~~
+~~~shell
 $ doveadm pw
 Enter new password: pass
 Retype new password: pass
@@ -294,7 +353,7 @@ Postfix の次の設定ファイルを編集します。
 
 まず次のユーザーとグループを作成します。
 
-~~~
+~~~shell
 $ sudo groupadd -g 10000 mailuser
 $ sudo useradd -u 10000 -g mailuser -s /sbin/nologin mailuser
 ~~~
@@ -302,7 +361,7 @@ $ sudo useradd -u 10000 -g mailuser -s /sbin/nologin mailuser
 今回は `/var/spool/virtual` ディレクトリにメールを保存するように Postfix を設定したので、
 次のコマンドを実行しディレクトリを作成します。
 
-~~~
+~~~shell
 $ sudo mkdir /var/spool/virtual
 $ sudo chown -R mailuser:mailuser /var/spool/virtual
 ~~~
@@ -325,7 +384,7 @@ user3@example.jp example.jp/user3/Maildir/
 
 そして次のコマンドを実行しテキストファイルを DB 化します。
 
-~~~
+~~~shell
 $ sudo postmap /etc/postfix/vmailbox
 ~~~
 
@@ -337,27 +396,50 @@ $ sudo postmap /etc/postfix/vmailbox
 $ sudo systemctl restart postfix
 ~~~
 
+### テストメールの送信とメールディレクトリの作成
+
+メールが 1 通もない状態だと、シラサギのウェブメールを表示した際に認証エラーとなります。
+
+上記の設定のテストも兼ねてテストメールを送って見ます。
+
+~~~shell
+$ echo 'This is test mail.' | sendmail sys@example.jp
+$ echo 'This is test mail.' | sendmail admin@example.jp
+$ echo 'This is test mail.' | sendmail user1@example.jp
+$ echo 'This is test mail.' | sendmail user2@example.jp
+$ echo 'This is test mail.' | sendmail user3@example.jp
+~~~
+
+正常に送信できたかどうかは `/var/log/maillog` を確認します。
+
+~~~shell
+$ sudo cat /var/log/maillog
+~~~
+
+次のような行が表示されていれば送信が成功しています。
+
+~~~
+Oct 18 11:46:21 localhost postfix/virtual[15842]: 6BAEA113BE76: to=<user3@example.jp>, relay=virtual, delay=0.01, delays=0/0/0/0, dsn=2.0.0, status=sent (delivered to maildir)
+~~~
+
+`status=sent` となっており、送信に成功しています。
+
+それでは、シラサギのウェブ・メールを設定し、シラサギでテストメールが届いているかどうか確認してみます。
+
 ## シラサギのウェブ・メールの設定
 
 シラサギをインストールしたディレクトリに移動し、次のコマンドを実行します。
 
-~~~
+~~~shell
 $ cp -n config/defaults/webmail.yml config/webmail.yml 
 ~~~
 
 `config/webmail.yml` の差分を以下に掲載しています。適時修正してください。
 
-~~~
---- config/defaults/webmail.yml	2017-10-17 20:53:51.399201660 +0900
-+++ config/webmail.yml	2017-10-17 20:56:39.993587745 +0900
-@@ -3,17 +3,17 @@
-   disable: false
- 
-   # Disable quota
--  disable_quota: false
-+  disable_quota: true
- 
-   # Default settings
+~~~diff
+--- config/defaults/webmail.yml	2017-10-18 11:37:01.760733167 +0900
++++ config/webmail.yml	2017-10-18 11:54:38.852555338 +0900
+@@ -9,11 +9,11 @@
    clients:
      default:
        # host
@@ -374,14 +456,28 @@ $ cp -n config/defaults/webmail.yml config/webmail.yml
 
 シラサギを起動している場合は次のコマンドを実行しシラサギを停止します。
 
-~~~
+~~~shell
 $ bin/rake unicorn:stop
 ~~~
 
 そして次のコマンドを実行し、シラサギを起動します。
 
-~~~
+~~~shell
 $ bin/rake unicorn:start
 ~~~
 
 シラサギの管理画面へアクセスし、ウェブ・メールが正しく表示されていることを確認してください。
+
+
+## 新しいユーザーを追加する場合
+
+新しいユーザーを追加するには次のファイルにユーザーを追加します。
+
+- `/etc/dovecot/users`
+  - IMAP のパスワードを設定します。
+- `/etc/postfix/vmailbox`
+  - 受信したメールをどのディレクトリに保存するのかを設定します。
+- `echo 'This is test mail.' | sendmail <new-user>@example.jp` コマンドの実行
+  - テストメールを送るとともにメールディレクトを作成します。
+
+`/etc/postfix/vmailbox` を編集した後 `sudo postmap /etc/postfix/vmailbox` コマンドを実行する必要があります。
