@@ -20,12 +20,42 @@ def template_variable_handler_name(name, issuer)
 end
 ~~~
 
+template_variable_handlerによって実行するメソッドはSymbol, Stringの他、Procで記述することが可能です。
+
+~~~ruby
+included do
+  template_variable_handler(:index_name) { |name, issuer| template_variable_handler_name(:name_for_index, issuer) }
+end
+~~~
+
 テンプレートを対応するメソッドの返り値に置換するにはrender_templateというメソッドを使用します。例えば、ループHTMLの値を返すrender_loop_htmlというメソッドはrender_templateを使用しているため、ループHTML内であればテンプレートを使用することが可能です。
 
 ~~~ruby
 def render_loop_html(item, opts = {})
   item = item.becomes_with_route rescue item
   item.render_template(opts[:html] || loop_html, self)
+end
+~~~
+
+render_templateはtemplate_variable_handlerによって格納された配列の集合をもとに置換を実行します。find_template_variable_handlerでSymbolやString, Procに対する動作を実行した後、対応するメソッドをcallすることでレンダリングしています。
+
+~~~ruby
+def render_template(template, *args)
+  return '' if template.blank?
+  template.gsub(/\#\{(.*?)\}/) do |m|
+    str = template_variable_get($1, *args) rescue false
+    str == false ? m : str
+  end
+end
+
+def template_variable_get(name, *args)
+  handler = find_template_variable_handler(name)
+  return unless handler
+
+  handler.call(name, *args)
+rescue => e
+  Rails.logger.error("#{e.class} (#{e.message}):\n  #{e.backtrace.join("\n  ")}")
+  false
 end
 ~~~
 
