@@ -37,7 +37,7 @@ def render_loop_html(item, opts = {})
 end
 ~~~
 
-render_templateはtemplate_variable_handlerによって格納された配列の集合をもとに置換を実行します。find_template_variable_handlerでSymbolやString, Procに対する動作を実行した後、対応するメソッドをcallすることでレンダリングしています。
+render_templateはtemplate_variable_handlerによって格納された配列の集合をもとに置換を実行します。find_template_variable_handlerでSymbolやString, Procに対する動作を実行した後、対応するメソッドをcallすることでレンダリングしています。template_variable_getがfalseを返した場合、テンプレートの記述をレンダリングします。
 
 ~~~ruby
 def render_template(template, *args)
@@ -67,6 +67,19 @@ end
 <article class="item-#{class} #{current}">
   <header>
     <h2><a href="#{url}">#{name}</a></h2>
+  </header>
+</article>
+~~~
+
+## new, current
+
+new, currentは条件を満たすときにnew, currentを表示するテンプレートです。このテンプレートはclassを追加してスタイルシートを適用したい場合などに使用します。newは該当するコンテンツの更新日時がリスト表示のアドオンで設定した期間が経過するまでの間、newを表示するテンプレートです。currentは該当するコンテンツが現在のコンテンツと同じ場合にcurrentを表示するテンプレートです。使用例を以下に記述します。
+
+~~~html
+<article class="item-#{class} #{new} #{current}">
+  <header>
+  <time datetime="#{date.iso}">#{date.long}</time>
+  <h2><a href="#{url}">#{index_name}</a></h2>
   </header>
 </article>
 ~~~
@@ -102,6 +115,11 @@ def render_template_variables(html)
 
   html
 end
+~~~
+
+~~~html
+<!-- 上部HTML -->
+<nav id="category-list"><header><h2>#{parent.parent_name} > #{parent_name}</h2></header>
 ~~~
 
 以下に使用できるテンプレートを記述します。
