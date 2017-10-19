@@ -179,10 +179,11 @@ end
 使用例を以下に記述します。
 
 ~~~html
-#{if has_pages()}
-{{ yield }}
+#{if is_page()}
+<p>#{parent_name} > #{page_name}</p>
+#{elsif is_node()}
+<p>#{page_name}</p>
 #{else}
-<p>該当記事がありません。</p>
 #{end}
 ~~~
 
