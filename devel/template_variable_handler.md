@@ -1,6 +1,6 @@
 ---
 layout: default
-title: template_variable_handler
+title: ループHTML変数の一覧と使用例(template_variable_handler)
 ---
 
 ## template_variable_handlerとは
