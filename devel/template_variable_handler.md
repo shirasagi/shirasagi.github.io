@@ -5,7 +5,7 @@ title: ループHTML変数の一覧と使用例(template_variable_handler)
 
 ## template_variable_handlerとは
 
-template_variable_handlerはフォルダー、パーツ、レイアウトなどで使用できるテンプレートを提供する機能です。基本的な動きはSS::TemplateVariableというモジュールに記述しています。モデルでtemplate_variable_handlerというメソッドを使用することで、テンプレートで使用したい記述と、それに対して実行するメソッドを配列にしてインスタンス変数に格納します。
+`template_variable_handler`はフォルダー、パーツ、レイアウトなどで使用できるテンプレートを提供する機能です。基本的な動きは`SS::TemplateVariable`というモジュールに記述しています。モデルで`template_variable_handler`というメソッドを使用することで、テンプレートで使用したい記述と、それに対して実行するメソッドを配列にしてインスタンス変数に格納します。
 
 ~~~ruby
 extend ActiveSupport::Concern
@@ -20,7 +20,7 @@ def template_variable_handler_name(name, issuer)
 end
 ~~~
 
-template_variable_handlerによって実行するメソッドはSymbol, Stringの他、Procで記述することが可能です。
+`template_variable_handler`によって実行するメソッドは`Symbol`, `String`の他、`Proc`で記述することが可能です。
 
 ~~~ruby
 included do
@@ -28,7 +28,7 @@ included do
 end
 ~~~
 
-テンプレートを対応するメソッドの返り値に置換するにはrender_templateというメソッドを使用します。例えば、ループHTMLの値を返すrender_loop_htmlというメソッドはrender_templateを使用しているため、ループHTML内であればテンプレートを使用することが可能です。
+テンプレートを対応するメソッドの返り値に置換するには`render_template`というメソッドを使用します。例えば、ループHTMLの値を返す`render_loop_html`というメソッドは`render_template`を使用しているため、ループHTML内であればテンプレートを使用することが可能です。
 
 ~~~ruby
 def render_loop_html(item, opts = {})
@@ -37,7 +37,7 @@ def render_loop_html(item, opts = {})
 end
 ~~~
 
-render_templateはtemplate_variable_handlerによって格納された配列の集合をもとに置換を実行します。find_template_variable_handlerでSymbolやString, Procに対する動作を実行した後、対応するメソッドをcallすることでレンダリングしています。template_variable_getがfalseを返した場合、テンプレートの記述をレンダリングします。
+`render_template`は`template_variable_handler`によって格納された配列の集合をもとに置換を実行します。`find_template_variable_handler`で`Symbol`や`String`, `Proc`に対する動作を実行した後、対応するメソッドを`call`することでレンダリングしています。`template_variable_get`が`false`を返した場合、テンプレートの記述をレンダリングします。
 
 ~~~ruby
 def render_template(template, *args)
@@ -61,7 +61,7 @@ end
 
 ## テンプレートの使用例
 
-テンプレートはループHTMLなどに#{name}のように記述することで使用できます。標準機能のフォルダーリストでは、以下のように使用しています。
+テンプレートはループHTMLなどに`#{name}`のように記述することで使用できます。標準機能のフォルダーリストでは、以下のように使用しています。
 
 ~~~html
 <article class="item-#{class} #{current}">
@@ -73,7 +73,7 @@ end
 
 ## <a name="new"></a><a name="current"></a> new, current
 
-new, currentは条件を満たすときにnew, currentを表示するテンプレートです。このテンプレートはclassを追加してスタイルシートを適用したい場合などに使用します。newは該当するコンテンツの更新日時がリスト表示のアドオンで設定した期間が経過するまでの間、newを表示するテンプレートです。currentは該当するコンテンツが現在のコンテンツと同じ場合にcurrentを表示するテンプレートです。使用例を以下に記述します。
+`new`, `current`は条件を満たすときに`new`, `current`を表示するテンプレートです。このテンプレートは`class`を追加してスタイルシートを適用したい場合などに使用します。`new`は該当するコンテンツの更新日時がリスト表示のアドオンで設定した期間が経過するまでの間、`new`を表示するテンプレートです。`current`は該当するコンテンツが現在のコンテンツと同じ場合に`current`を表示するテンプレートです。使用例を以下に記述します。
 
 ~~~html
 <article class="item-#{class} #{new} #{current}">
@@ -86,7 +86,7 @@ new, currentは条件を満たすときにnew, currentを表示するテンプ�
 
 ## <a name="child_items"></a> 子リスト表示
 
-\#{child_items}は子リストを表示する特殊なテンプレートです。#{child_items}は子リスト表示というアドオンで返り値を設定します。以下に使用例を記述します。
+`#{child_items}`は子リストを表示する特殊なテンプレートです。`#{child_items}`は子リスト表示というアドオンで返り値を設定します。以下に使用例を記述します。
 
 ~~~html
 <!-- リスト表示のループHTML -->
@@ -103,7 +103,7 @@ new, currentは条件を満たすときにnew, currentを表示するテンプ�
 
 ## template_variable_handlerを使用しないテンプレート
 
-一部のテンプレートはtemplate_variable_handlerを使用せずに作成しています。template_variable_handlerを使用ため、レンダリングのタイミングが異なります。Cms::PublicFilter::Layoutのrender_partとrender_layoutにてテンプレートを定義しています。
+一部のテンプレートは`template_variable_handler`を使用せずに作成しています。`template_variable_handler`を使用しないため、レンダリングのタイミングが異なります。`Cms::PublicFilter::Layout`の`render_part`と`render_layout`にてテンプレートを定義しています。
 
 ~~~ruby
 def render_template_variables(html)
@@ -153,7 +153,7 @@ end
 
 ## 条件分岐構文
 
-\#{if 条件分岐タグ}内容A#{end}のように記述することで、条件を満たすとき内容Aが表示されるような条件分岐が可能です。条件分岐構文はレイアウトやパーツで使用できます。条件分岐構文としてif, elsif, elseが使用できます。条件分岐タグは特定の内容を表示する条件を設定するために使用します。
+`#{if 条件分岐タグ}内容A#{end}`のように記述することで、条件を満たすとき内容Aが表示されるような条件分岐が可能です。条件分岐構文はレイアウトやパーツで使用できます。条件分岐構文として`if`, `elsif`, `else`が使用できます。条件分岐タグは特定の内容を表示する条件を設定するために使用します。
 
 |条件分岐タグ|説明|
 |---|---|
@@ -162,7 +162,7 @@ end
 |in_node('/docs')|ファイル名がdocsから始まるならばtrue, それ以外はfalseを返します。|
 |has_pages()|現在のフォルダーにページがある、または現在のフォルダーのカテゴリーに所属しているならばtrue, それ以外はfalseを返します。|
 
-詳細な動作はCms::PublicFilter::ConditionalTagに記述しています。正規表現のためにconditional_tag_templateとconditional_tag_dataというメソッドを作成しています。テンプレートに記述した条件分岐構文に応じてメソッドを作成しています。条件分岐タグはconditional_tag_handlerというメソッドで判別しています。
+詳細な動作は`Cms::PublicFilter::ConditionalTag`に記述しています。正規表現のために`conditional_tag_template`と`conditional_tag_data`というメソッドを作成しています。テンプレートに記述した条件分岐構文に応じてメソッドを作成しています。条件分岐タグは`conditional_tag_handler`というメソッドで判別しています。
 
 ~~~ruby
 def conditional_tag_handler(matchdata, data)
@@ -189,7 +189,7 @@ end
 
 ## 使用できるテンプレート
 
-template_variable_handlerによって使用できるテンプレートを以下に記述します。
+`template_variable_handler`によって使用できるテンプレートを以下に記述します。
 
 ### Ckan::Addon::ItemList
 
