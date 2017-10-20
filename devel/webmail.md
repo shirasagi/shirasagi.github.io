@@ -35,6 +35,7 @@ Dovecot の次の設定ファイルを編集します。
 - `/etc/dovecot/conf.d/10-auth.conf`
 - `/etc/dovecot/conf.d/10-mail.conf`
 - `/etc/dovecot/conf.d/10-master.conf`
+- `/etc/dovecot/conf.d/10-ssl.conf`
 - `/etc/dovecot/conf.d/20-imap.conf`
 - `/etc/dovecot/conf.d/90-quota.conf`
 - `/etc/dovecot/conf.d/auth-static.conf.ext`
@@ -120,6 +121,23 @@ Dovecot の次の設定ファイルを編集します。
  
    # Auth process is run as this user.
    #user = $default_internal_user
+~~~
+
+#### /etc/dovecot/conf.d/10-ssl.conf
+
+~~~
+--- 10-ssl.conf.orig	2017-08-03 15:51:20.000000000 +0900
++++ 10-ssl.conf	2017-10-20 12:17:06.801631069 +0900
+@@ -5,7 +5,8 @@
+ # SSL/TLS support: yes, no, required. <doc/wiki/SSL.txt>
+ # disable plain pop3 and imap, allowed are only pop3+TLS, pop3s, imap+TLS and imaps
+ # plain imap and pop3 are still allowed for local connections
+-ssl = required
++#ssl = required
++ssl = no
+ 
+ # PEM encoded X.509 SSL/TLS certificate and private key. They're opened before
+ # dropping root privileges, so keep the key file unreadable by anyone but
 ~~~
 
 #### /etc/dovecot/conf.d/20-imap.conf
@@ -258,7 +276,7 @@ Postfix の次の設定ファイルを編集します。
 
 ~~~diff
 --- main.cf.orig	2014-06-10 10:39:24.000000000 +0900
-+++ main.cf	2017-10-17 21:10:20.080783771 +0900
++++ main.cf	2017-10-20 13:24:11.386479661 +0900
 @@ -74,6 +74,7 @@
  #
  #myhostname = host.domain.tld
@@ -297,7 +315,7 @@ Postfix の次の設定ファイルを編集します。
  #mynetworks_style = class
  #mynetworks_style = subnet
  #mynetworks_style = host
-+mynetworks_style = host
++mynetworks_style = subnet
  
  # Alternatively, you can specify the mynetworks list by hand, in
  # which case Postfix ignores the mynetworks_style setting.
@@ -309,14 +327,23 @@ Postfix の次の設定ファイルを編集します。
   
  # The mail_spool_directory parameter specifies the directory where
  # UNIX-style mailboxes are kept. The default setting depends on the
-@@ -546,6 +552,7 @@
+@@ -545,7 +551,7 @@
+ #
  # For details, see "man header_checks".
  #
- #header_checks = regexp:/etc/postfix/header_checks
+-#header_checks = regexp:/etc/postfix/header_checks
 +header_checks = regexp:/etc/postfix/header_checks
  
  # FAST ETRN SERVICE
  #
+@@ -605,6 +611,7 @@
+ #
+ #debug_peer_list = 127.0.0.1
+ #debug_peer_list = some.domain
++debug_peer_list = 192.168.33.1 192.168.33.10 127.0.0.1
+ 
+ # The debugger_command specifies the external command that is executed
+ # when a Postfix daemon program is run with the -D option.
 @@ -677,3 +684,17 @@
  # readme_directory: The location of the Postfix README files.
  #
