@@ -77,8 +77,16 @@ Dovecot の次の設定ファイルを編集します。
 
 ~~~diff
 --- 10-mail.conf.orig	2017-08-03 15:50:49.000000000 +0900
-+++ 10-mail.conf	2017-10-18 11:58:39.633114925 +0900
-@@ -206,6 +206,7 @@
++++ 10-mail.conf	2017-10-20 16:37:14.173826076 +0900
+@@ -28,6 +28,7 @@
+ # <doc/wiki/MailLocation.txt>
+ #
+ #mail_location = 
++mail_location = maildir:/var/spool/virtual/%d/%n/Maildir
+ 
+ # If you need to set multiple mailbox locations or want to change default
+ # namespace settings, you can do it by defining namespace sections.
+@@ -206,6 +207,7 @@
  # Space separated list of plugins to load for all services. Plugins specific to
  # IMAP, LDA, etc. are added to this list in their own .conf files.
  #mail_plugins = 
