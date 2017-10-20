@@ -1,20 +1,23 @@
 ---
 layout: default
-title: ウェブ・メール開発環境の構築
+title: ウェブメール開発環境の構築
 ---
 
-本章ではシラサギのウェブ・メール開発環境の構築方法を解説します。
+本章ではシラサギのウェブメール開発環境の構築方法を解説します。
 
 ## 構築手順
 
-MTA に Postfix を、IMAP サーバーに Dovecot を利用します。
+以下のサービスを設定します。
+
+- IMAP サーバーとして Dovecot
+- MTA として Postfix
 
 シラサギのユーザーが既定で `example.jp` ドメインに所属するので、
-Postfix と Dovecot を設定し `example.jp` ドメインでメールの送受信が可能となるように構成します。
+`example.jp` ドメインでメールの送受信が可能となるように Postfix と Dovecot を設定します。
 
 さらに、開発サーバーですので外部にメールが誤って送られないように設定します。
 
-最後にシラサギのウェブ・メールを設定します。
+最後にシラサギのウェブメールを設定します。
 
 対象 OS は CentOS7 です。他の OS をご利用の方は適時読み替えてください。
 
@@ -73,6 +76,12 @@ Dovecot の次の設定ファイルを編集します。
 +!include auth-static.conf.ext
 ~~~
 
+次の設定を変更しています。　
+
+- CRAMD-MD5 で認証するように設定
+- 既定の auth-system.conf.ext の include を無効化
+- auth-passwdfile.conf.ext と auth-static.conf.ext の include を有効化
+
 #### /etc/dovecot/conf.d/10-mail.conf
 
 ~~~diff
@@ -96,6 +105,11 @@ Dovecot の次の設定ファイルを編集します。
  ## Mailbox handling optimizations
 ~~~
 
+次の設定を変更しています。　
+
+- メールの保存場所を設定
+  - これを設定することで、メールの保存場所が存在しない場合自動で作成されるようになります。
+- quota プラグインの有効化
 
 #### /etc/dovecot/conf.d/10-master.conf
 
@@ -131,6 +145,11 @@ Dovecot の次の設定ファイルを編集します。
    #user = $default_internal_user
 ~~~
 
+次の設定を変更しています。　
+
+- 標準の unix_listener を無効化
+- Postfix の SMTP を Dovecot で認証するための設定を追加
+
 #### /etc/dovecot/conf.d/10-ssl.conf
 
 ~~~
@@ -148,6 +167,10 @@ Dovecot の次の設定ファイルを編集します。
  # dropping root privileges, so keep the key file unreadable by anyone but
 ~~~
 
+次の設定を変更しています。　
+
+- SSL/TLS の無効化
+
 #### /etc/dovecot/conf.d/20-imap.conf
 
 ~~~diff
@@ -163,6 +186,10 @@ Dovecot の次の設定ファイルを編集します。
    # Maximum number of IMAP connections allowed for a user from each IP address.
    # NOTE: The username is compared case-sensitively.
 ~~~
+
+次の設定を変更しています。　
+
+- IMAP 利用時の quota プラグインの有効化
 
 #### /etc/dovecot/conf.d/90-quota.conf
 
@@ -197,6 +224,10 @@ Dovecot の次の設定ファイルを編集します。
  }
 ~~~
 
+次の設定を変更しています。　
+
+- quota の有効化
+
 #### /etc/dovecot/conf.d/auth-static.conf.ext
 
 ~~~diff
@@ -213,7 +244,9 @@ Dovecot の次の設定ファイルを編集します。
 +}
 ~~~
 
-ディレクトリ `/var/spool/virtual` 以下に受信したメールを保存するように設定しています。
+次の設定を変更しています。　
+
+- IMAP 利用時にディレクトリ `/var/spool/virtual` 以下に保存したメールを参照するように設定
 
 #### /etc/dovecot/users
 
@@ -239,7 +272,7 @@ user3@example.jp:{CRAM-MD5}ff5d74b19e3cb9b2b9f4fcb548fe023aeb44f67f231a5a89714d0
 ~~~
 
 この例では `sys@example.jp`, `admin@example.jp`, `user1@example.jp`, `user2@example.jp`, `user3@example.jp` の 5 ユーザーを登録し、全ユーザーのパスワードが `pass` であることを前提としています。
-シラサギに設定しているユーザー / パスワードが上記以外であれば適時修正してください。
+シラサギに設定しているユーザー / パスワードに応じて適時読み替えてください。
 
 ### 有効化と起動
 
@@ -256,7 +289,7 @@ $ sudo systemctl start dovecot
 
 CentOS7 であれば Postfix は標準でインストールされているのでインストールは不要です。
 設定の変更点だけ説明します。
-Postfix の次の設定ファイルを編集します。
+次の Postfix の設定ファイルを編集します。
 
 - `/etc/postfix/master.cf`
 - `/etc/postfix/main.cf`
@@ -279,6 +312,10 @@ Postfix の次の設定ファイルを編集します。
  #  -o smtpd_tls_security_level=encrypt
  #  -o smtpd_sasl_auth_enable=yes
 ~~~
+
+次の設定を変更しています。　
+
+- サブミッションポート（587）の有効化
 
 #### /etc/postfix/main.cf
 
@@ -386,7 +423,7 @@ Postfix の次の設定ファイルを編集します。
 
 ### メールディレクトリの作成
 
-まず次のユーザーとグループを作成します。
+ディレクトリを作成する前に、次のユーザーとグループを作成します。
 
 ~~~shell
 $ sudo groupadd -g 10000 mailuser
@@ -435,7 +472,7 @@ $ sudo systemctl restart postfix
 
 メールが 1 通もない状態だと、シラサギのウェブメールを表示した際に認証エラーとなります。
 
-上記の設定のテストも兼ねてテストメールを送って見ます。
+上記の設定のテストも兼ねてテストメールを送ってみます。
 
 ~~~shell
 $ echo 'This is test mail.' | sendmail sys@example.jp
@@ -459,9 +496,9 @@ Oct 18 11:46:21 localhost postfix/virtual[15842]: 6BAEA113BE76: to=<user3@exampl
 
 `status=sent` となっており、送信に成功しています。
 
-それでは、シラサギのウェブ・メールを設定し、シラサギでテストメールが届いているかどうか確認してみます。
+それでは、シラサギのウェブメールを設定し、シラサギでテストメールが届いているかどうか確認してみます。
 
-## シラサギのウェブ・メールの設定
+## シラサギのウェブメールの設定
 
 シラサギをインストールしたディレクトリに移動し、次のコマンドを実行します。
 
@@ -501,7 +538,7 @@ $ bin/rake unicorn:stop
 $ bin/rake unicorn:start
 ~~~
 
-シラサギの管理画面へアクセスし、ウェブ・メールが正しく表示されていることを確認してください。
+シラサギの管理画面へアクセスし、ウェブメールが正しく表示されていることを確認してください。
 
 
 ## 新しいユーザーを追加する場合
