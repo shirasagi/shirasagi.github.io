@@ -119,7 +119,7 @@ end
 
 ~~~html
 <!-- 上部HTML -->
-<nav id="category-list"><header><h2>#{parent.parent_name} > #{parent_name}</h2></header>
+<nav id="category-list"><header><h2>#{parent.parent_name} &gt; #{parent_name}</h2></header>
 ~~~
 
 以下に使用できるテンプレートを記述します。
@@ -180,10 +180,17 @@ end
 
 ~~~html
 #{if is_page()}
-<p>#{parent_name} > #{page_name}</p>
+<p>#{parent_name} &gt; #{page_name}</p>
 #{elsif is_node()}
 <p>#{page_name}</p>
 #{else}
+#{end}
+~~~
+~~~html
+#{if has_pages()}
+</ yield />
+#{else}
+<p>記事はありません。</p>
 #{end}
 ~~~
 
