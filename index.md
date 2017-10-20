@@ -80,6 +80,7 @@ title: SHIRASAGI 開発マニュアル
 - [ファイル機能（SS::File）](devel/ss_file.html)
 - [モーダル検索UI (SearchUI)](devel/search_ui.html)
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
+- [ループHTML変数の一覧と使用例(template_variable_handler)](devel/template_variable_handler.html)
 - [アクセシビリティチェック機能](devel/accessibility.html)
 - [Jobの開発](devel/job.html)
 - [Rspec](devel/rspec/rspec.html)
