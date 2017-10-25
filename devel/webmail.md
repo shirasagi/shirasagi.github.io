@@ -321,7 +321,7 @@ CentOS7 であれば Postfix は標準でインストールされているので
 
 ~~~diff
 --- main.cf.orig	2014-06-10 10:39:24.000000000 +0900
-+++ main.cf	2017-10-20 13:24:11.386479661 +0900
++++ main.cf	2017-10-25 11:29:54.711718567 +0900
 @@ -74,6 +74,7 @@
  #
  #myhostname = host.domain.tld
@@ -381,15 +381,7 @@ CentOS7 であれば Postfix は標準でインストールされているので
  
  # FAST ETRN SERVICE
  #
-@@ -605,6 +611,7 @@
- #
- #debug_peer_list = 127.0.0.1
- #debug_peer_list = some.domain
-+debug_peer_list = 192.168.33.1 192.168.33.10 127.0.0.1
- 
- # The debugger_command specifies the external command that is executed
- # when a Postfix daemon program is run with the -D option.
-@@ -677,3 +684,17 @@
+@@ -677,3 +683,17 @@
  # readme_directory: The location of the Postfix README files.
  #
  readme_directory = /usr/share/doc/postfix-2.10.1/README_FILES
