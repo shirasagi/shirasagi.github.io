@@ -111,6 +111,17 @@ Dovecot の次の設定ファイルを編集します。
   - これを設定することで、メールの保存場所が存在しない場合自動で作成されるようになります。
 - quota プラグインの有効化
 
+なお CentOS6 では、次の設定が追加で必要でした。
+もしウェブメールが動作しない場合は次の設定を追加してみてください。
+
+~~~
+# System user and group used to access mails. If you use multiple, userdb
+# can override these by returning uid or gid fields. You can use either numbers
+# or names. <doc/wiki/UserIds.txt>
+mail_uid = 10000
+mail_gid = 10000
+~~~
+
 #### /etc/dovecot/conf.d/10-master.conf
 
 ~~~diff
