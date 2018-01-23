@@ -39,6 +39,8 @@ title: 定期実行
 ~~~
 ## リマインダーメール通知
 */10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:reminder:notification:deliver' >/dev/null
+## お知らせ掲載通知
+*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notice:notification:deliver' >/dev/null
 ~~~
 
 ## その他
