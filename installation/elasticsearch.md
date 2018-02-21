@@ -92,7 +92,7 @@ Rails コンソールから以下のコマンドを実行し、全文検索を�
 
 ~~~ruby
 group = Gws::Group.find_by(name: 'シラサギ市')
-group.menu_elasticsearch_state = 'enabled'
+group.menu_elasticsearch_state = 'show'
 group.elasticsearch_hosts = ["127.0.0.1:9200"]
 group.save
 ~~~
