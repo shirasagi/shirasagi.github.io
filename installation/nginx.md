@@ -147,12 +147,14 @@ server {
 ~~~
 include conf.d/common/drop.conf;
 root /var/www/shirasagi/public/sites/w/w/w/_/;
+error_page 404 /404.html;
 
 location @app {
     include conf.d/header.conf;
     if ($request_filename ~ .*\.(ico|gif|jpe?g|png|css|js)$) { access_log off; }
     proxy_pass http://127.0.0.1:3000;
     proxy_set_header X-Accel-Mapping /var/www/shirasagi/=/private_files/;
+    proxy_intercept_errors on;
 }
 location / {
     try_files $uri $uri/index.html @app;
