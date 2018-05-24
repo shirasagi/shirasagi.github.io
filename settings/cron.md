@@ -49,6 +49,10 @@ title: 定期実行
 ## その他
 
 ~~~
+## 日ごとのメンテナンス
+## - ss:delete_download_files (エクスポートファイルの削除)
+0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
+
 ## DBバックアップ
 5 0 * * * /usr/bin/mongodump --db ss -o /var/db_backups/$(date +\%Y\%m\%d)
 ~~~
