@@ -5,6 +5,14 @@ title: 定期実行
 
 日時の設定は目安として記載しています。
 
+## 共通
+
+~~~
+## 日ごとのメンテナンス
+## - ss:delete_download_files (エクスポートファイルの削除)
+0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
+~~~
+
 ## CMS
 
 ~~~
@@ -39,20 +47,18 @@ title: 定期実行
 ~~~
 ## リマインダーメール通知
 */10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:reminder:notification:deliver' >/dev/null
+
 ## お知らせ掲載通知
 */10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notice:notification:deliver' >/dev/null
+
 ## ゴミ箱掃除（例: 削除されてから 1 ヶ月がたったシラサギ市のデータの削除）
 ## パラメータは適時変更してください。
-*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:trash:purge site=シラサギ市 threshold=1.month' >/dev/null
+5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:trash:purge site=シラサギ市 threshold=1.month' >/dev/null
 ~~~
 
 ## その他
 
 ~~~
-## 日ごとのメンテナンス
-## - ss:delete_download_files (エクスポートファイルの削除)
-0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
-
 ## DBバックアップ
 5 0 * * * /usr/bin/mongodump --db ss -o /var/db_backups/$(date +\%Y\%m\%d)
 ~~~
