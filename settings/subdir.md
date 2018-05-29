@@ -63,7 +63,7 @@ title: サブディレクトリ設定
 ### 0．シラサギインストール
 
 シラサギをインストールします。<br />
-Nginxのドキュメントルート設定を調整します。
+Nginxのドキュメントルート設定を調整します。(※後項参照)
 
 ### 1．サブサイト用のサイトを追加します。（管理画面より登録してもOK）
 
@@ -112,5 +112,29 @@ rake cms:set_subdir_url site=www
 
 * 管理画面よりサブディレクトリ、親サイトの設定
 * ドキュメントルート下のファイルを手動移動、調整
-* Nginxのドキュメントルート設定の調整
+* Nginxのドキュメントルート設定の調整(※後項参照)
 * レイアウト等に記載されているURLの調整
+
+## Nginxのドキュメントルート設定の調整
+
+サイトAをサイトBの親サイトに設定した場合は、サイトAのドキュメントルートの<br />
+設定のみで問題ありませんが、親サイトの設定を行わず、サブディレクトリを<br />
+個別のサイトとして管理する場合、Nginxのドキュメントルートの調整が必要となります。
+
+上記「例）※親サイト設定なし」の場合の設定例
+
+~~~
+# vi /etc/nginx/conf.d/server/shirasagi.conf
+~~~
+
+~~~
+include conf.d/common/drop.conf;
+root /var/www/shirasagi/public/sites/w/w/w/_/;
+
+～ 省略 ～
+
+location ^~ /subdir/ {
+    root /var/www/shirasagi/public/sites/d/e/m/o/_/;
+    try_files $uri $uri/index.html @app;
+}
+~~~
