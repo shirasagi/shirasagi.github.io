@@ -60,7 +60,7 @@ Unicorn の再起動には 2, 3 分かかる場合があります。
 
 ### Twitter
 
-ブラウザで [Twitter](https://twitter.com/) にログイン後、https://apps.twitter.com/ にアクセスします。
+ブラウザで [Twitter](https://twitter.com/) にログイン後、<https://apps.twitter.com/> にアクセスします。
 
 "Create New App" ボタンをクリックし、アプリケーションを作成します。
 次の項目を入力します。
@@ -88,7 +88,7 @@ Unicorn の再起動には 2, 3 分かかる場合があります。
 
 ### Facebook
 
-ブラウザで [Facebook](https://www.facebook.com/) にログイン後、https://developers.facebook.com/ にアクセスします。
+ブラウザで [Facebook](https://www.facebook.com/) にログイン後、<https://developers.facebook.com/> にアクセスします。
 アクセス後:
 
 1. メニュー "My Apps" -> "Add a New App" を選択します。
@@ -121,7 +121,7 @@ Facebook にはビジネスアカウントという企業で利用すること�
 
 ### Yahoo! JAPAN
 
-ブラウザで [Yahoo! JAPAN](http://www.yahoo.co.jp/) にログイン後、https://e.developer.yahoo.co.jp/ にアクセスします。
+ブラウザで [Yahoo! JAPAN](http://www.yahoo.co.jp/) にログイン後、<https://e.developer.yahoo.co.jp/> にアクセスします。
 
 「新しいアプリケーションを開発」ボタンをクリックし、次の情報を入力します。
 
@@ -135,16 +135,23 @@ Facebook にはビジネスアカウントという企業で利用すること�
 
 画面下段にある「アプリケーションの詳細」をクリックし、詳細画面で次の情報を入力します。
 
-* コールバックURL: `http://$domain:$port/auth/yahoojp/callback`
+* コールバックURL: `http://$domain:$port/auth/yahoojp_v2/callback`
 
 更新ボタンをクリックし、アプリケーションを更新します。
 
 アプリケーションを更新すると、アプリケーションID（＝クライアントID）とシークレット（＝クライアントシークレット）を取得することができます。
 クライアントIDとクライアントシークレットをメモしておき、シラサギに設定します。
 
+#### Yahoo! ID連携v1について
+
+シラサギでは引き続き v1 もサポートしています。
+v1 をご利用の方はコールバック URL として次の URL を設定してください。
+
+* コールバックURL: `http://$domain:$port/auth/yahoojp/callback`
+
 ### Google
 
-ブラウザで [Google](https://www.google.co.jp/) にログイン後、https://console.developers.google.com/ にアクセスします。
+ブラウザで [Google](https://www.google.co.jp/) にログイン後、<https://console.developers.google.com/> にアクセスします。
 
 左上にある「≡」をクリックし、表示されたメニューから「API Manager」をクリックします。
 "Contacts API" と "Google+ API" の使用を有効にします。
