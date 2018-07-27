@@ -41,6 +41,7 @@ title: SHIRASAGI 開発マニュアル
 - [定期実行](settings/cron.html)
 - [メール送信](settings/mail.html)
 - [セッションタイムアウト](settings/session.html)
+- [セッションの secure 化](settings/secure_session.html)
 - [OEM開発](settings/oem.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
 - [ファイルサイズ制限](settings/file_size_limit.html)
