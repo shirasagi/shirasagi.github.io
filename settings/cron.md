@@ -45,11 +45,8 @@ title: 定期実行
 ## GWS
 
 ~~~
-## リマインダーメール通知
-*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:reminder:notification:deliver' >/dev/null
-
-## お知らせ掲載通知
-*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notice:notification:deliver' >/dev/null
+## 通知
+*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notification:deliver' >/dev/null
 
 ## ゴミ箱掃除（例: 削除されてから 1 ヶ月がたったシラサギ市のデータの削除）
 ## パラメータは適時変更してください。
