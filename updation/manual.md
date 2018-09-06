@@ -46,3 +46,8 @@ $ rake ss:migrate
 ~~~
 $ rake unicorn:restart
 ~~~
+
+## 全文検索インデックスの更新
+
+グループウェアの全文検索をご利用の方は全文検索インデックスの更新が必要です。
+詳しくは[全文検索インデックスの更新](/updation/elasticsearch_index.html)を参照してください。

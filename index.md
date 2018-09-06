@@ -31,6 +31,7 @@ title: SHIRASAGI 開発マニュアル
 - [Ruby の更新](updation/ruby.html)
 - [MongoDB の更新](updation/mongodb.html)
 - [SHIRASAGI の更新](updation/manual.html)
+- [全文検索インデックスの更新](updation/elasticsearch_index.html)
 - [バックアップとリストア](updation/backup.html)
 
 ## 設定
