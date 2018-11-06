@@ -50,6 +50,7 @@ title: SHIRASAGI 開発マニュアル
 - [Twitter, Facebook投稿連携](settings/twitter_facebook.html)
 - [気象庁防災情報XML連携](settings/jmaxml.html)
 - [分散構成(同期/非レプリカセット)](settings/repl.html)
+- [SAML 認証の疎通確認](settings/saml_sampling.html)
 
 ## 機能
 
