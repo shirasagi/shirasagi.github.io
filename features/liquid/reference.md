@@ -242,7 +242,8 @@ TBD
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| value.list  | 
+| value.list_type | リスト種類。ol か ul のどちらか。
+| value.lists  | リストが配列で返るs。
 
 ### YouTube埋め込み
 
@@ -269,27 +270,13 @@ TBD
 
 | フィルター    | 説明 |
 |-------------|--------------------------------------------|
-| ss_date     | 
-| ss_time     | 
-| pluralize     | 
-| singularize     | 
-| camelize     | 
-| underscore     | 
-| titleize     | 
-| dasherize     | 
-| parameterize     | 
-| tableize     | 
-| classify     | 
-| phone     | 
-| currency     | 
-| percentage     | 
-| delimited     | 
-| rounded     | 
-| human     | 
-| human_size     | 
-| ss_append     | 
-| ss_prepend     | 
-| ss_img_src     | 
-| expand_path     | 
+| ss_date     | 日付を文字列に変換
+| ss_time     | 日時を文字列に変換
+| delimited   | 数値を 3 桁区切り文字列に変換
+| human_size  | 数値を人が視認しやすいサイズ表現に変換。<br />例: `123456789` を `118 MB`
+| ss_append   | 末尾に指定された文字列を追加
+| ss_prepend  | 先頭に指定された文字列を追加
+| ss_img_src  | HTML 形式の文字列から先頭の &lt;img> タグの `src` 属性を抜き出す。
+| expand_path | 相対パスを絶対パスに変換
 
 [Liquid](https://shopify.github.io/liquid/) 標準のフィルターも使用できます。
