@@ -153,6 +153,7 @@ title: リファレンス
 | node.filename | ノードのファイル名
 | node.order | ノードの並び順
 | node.date | ノードの日時
+| node.current? | ノードが現在の場合 true
 | node.released | ノードの公開日時
 | node.updated | ノードの更新日時
 | node.created | ノードの作成日時
@@ -177,9 +178,9 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.name  | ブロックの名称
-| value.alignment  | ブロックの配置
-| value.html  | 設定にしたがって入力値を HTML 化したもの
-| value.type  | ブロックの型
+| value.alignment | ブロックの配置
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。{% raw %}`{{ value }}`{% endraw %} と同じです。
+| value.type  | ブロックの型を表す文字列
 
 ### 一行入力
 
@@ -192,7 +193,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.date  | 入力された日時
-| value.value | `{{ value.date | ss_date }}` と同じ文字列
+| value.value | {% raw %}`{{ value.date | ss_date }}`{% endraw %} と同じ文字列
 
 ### URL入力
 
@@ -224,7 +225,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.values | 選択された選択肢（複数）
-| value.value | `{{ value.values | join: ", " }}` と同じ文字列
+| value.value | {% raw %}`{{ value.values | join: ", " }}`{% endraw %} と同じ文字列
 
 ### ファイルアップロード
 
@@ -247,10 +248,10 @@ TBD
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| value.youtube_id  | 
-| value.width  | 
-| value.height  | 
-| value.auto_width  | 
+| value.youtube_id  | YouTube Id です。
+| value.width  | ビデオの横幅です。
+| value.height  | ビデオの高さです。
+| value.auto_width  | ビデオを画面の横幅に合わせるかどうかを示し、"enabled" のとき、横幅に合わせるようにします。
 
 ### 自由入力
 

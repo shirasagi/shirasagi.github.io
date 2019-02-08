@@ -1,6 +1,6 @@
 ---
 layout: top
-title: Liquid 形式
+title: Liquid 形式レイアウト
 ---
 
 - [リファレンス](reference.html)

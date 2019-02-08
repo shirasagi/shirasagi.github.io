@@ -61,7 +61,7 @@ title: SHIRASAGI 開発マニュアル
 - [組織変更](features/chorg.html)
 - [閲覧履歴とレコメンド](features/recommend.html)
 - [サイトのデータ移行](features/site_export.html)
-- [Liquid 形式](features/liquid/index.html)
+- [Liquid 形式レイアウト](features/liquid/index.html)
 
 ## ソースコード
 
