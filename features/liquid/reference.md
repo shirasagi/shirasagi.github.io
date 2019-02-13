@@ -267,6 +267,38 @@ TBD
 |-------------|--------------------------------------------|
 | value.value | 入力されたHTML
 
+## groups
+
+`page.groups` や `node.groups` は `groups` を返し、グループの一覧を表します。
+
+## group
+
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| group.name  | グループ名
+| group.full_name  | グループ名の "/" を " " に置き換えたもの
+| group.section_name  | グループ名の先頭の要素を除いて "/" を " " に置き換えたもの
+| group.trailing_name  | グループ名からグループ階層を除いた末端の名前
+| group.last_name  | グループ名の最後の要素
+
+## files
+
+自由入力の `value.files` は `files` を返し、ファイルの一覧を表します。
+
+## file
+
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| file.name   | ファイルの日本語名
+| file.extname | ファイルの拡張子
+| file.size   | ファイルのサイズ
+| file.humanized_name | ファイルの日本語名の可読形式
+| file.filename | ファイルの物理名
+| file.basename | ファイルのベース名
+| file.url    | ファイルの URL
+| file.thumb_url | ファイルのサムネイル URL（ただしファイルが画像の場合）
+| file.image?  | ファイルが画像の場合 true
+
 ## Filters
 
 | フィルター    | 説明 |
