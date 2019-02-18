@@ -37,18 +37,11 @@ production:
 
 ### 変更方法
 
-`mongo` コマンドでデータベースに接続した後、
-ハードリミットを 120 分に変更したい場合、次のコマンドを実行します。
+ハードリミットを 120 分（= 7200 秒）に変更したい場合、シラサギディレクトリで次のコマンドを実行します。
 
 ~~~
-use シラサギが利用しているデータベース;
-// 認証が必要な場合、次のコマンドを実行
-// db.auth("ユーザーID", "パスワード");
-db.sessions.dropIndex("updated_at_1");
-db.sessions.createIndex({ updated_at: 1 }, { expireAfterSeconds: 7200 });
+bin/rake ss:session_lifetime:set limit=7200
 ~~~
-
-最後の `db.sessions.createIndex({ updated_at: 1 }, { expireAfterSeconds: 7200 });` を実行せずにおくと、ハードリミットを削除することができます。
 
 ## 制限
 
