@@ -43,6 +43,18 @@ production:
 bin/rake ss:session_lifetime:set limit=7200
 ~~~
 
+> 上記のコマンドは v1.11 以降で使用することができます。v1.10 以前をご利用の方は `mongo` コマンドを用いて直接データベースを修正してください。以下に `mongo` コマンドを用いて 120 分（= 7200 秒）に変更にする実行例を示します。
+> 
+> ~~~
+> use シラサギが利用しているデータベース;
+> // 認証が必要な場合、次のコマンドを実行
+> // db.auth("ユーザーID", "パスワード");
+> db.sessions.dropIndex("updated_at_1");
+> db.sessions.createIndex({ updated_at: 1 }, { expireAfterSeconds: 7200 });
+> ~~~
+> 
+> 「シラサギが利用しているデータベース」は、標準は ss ですので、一行目のコマンドは use ss; となります。
+
 ## 制限
 
 ソフトリミットは、ハードリミットの範囲内で変更させることができます。
