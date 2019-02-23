@@ -22,8 +22,8 @@ $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334B
 $ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 $ sudo apt-get update
 $ sudo apt-get install -y mongodb-org
-$ systemctl start mongod
-$ systemctl enable mongod
+$ sudo systemctl start mongod
+$ sudo systemctl enable mongod
 ```
 
 ## Ruby(RVM) のインストール
@@ -34,26 +34,34 @@ $ systemctl enable mongod
 $ sudo apt-add-repository -y ppa:rael-gc/rvm
 $ sudo apt-get update
 $ sudo apt-get install -y rvm
-( Run command as login shell )
+$ source /usr/share/rvm/scripts/rvm #(Run command as login shell)
 $ rvm install ruby 2.4.4
 $ rvm use 2.4.4 --default
-$ rvmsudo gem install bundler --no-document -v1.17.3
+```
+
+## Nginx のインストール
+
+> http://shirasagi.github.io/installation/nginx.html
+
+```
+$ sudo apt-get install -y nginx
+$ cd /etc/nginx
+( Nginx settings )
+$ sudo systemctl start nginx
+$ sudo systemctl enable nginx
 ```
 
 ## シラサギのインストール
 
 ```
-sudo chown -R `whoami` /var/www && cd /var/www
-git clone -b stable --depth 1 git@github.com:shirasagi/shirasagi.git shirasagi
-cp -n config/samples/*.{rb,yml} config/
-rvmsudo bundle install
-```
+$ sudo chown -R $(whoami) /var/www
+$ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi.git /var/www/shirasagi
+$ cd /var/www/shirasagi
+$ cp -n config/samples/*.{rb,yml} config/
+$ bundle install
+$ rake unicorn:start
 
-## Web サーバの起動
-
-```
-rake unicorn:start
-firefox http:/localhost:3000/.mypage/login &
+$ firefox http:/localhost:3000/.mypage &
 ```
 
 ---
