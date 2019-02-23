@@ -13,8 +13,10 @@ title: SHIRASAGI 開発マニュアル
 ## インストール手順
 
 - [自動インストール - Vagrant](installation/vagrant.html)
-- [手動インストール - CentOS](installation/manual.html)
-- [手動インストール - Ubuntu](installation/ubuntu.html)
+- 手動インストール
+  - [CentOS](installation/manual.html)
+  - [Ubuntu 16.04](installation/ubuntu.html)
+  - [Linux Mint 19.1](installation/linux-mint-19.1.html)
 - [Nginx のインストール](installation/nginx.html)
 - [Apache のインストール](installation/apache.html)
 - [Unicorn のインストール](installation/unicorn.html)
