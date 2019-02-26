@@ -48,6 +48,7 @@ title: SHIRASAGI 開発マニュアル
 - [OEM開発](settings/oem.html)
 - [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
 - [ファイルサイズ制限](settings/file_size_limit.html)
+- [リンクチェック設定](settings/check_links.html)
 - [サブディレクトリ設定](settings/subdir.html)
 - [Twitter, Facebook投稿連携](settings/twitter_facebook.html)
 - [気象庁防災情報XML連携](settings/jmaxml.html)
