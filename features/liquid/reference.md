@@ -23,14 +23,14 @@ title: リファレンス
 
 {% highlight HTML %}
 {% raw %}
-{{ for page in pages }}
+{% for page in pages %}
 <article class="item-{{ page.css_class }} {% if page.new? %}new{% endif %} {% if page.current? %}current{% endif %}">
   <header>
     <time datetime="{{ page.date }}">{{ page.date | ss_date: "long" }}</time>
     <h2><a href="{{ page.url }}">{{ page.index_name | default: page.name }}</a></h2>
   </header>
 </article>
-{{ endfor }}
+{% endfor %}
 {% endraw %}
 {% endhighlight %}
 
