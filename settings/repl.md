@@ -52,7 +52,7 @@ production:
 ~~~
 production:
   clients:
-    default:
+    default: &default
       database: master
       hosts:
         - localhost:27017
@@ -61,6 +61,9 @@ production:
       database: post_private
       hosts:
         - localhost:27018
+
+    repl_master:
+      <<: *default
 
     public:
       database: post_public
