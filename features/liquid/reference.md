@@ -23,14 +23,14 @@ title: リファレンス
 
 {% highlight HTML %}
 {% raw %}
-{{ for page in pages }}
+{% for page in pages %}
 <article class="item-{{ page.css_class }} {% if page.new? %}new{% endif %} {% if page.current? %}current{% endif %}">
   <header>
     <time datetime="{{ page.date }}">{{ page.date | ss_date: "long" }}</time>
     <h2><a href="{{ page.url }}">{{ page.index_name | default: page.name }}</a></h2>
   </header>
 </article>
-{{ endfor }}
+{% endfor %}
 {% endraw %}
 {% endhighlight %}
 
@@ -178,7 +178,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.name  | ブロックの名称
-| value.alignment | ブロックの配置
+| value.alignment | ブロックの配置。`flow`, `center`, `left`, `right` のいずれかの文字列。
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。{% raw %}`{{ value }}`{% endraw %} と同じです。
 | value.type  | ブロックの型を表す文字列
 
@@ -186,55 +186,110 @@ title: リファレンス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
 | value.value | 入力された文字列
 
 ### 日付入力
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.date | ss_date: "long" }}`{% endraw %} と同じです。
 | value.date  | 入力された日時
-| value.value | {% raw %}`{{ value.date | ss_date }}`{% endraw %} と同じ文字列
+| value.value | {% raw %}`{{ value.date | ss_date: "long" }}`{% endraw %} と同じ文字列
 
 ### URL入力
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| value.link | 入力された文字列
-| value.label | 入力された文字列
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<a href="{{ value.link_url }}">{{ value.link_label | default: value.link_url }}</a>`{% endraw %} と同じです。
+| value.link_url | リンクURL
+| value.link_label | リンクテキスト
+| value.link_target | リンクターゲット。`_blank` か空文字列。 
 
 ### 複数行入力
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | newline_to_br | sanitize }}`{% endraw %} と同じです。
 | value.value | 入力された文字列
 
 ### ドロップダウン
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
 | value.value | 選択された選択肢
 
 ### ラジオボタン
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
 | value.value | 選択された選択肢
 
 ### チェックボックス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
 | value.values | 選択された選択肢（複数）
 | value.value | {% raw %}`{{ value.values | join: ", " }}`{% endraw %} と同じ文字列
 
 ### ファイルアップロード
 
-TBD
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定値は下を参照。
+| value.file_type | アップロードの種類。`image`, `attachment`, `video`, `banner` のいずれかの文字列。
+| value.file | ファイル
+| value.file_label | ファイルのタイトル
+| value.text | （ビデオアップロードの場合のみ有効）ビデオの説明
+| value.image_html_type | （画像アップロードの場合のみ有効）画像のリンク形式。`image` または `thumb` のいずれかの文字列。
+| value.link_url | （バナーの場合のみ有効）リンクURL
+
+
+#### value.file_type が image の場合の value.html
+
+{% raw %}
+~~~
+<img src="{{ value.file.url }}" alt="{{ value.file_label || default: value.file.humanized_name }}">
+~~~
+{% endraw %}
+
+#### value.file_type が attachment の場合の value.html
+
+{% raw %}
+~~~
+<a href="{{ value.file.url }}">{{ value.file_label | default: value.file.name  }} ({{ value.file.extname | upcase }} {{ value.file.size | human_size }})</a>
+~~~
+{% endraw %}
+
+#### value.file_type が video の場合の value.html
+
+{% raw %}
+~~~
+<div>
+  <video src="{{ value.file.url }}" controls="controls"></video>
+  <div>{{ value.text | newline_to_br }}</div>
+</div>
+~~~
+{% endraw %}
+
+#### value.file_type が banner の場合の value.html
+
+{% raw %}
+~~~
+<a href="{{ value.link_url }}">
+  <img src="{{ value.file.url }}" alt="{{ value.file_label | default: value.file.humanized_name }}">
+</a>
+~~~
+{% endraw %}
 
 ### 見出し入力
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<{{ value.head }}>{{ value.text | sanitize }}</{{ value.head }}>`{% endraw %} と同じです。
 | value.head  | h1, h2, h3, h4 のいずれか
 | value.text  | 入力された文字列
 
@@ -242,13 +297,15 @@ TBD
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では<br/>{% raw %}&lt;{{ value.list_type }}><br/>  {% for list in value.lists %}<br/>  &lt;li>{{ list \| sanitize }}&lt;/li><br/>  {% endfor %}<br/>&lt;/{{ value.list_type }}>{% endraw %}<br/>と同じです。
 | value.list_type | リスト種類。ol か ul のどちらか。
-| value.lists  | リストが配列で返るs。
+| value.lists    | リストが配列で返る。
 
 ### YouTube埋め込み
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<iframe src="https://www.youtube.com/embed/{{ value.youtube_id }}" width="{{ value.width }}" height="{{ value.height }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>`{% endraw %} と同じです。
 | value.youtube_id  | YouTube Id です。
 | value.width  | ビデオの横幅です。
 | value.height  | ビデオの高さです。
@@ -258,13 +315,48 @@ TBD
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value }}`{% endraw %} と同じです。
 | value.value | 入力されたHTML
+| value.files | アップロードされたファイル
 
 ### 表
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | newline_to_br }}`{% endraw %} と同じです。
 | value.value | 入力されたHTML
+
+## groups
+
+`page.groups` や `node.groups` は `groups` を返し、グループの一覧を表します。
+
+## group
+
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| group.name  | グループ名
+| group.full_name  | グループ名の "/" を " " に置き換えたもの
+| group.section_name  | グループ名の先頭の要素を除いて "/" を " " に置き換えたもの
+| group.trailing_name  | グループ名からグループ階層を除いた末端の名前
+| group.last_name  | グループ名の最後の要素
+
+## files
+
+自由入力の `value.files` は `files` を返し、ファイルの一覧を表します。
+
+## file
+
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| file.name   | ファイルの日本語名
+| file.extname | ファイルの拡張子
+| file.size   | ファイルのサイズ
+| file.humanized_name | ファイルの日本語名の可読形式
+| file.filename | ファイルの物理名
+| file.basename | ファイルのベース名
+| file.url    | ファイルの URL
+| file.thumb_url | ファイルのサムネイル URL（ただしファイルが画像の場合）
+| file.image?  | ファイルが画像の場合 true
 
 ## Filters
 
@@ -278,5 +370,6 @@ TBD
 | ss_prepend  | 先頭に指定された文字列を追加
 | ss_img_src  | HTML 形式の文字列から先頭の &lt;img> タグの `src` 属性を抜き出す。
 | expand_path | 相対パスを絶対パスに変換
+| sanitize    | HTML として不適切な文字を削除
 
 [Liquid](https://shopify.github.io/liquid/) 標準のフィルターも使用できます。
