@@ -12,7 +12,9 @@ title: SHIRASAGI 開発マニュアル
 
 ## インストール手順
 
-- [自動インストール - Vagrant](installation/vagrant.html)
+- 自動インストール
+  - [Vagrant](installation/vagrant.html)
+  - [install.sh](installation/installsh.html)
 - 手動インストール
   - [CentOS](installation/manual.html)
   - [Ubuntu 16.04](installation/ubuntu.html)
