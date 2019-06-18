@@ -69,11 +69,31 @@ $ vi config/mail.yml
 $ rake ss:migrate
 ~~~
 
+## Unicorn 起動設定ファイル
+
+OS 起動時に Unicorn を起動する設定が /etc/systemd/system/unicorn.service というファイルにあります。
+古いバージョンの設定ファイルは `ExecStart=` 行が次のように設定されています。
+
+古い `ExecStart=` 行:
+
+~~~
+ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -D
+~~~
+
+上記のように設定されている場合、以下のように変更してください。
+
+新しい `ExecStart=` 行:
+
+~~~
+ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
+~~~
+
 ## Unicorn の再起動
 
 本番サーバーでは root になり次のコマンドを実行:
 
 ~~~
+$ su -
 # systemctl restart unicorn
 ~~~
 
