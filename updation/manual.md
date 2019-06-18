@@ -71,7 +71,16 @@ $ rake ss:migrate
 
 ## Unicorn の再起動
 
+本番サーバーでは root になり次のコマンドを実行:
+
 ~~~
+# systemctl restart unicorn
+~~~
+
+開発環境では次のコマンドを実行:
+
+~~~
+$ cd /var/www/shirasagi
 $ rake unicorn:restart
 ~~~
 
