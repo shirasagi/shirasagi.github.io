@@ -88,6 +88,12 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
 ~~~
 
+## Web サーバーに apache httpd をご利用の方
+
+Web サーバーに apache httpd をご利用の方は `config/environments/production.rb` に x-sendfile の設定をしていたかと思います。
+この設定がソースコードの更新時に元に戻ってしまっている可能性がありますので、
+[Apache のインストールのshirasagiの設定を変更するx-sendfile](/installation/apache.html#shirasagiの設定を変更するx-sendfile)を参考に、もう一度 x-sendfile を設定してください。
+
 ## Unicorn の再起動
 
 本番サーバーでは root になり次のコマンドを実行:
