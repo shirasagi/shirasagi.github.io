@@ -99,3 +99,4 @@ title: SHIRASAGI 開発マニュアル
 - [Rspecの運用](devel/rspec.html)
 - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
 - [ウェブメール開発環境の構築](devel/webmail.html)
+- [Docker を用いたウェブメールテスト環境の構築](devel/webmail_test_with_docker.html)
