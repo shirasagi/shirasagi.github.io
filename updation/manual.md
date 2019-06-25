@@ -7,7 +7,7 @@ title: SHIRASAGI の更新
 
 ~~~
 $ cd /var/www/shirasagi
-$ git pull
+$ git pull --ff-only
 ~~~
 
 ### (アーカイブを利用する場合)
@@ -35,17 +35,82 @@ $ rm -rf shirasagi-stable*
 # bundle install --without development test
 ~~~
 
+## 設定の更新
+
+`config/` の下に独自設定を追加している場合は、設定の更新が必要です。
+次のコマンドを実行し、独自の設定が存在するかどうか確認します。
+
+~~~
+$ cd /var/www/shirasagi
+$ ls config/*.yml | fgrep -v secrets.yml | fgrep -v mongoid.yml
+~~~
+
+何も表示されなければ、独自の設定はありませんので、次のステップへお進みください。
+
+何かファイルが表示されたら、独自の設定が存在しているので、一つ一つ差分を確認していきます。
+例えば `config/mail.yml` が表示された場合、次のコマンドを実行し、既定の設定との差分を確認します。
+
+~~~
+$ diff -u config/defaults/mail.yml config/mail.yml
+~~~
+
+そして、目視により増えた項目、減った項目を確認し、手動で修正します。
+
+~~~
+$ vi config/mail.yml
+# 既定の設定の差分から手動で設定を修正する
+~~~
+
+差分の反映方法が不明ない場合は、[Facebook のシラサギプロジェクト開発コミュニティ](https://www.facebook.com/groups/ssproj/)で質問してみてください。
+
 ## DB の差分更新
 
 ~~~
 $ rake ss:migrate
 ~~~
 
-## Unicorn の再起動
+## Unicorn 起動設定ファイル
+
+OS 起動時に Unicorn を起動する設定が /etc/systemd/system/unicorn.service というファイルにあります。
+古いバージョンの設定ファイルは `ExecStart=` 行が次のように設定されています。
+
+古い `ExecStart=` 行:
 
 ~~~
+ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -D
+~~~
+
+上記のように設定されている場合、以下のように変更してください。
+
+新しい `ExecStart=` 行:
+
+~~~
+ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
+~~~
+
+## Web サーバーに apache httpd をご利用の方
+
+Web サーバーに apache httpd をご利用の方は `config/environments/production.rb` に x-sendfile の設定をしていたかと思います。
+この設定がソースコードの更新時に元に戻ってしまっている可能性がありますので、
+[Apache のインストールのshirasagiの設定を変更するx-sendfile](/installation/apache.html#shirasagiの設定を変更するx-sendfile)を参考に、もう一度 x-sendfile を設定してください。
+
+## Unicorn の再起動
+
+本番サーバーでは root になり次のコマンドを実行:
+
+~~~
+$ su -
+# systemctl restart unicorn
+~~~
+
+開発環境では次のコマンドを実行:
+
+~~~
+$ cd /var/www/shirasagi
 $ rake unicorn:restart
 ~~~
+
+Unicorn の再起動には 2, 3 分かかる場合があります。
 
 ## 全文検索インデックスの更新
 

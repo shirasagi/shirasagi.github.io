@@ -87,17 +87,27 @@ ServerName (サーバ名、ＩＰアドレス)
 
 ~~~
 # cd /var/www/shirasagi
-# vi config/environments/production.rb
+# vi config/after_initializers/apache_x_sendfile_header.rb
 ~~~
 
 ~~~
-config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-# config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+Rails.application.config.action_dispatch.x_sendfile_header = "X-Sendfile"
 ~~~
 
 ## unicorn の再起動
 
+本番サーバーでは root になり次のコマンドを実行:
+
 ~~~
-# rake unicorn:restart
+$ su -
+# systemctl restart unicorn
 ~~~
 
+開発環境では次のコマンドを実行:
+
+~~~
+$ cd /var/www/shirasagi
+$ rake unicorn:restart
+~~~
+
+Unicorn の再起動には 2, 3 分かかる場合があります。

@@ -79,7 +79,6 @@ $ crontab -e
 ## 自動起動設定 (CentOS 7)
 
 ~~~
-# rvm wrapper 2.4.6 start unicorn # Ruby のバージョンを入力
 # cp /var/www/shirasagi/bin/unicorn-centos7.service /etc/systemd/system/unicorn.service
 # chmod +x /etc/systemd/system/unicorn.service
 # systemctl enable unicorn

@@ -46,8 +46,17 @@ roduction: &production
 ## Unicorn 再起動
 
 設定変更を反映させるため Unicorn を再起動します。
+本番サーバーでは root になり次のコマンドを実行:
 
 ~~~
+$ su -
+# systemctl restart unicorn
+~~~
+
+開発環境では次のコマンドを実行:
+
+~~~
+$ cd /var/www/shirasagi
 $ rake unicorn:restart
 ~~~
 
