@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Elasticsearch のインストールとグループウェアの設定
+title: Elasticsearch のインストール
 ---
 
 ## Elasticsearch
@@ -9,7 +9,7 @@ title: Elasticsearch のインストールとグループウェアの設定
 
 Elasticsearch は Elasticsearch BV 社によって提供されている全文検索サーバーです。
 
-グループウェアの全文検索をご利用になる際は、本手順を参照し Elasticsearch をインストールしてください。
+グループウェアの全文検索、CMSのサイト内検索をご利用になる際は、本手順を参照し Elasticsearch をインストールしてください。
 なお、本書では CentOS 7 でのインストール方法を説明します。他のディストリビューションをご利用の方は適時読み替ええください。
 
 ## Install
@@ -85,7 +85,7 @@ $ curl 'http://127.0.0.1:9200/?pretty'
 }
 ~~~
 
-## 設定
+## グループウェアの設定
 
 Rails コンソールから以下のコマンドを実行し、全文検索を有効にします。
 以下の例では「シラサギ市」の全文検索を有効にしています。
@@ -131,3 +131,30 @@ $ bin/rake gws:es:feed_all site=シラサギ市
 
 シラサギを起動しグループウェアの全文検索で `*:*` を検索してみてください。
 正しく設定できている場合、何らかの文書がヒットします。
+
+
+## サイト内検索の設定
+
+Rails コンソールから以下のコマンドを実行し、サイト内検索を有効にします。
+以下の例では「シラサギ市」のサイト内検索を有効にしています。
+
+~~~ruby
+site = Cms::Site.find_by(host: 'www')
+site.elasticsearch_hosts = ["127.0.0.1:9200"]
+site.save
+~~~
+
+「シラサギ市」のサイト内検索を初期化するため、以下のコマンドを実行します。
+
+~~~shell
+$ bin/rake cms:es:ingest:init site=www
+$ bin/rake cms:es:create_indexes site=www
+$ bin/rake cms:es:feed_all site=www
+~~~
+
+定期処理で検索インデックスを更新します。
+
+~~~shell
+[crontab]
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:es:feed_releases site=www' >/dev/null
+~~~
