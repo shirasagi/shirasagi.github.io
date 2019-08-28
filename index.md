@@ -52,6 +52,7 @@ title: SHIRASAGI 開発マニュアル
 - [ファイルサイズ制限](settings/file_size_limit.html)
 - [リンクチェック設定](settings/check_links.html)
 - [サブディレクトリ設定](settings/subdir.html)
+- [OGP と Twitter Card 設定](settings/ogp.html)
 - [Twitter, Facebook投稿連携](settings/twitter_facebook.html)
 - [気象庁防災情報XML連携](settings/jmaxml.html)
 - [分散構成(同期/非レプリカセット)](settings/repl.html)
