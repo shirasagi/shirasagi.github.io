@@ -8,7 +8,7 @@ title: Docker を用いたウェブメールテスト環境の構築
 ## 構築手順
 
 - Docker インストール
-- Docker Image のビルド
+- Docker Container の取得
 - Docker Container の開始
 - シラサギの Web メールのテスト設定
 - テストの実行
@@ -18,9 +18,11 @@ title: Docker を用いたウェブメールテスト環境の構築
 
 公式サイトの手順にしたがって Docker をインストールしてください。
 
-## Docker Image のビルド
+## Docker Container の取得
 
-[mail/imap container for shirasagi development](https://github.com/sunny4381/docker-mail) の手順にしたがって Docker Image をビルドしてください。
+~~~
+docker pull shirasagi/mail
+~~~
 
 ## Docker Container の開始
 
