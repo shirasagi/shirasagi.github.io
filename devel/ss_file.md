@@ -95,7 +95,6 @@ CMSやGWS、WEBメールを含むシラサギの画面より `SS::File` を閲�
   - 例
   - `public/sites/w/w/w/_/fs/1/2/3/_/filename.jpg`
 - ページ非公開時に書き出したファイルを削除します。
-- [ページの定期書き出し](/settings/cmd.html#cms---コンテンツ管理) に `attachments=1` オプションを付与することでページ書き出し時に添付のファイルも書き出します。
 
 ### サムネイル（SS::Relation::Thumb）
 
