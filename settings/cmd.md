@@ -63,12 +63,6 @@ $ rake cms:generate_nodes site=www
 $ rake cms:generate_pages site=www
 ~~~
 
-ページ書き出し（添付ファイル書き出しも行う）
-
-~~~
-$ rake cms:generate_pages site=www attachments=1
-~~~
-
 メールマガジンの配信
 
 ~~~
