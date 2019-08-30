@@ -53,8 +53,8 @@ MongoDB の [Official installation](https://docs.mongodb.com/manual/tutorial/ins
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
 # /usr/local/rvm/bin/rvm requirements
-# rvm install 2.4.6
-# rvm use 2.4.6 --default
+# rvm install 2.6.3
+# rvm use 2.6.3 --default
 # gem install bundler --no-document
 ~~~
 
