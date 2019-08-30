@@ -87,7 +87,7 @@ $ crontab -e
 ## 自動起動設定 (CentOS 6)
 
 ~~~
-# rvm wrapper 2.4.6 start unicorn # Ruby のバージョンを入力
+# rvm wrapper 2.6.3 start unicorn # Ruby のバージョンを入力
 # cp /var/www/shirasagi/bin/unicorn-centos6.sh /etc/rc.d/init.d/unicorn
 # chmod +x /etc/rc.d/init.d/unicorn
 # /sbin/chkconfig unicorn on

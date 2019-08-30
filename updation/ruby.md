@@ -8,8 +8,8 @@ title: Ruby の更新
 ~~~
 $ su -
 # rvm get latest
-# rvm install 2.4.6
-# rvm use 2.4.6 --default
+# rvm install 2.6.3
+# rvm use 2.6.3 --default
 ~~~
 
 ## Mecab Ruby
