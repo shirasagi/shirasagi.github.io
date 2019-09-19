@@ -3,7 +3,7 @@ layout: default
 title: 条件分岐構文
 ---
 
-`#{if 条件分岐タグ}内容A#{end}`のように記述することで、条件を満たすとき内容Aが表示されるような条件分岐が可能です。条件分岐構文はレイアウトやパーツで使用できます。条件分岐構文として`if`, `elsif`, `else`が使用できます。条件分岐タグは特定の内容を表示する条件を設定するために使用します。
+`#{if 条件分岐タグ}内容A#{end}`のように記述することで、条件を満たすとき内容Aが表示されるような条件分岐が可能です。条件分岐構文はレイアウトやパーツの上部HTML、下部HTMLで使用できます。条件分岐構文として`if`, `elsif`, `else`が使用できます。条件分岐タグは特定の内容を表示する条件を設定するために使用します。
 
 |条件分岐タグ|説明|
 |---|---|
@@ -17,12 +17,13 @@ title: 条件分岐構文
 ~~~ruby
 def conditional_tag_handler(matchdata, data)
   case matchdata[:cond]
-  when 'is_page' then return @data = data if @cur_page && @cur_page.filename.start_with?(matchdata[:path])
+  when 'is_page' then condition = @cur_page && @cur_page.filename.to_s.start_with?(matchdata[:path])
 
   # 省略
 
-  else false
+  else return false
   end
+  @data = condition ? data : false
 end
 ~~~
 
