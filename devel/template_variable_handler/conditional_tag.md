@@ -35,6 +35,15 @@ end
 #{elsif is_node()}
 <p>#{page_name}</p>
 #{end}
+
+<p>
+#{if in_node('docs')}
+#{parent_name}
+#{end}
+#{if is_page('docs')}
+ &gt; #{page_name}
+#{end}
+</p>
 ~~~
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#{if has_pages()}
 <span class="nt">{</span><span class="nt">{</span><span class="nt"> yield </span><span>}</span><span>}</span>
