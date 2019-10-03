@@ -10,8 +10,9 @@ title: 定期実行
 ~~~
 ## 日ごとのメンテナンス
 ## - ss:delete_download_files (エクスポートファイルの削除)
-## - history:trash:purge(ゴミ箱掃除 purge_threshold で期間の指定)
-0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily purge_threshold=14.days' >/dev/null
+## - history:trash:purge(CMS のゴミ箱掃除 サイト設定から期間の指定が可能)
+## - gws:trash:purge(グループウェアのゴミ箱掃除 グループ設定から期間の指定が可能)
+0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
 ~~~
 
 ## CMS
@@ -33,10 +34,6 @@ title: 定期実行
 ## - site=www の箇所は、実際のサイト名に合わせてください。
 ## - email=admin@example.jp の箇所にリンクチェック結果を送信するメールアドレスを設定します。
 0 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:check_links site=www email=admin@example.jp'
-
-## ゴミ箱掃除（例: 削除されてから 1 ヶ月がたったホスト名が www のサイトのデータの削除）
-## パラメータは適時変更してください。
-5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake history:trash:purge site=www purge_threshold=1.month' >/dev/null
 ~~~
 
 ## オープンデータ
@@ -52,10 +49,6 @@ title: 定期実行
 ~~~
 ## 通知
 */10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notification:deliver' >/dev/null
-
-## ゴミ箱掃除（例: 削除されてから 1 ヶ月がたったシラサギ市のデータの削除）
-## パラメータは適時変更してください。
-5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:trash:purge site=シラサギ市 threshold=1.month' >/dev/null
 ~~~
 
 ## その他
