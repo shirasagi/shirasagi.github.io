@@ -35,7 +35,11 @@ end
 #{elsif is_node()}
 <p>#{page_name}</p>
 #{end}
+~~~
 
+現在入れ子構造には対応しておりませんが、 if 文を組み合わせることである程度回避することが可能です。
+
+~~~html
 <p>
 #{if in_node('docs')}
 #{parent_name}
@@ -45,6 +49,9 @@ end
 #{end}
 </p>
 ~~~
+
+yield と組み合わせる事も可能です。
+
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#{if has_pages()}
 <span class="nt">{</span><span class="nt">{</span><span class="nt"> yield </span><span>}</span><span>}</span>
 #{else}
