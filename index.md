@@ -54,7 +54,7 @@ title: SHIRASAGI 開発マニュアル
 - [サブディレクトリ設定](settings/subdir.html)
 - [OGP と Twitter Card 設定](settings/ogp.html)
 - [Twitter, Facebook投稿連携](settings/twitter_facebook.html)
-- [気象庁防災情報XML連携](settings/jmaxml.html)
+- [気象庁防災情報XML連携（PULL型）](settings/jmaxml_pull.html)
 - [分散構成(同期/非レプリカセット)](settings/repl.html)
 - [SAML 認証の疎通確認](settings/saml_sampling.html)
 - [Shibboleth 認証](settings/shibboleth.html)
