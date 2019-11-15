@@ -8,8 +8,10 @@ title: 条件分岐構文
 |条件分岐タグ|説明|
 |---|---|
 |is_page()|ページならばtrue, それ以外はfalseを返します。|
+|is_page('docs')|ファイルパスがdocsから始まるページならばtrue, それ以外はfalseを返します。|
 |is_node()|フォルダーならばtrue, それ以外はfalseを返します。|
-|in_node('docs')|ファイル名がdocsから始まるならばtrue, それ以外はfalseを返します。|
+|is_node('docs')|ファイルパスがdocsから始まるフォルダーならばtrue, それ以外はfalseを返します。|
+|in_node('docs')|ファイルパスがdocsから始まるならばtrue, それ以外はfalseを返します。|
 |has_pages()|現在のフォルダーにページがある、または現在のフォルダーのカテゴリーに所属しているならばtrue, それ以外はfalseを返します。|
 
 詳細な動作は`Cms::PublicFilter::ConditionalTag`に記述しています。正規表現のために`conditional_tag_template`と`conditional_tag_data`というメソッドを作成しています。テンプレートに記述した条件分岐構文に応じてメソッドを作成しています。条件分岐タグは`conditional_tag_handler`というメソッドで判別しています。
@@ -27,34 +29,21 @@ def conditional_tag_handler(matchdata, data)
 end
 ~~~
 
-使用例を以下に記述します。
+ページとフォルダーで表示を変えたい場合は以下のように記述します。
 
 ~~~html
 #{if is_page()}
-<p>#{parent_name} &gt; #{page_name}</p>
+  <p>#{parent_name} &gt; #{page_name}</p>
 #{elsif is_node()}
-<p>#{page_name}</p>
+  <p>#{page_name}</p>
 #{end}
 ~~~
 
-現在入れ子構造には対応しておりませんが、 if 文を組み合わせることである程度回避することが可能です。
-
-~~~html
-<p>
-#{if in_node('docs')}
-#{parent_name}
-#{end}
-#{if is_page('docs')}
- &gt; #{page_name}
-#{end}
-</p>
-~~~
-
-yield と組み合わせる事も可能です。
+yield と組み合わせる事でフォルダー内にページが無い場合の表示を記述できます。
 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#{if has_pages()}
-<span class="nt">{</span><span class="nt">{</span><span class="nt"> yield </span><span>}</span><span>}</span>
+  <span class="nt">{</span><span class="nt">{</span><span class="nt"> yield </span><span>}</span><span>}</span>
 #{else}
-<span class="nt">&lt;p&gt;</span>記事はありません。<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;p&gt;</span>記事はありません。<span class="nt">&lt;/p&gt;</span>
 #{end}
 </code></pre></div></div>
