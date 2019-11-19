@@ -69,6 +69,7 @@ title: SHIRASAGI 開発マニュアル
 - [閲覧履歴とレコメンド](features/recommend.html)
 - [サイトのデータ移行](features/site_export.html)
 - [Liquid 形式レイアウト](features/liquid/index.html)
+- [条件分岐構文](features/conditional_tag.html)
 
 ## ソースコード
 
@@ -94,7 +95,6 @@ title: SHIRASAGI 開発マニュアル
 - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
 - [ループHTML変数の一覧と使用例(template_variable_handler)](devel/template_variable_handler/template_variable_handler.html)
 - [template_variable_handlerを使用しないテンプレート](devel/template_variable_handler/other_template_variable.html)
-- [条件分岐構文](devel/template_variable_handler/conditional_tag.html)
 - [アクセシビリティチェック機能](devel/accessibility.html)
 - [Jobの開発](devel/job.html)
 - [Rspec](devel/rspec/rspec.html)
