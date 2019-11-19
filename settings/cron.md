@@ -10,6 +10,8 @@ title: 定期実行
 ~~~
 ## 日ごとのメンテナンス
 ## - ss:delete_download_files (エクスポートファイルの削除)
+## - history:trash:purge(CMS のゴミ箱掃除 サイト設定から期間の指定が可能)
+## - gws:trash:purge(グループウェアのゴミ箱掃除 グループ設定から期間の指定が可能)
 0 2 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
 ~~~
 
@@ -47,10 +49,6 @@ title: 定期実行
 ~~~
 ## 通知
 */10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:notification:deliver' >/dev/null
-
-## ゴミ箱掃除（例: 削除されてから 1 ヶ月がたったシラサギ市のデータの削除）
-## パラメータは適時変更してください。
-5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:trash:purge site=シラサギ市 threshold=1.month' >/dev/null
 ~~~
 
 ## その他
