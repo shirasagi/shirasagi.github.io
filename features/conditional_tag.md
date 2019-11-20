@@ -32,3 +32,8 @@ yield と組み合わせる事でフォルダー内にページが無い場合�
   <span class="nt">&lt;p&gt;</span>記事はありません。<span class="nt">&lt;/p&gt;</span>
 #{end}
 </code></pre></div></div>
+
+v1.12.2 現在、以下の機能は未対応です。
+
+- and, or関数
+- 入れ子構造
