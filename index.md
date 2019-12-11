@@ -58,6 +58,7 @@ title: SHIRASAGI 開発マニュアル
 - [分散構成(同期/非レプリカセット)](settings/repl.html)
 - [SAML 認証の疎通確認](settings/saml_sampling.html)
 - [Shibboleth 認証](settings/shibboleth.html)
+- [メール取込](settings/mail_page.html)
 
 ## 機能
 
