@@ -65,7 +65,7 @@ SHIRASAGI側のメール取込インターフェースとして、標準入力�
 以下の rake コマンドを実行すると標準入力にメールを受け付けて、ページ保存を行います。
 
 ~~~
-rake mail_page:import site=www
+# rake mail_page:import site=www
 ~~~
 ※引数 site は対象のサイトのホスト名
 
@@ -86,8 +86,8 @@ Content-Type は一般的なメーラーで作成した UTF-8 と ISO-2022-JP �
 ３. 以下のコマンドで、テスト用のメールを取り込みます。<br />
 
 ~~~
-cd /var/www/shirasagi
-cat spec/fixtures/mail_page/UTF-8.eml | rake mail_page:import site=www
+# cd /var/www/shirasagi
+# cat spec/fixtures/mail_page/UTF-8.eml | rake mail_page:import site=www
 ~~~
 
 ４. 成功するとメール取込フォルダー配下にページが作成されます。<br />
