@@ -5,9 +5,10 @@ title: Basic 認証
 
 ## Basic 認証
 
-音声読み上げ機能、リンクチェック機能などでは、リクエストされた URL にアクセスするため、
-アクセス先が Basic 認証で保護されていると読み上げることができません。
-この場合、Basic 認証のアカウントを設定することでアクセスできるようになります。
+Basic 認証を使用している場合、いくつかの機能は正常に動作しません。
+そのような機能は `config/cms.yml` に Basic 認証のユーザとパスワードを設定することで Basic 認証環境下でも動作するようになります。
+
+> `config/cms.yml` が存在しない場合、`config/defaults/cms.yml` を `config/cms.yml` へコピーしてください。
 
 ~~~
 vi config/cms.yml
