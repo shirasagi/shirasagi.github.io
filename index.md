@@ -80,6 +80,12 @@ title: SHIRASAGI 開発マニュアル
 
 - [インストール](trouble-shootings/installation.html)
 
+## シラサギ公式サイトの FAQ
+
+CKEditor のカスタマイズ方法や音声読み上げのスキップ方法など、このサイト上で解説していない情報がシラサギ公式サイトの FAQ にはあります。シラサギ公式サイトの FAQ も確認してみてください。
+
+- [シラサギ公式サイトの FAQ](https://www.ss-proj.org/faq/docs/)
+
 ## 開発資料
 
 - [ディレクトリ構成](devel/directories.html)
