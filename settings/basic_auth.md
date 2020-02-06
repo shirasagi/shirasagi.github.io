@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Basic 認証
+title: Basic 認証環境での設定
 ---
 
 ## Basic 認証

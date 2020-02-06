@@ -9,7 +9,7 @@ title: 音声読み上げ
 アクセス先が Basic 認証で保護されていると読み上げることができません。
 この場合、Basic 認証のアカウントを設定することでアクセスできるようになります。
 
-[Basic 認証](/settings/basic_auth.html)
+[Basic 認証環境での設定](/settings/basic_auth.html)
 
 ## 読み上げの設定
 

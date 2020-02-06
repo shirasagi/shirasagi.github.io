@@ -59,7 +59,7 @@ title: SHIRASAGI 開発マニュアル
 - [SAML 認証の疎通確認](settings/saml_sampling.html)
 - [Shibboleth 認証](settings/shibboleth.html)
 - [メール取込](settings/mail_page.html)
-<!--  - [Basic 認証](settings/basic_auth.html) -->
+- [Basic 認証環境での設定](settings/basic_auth.html)
 
 ## 機能
 
