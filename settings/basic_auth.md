@@ -6,7 +6,7 @@ title: Basic 認証環境での設定
 ## Basic 認証
 
 Basic 認証を使用している場合、いくつかの機能は正常に動作しません。
-そのような機能は `config/cms.yml` に Basic 認証のユーザとパスワードを設定することで Basic 認証環境下でも動作するようになります。
+そのような機能は `config/cms.yml` に Basic 認証のユーザーとパスワードを設定することで Basic 認証環境下でも動作するようになります。
 
 > `config/cms.yml` が存在しない場合、`config/defaults/cms.yml` を `config/cms.yml` へコピーしてください。
 
@@ -19,15 +19,15 @@ production: &production
   basic_auth: [ "username", "password" ]
 ~~~
 
-また、ユーザとパスワードは、`secrets.yml` に設定している `secret_key_base` を用いて暗号化することができます。
+また、ユーザーとパスワードは、`secrets.yml` に設定している `secret_key_base` を用いて暗号化することができます。
+下記のコマンドでユーザーとパスワードを暗号化してください。
 
 ~~~
 $ RAILS_ENV=production bundle exec rails c
 > SS::MessageEncryptor.encrypt([ "username", "password" ])
 ~~~
 
-`secrets.yml` に設定されている `secret_key_base` は `[production|test|development]` でそれぞれ異なるため、
-`cms.yml` にはそれぞれ異なる文字列を設定してください。
+暗号化されたユーザーとパスワードをコピーして、 `config/cms.yml` に設定します。
 
 ~~~
 vi config/cms.yml
