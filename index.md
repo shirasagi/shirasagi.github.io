@@ -71,6 +71,7 @@ title: SHIRASAGI 開発マニュアル
 - [閲覧履歴とレコメンド](features/recommend.html)
 - [サイトのデータ移行](features/site_export.html)
 - [Liquid 形式レイアウト](features/liquid/index.html)
+- [外国語自動翻訳機能](features/translate.html)
 
 ## ソースコード
 
