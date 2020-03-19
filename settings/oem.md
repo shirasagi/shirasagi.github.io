@@ -17,4 +17,31 @@ title: OEM開発
 ## ロケール
 
 1.2.0 からの新機能ですが、`config/locales/` 以下のロケールファイルを `config/oem/locales` 以下にコピーし、内容を変更することで、文言などを変更することができます。
-例えば「コンテンツ」を「ショートカット」に変更することができます。
+
+### 例: CMSの「コンテンツ」を「ショートカット」へ変更する方法
+
+config/locales/ 以下を「コンテンツ」で検索すると、「コンテンツ」という文言がファイル `config/locales/cms/ja.yml` の `cms.content` という階層に定義されていることが分かります。
+そこで、次のような内容を持つ `config/oem/locales/custom.yml` を作成します。
+
+~~~
+ja:
+  cms:
+    content: ショートカット
+~~~
+
+`custom.yml` の内容を反映するには、シラサギを再起動する必要があります。
+
+### 例: グループウェアの「全庁」を「全体」へ変更する方法
+
+config/locales/ 以下を「全庁」で検索すると、「全庁」という文言がファイル `config/locales/gws/portal/ja.yml` の `gws/portal.root_portal` と `gws/portal.tabs.root_portal` という 2 つの階層に定義されていることが分かります。
+そこで、次のような内容を持つ `config/oem/locales/custom.yml` を作成します。
+
+~~~
+ja:
+  gws/portal:
+    root_portal: 全体ポータル
+    tabs:
+      root_portal: 全体
+~~~
+
+`custom.yml` の内容を反映するには、シラサギを再起動する必要があります。

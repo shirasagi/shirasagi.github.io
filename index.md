@@ -35,6 +35,7 @@ title: SHIRASAGI 開発マニュアル
 - [Ruby の更新](updation/ruby.html)
 - [MongoDB の更新](updation/mongodb.html)
 - [SHIRASAGI の更新](updation/manual.html)
+  - [オープンデータのレポート機能の更新](updation/opendata_report.html)
 - [全文検索インデックスの更新](updation/elasticsearch_index.html)
 - [バックアップとリストア](updation/backup.html)
 
@@ -54,10 +55,12 @@ title: SHIRASAGI 開発マニュアル
 - [サブディレクトリ設定](settings/subdir.html)
 - [OGP と Twitter Card 設定](settings/ogp.html)
 - [Twitter, Facebook投稿連携](settings/twitter_facebook.html)
-- [気象庁防災情報XML連携](settings/jmaxml.html)
+- [気象庁防災情報XML連携（PULL型）](settings/jmaxml_pull.html)
 - [分散構成(同期/非レプリカセット)](settings/repl.html)
 - [SAML 認証の疎通確認](settings/saml_sampling.html)
 - [Shibboleth 認証](settings/shibboleth.html)
+- [メール取込](settings/mail_page.html)
+- [Basic 認証環境での設定](settings/basic_auth.html)
 
 ## 機能
 
@@ -70,6 +73,7 @@ title: SHIRASAGI 開発マニュアル
 - [サイトのデータ移行](features/site_export.html)
 - [Liquid 形式レイアウト](features/liquid/index.html)
 - [条件分岐構文](features/conditional_tag.html)
+- [外国語自動翻訳機能](features/translate.html)
 
 ## ソースコード
 
@@ -79,6 +83,12 @@ title: SHIRASAGI 開発マニュアル
 ## トラブルシューティング
 
 - [インストール](trouble-shootings/installation.html)
+
+## シラサギ公式サイトの FAQ
+
+CKEditor のカスタマイズ方法や音声読み上げのスキップ方法など、このサイト上で解説していない情報がシラサギ公式サイトの FAQ にはあります。シラサギ公式サイトの FAQ も確認してみてください。
+
+- [シラサギ公式サイトの FAQ](https://www.ss-proj.org/faq/docs/)
 
 ## 開発資料
 
