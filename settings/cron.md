@@ -22,6 +22,9 @@ title: 定期実行
 # 1日ごとのタスク
 5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
 
+# 毎週月曜日のタスク
+20 0 * * 1 /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:every_monday' >/dev/null
+
 # CMS/ページ予約公開＆書き出し
 */15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:release_pages && bundle exec rake cms:generate_nodes' >/dev/null
 0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:generate_pages' >/dev/null
