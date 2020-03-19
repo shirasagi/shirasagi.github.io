@@ -27,6 +27,19 @@ title: 定期実行
 0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:generate_pages' >/dev/null
 ~~~
 
+### 気象庁防災情報XML
+
+気象庁防災情報XMLを受信する場合は次のコマンドを定期実行へ登録してください。
+
+~~~
+## 気象庁防災情報XML受信
+*/2 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake rss:pull_weather_xml' >/dev/null
+~~~
+
+上記のコマンドは 2 分間隔で気象庁防災情報XMLを受信する設定となっております。
+
+ご利用のサーバーによっては 2 分間隔では短い場合がございます。もし受信処理が 2 分以内に終わらないようであれば、実行間隔を長くしてください。
+
 
 ## 必要であれば
 
