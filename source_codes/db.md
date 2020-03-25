@@ -11,7 +11,7 @@ $ rake ss:models
 
 ## DB定義
 
-バージョン: v1.12.3
+バージョン: v1.13.0
 
 ### ads_access_logs / 広告アクセスログ
 
@@ -492,6 +492,7 @@ $ rake ss:models
 |show_email|メールアドレスの表示|String|
 |banned_words|禁止語句設定|SS::Extensions::Words|
 |captcha|画像認証|String|
+|captcha_test|認証画像の表示確認|String|
 |deletable_post|パスワードによる削除|String|
 |deny_ips|拒否IPアドレス|SS::Extensions::Words|
 |deny_url|URl投稿拒否|String|
@@ -1041,6 +1042,7 @@ $ rake ss:models
 |class_name|class属性|String|
 |created|作成日時|DateTime|
 |css_path|cssパス|String|
+|default_theme|既定のtheme|String|
 |deleted|削除日時|DateTime|
 |font_color|文字色|String|
 |high_contrast_mode|設定|String|
@@ -1265,6 +1267,10 @@ $ rake ss:models
 |browsed_users_hash|既読ユーザー|Hash|
 |category_ids|カテゴリー|SS::Extensions::ObjectIds|
 |close_date|公開終了日時(予約)|DateTime|
+|member_custom_group_ids|参加カスタムグループ|SS::Extensions::ObjectIds|
+|member_group_ids|参加グループ|SS::Extensions::ObjectIds|
+|member_ids|参加ユーザー|SS::Extensions::ObjectIds|
+|notification_noticed_at|Notification noticed at|DateTime|
 |notify_state|通知設定|String|
 |release_date|公開開始日時(予約)|DateTime|
 |released|公開日時|DateTime|
@@ -1794,7 +1800,7 @@ $ rake ss:models
 |created|作成日時|DateTime|
 |default|メール転送設定|String|
 |deleted|削除日時|DateTime|
-|email|メールアドレス|String|
+|emails|メールアドレス|SS::Extensions::Words|
 |site_id|組織|Object|
 |text_index|全文検索インデックス(未使用)|String|
 |updated|更新日時|DateTime|
@@ -2175,6 +2181,10 @@ $ rake ss:models
 |name|ポータル名|String|
 |permission_level|権限レベル|Integer|
 |portal_group_id|ポータルグループ|Object|
+|portal_link_state|表示・非表示|String|
+|portal_monitor_state|表示・非表示|String|
+|portal_notice_browsed_state|未読・既読|String|
+|portal_notice_state|表示・非表示|String|
 |readable_custom_group_ids|閲覧カスタムグループ|SS::Extensions::ObjectIds|
 |readable_custom_groups_hash|閲覧カスタムグループ(ハッシュ)|Hash|
 |readable_group_ids|閲覧グループ|SS::Extensions::ObjectIds|
@@ -2272,6 +2282,10 @@ $ rake ss:models
 |groups_hash|管理グループ(ハッシュ)|Hash|
 |name|ポータル名|String|
 |permission_level|権限レベル|Integer|
+|portal_link_state|表示・非表示|String|
+|portal_monitor_state|表示・非表示|String|
+|portal_notice_browsed_state|未読・既読|String|
+|portal_notice_state|表示・非表示|String|
 |portal_user_id|ポータルユーザー|Object|
 |readable_custom_group_ids|閲覧カスタムグループ|SS::Extensions::ObjectIds|
 |readable_custom_groups_hash|閲覧カスタムグループ(ハッシュ)|Hash|
@@ -2967,6 +2981,39 @@ $ rake ss:models
 |year_id|年度|Object|
 |year_name|年度名|String|
 
+### gws_staff_record_user_titles
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|Integer|
+|activation_date|有効期限（開始）|DateTime|
+|code|役職コード|String|
+|created|作成日時|DateTime|
+|custom_group_ids|管理カスタムグループ|SS::Extensions::ObjectIds|
+|custom_groups_hash|管理カスタムグループ(ハッシュ)|Hash|
+|deleted|削除日時|DateTime|
+|expiration_date|有効期限（終了）|DateTime|
+|group_id|グループ|Object|
+|group_ids|管理グループ|SS::Extensions::ObjectIds|
+|groups_hash|管理グループ(ハッシュ)|Hash|
+|name|役職名|String|
+|order|並び順|Integer|
+|permission_level|権限レベル|Integer|
+|remark|備考|String|
+|site_id|組織|Object|
+|text_index|全文検索インデックス(未使用)|String|
+|updated|更新日時|DateTime|
+|user_group_id|作成者(グループ)|Integer|
+|user_group_name|作成者(グループ名)|String|
+|user_id|作成者|Object|
+|user_ids|管理ユーザー|SS::Extensions::ObjectIds|
+|user_name|作成者(氏名)|String|
+|user_uid|作成者(UID)|String|
+|users_hash|管理ユーザー(ハッシュ)|Hash|
+|year_code|西暦|String|
+|year_id|年度|Object|
+|year_name|年度名|String|
+
 ### gws_staff_record_users / 職員
 
 |Field|Description|Type|
@@ -3003,7 +3050,8 @@ $ rake ss:models
 |staff_records_view|電子職員録へ表示|String|
 |tel_ext|個人内線|String|
 |text_index|全文検索インデックス(未使用)|String|
-|title_name|役職|String|
+|title_ids|役職|SS::Extensions::ObjectIds|
+|title_orders|役職並び順|Hash|
 |updated|更新日時|DateTime|
 |user_group_id|作成者(グループ)|Integer|
 |user_group_name|作成者(グループ名)|String|
@@ -3477,10 +3525,13 @@ $ rake ss:models
 |created|作成日時|DateTime|
 |deleted|削除日時|DateTime|
 |group_id|Group|Object|
+|hostname|ホスト名|String|
+|ip_address|IPアドレス|String|
 |job_id|ジョブID|String|
 |logs|ログ|Array|
 |pool|Pool|String|
 |priority|Priority|Integer|
+|process_id|プロセスID|Integer|
 |started|開始日時|DateTime|
 |state|状態|String|
 |text_index|全文検索インデックス(未使用)|String|
@@ -3599,6 +3650,59 @@ $ rake ss:models
 |text_index|全文検索インデックス(未使用)|String|
 |updated|更新日時|DateTime|
 |user_id|ユーザー|Object|
+
+### opendata_dataset_access_reports
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|BSON::ObjectId|
+|created|作成日時|DateTime|
+|dataset_areas|データセット地域|SS::Extensions::Lines|
+|dataset_categories|データセット分野|SS::Extensions::Lines|
+|dataset_estat_categories|データセットeStat分野|SS::Extensions::Lines|
+|dataset_id|データセットID|Integer|
+|dataset_name|データセット名|String|
+|dataset_url|データセットURL|String|
+|day0_count|Day0 count|Integer|
+|day10_count|Day10 count|Integer|
+|day11_count|Day11 count|Integer|
+|day12_count|Day12 count|Integer|
+|day13_count|Day13 count|Integer|
+|day14_count|Day14 count|Integer|
+|day15_count|Day15 count|Integer|
+|day16_count|Day16 count|Integer|
+|day17_count|Day17 count|Integer|
+|day18_count|Day18 count|Integer|
+|day19_count|Day19 count|Integer|
+|day1_count|Day1 count|Integer|
+|day20_count|Day20 count|Integer|
+|day21_count|Day21 count|Integer|
+|day22_count|Day22 count|Integer|
+|day23_count|Day23 count|Integer|
+|day24_count|Day24 count|Integer|
+|day25_count|Day25 count|Integer|
+|day26_count|Day26 count|Integer|
+|day27_count|Day27 count|Integer|
+|day28_count|Day28 count|Integer|
+|day29_count|Day29 count|Integer|
+|day2_count|Day2 count|Integer|
+|day30_count|Day30 count|Integer|
+|day3_count|Day3 count|Integer|
+|day4_count|Day4 count|Integer|
+|day5_count|Day5 count|Integer|
+|day6_count|Day6 count|Integer|
+|day7_count|Day7 count|Integer|
+|day8_count|Day8 count|Integer|
+|day9_count|Day9 count|Integer|
+|deleted|削除日|DateTime|
+|resource_filename|リソースファイル名|String|
+|resource_format|リソースフォーマット|String|
+|resource_id|リソースID|Integer|
+|resource_name|リソース名|String|
+|site_id|Site|Object|
+|text_index|全文検索インデックス(未使用)|String|
+|updated|更新日時|DateTime|
+|year_month|年月|Integer|
 
 ### opendata_dataset_groups / データセットグループ
 
@@ -3937,6 +4041,7 @@ $ rake ss:models
 |full_url|Full url|String|
 |remote_addr|Remote addr|String|
 |resource_filename|Resource filename|String|
+|resource_format|Resource format|String|
 |resource_id|Resource|Integer|
 |resource_name|Resource name|String|
 |resource_source_url|Resource source url|String|
@@ -3961,6 +4066,7 @@ $ rake ss:models
 |full_url|Full url|String|
 |remote_addr|Remote addr|String|
 |resource_filename|Resource filename|String|
+|resource_format|Resource format|String|
 |resource_id|Resource|Integer|
 |resource_name|Resource name|String|
 |resource_source_url|Resource source url|String|
@@ -3969,29 +4075,84 @@ $ rake ss:models
 |updated|更新日時|DateTime|
 |user_agent|User agent|String|
 
-### opendata_resource_download_histories
+### opendata_resource_download_histories / リソースダンロード履歴
 
 |Field|Description|Type|
 |-----|-----------|----|
 |_id|ID|BSON::ObjectId|
 |created|作成日時|DateTime|
-|dataset_areas|Dataset areas|Array|
-|dataset_categories|Dataset categories|Array|
-|dataset_estat_categories|Dataset estat categories|Array|
-|dataset_id|Dataset|Integer|
-|dataset_name|Dataset name|String|
+|dataset_areas|地域|Array|
+|dataset_categories|分野|Array|
+|dataset_estat_categories|eStat分野|Array|
+|dataset_id|データセットID|Integer|
+|dataset_name|データセット名|String|
 |deleted|削除日時|DateTime|
-|downloaded|Downloaded|DateTime|
-|full_url|Full url|String|
-|remote_addr|Remote addr|String|
-|resource_filename|Resource filename|String|
-|resource_id|Resource|Integer|
-|resource_name|Resource name|String|
-|resource_source_url|Resource source url|String|
-|site_id|サイト|Object|
+|downloaded|ダウンロード日時|DateTime|
+|downloaded_by|ダウンロード方法|String|
+|full_url|URL|String|
+|remote_addr|接続元IP|String|
+|resource_filename|リソースファイル名|String|
+|resource_format|リソースフォーマット|String|
+|resource_id|リソースID|Integer|
+|resource_name|リソース名|String|
+|resource_source_url|リソースソースURL|String|
+|site_id|Site|Object|
 |text_index|全文検索インデックス(未使用)|String|
 |updated|更新日時|DateTime|
-|user_agent|User agent|String|
+|user_agent|ユーザーエージェント|String|
+
+### opendata_resource_download_reports / リソースダンロード数集計結果
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|BSON::ObjectId|
+|created|作成日時|DateTime|
+|dataset_areas|データセット地域|SS::Extensions::Lines|
+|dataset_categories|データセット分野|SS::Extensions::Lines|
+|dataset_estat_categories|データセットeStat分野|SS::Extensions::Lines|
+|dataset_id|データセットID|Integer|
+|dataset_name|データセット名|String|
+|dataset_url|データセットURL|String|
+|day0_count|Day0 count|Integer|
+|day10_count|Day10 count|Integer|
+|day11_count|Day11 count|Integer|
+|day12_count|Day12 count|Integer|
+|day13_count|Day13 count|Integer|
+|day14_count|Day14 count|Integer|
+|day15_count|Day15 count|Integer|
+|day16_count|Day16 count|Integer|
+|day17_count|Day17 count|Integer|
+|day18_count|Day18 count|Integer|
+|day19_count|Day19 count|Integer|
+|day1_count|Day1 count|Integer|
+|day20_count|Day20 count|Integer|
+|day21_count|Day21 count|Integer|
+|day22_count|Day22 count|Integer|
+|day23_count|Day23 count|Integer|
+|day24_count|Day24 count|Integer|
+|day25_count|Day25 count|Integer|
+|day26_count|Day26 count|Integer|
+|day27_count|Day27 count|Integer|
+|day28_count|Day28 count|Integer|
+|day29_count|Day29 count|Integer|
+|day2_count|Day2 count|Integer|
+|day30_count|Day30 count|Integer|
+|day3_count|Day3 count|Integer|
+|day4_count|Day4 count|Integer|
+|day5_count|Day5 count|Integer|
+|day6_count|Day6 count|Integer|
+|day7_count|Day7 count|Integer|
+|day8_count|Day8 count|Integer|
+|day9_count|Day9 count|Integer|
+|deleted|削除日|DateTime|
+|resource_filename|リソースファイル名|String|
+|resource_format|リソースフォーマット|String|
+|resource_id|リソースID|Integer|
+|resource_name|リソース名|String|
+|site_id|Site|Object|
+|text_index|全文検索インデックス(未使用)|String|
+|updated|更新日時|DateTime|
+|year_month|年月|Integer|
 
 ### opendata_resource_preview_histories
 
@@ -3999,23 +4160,77 @@ $ rake ss:models
 |-----|-----------|----|
 |_id|ID|BSON::ObjectId|
 |created|作成日時|DateTime|
-|dataset_areas|Dataset areas|Array|
-|dataset_categories|Dataset categories|Array|
-|dataset_estat_categories|Dataset estat categories|Array|
-|dataset_id|Dataset|Integer|
-|dataset_name|Dataset name|String|
+|dataset_areas|地域|Array|
+|dataset_categories|分野|Array|
+|dataset_estat_categories|eStat分野|Array|
+|dataset_id|データセットID|Integer|
+|dataset_name|データセット名|String|
 |deleted|削除日時|DateTime|
-|full_url|Full url|String|
-|previewed|Previewed|DateTime|
-|remote_addr|Remote addr|String|
-|resource_filename|Resource filename|String|
-|resource_id|Resource|Integer|
-|resource_name|Resource name|String|
-|resource_source_url|Resource source url|String|
-|site_id|サイト|Object|
+|full_url|URL|String|
+|previewed|プレビュー日時|DateTime|
+|remote_addr|接続元IP|String|
+|resource_filename|リソースファイル名|String|
+|resource_format|リソースフォーマット|String|
+|resource_id|リソースID|Integer|
+|resource_name|リソース名|String|
+|resource_source_url|リソースソースURL|String|
+|site_id|Site|Object|
 |text_index|全文検索インデックス(未使用)|String|
 |updated|更新日時|DateTime|
-|user_agent|User agent|String|
+|user_agent|ユーザーエージェント|String|
+
+### opendata_resource_preview_reports
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|BSON::ObjectId|
+|created|作成日時|DateTime|
+|dataset_areas|データセット地域|SS::Extensions::Lines|
+|dataset_categories|データセット分野|SS::Extensions::Lines|
+|dataset_estat_categories|データセットeStat分野|SS::Extensions::Lines|
+|dataset_id|データセットID|Integer|
+|dataset_name|データセット名|String|
+|dataset_url|データセットURL|String|
+|day0_count|Day0 count|Integer|
+|day10_count|Day10 count|Integer|
+|day11_count|Day11 count|Integer|
+|day12_count|Day12 count|Integer|
+|day13_count|Day13 count|Integer|
+|day14_count|Day14 count|Integer|
+|day15_count|Day15 count|Integer|
+|day16_count|Day16 count|Integer|
+|day17_count|Day17 count|Integer|
+|day18_count|Day18 count|Integer|
+|day19_count|Day19 count|Integer|
+|day1_count|Day1 count|Integer|
+|day20_count|Day20 count|Integer|
+|day21_count|Day21 count|Integer|
+|day22_count|Day22 count|Integer|
+|day23_count|Day23 count|Integer|
+|day24_count|Day24 count|Integer|
+|day25_count|Day25 count|Integer|
+|day26_count|Day26 count|Integer|
+|day27_count|Day27 count|Integer|
+|day28_count|Day28 count|Integer|
+|day29_count|Day29 count|Integer|
+|day2_count|Day2 count|Integer|
+|day30_count|Day30 count|Integer|
+|day3_count|Day3 count|Integer|
+|day4_count|Day4 count|Integer|
+|day5_count|Day5 count|Integer|
+|day6_count|Day6 count|Integer|
+|day7_count|Day7 count|Integer|
+|day8_count|Day8 count|Integer|
+|day9_count|Day9 count|Integer|
+|deleted|削除日|DateTime|
+|resource_filename|リソースファイル名|String|
+|resource_format|リソースフォーマット|String|
+|resource_id|リソースID|Integer|
+|resource_name|リソース名|String|
+|site_id|Site|Object|
+|text_index|全文検索インデックス(未使用)|String|
+|updated|更新日時|DateTime|
+|year_month|年月|Integer|
 
 ### opendata_resources
 
@@ -4359,6 +4574,7 @@ $ rake ss:models
 |deleted|削除日時|DateTime|
 |domains|ドメイン|SS::Extensions::Words|
 |expiration_date|有効期限（終了）|DateTime|
+|gws_use|グループウェアの使用|String|
 |ldap_dn|DN|String|
 |ldap_import_id|Ldap import|Integer|
 |name|グループ名|String|
@@ -4392,6 +4608,7 @@ $ rake ss:models
 |circular_files_break|ファイル表示の並び|String|
 |circular_filesize_limit|添付サイズ制限|Integer|
 |circular_max_member|回覧人数制限|Integer|
+|circular_new_days|新着表示期間|Integer|
 |color_button|文字色変更ボタン|String|
 |default_notice_state|お知らせ表示設定|String|
 |desktop_chat|チャット機能|String|
@@ -4433,6 +4650,8 @@ $ rake ss:models
 |log_shared_address_severity|共有アドレス帳のログ|String|
 |log_staff_record_severity|電子職員録のログ|String|
 |log_workflow_severity|ワークフローのログ|String|
+|logo_application_image_id|ロゴ画像|Object|
+|logo_application_name|アプリケーション名|String|
 |mail_signature|署名|String|
 |memo_filesize_limit|添付サイズ制限|Integer|
 |memo_quota|メッセージ容量制限|Integer|
@@ -4499,6 +4718,7 @@ $ rake ss:models
 |notice_discussion_state|電子会議室|String|
 |notice_faq_state|よくある質問|String|
 |notice_monitor_state|照会・回答|String|
+|notice_new_days|新着表示期間|Integer|
 |notice_qna_state|Q&A|String|
 |notice_report_state|レポート|String|
 |notice_schedule_state|スケジュール|String|
@@ -4510,7 +4730,9 @@ $ rake ss:models
 |qna_file_size_per_topic|添付最大サイズ/トピック単位|Integer|
 |qna_files_break|ファイル表示の並び|String|
 |qna_new_days|新着表示期間|Integer|
+|report_new_days|新着表示期間|Integer|
 |schedule_attachment_state|ファイル添付|String|
+|schedule_custom_group_extra_state|Schedule custom group extra state|String|
 |schedule_custom_group_tab_state|カスタムグループタブの表示|String|
 |schedule_drag_drop_state|ドラッグ＆ドロップ|String|
 |schedule_facility_tab_label|設備予約タブの表示|String|
@@ -4531,8 +4753,10 @@ $ rake ss:models
 |share_default_sort|並び順の規定値|String|
 |share_files_capacity|総容量制限|Integer|
 |share_max_file_size|最大ファイルサイズ|Integer|
+|share_new_days|新着表示期間|Integer|
 |staff_records_limit|電子職員録/表示件数|Integer|
 |survey_default_due_date|回答期限日初期値|Integer|
+|survey_new_days|新着表示期間|Integer|
 |syntax_check|アクセシビリティチェック|String|
 |todo_delete_threshold|ToDo復旧可能期間|Integer|
 |trash_threshold|ゴミ箱保持期間|Integer|
@@ -4542,6 +4766,7 @@ $ rake ss:models
 |usage_file_count|ファイル数|Integer|
 |usage_group_count|グループ数|Integer|
 |usage_user_count|ユーザー数|Integer|
+|workflow_new_days|新着表示期間|Integer|
 |imap_settings|Imap settings|Webmail::Extensions::ImapSettings|
 
 ### ss_max_file_sizes / 最大ファイルサイズ
@@ -4612,17 +4837,17 @@ $ rake ss:models
 |town_kana|町名（カナ）|String|
 |updated|更新日時|DateTime|
 
-### ss_pref_codes
+### ss_pref_codes / 市町村コード
 
 |Field|Description|Type|
 |-----|-----------|----|
 |_id|ID|Integer|
-|city|市区町村名|String|
+|city|市区町村名（漢字）|String|
 |city_kana|市区町村名（カナ）|String|
-|code|都道府県又は市区町村コード|String|
+|code|市町村コード|String|
 |created|作成日時|DateTime|
 |deleted|削除日時|DateTime|
-|prefecture|都道府県名|String|
+|prefecture|都道府県名（漢字）|String|
 |prefecture_kana|都道府県名（カナ）|String|
 |text_index|全文検索インデックス(未使用)|String|
 |updated|更新日時|DateTime|
@@ -4640,6 +4865,7 @@ $ rake ss:models
 |Field|Description|Type|
 |-----|-----------|----|
 |_id|ID|Integer|
+|anti_bot_methods|Bot対策|SS::Extensions::Words|
 |app_state|アプリ|String|
 |app_workflow_route_id|App workflow route|Object|
 |auto_description|概要自動設定|String|
@@ -4670,6 +4896,8 @@ $ rake ss:models
 |idea_workflow_route_id|Idea workflow route|Object|
 |kana_format|ふりがなの形式|String|
 |keywords|追加キーワード|SS::Extensions::Words|
+|logo_application_image_id|ロゴ画像|Object|
+|logo_application_name|アプリケーション名|String|
 |mail_signature|署名|String|
 |map_api|地図API|String|
 |map_api_key|APIキー|String|
@@ -4694,6 +4922,22 @@ $ rake ss:models
 |subdir|サブディレクトリ|String|
 |syntax_check|アクセシビリティチェック|String|
 |text_index|全文検索インデックス(未使用)|String|
+|translate_api|API|String|
+|translate_api_limit_exceeded_html|制限超過時の表示HTML|String|
+|translate_api_request_word_limit|文字数上限|Integer|
+|translate_google_api_credential_file_id|サービスアカウント秘密鍵|Object|
+|translate_google_api_project_id|プロジェクトID|String|
+|translate_google_api_request_count|APIリクエスト数|Integer|
+|translate_google_api_request_word_count|APIリクエスト文字数|Integer|
+|translate_microsoft_api_key|サブスクリプション キー|String|
+|translate_microsoft_api_request_count|APIリクエスト数|Integer|
+|translate_microsoft_api_request_metered_usage|x-metered-usage|Integer|
+|translate_microsoft_api_request_word_count|APIリクエスト文字数|Integer|
+|translate_mock_api_request_count|APIリクエスト数|Integer|
+|translate_mock_api_request_word_count|APIリクエスト文字数|Integer|
+|translate_source_id|元言語コード|Object|
+|translate_state|ステータス|String|
+|translate_target_ids|翻訳言語コード|SS::Extensions::ObjectIds|
 |trash_threshold|ゴミ箱保持期間|Integer|
 |trash_threshold_unit|ゴミ箱保持期間単位|String|
 |twitter_access_token|アクセストークン|String|
@@ -4799,6 +5043,7 @@ $ rake ss:models
 |cms_role_ids|ロール|SS::Extensions::ObjectIds|
 |created|作成日時|DateTime|
 |deleted|削除日時|DateTime|
+|deletion_lock_state|削除状態|String|
 |email|メールアドレス|String|
 |group_ids|グループ|SS::Extensions::ObjectIds|
 |imap_default_index|IMAP/既定アカウント|Integer|
@@ -4869,7 +5114,7 @@ $ rake ss:models
 |readable_setting_range|公開範囲|String|
 |schedule_tabs_custom_group_ids|タブ表示/カスタムグループ|SS::Extensions::ObjectIds|
 |schedule_tabs_group_ids|タブ表示/グループ|SS::Extensions::ObjectIds|
-|send_notice_mail_address|転送先メールアドレス|String|
+|send_notice_mail_addresses|転送先メールアドレス|SS::Extensions::Words|
 |webmail_role_ids|ロール|SS::Extensions::ObjectIds|
 
 ### sys_auth_open_id_connect_json_web_keys
@@ -4970,6 +5215,41 @@ $ rake ss:models
 |time|画像切り替え時間|Integer|
 |updated|更新日時|DateTime|
 |width|横幅|Integer|
+
+### translate_langs
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|Integer|
+|accept_languages|Accept-Language|SS::Extensions::Lines|
+|code|言語コード|String|
+|created|作成日時|DateTime|
+|deleted|削除日時|DateTime|
+|google_translation_code|Google API|String|
+|microsoft_translator_text_code|Microsoft API|String|
+|mock_code|開発用API|String|
+|name|名称|String|
+|site_id|サイト|Object|
+|text_index|全文検索インデックス(未使用)|String|
+|updated|更新日時|DateTime|
+
+### translate_text_caches
+
+|Field|Description|Type|
+|-----|-----------|----|
+|_id|ID|BSON::ObjectId|
+|api|API|String|
+|created|作成日時|DateTime|
+|deleted|削除日時|DateTime|
+|hexdigest|Hexdigest|String|
+|original_text|翻訳前テキスト|String|
+|site_id|サイト|Object|
+|source|翻訳前言語コード|String|
+|target|翻訳先言語コード|String|
+|text|翻訳先テキスト|String|
+|text_index|全文検索インデックス(未使用)|String|
+|update_state|ステータス|String|
+|updated|更新日時|DateTime|
 
 ### voice_files / 読み上げ音声
 
