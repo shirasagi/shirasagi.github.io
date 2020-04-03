@@ -60,6 +60,21 @@ $ su -
 
 参考: <https://github.com/diaspora/diaspora/issues/6828>
 
+## ImageMagick の動作確認（画像認証の動作確認）
+
+次のコマンドを実行してみます。
+
+~~~
+$ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
+~~~
+
+ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
+
+しかし、エラーが出力される場合、このままではシラサギで画像認証を利用することはできません。
+利用している OS などの情報を検索し、エラーを修正する必要があります。
+
+参考: <https://github.com/shirasagi/shirasagi/issues/3200>
+
 ## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
