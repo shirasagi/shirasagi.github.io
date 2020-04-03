@@ -4244,6 +4244,7 @@ $ rake ss:models
 |assoc_site_id|連携サイト|Integer|
 |created|作成日時|DateTime|
 |deleted|削除日時|DateTime|
+|downloaded_count_cache|Downloaded count cache|Hash|
 |file_id|ファイル|Object|
 |filename|ファイル名|String|
 |format|フォーマット|String|
