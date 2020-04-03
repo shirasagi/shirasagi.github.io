@@ -83,6 +83,7 @@ title: SHIRASAGI 開発マニュアル
 ## トラブルシューティング
 
 - [インストール](trouble-shootings/installation.html)
+- [画像認証](trouble-shootings/captcha.html)
 
 ## シラサギ公式サイトの FAQ
 
