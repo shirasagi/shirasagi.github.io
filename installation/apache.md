@@ -45,7 +45,7 @@ ServerName (サーバ名、ＩＰアドレス)
 
 ~~~
 <VirtualHost *:80>
-  ServerName default
+  ServerName example.jp
   DocumentRoot /var/www/shirasagi/public/sites/w/w/w/_/
   Alias /assets/  /var/www/shirasagi/public/assets/
 
@@ -54,19 +54,17 @@ ServerName (サーバ名、ＩＰアドレス)
   XSendFile on
   XSendFilePath /var/www/shirasagi
 
-  AllowEncodedSlashes On
+  # static
   RewriteEngine on
-  # voice
-  RewriteCond %{REQUEST_URI} ^/.voice/.*$
-  RewriteCond %{THE_REQUEST} /([^\ ]*)
-  RewriteRule (?s)^/(.*)$ http://127.0.0.1:3000/%1 [P,L,QSA,NE]
-  # static file
-  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_URI} !^/assets/.*$
-  RewriteRule ^/(.*) http://127.0.0.1:3000/$1 [P,L,QSA]
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -d [OR]
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -s
+  RewriteRule ^.*$ - [L]
 
+  # reverse proxy
+  AllowEncodedSlashes On
   ProxyRequests Off
+  ProxyPass / http://127.0.0.1:3000/ nocanon
   ProxyPassReverse / http://127.0.0.1:3000/
 </VirtualHost>
 ~~~
@@ -111,6 +109,29 @@ $ rake unicorn:restart
 ~~~
 
 Unicorn の再起動には 2, 3 分かかる場合があります。
+
+## HTTPSサイトとして設定する際の注意点
+SSL証明書の指定を行いHTTPSサイトとして設定する際、上記VirtualHost設定のままでは
+管理画面からのログインが正常に動作しない場合があります。
+これに対処するには Apache からバックエンドのアプリケーションサーバを呼び出す場合、
+X_FORWARDED_PROTOヘッダを付与する事で解決します。
+
+設定例)
+~~~
+<VirtualHost *:443>
+  ～
+  # SSL Certificate
+  SSLEngine on
+  SSLProtocol -all +TLSv1.2
+  SSLCipherSuite HIGH:3DES:!aNULL:!MD5:!SEED:!IDEA:!3DES:!RC4:!DH
+  SSLCertificateFile      /path/to/server.crt
+  SSLCertificateKeyFile   /path/to/server.key
+  SSLCertificateChainFile /path/to/chain.crt
+  # Add RequestHeader
+  RequestHeader set X-Forwarded-Proto 'https'
+  ～
+</VirtualHost>
+~~~
 
 ## ロードバランサーなどの背後に配備する際の注意点
 
