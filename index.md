@@ -61,6 +61,7 @@ title: SHIRASAGI 開発マニュアル
 - [Shibboleth 認証](settings/shibboleth.html)
 - [メール取込](settings/mail_page.html)
 - [Basic 認証環境での設定](settings/basic_auth.html)
+- [LDAP 認証の設定](settings/ldap_auth.html)
 
 ## 機能
 
