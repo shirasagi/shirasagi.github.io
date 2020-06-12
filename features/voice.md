@@ -54,6 +54,50 @@ SHIRASAGI の読み上げ機能は、内部では OpenJTalk を使っており�
 
 参考: <http://moblog.absgexp.net/openjtalk/>
 
+## 読み上げの範囲指定
+
+`<!-- read-voice -->` と `<!-- end-read-voice -->` で囲むと、音声読み上げを使用する範囲を設定できます。
+`<!-- skip-voice -->` と `<!-- end-skip-voice -->` で囲むと、音声読み上げを使用しない範囲を設定できます。
+`delete-tags` を編集することで読み上げないタグを設定できます。
+`kuten-tags` を編集することで文字列を区切るタグを設定できます。
+音声読み上げの範囲指定に使用する文字は `config/voice.yml` から変更できます。
+
+~~~
+scraper:
+  voice-marks: [ "read-voice", "end-read-voice" ]
+  skip-marks: [ "skip-voice", "end-skip-voice" ]
+  delete-tags:
+    - style
+    - script
+    - noscript
+    - iframe
+    - rb
+    - rp
+  kuten-tags:
+    - h1
+    - h2
+    - h3
+    - h4
+    - h5
+    - p
+    - br
+    - div
+    - pre
+    - blockquote
+    - ul
+    - ol
+    - table
+~~~
+
+~~~
+<!-- read-voice -->
+  <p>読み上げる</p>
+<!-- skip-voice -->
+  <p>読み上げない</p>
+<!-- end-skip-voice -->
+<!-- end-read-voice -->
+~~~
+
 ## 読み上げ使用時の Rack サーバの注意点
 
 読み上げをご利用になる場合、必ず Rack サーバが 2 多重以上でリクエストを処理できることを確認して下さい。
