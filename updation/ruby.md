@@ -7,8 +7,8 @@ title: Ruby の更新
 
 ~~~
 $ su -
-# rvm get latest
-# rvm install 2.6.3
+# rvm get stable
+# rvm install 2.6.3 --disable-binary
 # rvm use 2.6.3 --default
 ~~~
 
