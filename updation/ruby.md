@@ -12,6 +12,16 @@ $ su -
 # rvm use 2.6.3 --default
 ~~~
 
+`rvm get stable` を実行した際に `Warning, RVM 1.26.0 introduces signed releases and automated check of signatures ...` のようなエラーが表示された場合、次のコマンドを実行し、適切な GPG キーをインポートしてください。
+
+~~~
+command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+~~~
+
+参考: <https://github.com/rvm/rvm/issues/4533>
+
+何もエラーが表示されない場合は GPG キーのインポートは不要です。
+
 ## Mecab Ruby
 
 ~~~
