@@ -25,9 +25,10 @@ app/ 以下のファイルは、モジュール別にディレクトリを分け
   - images
     - シラサギではあまり使用していません。
   - javascripts
-    - 主に CoffeeScript (*.coffee) を使用しています。
-    - 日本語を出力したい場合には .coffee.erb を使用します。
-    - 基点となる ss/script.coffee.erb から他のファイルを読み込んでいます。
+    - JavaScript (*.js) を使用しています。
+    - 過去のバージョンでは CoffeeScript (*.coffee) を使用していました。
+    - 日本語を出力したい場合には .js.erb を使用します。
+    - 基点となる ss/script.js.erb から他のファイルを読み込んでいます。
     - lib/ に含まれるファイルは assets:precompile の対象外に設定しています。
   - stylesheets
     - 主に SCSS を使用しています。
