@@ -1,5 +1,6 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'therubyracer', platforms: :ruby
+gem 'mini_racer'
 gem 'jekyll'
 gem 'kramdown'
+gem 'kramdown-parser-gfm'
