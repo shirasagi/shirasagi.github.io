@@ -51,6 +51,8 @@ ServerName (サーバ名、ＩＰアドレス)
 
   # x-sendfile
   RequestHeader Set X-Sendfile-Type X-Sendfile
+  # ELB やセキュリティファイアーウォールなどの後段に配備し、apache httpd が HTTPS を終端しない場合
+  # RequestHeader Set X-Forwarded-Proto 'https'
   XSendFile on
   XSendFilePath /var/www/shirasagi
 
@@ -128,7 +130,7 @@ X_FORWARDED_PROTOヘッダを付与する事で解決します。
   SSLCertificateKeyFile   /path/to/server.key
   SSLCertificateChainFile /path/to/chain.crt
   # Add RequestHeader
-  RequestHeader set X-Forwarded-Proto 'https'
+  RequestHeader Set X-Forwarded-Proto 'https'
   ～
 </VirtualHost>
 ~~~
