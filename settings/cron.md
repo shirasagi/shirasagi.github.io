@@ -14,20 +14,20 @@ title: 定期実行
 ## crontab -l
 
 # 10分ごとのタスク
-*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:timely' >/dev/null
+*/10 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/ss_timely_lock bundle exec rake ss:timely' >/dev/null
 
 # 1時間ごとのタスク
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:hourly' >/dev/null
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/ss_hourly_lock bundle exec rake ss:hourly' >/dev/null
 
 # 1日ごとのタスク
-5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:daily' >/dev/null
+5 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/ss_daily bundle exec rake ss:daily' >/dev/null
 
 # 毎週月曜日のタスク
-20 0 * * 1 /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ss:every_monday' >/dev/null
+20 0 * * 1 /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/ss_every_monday_lock bundle exec rake ss:every_monday' >/dev/null
 
 # CMS/ページ予約公開＆書き出し
-*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:release_pages && bundle exec rake cms:generate_nodes' >/dev/null
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:generate_pages' >/dev/null
+*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_release_pages_lock bundle exec rake cms:release_pages && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_generate_nodes_lock bundle exec rake cms:generate_nodes' >/dev/null
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_generate_pages_lock bundle exec rake cms:generate_pages' >/dev/null
 ~~~
 
 ### 気象庁防災情報XML
@@ -36,24 +36,24 @@ title: 定期実行
 
 ~~~
 ## 気象庁防災情報XML受信
-*/2 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake rss:pull_weather_xml' >/dev/null
+*/2 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/rss_pull_weather_xml_lock bundle exec rake rss:pull_weather_xml' >/dev/null
 ~~~
 
 上記のコマンドは 2 分間隔で気象庁防災情報XMLを受信する設定となっております。
 
-ご利用のサーバーによっては 2 分間隔では短い場合がございます。もし受信処理が 2 分以内に終わらないようであれば、実行間隔を長くしてください。
+ご利用のサーバーによっては 2 分間隔では短い場合がございます。もし受信処理が 2 分以内に終わらないようであれば、実行間隔を長くしてください。上記コマンドでは 2 分以内に受信処理が終わらなかった場合を考慮し、flock コマンドでロックが獲得できた場合にのみ受信処理を実行しています。
 
 
 ## 必要であれば
 
 ~~~
 # メールマガジン配信予約
-*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake ezine:deliver' >/dev/null
+*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/ezine_deliver_lock bundle exec rake ezine:deliver' >/dev/null
 
 # リンクチェック
 #  - site=xxx にはサイトのホスト名に合わせてください。
 #  - email=xxx には結果を送信するメールアドレスを設定してください。
-0 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:check_links site=www email=admin@example.jp'
+0 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_check_links bundle exec rake cms:check_links site=www email=admin@example.jp'
 ~~~
 
 ## その他
