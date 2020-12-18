@@ -7,8 +7,23 @@ title: SHIRASAGI の更新
 
 ~~~
 $ cd /var/www/shirasagi
-$ git pull --ff-only
+
+# 念の為に現在のバージョンをバックアップ
+$ git add .
+$ git commit -a -m "backup at $(date +%Y-%m-%d)"
+$ git branch -m backup-$(date +%Y-%m-%d)
+
+# 最新版を取得
+$ git fetch origin
+$ git checkout -b stable origin/stable
 ~~~
+
+> 上のコマンドがエラーになるなどで最新版を取得できない場合は、次のコマンドを試してみてください。
+> 
+> ~~~
+> $ git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+> $ git fetch origin --unshallow
+> ~~~
 
 ### (アーカイブを利用する場合)
 

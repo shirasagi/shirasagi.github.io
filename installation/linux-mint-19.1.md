@@ -55,7 +55,7 @@ $ sudo systemctl enable nginx
 
 ```
 $ sudo chown -R $(whoami) /var/www
-$ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi.git /var/www/shirasagi
+$ git clone -b stable https://github.com/shirasagi/shirasagi.git /var/www/shirasagi
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
 $ bundle install
