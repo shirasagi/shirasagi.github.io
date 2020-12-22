@@ -95,7 +95,12 @@ proxy_cache_lock_timeout 5s;
 proxy_set_header Host $host;
 proxy_set_header X-Real-IP $remote_addr;
 proxy_set_header Remote-Addr $remote_addr;
-proxy_set_header X-Forwarded-Proto $scheme;
+# HTTPS しか使用しない場合
+proxy_set_header X-Forwarded-Proto "https";
+# HTTP も使用する場合
+# proxy_set_header X-Forwarded-Proto $scheme;
+# ELB やセキュリティファイアーウォールなどの後段に配備し、nginx が HTTPS を終端しない場合
+# proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
 proxy_set_header X-Forwarded-Host $http_host;
 proxy_set_header X-Forwarded-Server $host;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
