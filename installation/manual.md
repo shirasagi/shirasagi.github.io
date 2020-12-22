@@ -118,7 +118,7 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 ### SHIRASAGI
 
 ~~~
-$ git clone -b stable --depth 1 https://github.com/shirasagi/shirasagi /var/www/shirasagi
+$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ~~~
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
