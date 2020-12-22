@@ -28,7 +28,7 @@ PUSH型は 2020年（令和2年）8月末に終了することが決まりまし
 
 ~~~
 ## 気象庁防災情報XML受信
-*/2 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake rss:pull_weather_xml' >/dev/null
+*/2 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/rss_pull_weather_xml_lock bundle exec rake rss:pull_weather_xml' >/dev/null
 ~~~
 
 上記のコマンドは 2 分間隔で気象庁防災情報XMLを受信する設定となっております。
