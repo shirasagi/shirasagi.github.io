@@ -5,7 +5,7 @@ title: インストールマニュアル - Linux Mint
 
 ## 検証環境
 
-- Linux Mint 19.1 Tessa
+- Linux Mint 20.1 Ulyssa
 
 ## パッケージのダウンロード
 
