@@ -62,6 +62,7 @@ title: SHIRASAGI 開発マニュアル
 - [メール取込](settings/mail_page.html)
 - [Basic 認証環境での設定](settings/basic_auth.html)
 - [日本語ファイル名によるダウンロード](settings/japanese_filename.html)
+- [miChecker との連携](settings/michecker_integration.html)
 
 ## 機能
 
