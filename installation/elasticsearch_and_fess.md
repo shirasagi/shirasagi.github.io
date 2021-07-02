@@ -207,10 +207,7 @@ $ su -
 ```dotnetcli
 $ su -
 # vi /etc/elasticsearch/elasticsearch.yml
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 configsync.config_path: /var/lib/elasticsearch/config
 ```
 
