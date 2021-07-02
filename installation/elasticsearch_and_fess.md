@@ -284,10 +284,6 @@ $ bin/rake gws:es:info site=シラサギ市
   },
   "tagline" : "You Know, for Search"
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 ```
 
 「シラサギ市」の全文検索を初期化するため、以下のコマンドを実行します。
