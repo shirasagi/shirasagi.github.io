@@ -207,6 +207,10 @@ $ su -
 ```dotnetcli
 $ su -
 # vi /etc/elasticsearch/elasticsearch.yml
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 configsync.config_path: /var/lib/elasticsearch/config
 ```
 
@@ -283,6 +287,10 @@ $ bin/rake gws:es:info site=シラサギ市
   },
   "tagline" : "You Know, for Search"
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 ```
 
 「シラサギ市」の全文検索を初期化するため、以下のコマンドを実行します。

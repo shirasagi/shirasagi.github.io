@@ -25,8 +25,9 @@ $ su -
 # yum -y install wget git ImageMagick ImageMagick-devel
 ~~~
 
-## ImageMagick のポリシー修正
-
+## ImageMagick のポリシー修正<br>
+> ※ImageMagickのバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
+その場合は下記 policy.xml の変更は必要ありません。
 ~~~
 # vi /etc/ImageMagick/policy.xml
 ~~~

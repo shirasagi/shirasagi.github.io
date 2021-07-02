@@ -61,6 +61,8 @@ title: SHIRASAGI 開発マニュアル
 - [Shibboleth 認証](settings/shibboleth.html)
 - [メール取込](settings/mail_page.html)
 - [Basic 認証環境での設定](settings/basic_auth.html)
+- [日本語ファイル名によるダウンロード](settings/japanese_filename.html)
+- [miChecker との連携](settings/michecker_integration.html)
 
 ## 機能
 
@@ -114,3 +116,4 @@ CKEditor のカスタマイズ方法や音声読み上げのスキップ方法�
 - [ウェブメール開発環境の構築](devel/webmail.html)
 - [Docker を用いたウェブメールテスト環境の構築](devel/webmail_test_with_docker.html)
 - [IMAP のデバッグ](devel/debug_imap.html)
+- [ブランチ運用ルール](devel/branch_naming.html)
