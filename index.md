@@ -23,7 +23,7 @@ title: SHIRASAGI 開発マニュアル
 - [Apache のインストール](installation/apache.html)
 - [Unicorn のインストール](installation/unicorn.html)
 - [Fuseki のインストール](installation/fuseki.html) （オープンデータ利用時）
-- [Elasticsearch のインストール](installation/elasticsearch.html) （GWSの全文検索、サイト内検索利用時）
+- [Elasticsearch と Fess のインストール](installation/elasticsearch_and_fess.html) （GWSの全文検索、サイト内検索利用時）
 
 ## 利用手順
 

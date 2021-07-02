@@ -3,6 +3,8 @@ layout: default
 title: elasticsearch & fess のインストール
 ---
 
+前のElasticsearch（5系）のインストール方法は[こちら](./elasticsearch.md)を参照してください。
+
 - Elasticsearch は Elasticsearch BV 社によって提供されている全文検索サーバーです。
 - Fessはオープンソースソフトウェアの全文検索システムです。
 
@@ -282,7 +284,6 @@ $ bin/rake gws:es:info site=シラサギ市
   },
   "tagline" : "You Know, for Search"
 }
-
 ```
 
 「シラサギ市」の全文検索を初期化するため、以下のコマンドを実行します。
