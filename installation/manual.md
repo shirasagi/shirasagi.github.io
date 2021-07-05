@@ -79,6 +79,7 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 ## ImageMagick のフォント設定
 
 認証画像は表示できているが、画像が見切れているなどの理由で convert コマンドのフォント指定を変更したい場合 cms.yml にて設定できます。
+
 注）この設定は v1.14.0 にて導入されました。
 
 ~~~
