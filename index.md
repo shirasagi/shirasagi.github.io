@@ -63,6 +63,7 @@ title: SHIRASAGI 開発マニュアル
 - [Basic 認証環境での設定](settings/basic_auth.html)
 - [日本語ファイル名によるダウンロード](settings/japanese_filename.html)
 - [miChecker との連携](settings/michecker_integration.html)
+- [信頼できる URL の設定](settings/trusted_url.html)
 
 ## 機能
 
