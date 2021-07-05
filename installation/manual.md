@@ -76,6 +76,27 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 
 参考: <https://github.com/shirasagi/shirasagi/issues/3200>
 
+## ImageMagick のフォント設定
+
+認証画像は表示できているが、画像が見切れているなどの理由で convert コマンドのフォント指定を変更したい場合 cms.yml にて設定できます。
+注）この設定は v1.14.0 にて導入されました。
+
+~~~
+# cd /var/www/shirasagi
+# cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
+# vi config/cms.yml
+
+### captcha の font の値を変更 ###
+  captcha:
+    font: NimbusSans-Bold
+~~~
+
+なお ImageMagick の場合、以下のコマンドで、設定可能なフォント一覧を確認できます。
+
+~~~
+# convert -list font
+~~~
+
 ## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
