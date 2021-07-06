@@ -64,6 +64,7 @@ title: SHIRASAGI 開発マニュアル
 - [日本語ファイル名によるダウンロード](settings/japanese_filename.html)
 - [miChecker との連携](settings/michecker_integration.html)
 - [信頼できる URL の設定](settings/trusted_url.html)
+- [アップロード制限（無害化）](settings/upload_policy.html)
 
 ## 機能
 
