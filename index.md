@@ -66,6 +66,7 @@ title: SHIRASAGI 開発マニュアル
 - [信頼できる URL の設定](settings/trusted_url.html)
 - [アップロード制限（無害化）](settings/upload_policy.html)
 - [5374連携](settings/k5374.html)
+- [チャットボット LINE 連携](settings/chatbot_line.html)
 
 ## 機能
 
