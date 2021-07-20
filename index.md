@@ -73,6 +73,7 @@ title: SHIRASAGI 開発マニュアル
   - [条件分岐構文](features/conditional_tag.html)
   - [閲覧履歴とレコメンド](features/recommend.html)
   - [メール取込](settings/mail_page.html)
+  - [リンクページ](features/redirect_link.html)
   - [miChecker](settings/michecker_integration.html)
   - [組織変更](features/chorg.html)
   - [サイトのデータ移行](features/site_export.html)
