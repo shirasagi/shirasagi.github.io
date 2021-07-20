@@ -3,12 +3,10 @@ layout: top
 title: SHIRASAGI 開発マニュアル
 ---
 
-## リポジトリ(GitHub)
+## リポジトリ
 
-- master
-  - [development](https://github.com/shirasagi/shirasagi)
-- stable
-  - [release](https://github.com/shirasagi/shirasagi/tree/stable)
+- [master (development)](https://github.com/shirasagi/shirasagi)
+- [stable (release)](https://github.com/shirasagi/shirasagi/tree/stable)
 
 ## インストール手順
 
@@ -19,25 +17,26 @@ title: SHIRASAGI 開発マニュアル
   - [CentOS](installation/manual.html)
   - [Ubuntu 16.04](installation/ubuntu.html)
   - [Linux Mint 19.1](installation/linux-mint-19.1.html)
-- [Nginx のインストール](installation/nginx.html)
-- [Apache のインストール](installation/apache.html)
-- [Unicorn のインストール](installation/unicorn.html)
-- [Fuseki のインストール](installation/fuseki.html) （オープンデータ利用時）
-- [Elasticsearch と Fess のインストール](installation/elasticsearch_and_fess.html) （GWSの全文検索、サイト内検索利用時）
+- ミドルウェア
+  - [Unicorn](installation/unicorn.html)
+  - [Nginx](installation/nginx.html)
+  - [Apache](installation/apache.html)
+  - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
+  - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWSの全文検索、サイト内検索利用時）
+
+## アップデート手順
+
+- [バックアップとリストア](updation/backup.html)
+- [Ruby](updation/ruby.html)
+- [MongoDB](updation/mongodb.html)
+- [SHIRASAGI](updation/manual.html)
+  - [オープンデータのレポート機能](updation/opendata_report.html)
+  - [全文検索インデックス](updation/elasticsearch_index.html)
 
 ## 利用手順
 
 - [グループウェアの始め方](start/gws.html)
 - [ウェブメールの始め方](start/webmail.html)
-
-## アップデート手順
-
-- [Ruby の更新](updation/ruby.html)
-- [MongoDB の更新](updation/mongodb.html)
-- [SHIRASAGI の更新](updation/manual.html)
-  - [オープンデータのレポート機能の更新](updation/opendata_report.html)
-- [全文検索インデックスの更新](updation/elasticsearch_index.html)
-- [バックアップとリストア](updation/backup.html)
 
 ## 設定
 
