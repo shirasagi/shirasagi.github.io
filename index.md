@@ -54,6 +54,7 @@ title: SHIRASAGI 開発マニュアル
   - [ファイルサイズ制限](settings/file_size_limit.html)
   - [日本語ファイル名のダウンロード](settings/japanese_filename.html)
   - [アップロード制限（無害化）](settings/upload_policy.html)
+  - [信頼できる URL の設定](settings/trusted_url.html)
 
 - 認証
   - [ログイン](features/login.html)
@@ -65,7 +66,6 @@ title: SHIRASAGI 開発マニュアル
   - [Basic 認証環境での設定](settings/basic_auth.html)
   - [サブディレクトリ設定](settings/subdir.html)
   - [リンクチェック設定](settings/check_links.html)
-  - [信頼できる URL の設定](settings/trusted_url.html)
   - [端末別表示](features/cms/mobile.html)
   - [ふりがな](features/kana.html)
   - [音声読み上げ](features/voice.html)
