@@ -14,7 +14,7 @@ title: Elasticsearch & Fess のインストール
 
 CentOS 7 以外のディストリビューションをご利用の方は [Installing Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html#install-elasticsearch) を参照の上、適時、インストールしてください。
 
-なお、elasticsearch5.xから7.xへのマイグレーションは[Official Site](https://www.elastic.co/guide/en/elasticsearch/reference/7.0/rolling-upgrades.html)を参考にしてください。
+なお、Elasticsearch 5.x から 7.x へのマイグレーションは[Official Site](https://www.elastic.co/guide/en/elasticsearch/reference/7.0/rolling-upgrades.html)を参考にしてください。
 
 ## Elasticsearch install
 - [公式サイト](https://www.elastic.co/jp/elasticsearch/)
@@ -202,7 +202,7 @@ configsync.config_path: /var/lib/elasticsearch/config
 
 <br />
 
-Elasticsearchを再起動します。
+Elasticsearch を再起動します。
 
 ```shell
 $ su -
