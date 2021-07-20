@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 管理コマンド
+title: 管理コマンド一覧
 ---
 
 ## データベース更新
