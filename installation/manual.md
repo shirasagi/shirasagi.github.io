@@ -22,7 +22,23 @@ $ su -
 
 ~~~
 $ su -
-# yum -y install wget git ImageMagick-6.9.10.68-3.el7.x86_64 ImageMagick-devel
+# yum -y install wget git ImageMagick ImageMagick-devel
+~~~
+
+## ImageMagickのバージョン確認
+shirasagi v1.14.0からはImageMagickのバージョンが6.9以上である必要があります。  
+次のコマンドを実行してImageMagickのバージョンを確認してください。
+
+~~~
+$ convert --version
+~~~
+
+~~~
+Version: ImageMagick 6.9.10-68 Q16 x86_64 2021-02-24 https://imagemagick.org
+Copyright: © 1999-2019 ImageMagick Studio LLC
+License: https://imagemagick.org/script/license.php
+Features: Cipher DPC Modules OpenMP(3.1)
+Delegates (built-in): bzlib cairo fontconfig freetype gslib jng jp2 jpeg lcms ltdl lzma openexr pangocairo png ps rsvg tiff wmf x xml zlib
 ~~~
 
 ## ImageMagick のポリシー修正<br>
