@@ -22,14 +22,14 @@ $ su -
 
 ~~~
 $ su -
-# yum -y install wget git ImageMagick ImageMagick-devel
+# yum -y install wget git ImageMagick-6.9.10.68-3.el7.x86_64 ImageMagick-devel
 ~~~
 
 ## ImageMagick のポリシー修正<br>
 > ※ImageMagickのバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
 その場合は下記 policy.xml の変更は必要ありません。
 ~~~
-# vi /etc/ImageMagick/policy.xml
+# vi /etc/ImageMagick-6/policy.xml
 ~~~
 
 ~~~
