@@ -59,4 +59,4 @@ systemctl start mongod
 設定が正しく適用できているかを確認するため、次のファイルの内容を確認してください。
 
 - /proc/$MongoDBのプロセスID/limits
-- /proc/$MongoDBのプロセスID/oom_score_adj （MongoDB を OOM Killer の対象から除外した場合）
+- /proc/$MongoDBのプロセスID/oom_score_adj （MongoDB を OOM Killer の対象から除外した場合）
