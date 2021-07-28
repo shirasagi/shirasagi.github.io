@@ -39,7 +39,7 @@ storage:
       cacheSizeGB: 1
 ~~~
 
-## MongoDB を OOM Killer の対象から除外
+## MongoDB を OOM Killer の対象から除外
 
 MongoDB の他にシラサギのような様々なサービスが同居している場合、メモリ不足によりシステムが不安定となる可能性があります。シラサギの場合、ワーカー・プロセスが OOM Killer により殺されてもすぐに復活するので、多少の耐久力はありますが、DB サーバーの場合、自動では起動せず、殺されてしまうとシステムがダウンしてしまいます。
 MongoDB を OOM Killer から守るには `oom_score_adj` を -1000 に設定してやります。設定する場所は systemd の unit ファイル `/usr/lib/systemd/system/mongod.service` をテキストエディタで開き `[Service]` セクションに次の行を追加します。
