@@ -10,7 +10,7 @@ title: インストールマニュアル - Linux Mint
 ## パッケージのダウンロード
 
 ```
-$ sudo apt-get install -y git imagemagick libmagickcore-dev libmagickwand-dev
+$ sudo apt-get install -y git imagemagick libmagickcore-dev libmagickwand-dev wget gnupg2
 ```
 
 ## MongoDB のインストール
@@ -18,13 +18,15 @@ $ sudo apt-get install -y git imagemagick libmagickcore-dev libmagickwand-dev
 > https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 ```
-$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-$ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-$ sudo apt-get update
-$ sudo apt-get install -y mongodb-org
+$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
 $ sudo systemctl start mongod
 $ sudo systemctl enable mongod
 ```
+
+MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
 ## Ruby(RVM) のインストール
 

@@ -103,27 +103,24 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ~~~
-# vi /etc/yum.repos.d/mongodb-org-3.4.repo
+# vi /etc/yum.repos.d/mongodb-org-4.4.repo
 ~~~
 
 ~~~
-[mongodb-org-3.4]
+[mongodb-org-4.4]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
 ~~~
 
 ~~~
-# yum install -y --enablerepo=mongodb-org-3.4 mongodb-org
-# systemctl start mongod
+# yum install -y --enablerepo=mongodb-org-4.4 mongodb-org
 # systemctl enable mongod
 ~~~
 
-> [ CentOS 6 ] <br />
-> /sbin/service mongod start <br />
-> /sbin/chkconfig mongod on <br />
+MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
 ## Ruby(RVM) のインストール
 

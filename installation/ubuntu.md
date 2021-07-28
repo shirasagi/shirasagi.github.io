@@ -7,8 +7,9 @@ title: インストールマニュアル - Ubuntu
 
 以下の Ubuntu で動作を確認しています。
 
-- Ubuntu Server 14.04 LTS/64bit
 - Ubuntu Server 16.04 LTS/64bit
+- Ubuntu Server 18.04 LTS/64bit
+- Ubuntu Server 20.04 LTS/64bit
 
 上記以外のバージョンでも動作可能だとは思いますが、自己責任でインストールしてください。
 
@@ -16,34 +17,45 @@ title: インストールマニュアル - Ubuntu
 
 ~~~
 $ sudo su
-# apt-get -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git
+# apt -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git
 ~~~
 
 ## MongoDB のインストール
 
-### Ubuntu 14.04 (trusty) をご利用の方
+### Ubuntu 16.04 (Xenial) をご利用の方
 
 ~~~
-# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-# echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-# apt-get update
-# apt-get install -y mongodb-org
-# service mongod start
+# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+# apt update
+# apt install -y mongodb-org
 ~~~
 
-### Ubuntu 16.04 (xenial) をご利用の方
+### Ubuntu 18.04 (Bionic) をご利用の方
 
 ~~~
-# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
-# echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-# apt-get update
-# apt-get install -y mongodb-org
-# systemctl start mongod
+# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+# apt update
+# apt install -y mongodb-org
+~~~
+
+### Ubuntu 20.04 (Focal) をご利用の方
+
+~~~
+# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+# apt update
+# apt install -y mongodb-org
 ~~~
 
 ### 上記以外のバージョンをご利用の方
 
 MongoDB の [Official installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) を参照してください。
+
+### MongoDB の推奨設定
+
+MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
 ## Ruby(RVM) のインストール
 

@@ -16,7 +16,7 @@ title: SHIRASAGI 開発マニュアル
   - [install.sh](installation/installsh.html)
 - 手動インストール
   - [CentOS](installation/manual.html)
-  - [Ubuntu 16.04](installation/ubuntu.html)
+  - [Ubuntu](installation/ubuntu.html)
   - [Linux Mint 19.1](installation/linux-mint-19.1.html)
 - ミドルウェア
   - [Unicorn](installation/unicorn.html)
@@ -24,6 +24,7 @@ title: SHIRASAGI 開発マニュアル
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
   - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWSの全文検索、サイト内検索利用時）
+  - [MongoDB 推奨設定](installation/mongodb-settings.html)
 
 ## アップデート手順
 
