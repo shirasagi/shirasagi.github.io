@@ -16,8 +16,7 @@ title: インストールマニュアル - Ubuntu
 ## パッケージのダウンロード
 
 ~~~
-$ sudo su
-# apt -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git
+$ sudo apt -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git wget
 ~~~
 
 ## MongoDB のインストール
@@ -25,28 +24,28 @@ $ sudo su
 ### Ubuntu 16.04 (Xenial) をご利用の方
 
 ~~~
-# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-# apt update
-# apt install -y mongodb-org
+$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
 ~~~
 
 ### Ubuntu 18.04 (Bionic) をご利用の方
 
 ~~~
-# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-# apt update
-# apt install -y mongodb-org
+$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
 ~~~
 
 ### Ubuntu 20.04 (Focal) をご利用の方
 
 ~~~
-# wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-# apt update
-# apt install -y mongodb-org
+$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
 ~~~
 
 ### 上記以外のバージョンをご利用の方

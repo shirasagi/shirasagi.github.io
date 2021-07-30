@@ -7,7 +7,7 @@ title: インストールマニュアル - MongoDB 推奨設定
 
 MongoDB のマニュアルに [推奨設定](https://docs.mongodb.com/manual/reference/ulimit/#recommended-settings) が掲載されています。これを設定します。
 
-MongoDB をインストールすると systemd の unit ファイルが `/usr/lib/systemd/system/mongod.service` として作成されます。これをテキストエディタで開き `[Service]` セクション内に次の行を追加します。
+MongoDB をインストールすると systemd の unit ファイルが `/usr/lib/systemd/system/mongod.service` として作成されます。これをテキストエディタで開き `[Service]` セクション内に次の行が設定されていなければ設定を追加します。
 
 ~~~
 # (file size)
@@ -22,6 +22,10 @@ LimitMEMLOCK=infinity
 LimitNOFILE=64000
 # (processes/threads)
 LimitNPROC=64000
+# total threads (user+kernel)
+TasksMax=infinity
+TasksAccounting=false
+
 # Recommended limits for mongod as specified in
 # https://docs.mongodb.com/manual/reference/ulimit/#recommended-ulimit-settings
 ~~~
@@ -60,3 +64,22 @@ systemctl start mongod
 
 - /proc/$MongoDBのプロセスID/limits
 - /proc/$MongoDBのプロセスID/oom_score_adj （MongoDB を OOM Killer の対象から除外した場合）
+
+
+## Mongo Shell の警告の確認
+
+MongoDB が起動できたら `mongo` コマンドを実行します。
+`mongo` コマンドを実行すると、利用している OS のカーネルパラメーターによっては以下のような警告が表示される場合があります。
+
+~~~
+$ mongo
+...省略...
+** WARNING: /sys/kernel/mm/transparent_hugepage/enabled is 'always'.
+**        We suggest setting it to 'never'
+
+** WARNING: /sys/kernel/mm/transparent_hugepage/defrag is 'always'.
+**        We suggest setting it to 'never'
+...省略...
+~~~
+
+表示されている警告にしたがってカーネルパラメーターを調整してください。
