@@ -30,15 +30,11 @@ shirasagi v1.14.0からはImageMagickのバージョンが6.9以上である必�
 次のコマンドを実行してImageMagickのバージョンを確認してください。
 
 ~~~
-$ convert --version
+$ convert --version | grep Version
 ~~~
 
 ~~~
-Version: ImageMagick 6.9.10-68 Q16 x86_64 2021-02-24 https://imagemagick.org
-Copyright: © 1999-2019 ImageMagick Studio LLC
-License: https://imagemagick.org/script/license.php
-Features: Cipher DPC Modules OpenMP(3.1)
-Delegates (built-in): bzlib cairo fontconfig freetype gslib jng jp2 jpeg lcms ltdl lzma openexr pangocairo png ps rsvg tiff wmf x xml zlib
+Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 ~~~
 
 ## ImageMagick のポリシー修正<br>
