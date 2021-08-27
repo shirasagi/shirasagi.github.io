@@ -25,11 +25,23 @@ $ su -
 # yum -y install wget git ImageMagick ImageMagick-devel
 ~~~
 
+## ImageMagickのバージョン確認
+shirasagi v1.14.0からはImageMagickのバージョンが6.9以上である必要があります。  
+次のコマンドを実行してImageMagickのバージョンを確認してください。
+
+~~~
+$ convert --version | grep Version
+~~~
+
+~~~
+Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
+~~~
+
 ## ImageMagick のポリシー修正<br>
 > ※ImageMagickのバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
 その場合は下記 policy.xml の変更は必要ありません。
 ~~~
-# vi /etc/ImageMagick/policy.xml
+# vi /etc/ImageMagick-6/policy.xml
 ~~~
 
 ~~~
