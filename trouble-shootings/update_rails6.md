@@ -33,7 +33,23 @@ gem 'rails', '~> 6.0.0'
 ### config/application.rb の更新
 
 `config/application.rb` を開き `config.load_defaults 5.0` の指定を `config.load_defaults 6.0` とします。
-また、Rails 6 から既定で Zeitwerk クラスローダーが有効になりますが、`SS::Config` のような `SS` で始まるクラスやモジュールをうまくロードできませんので、一旦無効にするために `config.load_defaults 6.0` の下に `config.autoloader = :classic` を追加します。
+
+### Zeitwerk class loader 対応
+
+SS::Config のような SS 配下のモジュールやクラスをロードするために inflection の設定が必要です。
+`config/initializers/inflections.rb` に次の設定を追加します。
+
+~~~ruby
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym 'SS'
+end
+~~~
+
+何か適当なテストを実行してみます。エラーがあれば修正します。
+テストでは起動時にすべてのクラスを読み込む設定となっているためロードエラーを効率よく修正することができます。
+
+なお Rails 7 では従来のクラスローダー classic class loader が廃止され Zeitwerk のみがサポートされるようですので、この際に Zeitwerk で動作するように修正します。
+<https://weblog.rubyonrails.org/2021/9/3/autoloading-in-rails-7-get-ready/>
 
 ### ActionDispatch::Response#media_type の利用
 
@@ -336,7 +352,21 @@ Cms::Node.where(filename: /^master\//).where(filename: /^partial\//).selector
 => {"filename"=>/^master\//, "$and"=>[{"filename"=>/^partial\//}]}
 ~~~
 
-今のところこの仕様変更の影響を受けるのは `app/models/concerns/category/addon/integration.rb` だけですが、テストを進めていくと他にも見つかるかもしれません。
+上記の例は `app/models/concerns/category/addon/integration.rb` にみられるものですが、
+他には、シラサギでは閲覧権限があるものだけを DB から抽出するのによく次のようなクエリーを使います。
+
+~~~ruby
+@model.allow(:read, @cur_user, site: @cur_site).find(params[:id])
+~~~
+
+ここで閲覧権限がない場合、`.allow(:read, @cur_user, site: @cur_site)` は `.where(id: -1)` と等価となるため、上のコードは、以下のコードと等価となります。
+
+~~~ruby
+@model.where(id: -1).find(params[:id])
+~~~
+
+もうお気づきでしょうが、Mongoid 7.0 相当では、先に指定している条件が上書きされるため `@model.find(params[:id])` を実行するのに等しく、権限があるなしが無効になって成功していました。
+Mongoid 7.3 では、上書きされることは無くなったため、このコードは例外を発生させるようになりました。
 
 ### or の仕様変更
 
