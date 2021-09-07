@@ -76,7 +76,7 @@ Rails 6.0 から `render file: "cms/agents/addons/body_part/view/index"` のよ�
 
 正解は `render template: "cms/agents/addons/body_part/view/index"` と `render template:` 形式を利用することのようです。
 
-シラサギは歴史的にずっと ``render file:` 形式を利用してきており、相当な量を修正しないといけません。
+シラサギは歴史的にずっと `render file:` 形式を利用してきており、相当な量を修正しないといけません。
 
 以下は余談で、実装を詳しくみていきます。
 当該処理は actionview の `action_view/renderer/template_renderer.rb` に実装されており、
@@ -160,12 +160,12 @@ Rails 6.0 では `render file: "#{Rails.root}/cms/agents/addons/body_part/view/i
 TypeError (no implicit conversion of Symbol into String)
 ~~~
 
-なお `render template:` へシンボルを渡すのもやめましょう。この形式でも意味的に「パス」が期待されていると思います。
-現在はこの形式にシンボルを渡しても動作しますが、将来は良く分かりません。「パス」としてシンボルは不適切かなと思います。文字列を渡すようにしましょう。
+なお `render template:` へシンボルを渡すのもやめましょう。この形式でも意味的に「パス」が渡ってくることが期待されていると思います。
+現在はこの形式にシンボルを渡しても動作しますが、将来は分かりませんし、「パス」としてシンボルは不適切かなと思います。文字列を渡すようにしましょう。
 
 ### ActionMailer の改行コードが \n から \r\n へ変更
 
-これはあまり影響はないと思いますが、次のようなテストコードが失敗します。
+次のようなテストコードが失敗します。
 
 ~~~ruby
 expect(mail.body.raw_source).to include("＜警戒（発表）＞\n北九州市、福岡市")
@@ -176,6 +176,8 @@ expect(mail.body.raw_source).to include("＜警戒（発表）＞\n北九州市�
 ~~~ruby
 expect(mail.body.raw_source).to include("＜警戒（発表）＞\r\n北九州市、福岡市")
 ~~~
+
+量としては多くないですが、ちょくちょくテストが失敗します。
 
 ### ActionDispatch::HostAuthorization middleware
 
@@ -338,40 +340,60 @@ Mongoid を最新版へ更新したため、`::Boolean` クラスが削除され
 
 ### 検索条件が追加されるようになった
 
-以前のバージョンでは、後から指定した検索条件は、先に指定している条件を上書きしていました:
+Mongoid 7.0 相当では、後から指定した検索条件が先に指定している条件を上書きしていました:
 
 ~~~ruby
 Cms::Node.where(filename: /^master\//).where(filename: /^partial\//).selector
 => {"filename"=>/^partial\//}
 ~~~
 
-更新後のバージョンでは、検索条件が追加されるようになりました。
+Mongoid 7.3 では検索条件が追加されるようになりました。
 
 ~~~ruby
 Cms::Node.where(filename: /^master\//).where(filename: /^partial\//).selector
 => {"filename"=>/^master\//, "$and"=>[{"filename"=>/^partial\//}]}
 ~~~
 
-上記の例は `app/models/concerns/category/addon/integration.rb` にみられるものですが、
-他には、シラサギでは閲覧権限があるものだけを DB から抽出するのによく次のようなクエリーを使います。
+#### 権限判定が正しく行われるようになった
+
+シラサギでは閲覧権限があるものだけを DB から抽出するのによく次のようなクエリーを使います。
 
 ~~~ruby
 @model.allow(:read, @cur_user, site: @cur_site).find(params[:id])
 ~~~
 
-ここで閲覧権限がない場合、`.allow(:read, @cur_user, site: @cur_site)` は `.where(id: -1)` と等価となるため、上のコードは、以下のコードと等価となります。
+ここで閲覧権限がない場合、`.allow(:read, @cur_user, site: @cur_site)` は `.where(id: -1)` と等価となるため、上のコードは下のコードと等価となります。
 
 ~~~ruby
 @model.where(id: -1).find(params[:id])
 ~~~
 
-もうお気づきでしょうが、Mongoid 7.0 相当では、先に指定している条件が上書きされるため `@model.find(params[:id])` を実行するのに等しく、権限があるなしが無効になって成功していました。
-Mongoid 7.3 では、上書きされることは無くなったため、このコードは例外を発生させるようになりました。
+`find(params[:id])` は `where(id: params[:id]).first || raise Mongoid::Errors::DocumentNotFound` とほぼ等価のため、
+もうお気づきでしょうが、Mongoid 7.0 相当では、先に指定している条件が後から指定した条件で上書きされるため `@model.find(params[:id])` を実行するのに等しく、権限チェックが無効になってしまっていました。
+Mongoid 7.3 では上書きされなくなったため、このコードは例外を発生させるようになりました。
+
+まとめると Mongoid 7.0 相当では:
+
+~~~ruby
+@model.allow(:read, @cur_user, site: @cur_site).find(params[:id])
+-> @model.where(id: -1).where(id: params[:id]).first || raise Mongoid::Errors::DocumentNotFound
+-> @model.where(id: params[:id]).first || raise Mongoid::Errors::DocumentNotFound
+-> Mongoid::Errors::DocumentNotFound エラーが発生しない。つまり権限チェックが無効。
+~~~
+
+Mongoid 7.3 では
+
+~~~ruby
+@model.allow(:read, @cur_user, site: @cur_site).find(params[:id])
+-> @model.where(id: -1).where(id: params[:id]).first || raise Mongoid::Errors::DocumentNotFound
+-> @model.where(id: -1, "$and" => [{ id: params[:id] }]).first || raise Mongoid::Errors::DocumentNotFound
+-> Mongoid::Errors::DocumentNotFound エラーが発生する。つまり権限チェックが有効。
+~~~
 
 ### or の仕様変更
 
 `.or` は追加されるのではなく、全体を OR で置き換えるようになりました。
-実例で見ていくと、以前のバージョンでは次のようでした。
+実例で見ていくと、Mongoid 7.0 相当では次のようでした。
 
 ~~~ruby
 site = Cms::Site.find(1)
@@ -386,7 +408,7 @@ Cms::Page.site(site).or({ filename: /^master\// }, { category_ids: 1 }).selector
 ~~~
 
 指定したサイト内で、filename が "master" で始まるページ or カテゴリーに 1 番のフォルダーが設定されているページを検索していました。
-更新後のバージョンでは、
+Mongoid 7.3 では、
 
 ~~~ruby
 site = Cms::Site.find(1)
