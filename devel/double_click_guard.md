@@ -12,11 +12,20 @@ Rails にはフォームのボタン上でのダブルクリックを防御す�
 
 ## ダブルクリック防御のタイムアウト
 
-既定では 2 秒以内に画面遷移が発生しない場合、もう一度ボタンを押すことができるようになります。これを変更したい場合 `<form>` 要素に `data-ss-timeout` で、もう一度ボタンを押せるようになるまでの時間をミリ秒で設定します。
+既定では 2 秒以内に画面遷移が発生しない場合、もう一度ボタンを押すことができるようになります。これを変更したい場合 `<form>` 要素に `data-ss-timeout` で、もう一度ボタンを押せるようになるまでの時間をミリ秒で設定します。
 例:
 
 ~~~ruby
 <%= form_for :item, url: { action: :download_all }, html: { id: "item-form", method: :post, multipart: true, autocomplete: :off, data: { ss_timeout: 5000 } } do |f| %>
+~~~
+
+## クリック時にボタンのラベルを変えたい場合
+
+例えば「保存」ボタンをクリックすると「保存中」と変更したい場合、"data-disable-with" 属性に変更したいラベルを設定します。
+例:
+
+~~~
+  <%= f.submit t('ss.buttons.save'), class: 'btn-primary', data: { disable_with: t("ss.buttons.saving") } %>
 ~~~
 
 ## 通常のボタンでダブルクリック防御を有効化する場合
