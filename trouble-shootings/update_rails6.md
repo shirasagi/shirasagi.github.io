@@ -255,6 +255,10 @@ use HttpAcceptLanguage::Middleware
 run SS::Application.routes
 ~~~
 
+### CSV の mime type が text/comma-separated-values から text/csv へ変更
+
+シラサギのソースから text/comma-separated-values を検索し text/csv へ置換します。
+利用箇所は多くはないですが、処理が失敗するので修正します。
 
 ## factory_bot 4.10 から 6.2 への更新
 
