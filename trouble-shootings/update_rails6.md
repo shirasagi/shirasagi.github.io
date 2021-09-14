@@ -424,18 +424,63 @@ Cms::Page.site(site).or({ filename: /^master\// }, { category_ids: 1 }).selector
 
 指定したサイト内のページ or filename が "master" で始まるページ or カテゴリーに 1 番のフォルダーが設定されているページを検索するようになりました。
 
-シラサギ内で or を検索し、該当箇所を修正します。
+Mongoid 公式の資料によると `.any_of` が Mongoid 7.0 の `or` として振る舞うという説明があります。
+確かに次のようなクエリを試すと一見動作しそうです。
 
-修正例:
+~~~ruby
+Cms::Page.all.where(site_id: 1).any_of({ name: /foo/ }, { filename: /foo/ }).selector
+ => {"site_id"=>1, "$or"=>[{"name"=>/foo/}, {"filename"=>/foo/}]}
+~~~
+
+しかし `.any_of` を連結すると様子が変わってきます。次のように試してみます。
+
+~~~ruby
+Cms::Page.all.where(site_id: 1) \
+  .any_of([{ name: /foo/ }, { filename: /foo/ }]) \
+  .any_of({ close_date: nil }, { close_date: { "$lt" => Time.zone.now.utc } }) \
+  .selector
+ => {"site_id"=>1, "$or"=>[{"name"=>/foo/}, {"filename"=>/foo/}, {"close_date"=>nil}, {"close_date"=>{"$lt"=>2021-09-10 00:26:58 UTC}}]}
+~~~
+
+期待した selector ではありません。`any_of` には注意すべき癖があるので、利用しない方が良さそうです。
+
+> any_of の第1項はキーワード検索をシミュレーションした項で、第2項は公開されていることをシミュレーションした項です。
+
+`.or` の修正は次のようすれば良いかと思います。
+
+Mongoid 7.0 相当（修正前）:
 
 ~~~ruby
 self.or({email: id}, {uid: id})
 ~~~
 
-上記のようなコードを下記のように修正します。
+Mongoid 7.3 （修正後）:
 
 ~~~ruby
 self.where("$or" => [{ email: id }, { uid: id }])
+~~~
+
+DSL を使いたいという人向けには次のような修正方法も良いでしょう。
+
+~~~ruby
+self.and(self.unscoped.or({ email: id }, { uid: id }))
+~~~
+
+> どちらかというと DSL を使った方が可読性が低下すると思いますので、DSL を使わない方を推奨します。
+
+### $and にまつわる奇妙な動作
+
+検索条件が追加されるようになったと説明しましたし、Mongoid の公式資料でもそのように説明されています。
+しかし `$and` だけは別で、Mongoid 7.0 相当では追加されたいたのが、Mongoid 7.3 では置き換えられます。
+いろいろと調査したところ、おそらくこの動作は Mongoid のバグだと思うので <https://jira.mongodb.org/projects/MONGOID/issues/MONGOID-5183> に報告し、修正 PR を <https://github.com/mongodb/mongoid/pull/5077> に送りました。
+
+これが採用されるかどうは不明ですが、シラサギとしてはこの修正がないと動作させることができません。
+そこで mongoid をフォークし、修正 PR を適用した版を <https://github.com/shirasagi/mongoid/tree/7.3-stable-MONGOID-5183> に作成しました。
+
+`Gemfile` を次のように修正し、上記のバージョンを指すように修正します。
+
+~~~
+gem 'mongoid', github: 'shirasagi/mongoid', branch: '7.3-stable-MONGOID-5183'
 ~~~
 
 ### find の仕様変更
