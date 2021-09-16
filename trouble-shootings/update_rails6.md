@@ -476,7 +476,7 @@ self.and(self.unscoped.or({ email: id }, { uid: id }))
 
 検索条件が追加されるようになったと説明しましたし、Mongoid の公式資料でもそのように説明されています。
 しかし `$and` だけは別で、Mongoid 7.0 相当では追加されたいたのが、Mongoid 7.3 では置き換えられます。
-いろいろと調査したところ、おそらくこの動作は Mongoid のバグだと思うので <https://jira.mongodb.org/projects/MONGOID/issues/MONGOID-5183> に報告し、修正 PR を <https://github.com/mongodb/mongoid/pull/5077> に送りました。
+いろいろと調査したところ、おそらくこの動作は Mongoid のバグだと思うので <https://jira.mongodb.org/browse/MONGOID-5183> に報告し、修正 PR を <https://github.com/mongodb/mongoid/pull/5077> に送りました。
 
 これが採用されるかどうは不明ですが、シラサギとしてはこの修正がないと動作させることができません。
 そこで mongoid をフォークし、修正 PR を適用した版を <https://github.com/shirasagi/mongoid/tree/7.3-stable-MONGOID-5183> に作成しました。
