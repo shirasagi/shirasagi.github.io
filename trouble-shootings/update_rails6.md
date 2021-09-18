@@ -483,7 +483,7 @@ self.and(self.unscoped.or({ email: id }, { uid: id }))
 
 `Gemfile` を次のように修正し、上記のバージョンを指すように修正します。
 
-~~~
+~~~ruby
 gem 'mongoid', github: 'shirasagi/mongoid', branch: '7.3-stable-MONGOID-5183'
 ~~~
 
@@ -491,18 +491,36 @@ gem 'mongoid', github: 'shirasagi/mongoid', branch: '7.3-stable-MONGOID-5183'
 
 Mongoid 7.0 相当では、以下のようなコードが成功していました。
 
-~~~
+~~~ruby
 Cms::Site.find id: "1"
 ~~~
 
 Mongoid 7.3 では失敗しますので、次のように find_by を使うようにします。
 
-~~~
+~~~ruby
 Cms::Site.find_by id: "1"
 ~~~
 
 今回は find_by に id: と主キーを渡しているので、次のように単に find にパラメータを渡すこともできます。
 
-~~~
+~~~ruby
 Cms::Site.find "1"
+~~~
+
+### where(nil) が例外を投げるようになった
+
+Mongoid 7.0 相当では、以下のようなコードが成功していました。
+
+~~~ruby
+@condition_hash = nil
+Cms::Page.site(site).where(@condition_hash).count
+~~~
+
+Mongoid 7.3 では CriteriaArgumentRequired "Calling Criteria methods with nil arguments is not allowed" という例外が発生するようになったので以下のように修正します。
+
+~~~ruby
+@condition_hash = nil
+criteria = Cms::Page.site(site)
+criteria = criteria.where(@condition_hash) if @condition_hash
+criteria.count
 ~~~
