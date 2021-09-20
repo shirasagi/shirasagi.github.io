@@ -102,6 +102,7 @@ title: SHIRASAGI 開発マニュアル
   - [ファイル機能（SS::File）](devel/ss_file.html)
   - [モーダル検索UI (SearchUI)](devel/search_ui.html)
   - [Jobの開発](devel/job.html)
+  - [無害化処理 (サニタイザー)](devel/upload_policy.html)
 - CMS
   - [CMSの主要モデル](devel/cms_models.html)
   - [公開系の開発](devel/cms_public.html)
