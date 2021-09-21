@@ -32,7 +32,7 @@ end
 in_file にオブジェクトが設定されている場合、自動的に sanitizer_input/ にコピーします。
 
 - タイミングは `before_save :save_file`
-- Fs.upload(sanitizer_input, path)
+- save は実行しない
 
 ### public sanitizer_copy_file()
 
