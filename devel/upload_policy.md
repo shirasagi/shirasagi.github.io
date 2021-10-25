@@ -13,9 +13,6 @@ sanitizer_input/ に設置したファイルは無害化され sanitizer_output/
 ```ruby
 #!/usr/bin/env ruby
 
-# input: sanitizer_input/{ID}_{TIMESTAMP}.ext
-# output: sanitizer_output/{ID}_{FILENAME}_{PID}_marked.ext
-
 require 'fileutils'
 Dir.glob("/var/share/shirasagi/sanitizer_input/*").each do |f|
   file = "#{File.basename(f, '.*')}_#{rand(1_000)}_marked#{File.extname(f)}"
