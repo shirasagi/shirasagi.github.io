@@ -65,3 +65,119 @@ sudo systemctl start shirasagi-job.service
 ```
 
 Shirasagi Job を 2 多重以上で動作させるには、上記のサービススクリプトを起動したい数だけコピーして複数設定してください。
+
+## Shirasagi Job の状態確認
+
+SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo.ss-proj.org/.sys/job/status> が提供されるようになりました。
+ジョブの実行が滞留している場合にエラーが表示されますので、Shirasagi Job の運用で何か問題がある場合はこの状態画面を確認するようにしてください。
+
+また、ジョブの状態確認画面は json で状態を取得することができます。URL は <https://demo.ss-proj.org/.sys/job/status.json> です。
+ジョブの実行状態が正常の場合、次のような json が応答されます。
+
+~~~json
+{
+  "status": "ok",
+  "active_job": {
+    "queue_adapter": "shirasagi"
+  },
+  "job": {
+    "mode": "on_demand",
+    "polling_queues": [
+      "default",
+      "mailers",
+      "voice_synthesis",
+      "external"
+    ]
+  },
+  "item": {
+    "name": "job:service",
+    "current_count": 0,
+    "updated": "2021-11-02T17:24:05.770+09:00"
+  }
+}
+~~~
+
+ジョブの実行が滞留している場合、次のような json が応答されます。
+
+~~~json
+{
+  "status": "stucked",
+  "notice": {
+    "notices": [
+      "mode が service の場合、ジョブサービスが起動していることを確認してください。これには ssh などでサーバーへログインし、ps コマンドなどでサービスが起動しているかどうかを確認します。",
+      "タスク一覧の中にステータスが stop または completed でないものがある場合、削除します。",
+      "それでも改善しない場合、タスク一覧の中にタスク名が job:service となっているものがありますが、これを削除します。",
+      "それでも改善しない場合、タスク一覧の中のものをすべて削除します。"
+    ]
+  },
+  "active_job": {
+    "queue_adapter": "shirasagi"
+  },
+  "job": {
+    "mode": "on_demand",
+    "polling_queues": [
+      "default",
+      "mailers",
+      "voice_synthesis",
+      "external"
+    ]
+  },
+  "item": {
+    "name": "job:service",
+    "current_count": 6,
+    "updated": "2021-11-02T17:24:05.770+09:00"
+  }
+}
+~~~
+
+json の意味は次の通りです。
+
+| 項目名                   | 説明 |
+|--------------------------|----------------------------------------------------------------|
+| status                   | "ok" または "stucked"。実行状態が正常な場合は "ok"。ジョブの実行が滞留している場合は "stucked"。 |
+| notice.notices           | status が "stucked" の場合のメッセージ。 |
+| active_job.queue_adapter | ジョブのアダプターの設定値。 |
+| job.mode                 | Shirasagi Job のモード。 |
+| job.polling_queues       | Shirasagi Job が監視しているキューのリスト。 |
+| item.name                | Shirasagi Job サービスを表すタスクの名前。これはジョブ - タスク <https://demo.ss-proj.org/.sys/job/tasks> の一覧に表示されているタスクの名前。 |
+| item.current_count       | Shirasagi Job サービスの実行数。 |
+| item.updated             | Shirasagi Job サービスの最終更新日時。 |
+
+ジョブの実行状態の監視を監視システムなどに組み込んで自動化する場合は、次の Ruby スクリプトを参考にしてください。
+
+~~~ruby
+url = "https://demo.ss-proj.org/.sys/job/status.json"
+user_id = "sys"
+
+user = SS::User.find_by(uid: user_id)
+
+access_token = SS::AccessToken.new(cur_user: user)
+access_token.create_token
+access_token.save!
+
+resp = Faraday.get("#{url}?access_token=#{access_token.token}")
+if resp.status == 302
+  resp["Set-Cookie"] =~ /_ss_session=(\w+)/
+  session_id = $1
+  resp = Faraday.get(url) do |req|
+    req.headers['Cookie'] = "_ss_session=#{session_id}"
+  end
+end
+
+puts resp.body
+~~~
+
+この Ruby スクリプトを job_status.rb というファイル名で保存したとすると、
+シラサギディレクトリで次のようにして実行します。
+
+~~~
+bundle exec rails runner <path-to>/job_status.rb
+~~~
+
+このコマンドを実行すると json が取得されるます。status だけを取得したい場合は [jq コマンド](https://stedolan.github.io/jq/)と組み合わせて、次のように実行すると status だけを取得することができます。
+
+~~~
+bundle exec rails runner <path>/job_status.rb | <path>/jq '.status'
+~~~
+
+スクリプトの URL とユーザーは適時変更してご利用ください。
