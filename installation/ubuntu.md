@@ -48,7 +48,8 @@ MongoDB の [Official installation](https://docs.mongodb.com/manual/tutorial/ins
 ## Ruby(RVM) のインストール
 
 ~~~
-# gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+# \curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+# \curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 # \curl -sSL https://get.rvm.io | sudo bash -s stable
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
