@@ -87,6 +87,10 @@ title: SHIRASAGI 開発マニュアル
   - [チャットボット LINE 連携](settings/chatbot_line.html)
   - [5374連携](settings/k5374.html)
 
+## サイト構築資料
+
+- [マルチテナントサイトの構築について](site_construction/multi-tenant.html)
+
 ## 開発資料
 
 - ソースコード
