@@ -373,3 +373,37 @@ title: リファレンス
 | sanitize    | HTML として不適切な文字を削除
 
 [Liquid](https://shopify.github.io/liquid/) 標準のフィルターも使用できます。
+
+
+### ss_date / ss_time についての補足
+
+ss_date と ss_time とは、日時データを指定されたフォーマットにしたがって文字列に変換するフィルターで、 {% raw %}`{{ page.date | ss_date: <format> }}`{% endraw %} のように指定します。
+
+`format` には日時データのフォーマット文字列を指定し、[strftime](https://docs.ruby-lang.org/ja/latest/method/Time/i/strftime.html) メソッドと同じフォーマット文字列を使用することができます。また、事前に定義されたフォーマット文字列がいくつか提供されており、{% raw %}`{{ page.date | ss_date: "default" }}`{% endraw %} のようにして利用することもできます。
+
+`format` を省略すると "default" が指定されたものとみなされます。
+
+ss_date で利用できる事前定義フォーマット:
+
+| format    | フォーマット文字列 |
+|-----------|--------------|
+| "default" | '%Y/%1m/%1d' |
+| "iso"     | '%Y-%m-%d' |
+| "long"    | '%Y年%1m月%1d日' |
+| "short"   | '%1m/%1d' |
+| "picker"   | '%Y/%m/%d' |
+
+ss_time で利用できる事前定義フォーマット:
+
+| format    | フォーマット文字列 |
+|-----------|--------------|
+| "default" | '%Y/%1m/%1d %H:%M' |
+| "iso"     | '%Y-%m-%d %H:%M' |
+| "long"    | '%Y年%1m月%1d日 %H時%M分' |
+| "short"   | '%y/%m/%d %H:%M' |
+| "picker"  | '%Y/%m/%d %H:%M' |
+
+標準のフィルターに [date](https://shopify.github.io/liquid/filters/date/) というフィルターがありますが、標準フィルター `date` との違いは次の点です。
+
+- date は事前定義フォーマットを利用できないが、ss_date / ss_time は利用できる。
+- data は曜日（"%a" や "%A" など）が英語の曜日に変換されますが、ss_date / ss_time は日本語の曜日に変換されます。
