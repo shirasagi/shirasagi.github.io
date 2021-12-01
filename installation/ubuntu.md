@@ -64,8 +64,8 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 # echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
 # source /usr/local/rvm/scripts/rvm
 # /usr/local/rvm/bin/rvm requirements
-# rvm install 2.6.3 --disable-binary
-# rvm use 2.6.3 --default
+# rvm install 2.7.5 --disable-binary
+# rvm use 2.7.5 --default
 # gem install bundler --no-document
 ~~~
 

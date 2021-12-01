@@ -37,8 +37,8 @@ $ sudo apt-add-repository -y ppa:rael-gc/rvm
 $ sudo apt-get update
 $ sudo apt-get install -y rvm
 $ source /usr/share/rvm/scripts/rvm #(Run command as login shell)
-$ rvm install ruby 2.6.3 --disable-binary
-$ rvm use 2.6.3 --default
+$ rvm install ruby 2.7.5 --disable-binary
+$ rvm use 2.7.5 --default
 ```
 
 ## Nginx のインストール
