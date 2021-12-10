@@ -124,6 +124,7 @@ title: SHIRASAGI 開発マニュアル
 - [インストール](trouble-shootings/installation.html)
 - [画像認証](trouble-shootings/captcha.html)
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
+- [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 
 ## シラサギ公式サイトの FAQ
 
