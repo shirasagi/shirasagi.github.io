@@ -47,6 +47,7 @@ $ rm -rf shirasagi-stable*
 ## Gem の更新
 
 ~~~
+# source /opt/rh/devtoolset-10/enable
 # bundle install --without development test
 ~~~
 

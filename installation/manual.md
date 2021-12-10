@@ -22,7 +22,8 @@ $ su -
 
 ~~~
 $ su -
-# yum -y install wget git ImageMagick ImageMagick-devel
+# yum -y install scl-utils centos-release-scl
+# yum -y install wget git ImageMagick ImageMagick-devel devtoolset-10
 ~~~
 
 ## ImageMagickのバージョン確認
@@ -141,9 +142,8 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 # \curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 # \curl -sSL https://get.rvm.io | sudo bash -s stable
 # source /etc/profile
-# rvm install 2.6.3 --disable-binary
-# rvm use 2.6.3 --default
-# gem install bundler
+# rvm install 2.7.5 --disable-binary
+# rvm use 2.7.5 --default
 ~~~
 
 ## ダウンロード
@@ -162,6 +162,7 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ~~~
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
+$ source /opt/rh/devtoolset-10/enable
 $ bundle install --without development test
 $ rake unicorn:start
 ~~~

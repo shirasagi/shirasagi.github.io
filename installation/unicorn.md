@@ -9,10 +9,15 @@ title: Unicorn のインストール
 
 ## Install
 
-~~~
-# cd /var/www/shirasagi
-# bundle install --without development test
-~~~
+シラサギのインストールがまだの人は、次の資料を参考にシラサギのインストールを済ませてください。
+
+- 自動インストール
+  - [Vagrant](installation/vagrant.html)
+  - [install.sh](installation/installsh.html)
+- 手動インストール
+  - [CentOS](installation/manual.html)
+  - [Ubuntu](installation/ubuntu.html)
+  - [Linux Mint 19.1](installation/linux-mint-19.1.html)
 
 ## 設定ファイル
 
@@ -87,7 +92,7 @@ $ crontab -e
 ## 自動起動設定 (CentOS 6)
 
 ~~~
-# rvm wrapper 2.6.3 start unicorn # Ruby のバージョンを入力
+# rvm wrapper 2.7.5 start unicorn # Ruby のバージョンを入力
 # cp /var/www/shirasagi/bin/unicorn-centos6.sh /etc/rc.d/init.d/unicorn
 # chmod +x /etc/rc.d/init.d/unicorn
 # /sbin/chkconfig unicorn on
