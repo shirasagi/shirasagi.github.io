@@ -49,9 +49,14 @@ After=mongod.service
 [Service]
 User=${シラサギジョブを実行するユーザー}
 WorkingDirectory=/var/www/shirasagi
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec rake job:run
 Type=simple
 Restart=always
+
+ExecStart=/usr/local/rvm/wrappers/default/bundle exec rake job:run
+ExecStop=/usr/bin/kill -QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 `${シラサギジョブを実行するユーザー}` の部分は、`Shirasagi Job` を実行するユーザーに応じて適切に書き換えてください。
