@@ -86,6 +86,31 @@ production: &production
 
 設定を変更したらシラサギを再起動します。
 
+#### タイムアウト設定
+
+安定して運用するため、あるいは不測の事態に備えて、miChecker を実行する際にタイムアウトを設定することをお勧めします。
+タイムアウトを設定するには次の様に設定ファイルを変更します。
+
+Docker 版 miChecker をご利用の方:
+
+~~~
+production: &production
+  disable: false
+  command: [ "/usr/bin/timeout", "10m", "bin/docker-michecker.sh" ]
+~~~
+
+手動でインストールされた方（/opt 以外の場所にインストールされた方は適時実行コマンドを変更）:
+
+~~~
+production: &production
+  disable: false
+  command: [ "/usr/bin/timeout", "10m", "/opt/michecker/bin/michecker", "--no-sandbox", "--lang=ja-JP" ]
+~~~
+
+ここでは 10 分（10m）のタイムアウト設定しています。ご利用の CPU やネットワークの性能によって、適時変更してください。
+
+> Mac をご利用の方は、brew で coreutils をインストール後、"/usr/bin/timeout" ではなく "/usr/local/bin/timeout" を設定してください。
+
 ### 権限
 
 シラサギの管理画面へログインし、サイト設定 - 権限/ロールの編集画面から権限「micheckerの利用」にチェックをつけて保存してください。
