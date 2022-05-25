@@ -136,6 +136,7 @@ title: リファレンス
 | page.contact_link_name | ページに設定された連絡先のリンク名
 | page.tags | ページのタグ
 | page.groups | ページの管理グループ
+| page.summarized_categories | サマリーページを設定したカテゴリー
 
 ## node
 
@@ -162,6 +163,7 @@ title: リファレンス
 | node.nodes | ノードのサブノート
 | node.pages | ノード内にあるページ、または、カテゴリーとして関連付けられているページ、または、検索条件 URL として設定されているノード内のページ、または、検索条件 URL として設定されているノードにカテゴリーとして関連付けられているページ、または、これらすべてのページ
 | node.groups | ノードの管理グループ
+| node.summary_page | ノードのサマリーページ
 
 ## values
 
@@ -360,17 +362,21 @@ title: リファレンス
 
 ## Filters
 
-| フィルター    | 説明 |
-|-------------|--------------------------------------------|
-| ss_date     | 日付を文字列に変換
-| ss_time     | 日時を文字列に変換
-| delimited   | 数値を 3 桁区切り文字列に変換
-| human_size  | 数値を人が視認しやすいサイズ表現に変換。<br />例: `123456789` を `118 MB`
-| ss_append   | 末尾に指定された文字列を追加
-| ss_prepend  | 先頭に指定された文字列を追加
-| ss_img_src  | HTML 形式の文字列から先頭の &lt;img> タグの `src` 属性を抜き出す。
-| expand_path | 相対パスを絶対パスに変換
-| sanitize    | HTML として不適切な文字を削除
+| フィルター                  | 説明 |
+|------------------------|--------------------------------------------|
+| ss_date                | 日付を文字列に変換
+| ss_time                | 日時を文字列に変換
+| delimited              | 数値を 3 桁区切り文字列に変換
+| human_size             | 数値を人が視認しやすいサイズ表現に変換。<br />例: `123456789` を `118 MB`
+| ss_append              | 末尾に指定された文字列を追加
+| ss_prepend             | 先頭に指定された文字列を追加
+| ss_img_src             | HTML 形式の文字列から先頭の &lt;img> タグの `src` 属性を抜き出す。
+| expand_path            | 相対パスを絶対パスに変換
+| sanitize               | HTML として不適切な文字を削除
+| public_list            | フォルダーのページ一覧を取得
+| filter_by_column_value | 定型フォームの値でページ一覧を絞り込み
+| sort_by_column_value   | 定型フォームの値でページ一覧を並び替え
+| same_name_pages        | ページとタイトルが一致するページ一覧を取得
 
 [Liquid](https://shopify.github.io/liquid/) 標準のフィルターも使用できます。
 
@@ -407,3 +413,31 @@ ss_time で利用できる事前定義フォーマット:
 
 - date は事前定義フォーマットを利用できないが、ss_date / ss_time は利用できる。
 - data は曜日（"%a" や "%A" など）が英語の曜日に変換されますが、ss_date / ss_time は日本語の曜日に変換されます。
+
+### public_list についての補足
+
+public_list はフォルダーのページ一覧を取得するフィルターで、 {% raw %}`{{ assign items = node | public_list: <limit> }}`{% endraw %} のように指定します。
+
+`limit` には取得するページの件数を指定します。
+
+`limit` を省略するとページを全件取得します。
+
+### filter_by_column_value についての補足
+
+filter_by_column_value は定型フォームの値でページ一覧を絞り込みするフィルターで、 {% raw %}`{{ assign items = pages | filter_by_column_value: "<key>.<value>" }}`{% endraw %} のように指定します。
+
+`key` には定型フォームの項目の名前を指定します。 `value` には定型フォームの項目の値を指定します。 `key` で指定した定型フォームの項目の値が `value` と一致しているものを絞り込みます。
+
+### sort_by_column_value についての補足
+
+sort_by_column_value は定型フォームの値でページ一覧を並び替えするフィルターで、 {% raw %}`{{ assign items = pages | sort_by_column_value: "<key>" }}`{% endraw %} のように指定します。
+
+`key` には定型フォームの項目の名前を指定します。 `key` で指定した定型フォームの項目の値を昇順で並び替えます。
+
+### same_name_pages についての補足
+
+same_name_pages はページとタイトルが一致するページ一覧を取得するフィルターで、 {% raw %}`{{ assign items = page | same_name_pages: "<filename>" }}`{% endraw %} のように指定します。
+
+`filename` には取得するページのフォルダー名を指定します。
+
+`filename` を省略すると名前の一致するページを全件取得します。
