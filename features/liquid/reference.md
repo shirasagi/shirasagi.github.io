@@ -124,6 +124,7 @@ title: リファレンス
 | page.event_name | ページに設定されたイベントタイトル
 | page.event_dates | ページに設定されたイベント日
 | page.event_deadline | ページに設定されたイベントの申込締切
+| page.event_recurrences | 繰り替えしイベント情報
 | page.map_points | ページに設定された地図の地点
 | page.map_zoom_level | ページに設定された地図のズームレベル
 | page.contact_state | ページに設定された連絡先の表示設定
@@ -360,6 +361,32 @@ title: リファレンス
 | file.thumb_url | ファイルのサムネイル URL（ただしファイルが画像の場合）
 | file.image?  | ファイルが画像の場合 true
 
+## event_recurrence
+
+`page.event_recurrences` の要素です。
+
+| 変数                              | 説明                                       |
+|-----------------------------------|--------------------------------------------|
+| event_recurrence.start_date       | イベントの開始日   |
+| event_recurrence.start_datetime   | イベントの開始日時   |
+| event_recurrence.end_date         | イベントの終了日（含まない）   |
+| event_recurrence.end_datetime     | イベントの終了日時（含まない）   |
+| event_recurrence.until_date       | イベントの繰り返し終了日   |
+| event_recurrence.day_of_weeks     | 曜日（日から土）   |
+| event_recurrence.includes_holiday | 祝日を含むかどうか   |
+| event_recurrence.exclude_dates    | 除外日   |
+| event_recurrence.to_long_html     | 繰り返しイベントの内容を簡潔に表す説明 |
+
+start_date と start_datetime は同じ値を返し、前者は日付型で後者は日時型で取得します。end_date と end_datetime も同様で同じ値を返し、前者は日付型で後者は日時型で取得します。
+
+例えば 2022/6/1 から 2022/6/30 までの繰り返しイベントを設定した場合、start_date, end_date そして until_date はそれぞれ以下のようになります。
+
+| 変数                              | 値           |
+|-----------------------------------|--------------|
+| event_recurrence.start_date       | 2022/06/01   |
+| event_recurrence.end_date         | 2022/06/02   |
+| event_recurrence.until_date       | 2022/06/30   |
+
 ## Filters
 
 | フィルター                  | 説明 |
@@ -377,6 +404,8 @@ title: リファレンス
 | filter_by_column_value | 定型フォームの値でページ一覧を絞り込み
 | sort_by_column_value   | 定型フォームの値でページ一覧を並び替え
 | same_name_pages        | ページとタイトルが一致するページ一覧を取得
+| event_active_recurrences | 有効な繰り返しイベントのみを選択します。<br />例: `page.event_recurrences | event_active_recurrences` のようにして使用します。
+| event_recurrence_summary | 繰り返しイベントの内容を簡潔に表す説明。<br />例: `<p>page.event_recurrences | event_active_recurrences | event_recurrence_summary</p>`
 
 [Liquid](https://shopify.github.io/liquid/) 標準のフィルターも使用できます。
 
