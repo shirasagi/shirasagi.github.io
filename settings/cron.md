@@ -61,6 +61,30 @@ title: 定期実行
 0 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_check_links bundle exec rake cms:check_links site=www email=admin@example.jp'
 ~~~
 
+## CMSの全文検索を利用する場合
+
+毎時0分に更新されたページをインデクシングします。
+
+~~~
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:feed_releases site=www' > /dev/null
+~~~
+
+一週間に一度ぐらいの頻度で、全文検索の再インデクシングをすることをお勧めします。
+
+~~~
+59 0 * * 1 /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:drop site=www && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:create_indexes site=www && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:feed_all site=www' > /dev/null
+~~~
+
+## グループウェアの全文検索を利用する場合
+
+毎日0時40分に全部をインデクシングします。
+
+~~~
+40 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/gws_es_feed_all_lock bundle exec rake gws:es:feed_all site=シラサギ市' >/dev/null
+~~~
+
+毎日の実行にかえて一週間に一度の実行でも構いません。負荷に応じて適切に運用してください。
+
 ## データベースのバックアップ
 
 ~~~
