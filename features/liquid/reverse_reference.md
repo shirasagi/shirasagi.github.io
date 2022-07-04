@@ -29,7 +29,7 @@ SHIRASAGI 形式から Liquid 形式への変換表です。
 | #{group}            | {% raw %}`{{ page.groups[0].last_name }}`{% endraw %}
 | #{groups}           | {% raw %}`{{ page.groups | map: "last_name" | join: ", " }}`{% endraw %}
 | #{img.src}          | {% raw %}`{% assign img_src = page.html | ss_img_src | expand_path: page.parent.url %}`<br />`{{ img_src | default: "/assets/img/dummy.png" }}`{% endraw %}
-| #{thumb.src}        | {% raw %}`{% assign thumb_src = page.thumb.thumb_url %}`<br />`{% assign img_src = page.html | ss_img_src | expand_path: page.parent.url %}`<br />`{{ thumb_src | default: img_src | default: "/assets/img/dummy.png" }}`{% endraw %}
+| #{thumb.src}        | {% raw %}`{% assign thumb_src = page.thumb.url %}`<br />`{% assign img_src = page.html | ss_img_src | expand_path: page.parent.url %}`<br />`{{ thumb_src | default: img_src | default: "/assets/img/dummy.png" }}`{% endraw %}
 | #{categories}       | {% raw %}`{% for category in page.categories %}`<br/>`<span class="{{ category.filename | replace: "/", "-" }}>`<br />`  <a href="{{ category.url }}">{{ category.name }}</a>`<br />`</span>`<br />`{% endfor %}`{% endraw %}
 | #{pages.count}      | {% raw %}`{{ node.pages | size }}`{% endraw %}
 | #{tags}             | {% raw %}`{{ page.tags | join: " " }}`{% endraw %}
