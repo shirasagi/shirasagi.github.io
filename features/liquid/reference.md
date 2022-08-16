@@ -155,6 +155,8 @@ title: リファレンス
 | node.order | ノードの並び順
 | node.date | ノードの日時
 | node.current? | ノードが現在の場合 true
+| node.summary | ノードのサマリー
+| node.description | ノードの概要
 | node.released | ノードの公開日時
 | node.updated | ノードの更新日時
 | node.created | ノードの作成日時
