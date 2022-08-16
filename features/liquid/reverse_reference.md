@@ -20,7 +20,8 @@ SHIRASAGI 形式から Liquid 形式への変換表です。
 | #{time.long}        | {% raw %}`{{ page.date | ss_time: "long" }}`{% endraw %}
 | #{time.short}       | {% raw %}`{{ page.date | ss_time: "short" }}`{% endraw %}
 | #{url}              | {% raw %}`{{ page.url }}`{% endraw %}
-| #{name}             | {% raw %}`{{ page.index_name | default: page.name }}`{% endraw %}
+| #{name}             | {% raw %}`{{ page.name }}`{% endraw %}
+| #{index_name}       | {% raw %}`{{ page.index_name | default: page.name }}`{% endraw %}
 | #{summary}          | {% raw %}`{{ page.summary }}`{% endraw %}
 | #{html}             | {% raw %}`{{ page.html }}`{% endraw %}
 | #{current}          | {% raw %}`{% if page.current? %}current{% endif %}`{% endraw %}
