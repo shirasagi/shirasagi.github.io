@@ -285,7 +285,7 @@ $ bin/rake gws:es:feed_all site=シラサギ市
 
 ~~~shell
 [crontab]
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake gws:es:feed_all site=シラサギ市' >/dev/null
+40 0 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/gws_es_feed_all_lock bundle exec rake gws:es:feed_all site=シラサギ市' >/dev/null
 ~~~
 
 シラサギを起動しグループウェアの全文検索で `*:*` を検索してみてください。 正しく設定できている場合、何らかの文書がヒットします。
@@ -312,7 +312,7 @@ $ bin/rake cms:es:feed_all site=www
 
 ```shell
 [crontab]
-0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && bundle exec rake cms:es:feed_releases site=www' > /dev/null
+0 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:feed_releases site=www' > /dev/null
 ```
 
 シラサギを起動し CMS のサイト内検索で検索してみてください。
