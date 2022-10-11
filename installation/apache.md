@@ -56,6 +56,12 @@ ServerName (サーバ名、ＩＰアドレス)
   XSendFile on
   XSendFilePath /var/www/shirasagi
 
+  # download .svg files
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_URI}  \.svg$
+  RewriteRule ^.*$ - [L,E=X_attachment]
+  Header set Content-Disposition attachment env=X_attachment
+
   # static
   RewriteEngine on
   RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f [OR]
