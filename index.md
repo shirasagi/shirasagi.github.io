@@ -79,6 +79,9 @@ title: SHIRASAGI 開発マニュアル
   - [組織変更](features/chorg.html)
   - [サイトのデータ移行](features/site_export.html)
 
+- グループウェア
+  - [全文検索対象機能](features/gws/indexing.html)
+
 - CMS 外部連携
   - [外国語自動翻訳機能](features/translate.html)
   - [OGP と Twitter Card 設定](settings/ogp.html)
