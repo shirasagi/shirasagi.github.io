@@ -174,6 +174,14 @@ location /private_files/ {
     internal;
     alias /var/www/shirasagi/;
 }
+# download .svg files instead of showing inline in browser for protecting from xss
+location ~* \.svg$ {
+    expires 1h;
+    access_log off;
+    log_not_found off;
+    add_header Content-Disposition "attachment";
+    try_files $uri @app;
+}
 ~~~
 > `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 
