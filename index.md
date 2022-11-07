@@ -111,6 +111,7 @@ title: SHIRASAGI 開発マニュアル
   - [Jobの開発](devel/job.html)
   - [無害化処理 (サニタイザー)](devel/upload_policy.html)
   - [ダブルクリック防御](devel/double_click_guard.html)
+  - [Guard](devel/guard.html)
 - CMS
   - [CMSの主要モデル](devel/cms_models.html)
   - [公開系の開発](devel/cms_public.html)
