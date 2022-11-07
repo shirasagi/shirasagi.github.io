@@ -78,6 +78,7 @@ title: SHIRASAGI 開発マニュアル
   - [miChecker](settings/michecker_integration.html)
   - [組織変更](features/chorg.html)
   - [サイトのデータ移行](features/site_export.html)
+  - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
 
 - グループウェア
   - [全文検索対象機能](features/gws/indexing.html)
