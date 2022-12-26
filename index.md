@@ -59,7 +59,7 @@ title: SHIRASAGI 開発マニュアル
 
 - 認証
   - [ログイン](features/login.html)
-  - [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
+  - [OAuth 認証](settings/oauth.html)
   - [SAML 認証の疎通確認](settings/saml_sampling.html)
   - [Shibboleth 認証](settings/shibboleth.html)
 
@@ -86,8 +86,8 @@ title: SHIRASAGI 開発マニュアル
   - [外国語自動翻訳機能](features/translate.html)
   - [OGP と Twitter Card 設定](settings/ogp.html)
   - [SNS 投稿連携](settings/sns_poster.html)
+  - [LINE 連携](settings/line.html)
   - [気象庁防災情報 XML 連携（PULL型）](settings/jmaxml_pull.html)
-  - [チャットボット LINE 連携](settings/chatbot_line.html)
   - [5374連携](settings/k5374.html)
 
 ## サイト構築資料

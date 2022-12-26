@@ -75,6 +75,22 @@ title: 定期実行
 59 0 * * 1 /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:drop site=www && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:create_indexes site=www && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_es_feed_all_lock bundle exec rake cms:es:feed_all site=www' > /dev/null
 ~~~
 
+## CMSのLINEメッセージ配信予約を利用する場合
+
+~~~
+# LINE配信予約
+*/15 * * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_line_deliver_lock bundle exec rake cms:line:deliver site=www' >/dev/null
+~~~
+
+## CMSのLINEリッチメニュー更新を利用する場合
+
+毎日1時にリッチメニューの更新を行います。
+
+~~~
+# LINEリッチメニュー更新
+0 1 * * * /bin/bash -l -c 'cd /var/www/shirasagi && /usr/bin/flock -x -w 10 /var/www/shirasagi/tmp/cms_line_richmenu_lock bundle exec rake cms:line:apply_richmenu site=www' >/dev/null
+~~~
+
 ## グループウェアの全文検索を利用する場合
 
 毎日0時40分に全部をインデクシングします。
