@@ -44,7 +44,7 @@ LINEによるメンバーログイン、画像ファイルの投稿を行う場�
 
 ### LINE Login Api
 
-「メンバー/ログイン」フォルダーを作成して [OAuth 認証](http://127.0.0.1:4000/settings/oauth.html) のLINEを設定します。<br>
+「メンバー/ログイン」フォルダーを作成して [OAuth 認証](/settings/oauth.html) のLINEを設定します。<br>
 LINEでメンバーログインできるようにします。
 
 ### マイページ設定
