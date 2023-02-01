@@ -47,7 +47,7 @@ $ rm -rf shirasagi-stable*
 ## Gem の更新
 
 ~~~
-# source /opt/rh/devtoolset-10/enable
+# source /opt/rh/devtoolset-11/enable
 # bundle install --without development test
 ~~~
 
@@ -101,7 +101,7 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 新しい `ExecStart=` 行:
 
 ~~~
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
+ExecStart=/bin/bash -lc 'bundle exec unicorn_rails -c config/unicorn.rb -D'
 ~~~
 
 ## Web サーバーに apache httpd をご利用の方

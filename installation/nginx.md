@@ -45,7 +45,7 @@ enabled=0
 ~~~
 server_tokens off;
 server_name_in_redirect off;
-etag off;
+etag on;
 client_max_body_size 100m;
 client_body_buffer_size 256k;
 
