@@ -5,7 +5,7 @@ title: インストールマニュアル - Linux Mint
 
 ## 検証環境
 
-- Linux Mint 19.1 Tessa
+- Linux Mint 21.1 Vera
 
 ## パッケージのダウンロード
 
@@ -28,19 +28,32 @@ $ sudo systemctl enable mongod
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
-## Ruby(RVM) のインストール
-
-> https://github.com/rvm/ubuntu_rvm
+### asdfのインストール
 
 ```
-$ sudo apt-add-repository -y ppa:rael-gc/rvm
-$ sudo apt-get update
-$ sudo apt-get install -y rvm
-$ source /usr/share/rvm/scripts/rvm #(Run command as login shell)
-$ rvm install ruby 2.7.5 --disable-binary
-$ rvm use 2.7.5 --default
+# git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
+# vi ~/.bashrc
+---(追記)
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+---
+# source ~/.bashrc
 ```
 
+### Rubyのインストール
+```
+# asdf plugin add ruby
+# asdf install ruby {{VERSION}} 
+# asdf global ruby {{VERSION}}
+```
+>{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+### Nodejs等のインストール
+```
+# asdf plugin add nodejs
+# asdf install nodejs lts
+# asdf global nodejs lts 
+# npm install -g yarn
+```
 ## Nginx のインストール
 
 > http://shirasagi.github.io/installation/nginx.html

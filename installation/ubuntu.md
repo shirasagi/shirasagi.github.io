@@ -7,8 +7,6 @@ title: インストールマニュアル - Ubuntu
 
 以下の Ubuntu で動作を確認しています。
 
-- Ubuntu Server 16.04 LTS/64bit
-- Ubuntu Server 18.04 LTS/64bit
 - Ubuntu Server 20.04 LTS/64bit
 
 上記以外のバージョンでも動作可能だとは思いますが、自己責任でインストールしてください。
@@ -20,26 +18,6 @@ $ sudo apt -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git
 ~~~
 
 ## MongoDB のインストール
-
-### Ubuntu 16.04 (Xenial) をご利用の方
-
-~~~
-$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-$ sudo apt update
-$ sudo apt install -y mongodb-org
-~~~
-
-### Ubuntu 18.04 (Bionic) をご利用の方
-
-~~~
-$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-$ sudo apt update
-$ sudo apt install -y mongodb-org
-~~~
-
-### Ubuntu 20.04 (Focal) をご利用の方
 
 ~~~
 $ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
@@ -56,19 +34,29 @@ MongoDB の [Official installation](https://docs.mongodb.com/manual/tutorial/ins
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
-## Ruby(RVM) のインストール
+## Ruby(asdf) のインストール
 
 ~~~
-# \curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-# \curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-# \curl -sSL https://get.rvm.io | sudo bash -s stable
-# echo '[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"' >> ~/.bashrc
-# source /usr/local/rvm/scripts/rvm
-# /usr/local/rvm/bin/rvm requirements
-# rvm install 2.7.5 --disable-binary
-# rvm use 2.7.5 --default
-# gem install bundler --no-document
+# git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
+# vi ~/.bashrc
+---(追記)
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+---
+# source ~/.bashrc
+# asdf plugin add ruby
+# asdf install ruby {{VERSION}}
+# asdf global ruby {{VERSION}}
 ~~~
+>{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
+## Node.js等のインストール
+
+~~~
+# asdf plugin add nodejs
+# asdf install nodejs lts 
+# asdf global nodejs lts 
+# npm install yarn
+~~~
 ---
 その他のインストール手順は [CentOS](manual.html) を参考にしてください。

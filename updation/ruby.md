@@ -3,24 +3,16 @@ layout: default
 title: Ruby の更新
 ---
 
-## Ruby(RVM)
+## Ruby(asdf)
 
 ~~~
 $ su -
-# rvm get stable
-# rvm install 2.7.5 --disable-binary
-# rvm use 2.7.5 --default
+# asdf install ruby {{VERSION}}
+# asdf global ruby {{VERSION}}
 ~~~
 
-`rvm get stable` を実行した際に `Warning, RVM 1.26.0 introduces signed releases and automated check of signatures ...` のようなエラーが表示された場合、次のコマンドを実行し、適切な GPG キーをインポートしてください。
+>{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
-~~~
-command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-~~~
-
-参考: <https://github.com/rvm/rvm/issues/4533>
-
-何もエラーが表示されない場合は GPG キーのインポートは不要です。
 
 ## Mecab Ruby
 
@@ -49,7 +41,7 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 新しい `ExecStart=` 行:
 
 ~~~
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
+ExecStart=/bin/bash -lc 'bundle exec unicorn_rails -c config/unicorn.rb -D'
 ~~~
 
 ## Unicorn 再起動
