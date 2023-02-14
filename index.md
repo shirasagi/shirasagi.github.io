@@ -126,6 +126,7 @@ title: SHIRASAGI 開発マニュアル
   - [Rspec](devel/rspec/rspec.html)
   - [Rspecの運用](devel/rspec.html)
   - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
+  - [全文検索機能の開発とテスト](devel/rspec_elasticsearch.html)
 
 ## トラブルシューティング
 
