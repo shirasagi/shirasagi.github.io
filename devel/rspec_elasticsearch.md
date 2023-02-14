@@ -137,4 +137,17 @@ describe Gws::Elasticsearch::Indexer::BoardTopicJob, dbscope: :example, es: true
 
 なお、テストの開発に際しては、実際のテストコードを参考にしてください。
 
+### Elastchsearch イメージの事前起動とテスト時間の短縮
+
+`es: true` スイッチを指定すると、テストのたびに Elasticsearch を起動し、テストが完了すると Elasticsearch を終了します。
+何度も何度もテストを実行する際、Elasticsearch の起動と終了を繰り返すので非常に時間がかかります。
+
+事前に起動しておいた Elasticsearch の ID を`ES_CONTAINER_ID` 環境変数に設定することで、テスト時間を短縮させられます。
+
+例:
+
+~~~
+ES_CONTAINER_ID=29d5222956fb bin/rspec
+~~~
+
 以上。
