@@ -20,7 +20,7 @@ title: 特定フォルダー・パーツの無効化
 
 ### フォルダーの無効化
 
-標準機能の写真一覧（route は cms/photo_album）を無効化したい場合は config/cms.yml に `node/photo_album.disable = true` を設定します。
+標準機能の写真一覧（route は cms/photo_album）を無効化したい場合は config/cms.yml に `nodes.cms/photo_album.disable = true` を設定します。
 
 試しに標準機能の写真一覧（route は cms/photo_album）と、同じく標準機能のLINE HUB（route は cms/line_hub）とを無効化したいとしますと、config/cms.yml（存在しない場合はconfig/default/cms.ymlをコピー）をテキストエディタで開き、以下の設定を追加します。
 
@@ -29,19 +29,19 @@ production: &production
 
   ...
 
-  node:
-    photo_album:
+  nodes:
+    cms/photo_album:
       disable: true
-    line_hub:
+    cms/line_hub:
       disable: true
 ~~~
 
-CKANの新着（route は ckan/page）を無効化したい場合は、config/ckan.yml（存在しない場合は新規作成）をテキストエディタで開き、以下の設定を追加します。
+CKANの新着（route は ckan/page）を無効化したい場合は、config/cms.yml（存在しない場合はconfig/default/cms.ymlをコピー）をテキストエディタで開き、以下の設定を追加します。
 
 ~~~
 production: &production
-  node:
-    page:
+  nodes:
+    ckan/page:
       disable: true
 
 test:
@@ -55,14 +55,14 @@ development:
 
 ### パーツの無効化
 
-パーツの無効化の方法はフォルダーの無効化とほぼ同じで、設定が `node` から `part` になる点が異なるだけです。
+パーツの無効化の方法はフォルダーの無効化とほぼ同じで、設定が `nodes` から `parts` になる点が異なるだけです。
 
-CKANの件数（route は ckan/status）を無効化したい場合は、config/ckan.yml（存在しない場合は新規作成）をテキストエディタで開き、以下の設定を追加します。
+CKANの件数（route は ckan/status）を無効化したい場合は、config/cms.yml（存在しない場合はconfig/default/cms.ymlをコピー）をテキストエディタで開き、以下の設定を追加します。
 
 ~~~
 production: &production
-  part:
-    status:
+  parts:
+    ckan/status:
       disable: true
 
 test:
@@ -72,4 +72,4 @@ development:
   <<: *production
 ~~~
 
-注意点としてパーツに関しては既定で cms/node と category/node が無効化されています。これらは cms/node2 へ統合されたために既定で無効化されており、上書きして消してしまわないように注意してください。
+注意点として既定で "cms/node" パーツと "category/node" パーツが無効化されています。これらは cms/node2 へ統合されたために既定で無効化されており、上書きして消してしまわないように注意してください。
