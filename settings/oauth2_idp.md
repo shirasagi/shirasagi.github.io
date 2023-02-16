@@ -8,6 +8,7 @@ title: OAuth 2.0 IdP
 これまで SHIRASAGI では API 機能を提供してきました。
 しかし、ユーザーID/パスワード方式の認証しかなく、あまり広く利用される様な状況ではありません。
 ここで、一般的に利用されている OAuth 2.0 IdP 機能を SHIRASAGI が提供することで、広く API クライアントを開発できるようにします。
+この機能は v1.17.0 以降の SHIRASAGI で利用することができます。
 
 ## SHIRASAGI の OAuth 2.0 IdP
 
