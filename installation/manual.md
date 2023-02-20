@@ -23,7 +23,7 @@ $ su -
 ~~~
 $ su -
 # yum -y install scl-utils centos-release-scl
-# yum -y install wget git ImageMagick ImageMagick-devel devtoolset-10
+# yum -y install wget git ImageMagick ImageMagick-devel devtoolset-11
 ~~~
 
 ## ImageMagickのバージョン確認
@@ -135,17 +135,31 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
-## Ruby(RVM) のインストール
-
+## asdfのインストール
 ~~~
-# \curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-# \curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-# \curl -sSL https://get.rvm.io | sudo bash -s stable
-# source /etc/profile
-# rvm install 2.7.5 --disable-binary
-# rvm use 2.7.5 --default
+# git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
+# vi ~/.bashrc
+---(追記)
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+---
+# source ~/.bashrc
 ~~~
-
+## Rubyのインストール
+~~~
+# asdf plugin add ruby
+# asdf install ruby {{VERSION}}
+# asdf global ruby {{VERSION}}
+~~~
+>{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+## Node.js等のインストール
+~~~
+# asdf plugin add nodejs
+# asdf install nodejs {{VERSION}}
+# asdf global nodejs {{VERSION}} 
+# npm install -g yarn
+~~~
+>{{VERSION}}: Node.jsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 ## ダウンロード
 
 ### SHIRASAGI
@@ -164,7 +178,7 @@ $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
 $ source /opt/rh/devtoolset-10/enable
 $ bundle install --without development test
-$ rake unicorn:start
+$ bundle exec rake unicorn:start
 ~~~
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
@@ -238,8 +252,8 @@ $ cd /var/www/shirasagi
 データベースの作成（インデックスの作成）
 
 ~~~
-$ rake db:drop
-$ rake db:create_indexes
+$ bundle exec rake db:drop
+$ bundle exec rake db:create_indexes
 ~~~
 
 ### サンプルデータを利用する
@@ -255,26 +269,26 @@ $ rake db:create_indexes
 #### サイトの作成
 
 ~~~
-$ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+$ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ~~~
 
 #### サンプルデータの適用
 
 ~~~
 ## 自治体サンプル
-$ rake db:seed site=www name=demo
+$ bundle exec rake db:seed site=www name=demo
 
 ## 企業サンプル
-$ rake db:seed site=www name=company
+$ bundle exec rake db:seed site=www name=company
 
 ## 子育て支援サンプル
-$ rake db:seed site=www name=childcare
+$ bundle exec rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
-$ rake db:seed site=www name=opendata
+$ bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
-$ rake db:seed site=www name=lp
+$ bundle exec rake db:seed site=www name=lp
 ~~~
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
@@ -285,7 +299,7 @@ $ rake db:seed site=www name=lp
 #### 管理者ユーザーの作成
 
 ~~~
-$ rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+$ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
 ~~~
 
 #### サイトの作成
