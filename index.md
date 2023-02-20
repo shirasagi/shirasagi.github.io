@@ -56,6 +56,7 @@ title: SHIRASAGI 開発マニュアル
   - [日本語ファイル名のダウンロード](settings/japanese_filename.html)
   - [アップロード制限（無害化）](settings/upload_policy.html)
   - [信頼できる URL の設定](settings/trusted_url.html)
+  - [日英（多言語・バイリンガル）対応](features/i18n.html)
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
 
 - 認証
