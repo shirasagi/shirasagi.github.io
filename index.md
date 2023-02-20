@@ -57,10 +57,11 @@ title: SHIRASAGI 開発マニュアル
   - [アップロード制限（無害化）](settings/upload_policy.html)
   - [信頼できる URL の設定](settings/trusted_url.html)
   - [日英（多言語・バイリンガル）対応](features/i18n.html)
+  - [OAuth 2.0 IdP](settings/oauth2_idp.html)
 
 - 認証
   - [ログイン](features/login.html)
-  - [OAuth 認証](settings/oauth.html) （オープンデータ利用時）
+  - [OAuth 認証](settings/oauth.html)
   - [SAML 認証の疎通確認](settings/saml_sampling.html)
   - [Shibboleth 認証](settings/shibboleth.html)
 
@@ -79,6 +80,7 @@ title: SHIRASAGI 開発マニュアル
   - [miChecker](settings/michecker_integration.html)
   - [組織変更](features/chorg.html)
   - [サイトのデータ移行](features/site_export.html)
+  - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
 
 - グループウェア
   - [全文検索対象機能](features/gws/indexing.html)
@@ -87,8 +89,8 @@ title: SHIRASAGI 開発マニュアル
   - [外国語自動翻訳機能](features/translate.html)
   - [OGP と Twitter Card 設定](settings/ogp.html)
   - [SNS 投稿連携](settings/sns_poster.html)
+  - [LINE 連携](settings/line.html)
   - [気象庁防災情報 XML 連携（PULL型）](settings/jmaxml_pull.html)
-  - [チャットボット LINE 連携](settings/chatbot_line.html)
   - [5374連携](settings/k5374.html)
 
 ## サイト構築資料
@@ -112,6 +114,7 @@ title: SHIRASAGI 開発マニュアル
   - [Jobの開発](devel/job.html)
   - [無害化処理 (サニタイザー)](devel/upload_policy.html)
   - [ダブルクリック防御](devel/double_click_guard.html)
+  - [Guard](devel/guard.html)
 - CMS
   - [CMSの主要モデル](devel/cms_models.html)
   - [公開系の開発](devel/cms_public.html)
@@ -127,6 +130,7 @@ title: SHIRASAGI 開発マニュアル
   - [Rspec](devel/rspec/rspec.html)
   - [Rspecの運用](devel/rspec.html)
   - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
+  - [全文検索機能の開発とテスト](devel/rspec_elasticsearch.html)
 
 ## トラブルシューティング
 

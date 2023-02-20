@@ -5,7 +5,7 @@ title: OAuth 認証
 
 ## 目的
 
-Facebook、Twitter などのソーシャルアカウントでオープンデータサイトにログインするためには、
+Facebook、Twitter などのソーシャルアカウントでメンバーログインするためには、
 クライアントIDとクライアントシークレットを各ソーシャルサービス業者から取得し、
 シラサギに設定する必要があります。
 
@@ -28,6 +28,9 @@ roduction: &production
   prefix_path: "/auth"   # コメントを外す
   ...
 ~~~
+
+ここで prefix_path はログインフォルダーのフォルダー名を設定してください。<br>
+また、後述の設定である Callback URL 内の `/auth/` もフォルダー名に適宜置き換えてください。
 
 ## OAuth の設定
 
@@ -199,7 +202,18 @@ Organization Repository の場合、Organization Repository を表示後、Setti
 
 アプリケーション作成後、アイコンを設定することをお勧めします。
 
+### LINE
+
+[LINE Developer コンソール](https://developers.line.biz/console/) にログイン後、LINE Login API チャネルを作成します。<br>
+この際 Messaging api と併用する場合、同じ Providers 内で作成する必要があります。
+
+作成した Login API チャネル に次の情報を入力します。
+
+* Callback URL : `https://$domain:$port/auth/line/callback` を入力します。
+
+次に Login API チャネル の Channel ID, Channel secret をメモしておき、シラサギ（ログインフォルダー）に設定します。
+
 ### 制限
 
-現在、Twitter, Facebook, Yahoo! Japan, Google, GitHub の 5 つのプロバイダーに対応しています。
+現在、Twitter, Facebook, Yahoo! Japan, Google, GitHub, LINE の 6 つのプロバイダーに対応しています。
 これら以外のプロバイダーには未対応です。
