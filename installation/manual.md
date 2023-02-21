@@ -148,18 +148,22 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ## Rubyのインストール
 ~~~
 # asdf plugin add ruby
-# asdf install ruby {{VERSION}}
-# asdf global ruby {{VERSION}}
+# asdf install ruby VERSION
+# asdf global ruby VERSION
 ~~~
->{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
+>`VERSION`: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
 ## Node.js等のインストール
 ~~~
 # asdf plugin add nodejs
-# asdf install nodejs {{VERSION}}
-# asdf global nodejs {{VERSION}} 
+# asdf install nodejs VERSION
+# asdf global nodejs VERSION
 # npm install -g yarn
 ~~~
->{{VERSION}}: Node.jsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
+>`VERSION`: Node.jsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
 ## ダウンロード
 
 ### SHIRASAGI
