@@ -28,33 +28,6 @@ $ sudo systemctl enable mongod
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
-### asdfのインストール
-
-```
-# git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
-# vi ~/.bashrc
----(追記)
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
----
-# source ~/.bashrc
-```
-
-### Rubyのインストール
-```
-# asdf plugin add ruby
-# asdf install ruby {{VERSION}} 
-# asdf global ruby {{VERSION}}
-```
->{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
-### Nodejs等のインストール
-```
-# asdf plugin add nodejs
-# asdf install nodejs {{VERSION}} 
-# asdf global nodejs {{VERSION}} 
-# npm install -g yarn
-```
->{{VERSION}}: Nodejsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 ## Nginx のインストール
 
 > http://shirasagi.github.io/installation/nginx.html
@@ -81,4 +54,5 @@ $ firefox http:/localhost:3000/.mypage &
 ```
 
 ---
+
 その他のインストール手順は [CentOS](manual.html) を参考にしてください。

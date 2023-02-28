@@ -10,42 +10,45 @@ CentOS 7 向けのインストールマニュアルです。
 環境に応じて適宜セキュリティを設定してください。<br />
 下記は検証環境用に SELlinux, Firewalld を無効にしています。
 
-~~~
+```
 $ su -
 # setenforce 0
 # sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
 # systemctl stop firewalld
 # systemctl disable firewalld
-~~~
+```
 
 ## パッケージのダウンロード
 
-~~~
+```
 $ su -
 # yum -y install scl-utils centos-release-scl
 # yum -y install wget git ImageMagick ImageMagick-devel devtoolset-11
-~~~
+```
 
-## ImageMagickのバージョン確認
-shirasagi v1.14.0からはImageMagickのバージョンが6.9以上である必要があります。  
-次のコマンドを実行してImageMagickのバージョンを確認してください。
+## ImageMagick のバージョン確認
 
-~~~
+shirasagi v1.14.0 からは ImageMagick のバージョンが 6.9 以上である必要があります。  
+次のコマンドを実行して ImageMagick のバージョンを確認してください。
+
+```
 $ convert --version | grep Version
-~~~
+```
 
-~~~
+```
 Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
-~~~
+```
 
 ## ImageMagick のポリシー修正<br>
-> ※ImageMagickのバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
-その場合は下記 policy.xml の変更は必要ありません。
-~~~
-# vi /etc/ImageMagick-6/policy.xml
-~~~
 
-~~~
+> ※ImageMagick のバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
+> その場合は下記 policy.xml の変更は必要ありません。
+
+```
+# vi /etc/ImageMagick-6/policy.xml
+```
+
+```
 <policymap>
   <!-- <policy domain="system" name="precision" value="6"/> -->
   <!-- <policy domain="resource" name="temporary-path" value="/tmp"/> -->
@@ -70,7 +73,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
   <policy domain="coder" rights="read | write" pattern="JPEG" />
   <policy domain="coder" rights="read | write" pattern="PNG" />
 </policymap>
-~~~
+```
 
 参考: <https://github.com/diaspora/diaspora/issues/6828>
 
@@ -78,9 +81,9 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 
 次のコマンドを実行してみます。
 
-~~~
+```
 $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
-~~~
+```
 
 ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
 
@@ -95,7 +98,7 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 
 注）この設定は v1.14.0 にて導入されました。
 
-~~~
+```
 # cd /var/www/shirasagi
 # cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
 # vi config/cms.yml
@@ -103,89 +106,97 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 ### captcha の font の値を変更 ###
   captcha:
     font: NimbusSans-Bold
-~~~
+```
 
 なお ImageMagick の場合、以下のコマンドで、設定可能なフォント一覧を確認できます。
 
-~~~
+```
 # convert -list font
-~~~
+```
 
 ## MongoDB のインストール
 
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
-~~~
+```
 # vi /etc/yum.repos.d/mongodb-org-4.4.repo
-~~~
+```
 
-~~~
+```
 [mongodb-org-4.4]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
-~~~
+```
 
-~~~
+```
 # yum install -y --enablerepo=mongodb-org-4.4 mongodb-org
 # systemctl enable mongod
-~~~
+```
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
-## asdfのインストール
-~~~
-# git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
+## asdf のインストール
+
+```
+# git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 # vi ~/.bashrc
 ---(追記)
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 ---
 # source ~/.bashrc
-~~~
-## Rubyのインストール
-~~~
+```
+
+## Ruby のインストール
+
+```
 # asdf plugin add ruby
-# asdf install ruby {{VERSION}}
-# asdf global ruby {{VERSION}}
-~~~
->{{VERSION}}: rubyのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
-## Node.js等のインストール
-~~~
+# asdf install ruby VERSION
+# asdf global ruby VERSION
+```
+
+> `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
+## Node.js 等のインストール
+
+```
 # asdf plugin add nodejs
-# asdf install nodejs {{VERSION}}
-# asdf global nodejs {{VERSION}} 
+# asdf install nodejs VERSION
+# asdf global nodejs VERSION
 # npm install -g yarn
-~~~
->{{VERSION}}: Node.jsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+```
+
+> `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+
 ## ダウンロード
 
 ### SHIRASAGI
 
-~~~
+```
 $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
-~~~
+```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
 > オープンデータに関する機能をご利用の場合も SHIRASAGI のソースコードをダウンロードしてください。
 
 ## Web サーバの起動
 
-~~~
+```
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
-$ source /opt/rh/devtoolset-10/enable
+$ source /opt/rh/devtoolset-11/enable
 $ bundle install --without development test
 $ bundle exec rake unicorn:start
-~~~
+```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
 
 ## ふりがな機能のインストール
 
-~~~
+```
 # cd /usr/local/src
 # wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"
 # wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
@@ -207,13 +218,13 @@ $ bundle exec rake unicorn:start
 
 # echo "/usr/local/lib" >> /etc/ld.so.conf
 # ldconfig
-~~~
+```
 
 > mecab ビルド後に `ldconfig` が必要なケースがあります。
 
 ## 音声読み上げ機能のインストール
 
-~~~
+```
 # cd /usr/local/src
 # wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
     http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
@@ -239,22 +250,22 @@ $ bundle exec rake unicorn:start
 # ./configure && make && make install
 
 # ldconfig
-~~~
+```
 
 ## 新規サイトの作成
 
 カレントディレクトリを移動
 
-~~~
+```
 $ cd /var/www/shirasagi
-~~~
+```
 
 データベースの作成（インデックスの作成）
 
-~~~
+```
 $ bundle exec rake db:drop
 $ bundle exec rake db:create_indexes
-~~~
+```
 
 ### サンプルデータを利用する
 
@@ -268,13 +279,13 @@ $ bundle exec rake db:create_indexes
 
 #### サイトの作成
 
-~~~
+```
 $ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
-~~~
+```
 
 #### サンプルデータの適用
 
-~~~
+```
 ## 自治体サンプル
 $ bundle exec rake db:seed site=www name=demo
 
@@ -289,7 +300,7 @@ $ bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
 $ bundle exec rake db:seed site=www name=lp
-~~~
+```
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したサンプルデータを確認・編集することができます。
@@ -298,9 +309,9 @@ $ bundle exec rake db:seed site=www name=lp
 
 #### 管理者ユーザーの作成
 
-~~~
+```
 $ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
-~~~
+```
 
 #### サイトの作成
 
