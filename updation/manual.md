@@ -44,6 +44,28 @@ $ rm -rf shirasagi-stable*
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
 > オープンデータのアップデート手順は SHIRASAGI のアップデート手順と同じです。
 
+## asdfのインストール
+
+~~~
+$ git clone https://github.com/asdf-vm/asdf.git ~/.asdf 
+$ vi ~/.bashrc
+---(追記)
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+---
+$ source ~/.bashrc
+~~~
+
+## Node.js等のインストール
+
+~~~
+$ asdf plugin add nodejs
+$ asdf install nodejs VERSION
+$ asdf global nodejs VERSION
+$ npm install -g yarn
+~~~
+
+>`VERSION`: Node.jsのバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 ## Gem の更新
 
 ~~~
