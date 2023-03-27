@@ -59,3 +59,18 @@ ignore_paths:
 - 記事フォルダーなどで、アップローダー機能に切り替えてアップしたファイルは、不適切判定となり削除対象となります。（このような運用は想定していません）
 
 - フォルダー取り込み機能でインポートしたHTMLは正常判定となり、削除対象となりません。
+
+## 簡単な動作確認
+
+例として、公開ディレクトリ（ドキュメントルート）配下に、手動でHTMLを置いてみて、コマンド実行後に不適切なHTMLとして削除されるか、という方法を記載します。
+
+- サイトホスト名 `www`
+- 公開ディレクトリ `public/sites/w/w/w/_/`
+
+~~~
+# cd /var/www/shirasagi
+# touch public/sites/w/w/w/_/sample.html
+# bundle exec rake cms:remove_improper_htmls
+> #サイト名
+> remove ...sample.html
+~~~
