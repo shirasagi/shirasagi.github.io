@@ -140,6 +140,11 @@ title: SHIRASAGI 開発マニュアル
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 
+## 試験中の機能
+
+- CMS
+  - [不適切な公開HTML削除](experimental/remove_improper_htmls.html)
+
 ## シラサギ公式サイトの FAQ
 
 CKEditor のカスタマイズ方法や音声読み上げのスキップ方法など、このサイト上で解説していない情報がシラサギ公式サイトの FAQ にはあります。シラサギ公式サイトの FAQ も確認してみてください。
