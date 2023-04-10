@@ -86,3 +86,25 @@ def model_callback(at, item)
   puts "previous_changes=#{item.previous_changes}"
 end
 ~~~
+
+## Mongoid::Document#to_a
+
+メソッド `Mongoid::Document#to_a` が削除されました。以下のコードは、mongoid 7.3 では成功していましたが、mongoid 8.0 では失敗します。
+
+~~~ruby
+Cms::Group.first.to_a
+~~~
+
+mongoid 7.3 では:
+
+~~~
+Cms::Group.first.to_a
+=> [#<Cms::Group _id: 22, ...
+~~~
+
+mongoid 8.0 では:
+
+~~~
+Cms::Group.first.to_a
+undefined method `to_a' for #<Cms::Group _id: 22, ...
+~~~
