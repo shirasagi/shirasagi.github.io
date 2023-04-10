@@ -89,7 +89,7 @@ end
 
 ## Mongoid::Document#to_a
 
-メソッド `Mongoid::Document#to_a` が削除されました。以下のコードは、mongoid 7.3 では成功していましたが、mongoid 8.0 では失敗します。
+メソッド `Mongoid::Document#to_a` が削除されました。以下のコードは mongoid 7.3 では成功していましたが、mongoid 8.0 では失敗します。
 
 ~~~ruby
 Cms::Group.first.to_a
@@ -108,3 +108,38 @@ mongoid 8.0 では:
 Cms::Group.first.to_a
 undefined method `to_a' for #<Cms::Group _id: 22, ...
 ~~~
+
+## 暗黙的なクエリスコープの引き継ぎ
+
+mongoid 8.0 ではクエリスコープを引き継ぐようになりました。コード例で解説します。
+
+~~~
+class << self
+  def restore!(opts = {})
+    criteria.each do |item|
+      item.restore!(opts)
+    end
+  end
+end
+
+def children
+  self.class.where('data.filename' => /\A#{::Regexp.escape(data[:filename] + '/')}/, 'data.site_id' => data[:site_id])
+end
+
+def restore!
+  History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first
+end
+
+trash.children.restore!(opts)
+~~~
+
+このようなコードがあったとき `#restore!` で実行されている `History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first` に違いがあります。
+
+mongoid 7.3 では、現在のクエリスコープを引き継がないので、`History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first` は、見た目の通りに実行され
+`{"find"=>"history_trashes", "filter"=>{"ref_coll"=>"ss_files", "data._id"=>2}, ...` というクエリが発行されます。
+
+mongoid 8.0 では、現在のクエリスコープが引き継がれます。コードをよく読むと `#restore!` は、`#chidren` で作成されるクエリスコープ内で実行されていることがわかるかと思います。
+`#chidren` では、`where('data.filename' => /\A#{::Regexp.escape(data[:filename] + '/')}/, 'data.site_id' => data[:site_id])` というクエリスコープが作成されています。
+このため mongoid 8.0 では `{"find"=>"history_trashes", "filter"=>{"data.filename"=>/\Anode\-z17c1080ce2\//, "data.site_id"=>1, "ref_coll"=>"ss_files", "data._id"=>1}, ...` というクエリが発行されます。
+
+現在のクエリスコープに影響されないようにするには `.unscoped` を用いて `History::Trash.unscoped.where(ref_coll: 'ss_files', 'data._id' => file_id).first` とします。
