@@ -87,6 +87,91 @@ def model_callback(at, item)
 end
 ~~~
 
+最後に修正例をいくつか掲載する。
+
+修正例1:
+
+~~~
+  after_save :new_size_input, if: ->{ @db_changes }
+~~~
+
+    ↓↓↓↓
+
+~~~
+  after_save :new_size_input, if: ->{ changes.present? || previous_changes.present? }
+~~~
+
+修正例2:
+
+~~~
+    def rename_file_in_web
+      return unless @db_changes["filename"]
+      return unless @db_changes["filename"][0]
+
+      src = "#{site.path}/#{@db_changes['filename'][0]}"
+      src = src.delete_prefix("#{Rails.root}/")
+      run_callbacks :rename_file do
+        Uploader::JobFile.new_job(site_id: site.id).bind_rm([src]).save_job
+        Cms::PageRelease.close(self, @db_changes['filename'][0])
+      end
+    end
+~~~
+
+    ↓↓↓↓
+
+~~~
+    def rename_file_in_web
+      filename_changes = changes['filename'].presence || previous_changes['filename']
+      return unless filename_changes
+      return unless filename_changes[0]
+
+      src = "#{site.path}/#{filename_changes[0]}"
+      src = src.delete_prefix("#{Rails.root}/")
+      run_callbacks :rename_file do
+        Uploader::JobFile.new_job(site_id: site.id).bind_rm([src]).save_job
+        Cms::PageRelease.close(self, filename_changes[0])
+      end
+    end
+~~~
+
+修正例3:
+
+~~~
+    after_save :do_soft_or_undo_delete_with_repeat_plans, if: -> { deleted_changed? }
+~~~
+
+    ↓↓↓↓
+
+~~~
+    after_save :do_soft_or_undo_delete_with_repeat_plans, if: -> { deleted_changed? || deleted_previously_changed? }
+~~~
+
+修正例4:
+
+~~~
+      if state_was == 'draft'
+        # just published
+        added_member_ids = cur_member_ids
+        removed_member_ids = []
+      else
+        added_member_ids = cur_member_ids - prev_member_ids
+        removed_member_ids = prev_member_ids - cur_member_ids
+      end
+~~~
+
+    ↓↓↓↓
+
+~~~
+      if state_previously_was == 'draft'
+        # just published
+        added_member_ids = cur_member_ids
+        removed_member_ids = []
+      else
+        added_member_ids = cur_member_ids - prev_member_ids
+        removed_member_ids = prev_member_ids - cur_member_ids
+      end
+~~~
+
 ## Mongoid::Document#to_a
 
 メソッド `Mongoid::Document#to_a` が削除されました。以下のコードは mongoid 7.3 では成功していましたが、mongoid 8.0 では失敗します。
@@ -109,37 +194,118 @@ Cms::Group.first.to_a
 undefined method `to_a' for #<Cms::Group _id: 22, ...
 ~~~
 
-## 暗黙的なクエリスコープの引き継ぎ
-
-mongoid 8.0 ではクエリスコープを引き継ぐようになりました。コード例で解説します。
+修正例は
 
 ~~~
-class << self
-  def restore!(opts = {})
-    criteria.each do |item|
-      item.restore!(opts)
+      item.group_ids = opts[:cur_group].to_a.pluck(:id)
+~~~
+
+↓↓↓↓
+
+~~~
+      item.group_ids = opts[:cur_group].try(:id).then { |id| id ? [ id ] : [] }
+~~~
+
+## クエリスコープの引き継ぎに関する不具合修正
+
+mongoid 8.0 では常にクエリスコープを引き継ぐようになりました。該当ソースコードは以下の箇所です。
+
+mongoid 7.3: https://github.com/mongodb/mongoid/blob/7.3-stable/lib/mongoid/scopable.rb#L228-L235
+
+~~~ruby
+      def with_scope(criteria)
+        Threaded.set_current_scope(criteria, self)
+        begin
+          yield criteria
+        ensure
+          Threaded.set_current_scope(nil, self)
+        end
+      end
+~~~
+
+mongoid 8.0: https://github.com/mongodb/mongoid/blob/8.0-stable/lib/mongoid/scopable.rb#L207-L219
+
+~~~ruby
+      def with_scope(criteria)
+        previous = Threaded.current_scope(self)
+        Threaded.set_current_scope(criteria, self)
+        begin
+          yield criteria
+        ensure
+          if Mongoid.broken_scoping
+            Threaded.set_current_scope(nil, self)
+          else
+            Threaded.set_current_scope(previous, self)
+          end
+        end
+      end
+~~~
+
+`ensure` 節で、mongoid 7.3 ではクエリスコープを常に nil クリアしていますが、mongoid 8.0 では直前のクエリスコープを復帰させています。
+
+この修正の実証コードを以下に示します。
+
+~~~ruby
+require 'spec_helper'
+
+describe Workflow::Route do
+  let!(:route1) { create :workflow_route }
+  let!(:route2) { create :workflow_route }
+
+  it do
+    class << Workflow::Route
+      def say_hello_all
+        criteria.each do |item|
+          Workflow::Route.where(name: item.name).say_hello
+        end
+      end
+
+      def say_hello
+        @counter ||= 0
+        @counter += 1
+
+        puts "##{@counter}: #{self.criteria.try(:selector)}"
+      end
     end
+
+    Workflow::Route.where(group_ids: cms_group.id).say_hello_all
   end
 end
-
-def children
-  self.class.where('data.filename' => /\A#{::Regexp.escape(data[:filename] + '/')}/, 'data.site_id' => data[:site_id])
-end
-
-def restore!
-  History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first
-end
-
-trash.children.restore!(opts)
 ~~~
 
-このようなコードがあったとき `#restore!` で実行されている `History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first` に違いがあります。
+`.say_hello_all` の呼び出しでクエリスコープ `{ group_ids: 1 }` がセットされます。`.say_hello` は二回呼びだされます。
 
-mongoid 7.3 では、現在のクエリスコープを引き継がないので、`History::Trash.where(ref_coll: 'ss_files', 'data._id' => file_id).first` は、見た目の通りに実行され
-`{"find"=>"history_trashes", "filter"=>{"ref_coll"=>"ss_files", "data._id"=>2}, ...` というクエリが発行されます。
+| mongoid 7.3 | mongooid 8.0 |
+|-------------|--------------|
+| #1: {"group_ids"=>1, "name"=>"r666b1da42c"} | #1: {"group_ids"=>1, "name"=>"c97a9ab50fb"} |
+| #2: {"name"=>"xc39a134c1b"}                 | #2: {"group_ids"=>1, "name"=>"c97a9ab50fb"} |
 
-mongoid 8.0 では、現在のクエリスコープが引き継がれます。コードをよく読むと `#restore!` は、`#chidren` で作成されるクエリスコープ内で実行されていることがわかるかと思います。
-`#chidren` では、`where('data.filename' => /\A#{::Regexp.escape(data[:filename] + '/')}/, 'data.site_id' => data[:site_id])` というクエリスコープが作成されています。
-このため mongoid 8.0 では `{"find"=>"history_trashes", "filter"=>{"data.filename"=>/\Anode\-z17c1080ce2\//, "data.site_id"=>1, "ref_coll"=>"ss_files", "data._id"=>1}, ...` というクエリが発行されます。
+違いがわかりますでしょうか？
+本来であれば 2 回目の `.say_hello` のクエリスコープも `{"group_ids"=>1, "name"=>"xxxxxxxx"}` となるべきですが、mongoid 7.3 では、クエリスコープが `ensure` 節で常に nil クエリされるため、nil に `{ "name"=>"xxxxxxxx" }` というクエリスコープが足され、単に `{"name"=>"xc39a134c1b"}` というクエリスコープとなります。
 
-現在のクエリスコープに影響されないようにするには `.unscoped` を用いて `History::Trash.unscoped.where(ref_coll: 'ss_files', 'data._id' => file_id).first` とします。
+シラサギ内では、この不具合を前提とした箇所が何箇所かあります。すべて修正する必要があります。
+
+シラサギ内ではクエリスコープが空であることを前提としているため、主として `unscoped` を用いて、場合によっては `with_default_scope` を用いて修正します。
+
+
+修正例1:
+
+~~~ruby
+    def restore!(opts = {})
+      criteria.each do |item|
+        item.restore!(opts)
+      end
+    end
+~~~
+
+↓↓↓↓
+
+~~~ruby
+    def restore!(opts = {})
+      criteria.each do |item|
+        self.with_scope(self.unscoped) do
+          item.restore!(opts)
+        end
+      end
+    end
+~~~
