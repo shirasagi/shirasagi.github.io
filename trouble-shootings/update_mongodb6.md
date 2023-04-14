@@ -303,9 +303,164 @@ end
 ~~~ruby
     def restore!(opts = {})
       criteria.each do |item|
-        self.with_scope(self.unscoped) do
+        self.with_scope(nil) do
           item.restore!(opts)
         end
       end
     end
 ~~~
+
+## #attributes に関する仕様変更
+
+`#attributes` の型が `BSON::Document` から `Hash` に変わりました。
+`BSON::Document` では、文字列でもシンボルでも同じような応答が得られましたが、Hash では文字列でないと期待した応答は得られなくなりました。
+
+|                               | mongoid 7.3          | mongoid 8.0          |
+|-------------------------------|----------------------|----------------------|
+| item.attributes.class         | BSON::Document       | Hash                 |
+| item.attributes["name"]       | "転入届"             | "転入届"             |
+| item.attributes[:name]        | "転入届"             | nil                  |
+| item.attributes.key?("name")  | true                 | true                 |
+| item.attributes.key?(:name)   | true                 | false                |
+| item.attributes.slice("name") | { "name"=>"転入届" } | { "name"=>"転入届" } |
+| item.attributes.slice(:name)  | { "name"=>"転入届" } | {}                   |
+
+変更があるのは #attributes へ直接アクセスした場合のみで、 `#[]` には変更なし。
+
+|                   | mongoid 7.3    | mongoid 8.0 |
+|-------------------|----------------|-------------|
+| item["name"]      | "転入届"       | "転入届"    |
+| item[:name]       | "転入届"       | "転入届"    |
+
+`#attributes=` にシンボルキーを持つ Hash を代入するのは、これまで通り OK。
+
+|                                                       | mongoid 7.3    | mongoid 8.0 |
+|-------------------------------------------------------|----------------|-------------|
+| item.attributes = { name: "new name" }; item.name     | "new name"     | "new name"  |
+| item.attributes = { "name" => "new name" }; item.name | "new name"     | "new name"  |
+
+## sub document を指定した #pluck
+
+仕様が変わりました。
+
+mongoid 7.3:
+
+~~~ruby
+Opendata::Dataset.all.pluck(:id, "resources._id")
+=> 
+[[141, [{"_id"=>1}]],
+ [142, [{"_id"=>2}]],
+ [143, [{"_id"=>3}]],
+ [144, nil],
+ [145, [{"_id"=>4}, {"_id"=>5}]]]
+~~~
+
+mongoid 8.0:
+
+~~~ruby
+Opendata::Dataset.all.pluck(:id, "resources._id")
+=> [[141, [1]], [142, [2]], [143, [3]], [144, nil], [145, [4, 5]]]
+~~~
+
+## embeds_many の変更前の値の取得
+
+mongoid 8.0 で仕様が変わり取得できなくなりました。
+
+mongoid 7.3 では #attributes にアクセスすると、変更前の値を取得することができました（下例参照）。
+
+~~~ruby
+item = Cms::Page.all.exists(column_values: true).first
+item.column_values = []
+=> []
+item.column_values
+=> []
+item.attributes["column_values"]
+=> 
+[{"_id"=>BSON::ObjectId('6390463eaa9107a319e1a70b'),
+  ......
+~~~
+
+mongoid 8.0 ではこの方法では変更前の値を取得することができません。
+
+~~~ruby
+item = Cms::Page.all.exists(column_values: true).first
+item.column_values = []
+=> []
+item.column_values
+=> []
+item.attributes["column_values"]
+=> nil
+~~~
+
+mongoid 8.0 のコードを簡単にデバッガで追いかけてみましたが、変更前の値を取得する方法はなさそうでした。
+変更前の方法が欲しい場合は、自前で次のようにします。
+
+~~~ruby
+item = Cms::Page.all.exists(column_values: true).first
+@before_change = item.column_values.map(&:dup)
+
+# 変更処理
+item.column_values = []
+...
+
+# @before_change を用いた後処理
+@before_change ...
+~~~
+
+## .demongoize の仕様変更
+
+`.demongoize` の仕様が変わったようで、以前は nil か配列か（つまり database のデータそのまま）が引数に指定されていましたが、
+配列の中身（スカラー値）が引数に渡されるようになりました。
+
+## custom field type の xxx_before_type_cast の仕様変更
+
+`#xxx_before_type_cast` の型が custom field type からデータベース型に変わりました（下例参照）。
+
+mongoid 7.3
+
+~~~
+item = SS::Site.first
+item.elasticsearch_deny.class
+=> SS::Extensions::Lines
+item.elasticsearch_deny_before_type_cast.class
+=> SS::Extensions::Lines
+~~~
+
+mongoid 8.0
+
+~~~
+item = SS::Site.first
+item.domains.class
+=> SS::Extensions::Lines
+item.elasticsearch_deny_before_type_cast.class
+=> Array
+~~~
+
+この影響で以下のようなテキストフィールドが動作しなくなりました。
+
+~~~
+  <dd><%= f.text_area :elasticsearch_deny %></dd>
+~~~
+
+編集用テキストを生成する際、内部では elasticsearch_deny_before_type_cast.to_s を呼び出していますが、
+#to_s のレシーバーが SS::Extensions::Lines から Array になることにより、
+期待通りの動作をしません。
+上記の例ではテキストエリアに配列の中身が直接レンダリングされるようになります。
+
+~~~
+["400.html", "404.html", "500.html"]
+~~~
+
+修正方法としては、
+
+~~~
+  <dd><%= f.text_area :elasticsearch_deny, value: @item.elasticsearch_deny %></dd>
+~~~
+
+や
+
+~~~
+  <dd><%= f.text_area :elasticsearch_deny, value: @item.elasticsearch_deny.join("\n") %></dd>
+~~~
+
+とします。
