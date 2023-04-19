@@ -59,7 +59,7 @@ v1.17.0 から Node.js,yarn のインストールが必須になりました。
 # source ~/.bashrc
 ```
 
-## Node.js 等のインストール
+## Node.js のインストール
 
 ```
 # asdf plugin add nodejs
@@ -109,6 +109,7 @@ v1.17.0 から Node.js,yarn のインストールが必須になりました。
 
 ```
 # rake ss:migrate
+# bin/deploy
 ```
 
 ## Unicorn 起動設定ファイル
@@ -123,16 +124,6 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 ```
 
 上記のように設定されている場合、以下のように変更してください。
-
-#### ruby を rvm でインストールしている場合
-
-新しい `ExecStart=` 行:
-
-```
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
-```
-
-#### ruby を asdf でインストールしている場合
 
 新しい `ExecStart=` 行:
 
@@ -158,8 +149,8 @@ $ su -
 開発環境では次のコマンドを実行:
 
 ```
-$ cd /var/www/shirasagi
-$ rake unicorn:restart
+# cd /var/www/shirasagi
+# rake unicorn:restart
 ```
 
 Unicorn の再起動には 2, 3 分かかる場合があります。

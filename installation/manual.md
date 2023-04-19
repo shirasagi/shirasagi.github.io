@@ -82,7 +82,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 次のコマンドを実行してみます。
 
 ```
-$ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
+# convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
 ```
 
 ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
@@ -160,7 +160,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 
 > `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
-## Node.js 等のインストール
+## Node.js のインストール
 
 ```
 # asdf plugin add nodejs
@@ -176,7 +176,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ### SHIRASAGI
 
 ```
-$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
+# git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
@@ -185,11 +185,12 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ## Web サーバの起動
 
 ```
-$ cd /var/www/shirasagi
-$ cp -n config/samples/*.{rb,yml} config/
-$ source /opt/rh/devtoolset-11/enable
-$ bundle install --without development test
-$ bundle exec rake unicorn:start
+# cd /var/www/shirasagi
+# cp -n config/samples/*.{rb,yml} config/
+# source /opt/rh/devtoolset-11/enable
+# bundle install --without development test
+# bin/deploy
+# bundle exec rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
@@ -257,14 +258,14 @@ $ bundle exec rake unicorn:start
 カレントディレクトリを移動
 
 ```
-$ cd /var/www/shirasagi
+# cd /var/www/shirasagi
 ```
 
 データベースの作成（インデックスの作成）
 
 ```
-$ bundle exec rake db:drop
-$ bundle exec rake db:create_indexes
+# bundle exec rake db:drop
+# bundle exec rake db:create_indexes
 ```
 
 ### サンプルデータを利用する
@@ -280,26 +281,26 @@ $ bundle exec rake db:create_indexes
 #### サイトの作成
 
 ```
-$ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+# bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ```
 
 #### サンプルデータの適用
 
 ```
 ## 自治体サンプル
-$ bundle exec rake db:seed site=www name=demo
+# bundle exec rake db:seed site=www name=demo
 
 ## 企業サンプル
-$ bundle exec rake db:seed site=www name=company
+# bundle exec rake db:seed site=www name=company
 
 ## 子育て支援サンプル
-$ bundle exec rake db:seed site=www name=childcare
+# bundle exec rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
-$ bundle exec rake db:seed site=www name=opendata
+# bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
-$ bundle exec rake db:seed site=www name=lp
+# bundle exec rake db:seed site=www name=lp
 ```
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
@@ -310,7 +311,7 @@ $ bundle exec rake db:seed site=www name=lp
 #### 管理者ユーザーの作成
 
 ```
-$ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+# bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
 ```
 
 #### サイトの作成

@@ -62,20 +62,10 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 
 上記のように設定されている場合、以下のように変更してください。
 
-#### ruby を asdf でインストールした場合
-
 新しい `ExecStart=` 行:
 
 ```
 ExecStart=/bin/bash -lc 'bundle exec unicorn_rails -c config/unicorn.rb -D'
-```
-
-#### ruby を rvm でインストールした場合
-
-新しい `ExecStart=` 行:
-
-```
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
 ```
 
 ## Unicorn 再起動
