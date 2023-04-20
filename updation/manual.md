@@ -37,7 +37,7 @@ title: SHIRASAGI の更新
 # cd shirasagi
 # rm -rf app bin db doc lib spec vendor config/*/* public/assets*
 # cd ../
-# \cp -af shirasagi-stable/* shirasagi/
+# cp -af shirasagi-stable/* shirasagi/
 # rm -rf shirasagi-stable*
 ```
 

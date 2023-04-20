@@ -11,16 +11,15 @@ ActiveJob のバックエンドとして、シラサギでは専用のバック�
 
 また、ActiveJob のバックエンドとして有名な以下のサービスも利用することができます。
 
-* [Delayed Job](https://github.com/collectiveidea/delayed_job)
-* [Sidekiq](https://github.com/mperham/sidekiq)
-* [Resque](https://github.com/resque/resque)
+- [Delayed Job](https://github.com/collectiveidea/delayed_job)
+- [Sidekiq](https://github.com/mperham/sidekiq)
+- [Resque](https://github.com/resque/resque)
 
 ## Shirasagi Job の設定
 
 `config/job.yml`（存在しない場合は `config/defaults/job.yml`をコピーして作成）に設定を記述します。
 
 重要なのが `mode` です。`on_demand` と `service` という 2 つのモードがあり、既定では `on_demand` モードになっています。
-
 
 ### on_demand モード
 
@@ -33,7 +32,6 @@ ActiveJob のバックエンドとして、シラサギでは専用のバック�
 
 本番環境向きのモードで、サービス起動スクリプトをインストールする必要がありますが、
 大量のアクセスが届いた場合でも、指定された数以上にプロセスは起動せず、実行環境のメモリ使用量を制御しやすいモードです。
-
 
 ## Shirasagi Job サービススクリプト
 
@@ -52,7 +50,7 @@ WorkingDirectory=/var/www/shirasagi
 Type=simple
 Restart=always
 
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec rake job:run
+ExecStart=/bin/bash -lc 'bundle exec rake job:run'
 ExecStop=/usr/bin/kill -QUIT $MAINPID
 
 [Install]
@@ -79,7 +77,7 @@ SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo
 また、ジョブの状態確認画面は json で状態を取得することができます。URL は <https://demo.ss-proj.org/.sys/job/status.json> です。
 ジョブの実行状態が正常の場合、次のような json が応答されます。
 
-~~~json
+```json
 {
   "status": "ok",
   "active_job": {
@@ -87,12 +85,7 @@ SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo
   },
   "job": {
     "mode": "on_demand",
-    "polling_queues": [
-      "default",
-      "mailers",
-      "voice_synthesis",
-      "external"
-    ]
+    "polling_queues": ["default", "mailers", "voice_synthesis", "external"]
   },
   "item": {
     "name": "job:service",
@@ -100,11 +93,11 @@ SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo
     "updated": "2021-11-02T17:24:05.770+09:00"
   }
 }
-~~~
+```
 
 ジョブの実行が滞留している場合、次のような json が応答されます。
 
-~~~json
+```json
 {
   "status": "stucked",
   "notice": {
@@ -120,12 +113,7 @@ SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo
   },
   "job": {
     "mode": "on_demand",
-    "polling_queues": [
-      "default",
-      "mailers",
-      "voice_synthesis",
-      "external"
-    ]
+    "polling_queues": ["default", "mailers", "voice_synthesis", "external"]
   },
   "item": {
     "name": "job:service",
@@ -133,24 +121,24 @@ SHIRASAGI v1.15.0 以降でジョブの状態を確認する機能 <https://demo
     "updated": "2021-11-02T17:24:05.770+09:00"
   }
 }
-~~~
+```
 
 json の意味は次の通りです。
 
-| 項目名                   | 説明 |
-|--------------------------|----------------------------------------------------------------|
-| status                   | "ok" または "stucked"。実行状態が正常な場合は "ok"。ジョブの実行が滞留している場合は "stucked"。 |
-| notice.notices           | status が "stucked" の場合のメッセージ。 |
-| active_job.queue_adapter | ジョブのアダプターの設定値。 |
-| job.mode                 | Shirasagi Job のモード。 |
-| job.polling_queues       | Shirasagi Job が監視しているキューのリスト。 |
+| 項目名                   | 説明                                                                                                                                           |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| status                   | "ok" または "stucked"。実行状態が正常な場合は "ok"。ジョブの実行が滞留している場合は "stucked"。                                               |
+| notice.notices           | status が "stucked" の場合のメッセージ。                                                                                                       |
+| active_job.queue_adapter | ジョブのアダプターの設定値。                                                                                                                   |
+| job.mode                 | Shirasagi Job のモード。                                                                                                                       |
+| job.polling_queues       | Shirasagi Job が監視しているキューのリスト。                                                                                                   |
 | item.name                | Shirasagi Job サービスを表すタスクの名前。これはジョブ - タスク <https://demo.ss-proj.org/.sys/job/tasks> の一覧に表示されているタスクの名前。 |
-| item.current_count       | Shirasagi Job サービスの実行数。 |
-| item.updated             | Shirasagi Job サービスの最終更新日時。 |
+| item.current_count       | Shirasagi Job サービスの実行数。                                                                                                               |
+| item.updated             | Shirasagi Job サービスの最終更新日時。                                                                                                         |
 
 ジョブの実行状態の監視を監視システムなどに組み込んで自動化する場合は、次の Ruby スクリプトを参考にしてください。
 
-~~~ruby
+```ruby
 url = "https://demo.ss-proj.org/.sys/job/status.json"
 user_id = "sys"
 
@@ -170,19 +158,19 @@ if resp.status == 302
 end
 
 puts resp.body
-~~~
+```
 
 この Ruby スクリプトを job_status.rb というファイル名で保存したとすると、
 シラサギディレクトリで次のようにして実行します。
 
-~~~
+```
 bundle exec rails runner <path-to>/job_status.rb
-~~~
+```
 
 このコマンドを実行すると json が取得されるます。status だけを取得したい場合は [jq コマンド](https://stedolan.github.io/jq/)と組み合わせて、次のように実行すると status だけを取得することができます。
 
-~~~
+```
 bundle exec rails runner <path>/job_status.rb | <path>/jq '.status'
-~~~
+```
 
 スクリプトの URL とユーザーは適時変更してご利用ください。

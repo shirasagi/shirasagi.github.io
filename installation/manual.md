@@ -11,7 +11,6 @@ CentOS 7 向けのインストールマニュアルです。
 下記は検証環境用に SELlinux, Firewalld を無効にしています。
 
 ```
-$ su -
 # setenforce 0
 # sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
 # systemctl stop firewalld
@@ -21,7 +20,6 @@ $ su -
 ## パッケージのダウンロード
 
 ```
-$ su -
 # yum -y install scl-utils centos-release-scl
 # yum -y install wget git ImageMagick ImageMagick-devel devtoolset-11
 ```
@@ -32,7 +30,7 @@ shirasagi v1.14.0 からは ImageMagick のバージョンが 6.9 以上であ�
 次のコマンドを実行して ImageMagick のバージョンを確認してください。
 
 ```
-$ convert --version | grep Version
+# convert --version | grep Version
 ```
 
 ```
