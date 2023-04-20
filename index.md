@@ -17,7 +17,7 @@ title: SHIRASAGI 開発マニュアル
 - 手動インストール
   - [CentOS](installation/manual.html)
   - [Ubuntu](installation/ubuntu.html)
-  - [Linux Mint 19.1](installation/linux-mint-19.1.html)
+  - [Linux Mint 21.1](installation/linux-mint-21.1.html)
 - ミドルウェア
   - [Unicorn](installation/unicorn.html)
   - [Nginx](installation/nginx.html)
