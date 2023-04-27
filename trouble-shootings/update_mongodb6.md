@@ -464,3 +464,40 @@ item.elasticsearch_deny_before_type_cast.class
 ~~~
 
 とします。
+
+## .save で書き出されたファイルが更新されなっくなった (changes と previous_changes とに対応した影響)
+
+以下のコードを実行すると Mongoid 7.3 では、内部で generate_file が呼ばれ、書き出されたファイルが更新されましたが、Mongoid 8.0 では更新されなくなりました。
+
+~~~
+app = Opendata::App.first
+app.save(validate: false)
+~~~
+
+この影響で一部のテストが失敗するようになりましたので、テストを修正するようにしてください。
+たとえば、`before` で書き出されたファイルを削除し、動的な応答をさせることでテストは成功するようになります。
+
+~~~
+  before do
+    ::FileUtils.rm_f app.path
+  end
+~~~
+
+### 詳細な理由
+
+Mongoid 7.3 の `generate_file` の登録処理は以下のようなコードでした。
+
+~~~
+after_save :generate_file, if: ->{ @db_changes }
+~~~
+
+changes と previous_changes とに対応するため、以下のように変更しました。
+
+~~~
+after_save :generate_file, if: ->{ changes.present? || previous_changes.present? }
+~~~
+
+Mongoid 7.3 のコードではインスタンス変数 `@db_changes` が存在していれば `generate_file` が呼ばれます。そして `@db_changes` は必ず存在します。
+Mongoid 8.0 のコードでは、データベースの変更が存在する場合のみ、`generate_file` が呼ばれるようになります。
+
+`generate_file` 以外に、`rename_file` などもこの影響を受けます。
