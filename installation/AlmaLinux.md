@@ -3,7 +3,7 @@ layout: default
 title: インストールマニュアル
 ---
 
-CentOS 7 向けのインストールマニュアルです。
+Almalinux 8 向けのインストールマニュアルです。
 
 ## セキュリティ設定
 
@@ -22,8 +22,10 @@ $ su -
 
 ```
 $ su -
-# yum -y install scl-utils centos-release-scl
-# yum -y install wget git ImageMagick ImageMagick-devel devtoolset-11
+# dnf -y install epel-release.noarch
+# dnf config-manager --disable epel
+# dnf --enablerepo=epel -y update epel-release
+dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel
 ```
 
 ## ImageMagick のバージョン確認
@@ -187,7 +189,6 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
-$ source /opt/rh/devtoolset-11/enable
 $ bundle install --without development test
 $ bin/deploy
 $ bundle exec rake unicorn:start
@@ -199,7 +200,7 @@ $ bundle exec rake unicorn:start
 
 ```
 # cd /usr/local/src
-# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"
+# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
 # wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
 # wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
 # wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
