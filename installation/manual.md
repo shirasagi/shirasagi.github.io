@@ -32,7 +32,8 @@ shirasagi v1.14.0 からは ImageMagick のバージョンが 6.9 以上であ�
 次のコマンドを実行して ImageMagick のバージョンを確認してください。
 
 ```
-$ convert --version | grep Version
+$ su -
+# convert --version | grep Version
 ```
 
 ```
@@ -45,6 +46,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 > その場合は下記 policy.xml の変更は必要ありません。
 
 ```
+$ su -
 # vi /etc/ImageMagick-6/policy.xml
 ```
 
@@ -82,7 +84,8 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 次のコマンドを実行してみます。
 
 ```
-$ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
+$ su -
+# convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
 ```
 
 ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
@@ -99,6 +102,7 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 注）この設定は v1.14.0 にて導入されました。
 
 ```
+$ su -
 # cd /var/www/shirasagi
 # cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
 # vi config/cms.yml
@@ -119,6 +123,7 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ```
+$ su -
 # vi /etc/yum.repos.d/mongodb-org-4.4.repo
 ```
 
@@ -141,6 +146,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ## asdf のインストール
 
 ```
+$ su -
 # git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 # vi ~/.bashrc
 ---(追記)
@@ -153,6 +159,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ## Ruby のインストール
 
 ```
+$ su -
 # asdf plugin add ruby
 # asdf install ruby VERSION
 # asdf global ruby VERSION
@@ -160,9 +167,10 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 
 > `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
-## Node.js 等のインストール
+## Node.js のインストール
 
 ```
+$ su -
 # asdf plugin add nodejs
 # asdf install nodejs VERSION
 # asdf global nodejs VERSION
@@ -176,7 +184,8 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ### SHIRASAGI
 
 ```
-$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
+$ su -
+# git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
@@ -185,11 +194,13 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ## Web サーバの起動
 
 ```
-$ cd /var/www/shirasagi
-$ cp -n config/samples/*.{rb,yml} config/
-$ source /opt/rh/devtoolset-11/enable
-$ bundle install --without development test
-$ bundle exec rake unicorn:start
+$ su -
+# cd /var/www/shirasagi
+# cp -n config/samples/*.{rb,yml} config/
+# source /opt/rh/devtoolset-11/enable
+# bundle install --without development test
+# bin/deploy
+# bundle exec rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
@@ -197,6 +208,7 @@ $ bundle exec rake unicorn:start
 ## ふりがな機能のインストール
 
 ```
+$ su -
 # cd /usr/local/src
 # wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"
 # wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
@@ -225,6 +237,7 @@ $ bundle exec rake unicorn:start
 ## 音声読み上げ機能のインストール
 
 ```
+$ su -
 # cd /usr/local/src
 # wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
     http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
@@ -257,14 +270,15 @@ $ bundle exec rake unicorn:start
 カレントディレクトリを移動
 
 ```
-$ cd /var/www/shirasagi
+$ su -
+# cd /var/www/shirasagi
 ```
 
 データベースの作成（インデックスの作成）
 
 ```
-$ bundle exec rake db:drop
-$ bundle exec rake db:create_indexes
+# bundle exec rake db:drop
+# bundle exec rake db:create_indexes
 ```
 
 ### サンプルデータを利用する
@@ -280,26 +294,27 @@ $ bundle exec rake db:create_indexes
 #### サイトの作成
 
 ```
-$ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+$ su -
+# bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ```
 
 #### サンプルデータの適用
 
 ```
 ## 自治体サンプル
-$ bundle exec rake db:seed site=www name=demo
+# bundle exec rake db:seed site=www name=demo
 
 ## 企業サンプル
-$ bundle exec rake db:seed site=www name=company
+# bundle exec rake db:seed site=www name=company
 
 ## 子育て支援サンプル
-$ bundle exec rake db:seed site=www name=childcare
+# bundle exec rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
-$ bundle exec rake db:seed site=www name=opendata
+# bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
-$ bundle exec rake db:seed site=www name=lp
+# bundle exec rake db:seed site=www name=lp
 ```
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
@@ -310,7 +325,8 @@ $ bundle exec rake db:seed site=www name=lp
 #### 管理者ユーザーの作成
 
 ```
-$ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+$ su -
+# bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
 ```
 
 #### サイトの作成
