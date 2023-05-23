@@ -22,9 +22,10 @@ $ su -
 
 ```
 $ su -
-# dnf -y install epel-release.noarch
+# dnf -y install epel-release.noarch wget
 # dnf config-manager --disable epel
 # dnf --enablerepo=epel -y update epel-release
+# dnf -y groupinstall "Development tools"
 # dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel
 ```
 
@@ -34,8 +35,7 @@ shirasagi v1.14.0 からは ImageMagick のバージョンが 6.9 以上であ�
 次のコマンドを実行して ImageMagick のバージョンを確認してください。
 
 ```
-$ su -
-# convert --version | grep Version
+$ convert --version | grep Version
 ```
 
 ```
@@ -86,8 +86,7 @@ $ su -
 次のコマンドを実行してみます。
 
 ```
-$ su -
-# convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
+$ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
 ```
 
 ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
@@ -104,10 +103,9 @@ $ su -
 注）この設定は v1.14.0 にて導入されました。
 
 ```
-$ su -
-# cd /var/www/shirasagi
-# cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
-# vi config/cms.yml
+$ cd /var/www/shirasagi
+$ cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
+$ vi config/cms.yml
 
 ### captcha の font の値を変更 ###
   captcha:
@@ -117,7 +115,7 @@ $ su -
 なお ImageMagick の場合、以下のコマンドで、設定可能なフォント一覧を確認できます。
 
 ```
-# convert -list font
+$ convert -list font
 ```
 
 ## MongoDB のインストール
@@ -139,32 +137,67 @@ gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
 ```
 
 ```
-# yum install -y --enablerepo=mongodb-org-4.4 mongodb-org
-# systemctl enable mongod
+# dnf install -y --enablerepo=mongodb-org-4.4 mongodb-org
+# systemctl enable mongod --now
 ```
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
 ## asdf のインストール
 
+1.GitHub から asdf のクローン
+
 ```
 $ su -
-# git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-# vi ~/.bashrc
----(追記)
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
----
-# source ~/.bashrc
+# git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
+```
+
+2.管理グループの設定
+管理者権限がなくても asdf を利用できるように管理グループ asdf を作成し、/usr/local/asdf の操作権限 1 を付与します。
+その後、管理グループに一般ユーザー を追加します。
+
+例)ユーザが ssuser の場合
+
+```
+$ su -
+# groupadd asdf
+# chgrp -R asdf /usr/local/
+# chmod -R g+rwXs /usr/local/
+# gpasswd -a ssuser asdf
+# exec bash -l
+```
+
+3.環境変数の設定
+
+```
+$ su -
+# vi /etc/profile.d/asdf.sh
+```
+
+```
+export ASDF_DIR=/usr/local/asdf
+export ASDF_DATA_DIR=$ASDF_DIR
+
+ASDF_BIN="${ASDF_DIR}/bin"
+ASDF_USER_SHIMS="${ASDF_DATA_DIR}/shims"
+PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
+
+. "${ASDF_DIR}/asdf.sh"
+. "${ASDF_DIR}/completions/asdf.bash"
+```
+
+4.設定反映
+
+```
+# source /etc/profile.d/asdf.sh
 ```
 
 ## Ruby のインストール
 
 ```
-$ su -
-# asdf plugin add ruby
-# asdf install ruby VERSION
-# asdf global ruby VERSION
+$ asdf plugin add ruby
+$ asdf install ruby VERSION
+$ asdf global ruby VERSION
 ```
 
 > `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
@@ -172,22 +205,30 @@ $ su -
 ## Node.js のインストール
 
 ```
-$ su -
-# asdf plugin add nodejs
-# asdf install nodejs VERSION
-# asdf global nodejs VERSION
-# npm install -g yarn
+$ asdf plugin add nodejs
+$ asdf install nodejs VERSION
+$ asdf global nodejs VERSION
+$ npm install -g yarn
 ```
 
 > `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
-## ダウンロード
+## SHIRASAGI ダウンロード
 
-### SHIRASAGI
+1. インストールディレクトリの権限を一般ユーザーに変更します。
+
+   例)ユーザが ssuser の場合
 
 ```
 $ su -
-# git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
+# mkdir -p /var/www
+# chown -R ssuser /var/www
+```
+
+2. GitHub からクローン
+
+```
+$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
@@ -196,12 +237,11 @@ $ su -
 ## Web サーバの起動
 
 ```
-$ su -
-# cd /var/www/shirasagi
-# cp -n config/samples/*.{rb,yml} config/
-# bundle install --without development test
-# bin/deploy
-# bundle exec rake unicorn:start
+$ cd /var/www/shirasagi
+$ cp -n config/samples/*.{rb,yml} config/
+$ bundle install --without development test
+$ bin/deploy
+$ bundle exec rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
@@ -241,9 +281,9 @@ $ su -
 $ su -
 # cd /usr/local/src
 # wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
-    http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
-    http://downloads.sourceforge.net/lame/lame-3.99.5.tar.gz \
-    http://downloads.sourceforge.net/sox/sox-14.4.1.tar.gz
+   http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
+   http://downloads.sourceforge.net/lame/lame-3.99.5.tar.gz \
+   http://downloads.sourceforge.net/sox/sox-14.4.1.tar.gz
 
 # cd /usr/local/src
 # tar xvzf hts_engine_API-1.08.tar.gz && cd hts_engine_API-1.08
@@ -271,15 +311,14 @@ $ su -
 カレントディレクトリを移動
 
 ```
-$ su -
-# cd /var/www/shirasagi
+$ cd /var/www/shirasagi
 ```
 
 データベースの作成（インデックスの作成）
 
 ```
-# bundle exec rake db:drop
-# bundle exec rake db:create_indexes
+$ bundle exec rake db:drop
+$ bundle exec rake db:create_indexes
 ```
 
 ### サンプルデータを利用する
@@ -295,28 +334,26 @@ $ su -
 #### サイトの作成
 
 ```
-$ su -
-# bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+$ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ```
 
 #### サンプルデータの適用
 
 ```
-$ su -
 ## 自治体サンプル
-# bundle exec rake db:seed site=www name=demo
+$ bundle exec rake db:seed site=www name=demo
 
 ## 企業サンプル
-# bundle exec rake db:seed site=www name=company
+$ bundle exec rake db:seed site=www name=company
 
 ## 子育て支援サンプル
-# bundle exec rake db:seed site=www name=childcare
+$ bundle exec rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
-# bundle exec rake db:seed site=www name=opendata
+$ bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
-# bundle exec rake db:seed site=www name=lp
+$ bundle exec rake db:seed site=www name=lp
 ```
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
@@ -327,8 +364,7 @@ $ su -
 #### 管理者ユーザーの作成
 
 ```
-$ su -
-# bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+$ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
 ```
 
 #### サイトの作成
