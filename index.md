@@ -16,6 +16,7 @@ title: SHIRASAGI 開発マニュアル
   - [install.sh](installation/installsh.html)
 - 手動インストール
   - [CentOS](installation/manual.html)
+  - [AlmaLinux](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
   - [Linux Mint 21.1](installation/linux-mint-21.1.html)
 - ミドルウェア
@@ -23,7 +24,7 @@ title: SHIRASAGI 開発マニュアル
   - [Nginx](installation/nginx.html)
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
-  - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWSの全文検索、サイト内検索利用時）
+  - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWS の全文検索、サイト内検索利用時）
   - [MongoDB 推奨設定](installation/mongodb-settings.html)
 
 ## アップデート手順
@@ -43,9 +44,10 @@ title: SHIRASAGI 開発マニュアル
 ## 機能と設定
 
 - システム全般
+
   - [管理コマンド一覧](settings/cmd.html)
   - [環境設定](settings/env.html)
-    - [OEM開発](settings/oem.html)
+    - [OEM 開発](settings/oem.html)
   - [定期実行](settings/cron.html)
   - [非同期実行 / バッググラウンドジョブ](settings/job.html)
   - [セッションタイムアウト](settings/session.html)
@@ -60,12 +62,14 @@ title: SHIRASAGI 開発マニュアル
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
 
 - 認証
+
   - [ログイン](features/login.html)
   - [OAuth 認証](settings/oauth.html)
   - [SAML 認証の疎通確認](settings/saml_sampling.html)
   - [Shibboleth 認証](settings/shibboleth.html)
 
 - CMS
+
   - [Basic 認証環境での設定](settings/basic_auth.html)
   - [サブディレクトリ設定](settings/subdir.html)
   - [リンクチェック設定](settings/check_links.html)
@@ -84,6 +88,7 @@ title: SHIRASAGI 開発マニュアル
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
 
 - グループウェア
+
   - [全文検索対象機能](features/gws/indexing.html)
 
 - CMS 外部連携
@@ -91,8 +96,8 @@ title: SHIRASAGI 開発マニュアル
   - [OGP と Twitter Card 設定](settings/ogp.html)
   - [SNS 投稿連携](settings/sns_poster.html)
   - [LINE 連携](settings/line.html)
-  - [気象庁防災情報 XML 連携（PULL型）](settings/jmaxml_pull.html)
-  - [5374連携](settings/k5374.html)
+  - [気象庁防災情報 XML 連携（PULL 型）](settings/jmaxml_pull.html)
+  - [5374 連携](settings/k5374.html)
 
 ## サイト構築資料
 
@@ -102,34 +107,34 @@ title: SHIRASAGI 開発マニュアル
 
 - ソースコード
   - [Gems](source_codes/gems.html)
-  - [DB定義](source_codes/db.html)
+  - [DB 定義](source_codes/db.html)
 - 基本情報
   - [ディレクトリ構成](devel/directories.html)
-  - [JavaScript構成](devel/javascripts.html)
+  - [JavaScript 構成](devel/javascripts.html)
   - [システム設定 (config)](devel/config.html)
   - [モデルアドオン設計](devel/model_addon.html)
   - [権限/ロール](devel/role.html)
   - [モデルの基底モジュール (SS::Document)](devel/ss_document.html)
   - [ファイル機能（SS::File）](devel/ss_file.html)
-  - [モーダル検索UI (SearchUI)](devel/search_ui.html)
-  - [Jobの開発](devel/job.html)
+  - [モーダル検索 UI (SearchUI)](devel/search_ui.html)
+  - [Job の開発](devel/job.html)
   - [無害化処理 (サニタイザー)](devel/upload_policy.html)
   - [ダブルクリック防御](devel/double_click_guard.html)
   - [Guard](devel/guard.html)
 - CMS
-  - [CMSの主要モデル](devel/cms_models.html)
+  - [CMS の主要モデル](devel/cms_models.html)
   - [公開系の開発](devel/cms_public.html)
-  - [リストノード/パーツとループHTML変数の定義と拡張](devel/loop.html)
-  - [ループHTML変数の一覧と使用例(template_variable_handler)](devel/template_variable_handler/template_variable_handler.html)
-  - [template_variable_handlerを使用しないテンプレート](devel/template_variable_handler/other_template_variable.html)
+  - [リストノード/パーツとループ HTML 変数の定義と拡張](devel/loop.html)
+  - [ループ HTML 変数の一覧と使用例(template_variable_handler)](devel/template_variable_handler/template_variable_handler.html)
+  - [template_variable_handler を使用しないテンプレート](devel/template_variable_handler/other_template_variable.html)
   - [アクセシビリティチェック機能](devel/accessibility.html)
-- Webメール
+- Web メール
   - [ウェブメール開発環境の構築](devel/webmail.html)
   - [Docker を用いたウェブメールテスト環境の構築](devel/webmail_test_with_docker.html)
   - [IMAP のデバッグ](devel/debug_imap.html)
 - テスト
   - [Rspec](devel/rspec/rspec.html)
-  - [Rspecの運用](devel/rspec.html)
+  - [Rspec の運用](devel/rspec.html)
   - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
   - [全文検索機能の開発とテスト](devel/rspec_elasticsearch.html)
 
@@ -143,7 +148,7 @@ title: SHIRASAGI 開発マニュアル
 ## 試験中の機能
 
 - CMS
-  - [不適切な公開HTML削除](experimental/remove_improper_htmls.html)
+  - [不適切な公開 HTML 削除](experimental/remove_improper_htmls.html)
 
 ## シラサギ公式サイトの FAQ
 
