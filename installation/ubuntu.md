@@ -44,3 +44,5 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ---
 
 その他のインストール手順は [AlmaLinux](almalinux.html) を参考にしてください。
+
+> root ユーザを有効にしてコマンドを実行してください。
