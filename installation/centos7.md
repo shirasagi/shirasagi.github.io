@@ -160,7 +160,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 
 > `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
-## Node.js 等のインストール
+## Node.js のインストール
 
 ```
 # asdf plugin add nodejs
@@ -176,7 +176,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ### SHIRASAGI
 
 ```
-$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
+# git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
@@ -185,11 +185,12 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ## Web サーバの起動
 
 ```
-$ cd /var/www/shirasagi
-$ cp -n config/samples/*.{rb,yml} config/
-$ source /opt/rh/devtoolset-11/enable
-$ bundle install --without development test
-$ bundle exec rake unicorn:start
+# cd /var/www/shirasagi
+# cp -n config/samples/*.{rb,yml} config/
+# source /opt/rh/devtoolset-11/enable
+# bundle install --without development test
+# bin/deploy
+# bundle exec rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
@@ -287,19 +288,19 @@ $ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", dom
 
 ```
 ## 自治体サンプル
-$ bundle exec rake db:seed site=www name=demo
+# bundle exec rake db:seed site=www name=demo
 
 ## 企業サンプル
-$ bundle exec rake db:seed site=www name=company
+# bundle exec rake db:seed site=www name=company
 
 ## 子育て支援サンプル
-$ bundle exec rake db:seed site=www name=childcare
+# bundle exec rake db:seed site=www name=childcare
 
 ## オープンデータサンプル
-$ bundle exec rake db:seed site=www name=opendata
+# bundle exec rake db:seed site=www name=opendata
 
 ## LPサンプル
-$ bundle exec rake db:seed site=www name=lp
+# bundle exec rake db:seed site=www name=lp
 ```
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
@@ -310,7 +311,7 @@ $ bundle exec rake db:seed site=www name=lp
 #### 管理者ユーザーの作成
 
 ```
-$ bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
+# bundle exec rake ss:create_user data='{ name: "システム管理者", email: "sys@example.jp", password: "pass" }'
 ```
 
 #### サイトの作成
