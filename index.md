@@ -15,8 +15,8 @@ title: SHIRASAGI 開発マニュアル
   - [Vagrant](installation/vagrant.html)
   - [install.sh](installation/installsh.html)
 - 手動インストール
-  - [CentOS](installation/manual.html)
-  - [AlmaLinux](installation/almalinux.html)
+  - [CentOS](installation/centos7.html)
+  - [RHEL8 系](installation/manual.html)
   - [Ubuntu](installation/ubuntu.html)
   - [Linux Mint 21.1](installation/linux-mint-21.1.html)
 - ミドルウェア
