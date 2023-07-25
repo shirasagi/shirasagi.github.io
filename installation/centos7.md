@@ -45,6 +45,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 > その場合は下記 policy.xml の変更は必要ありません。
 
 ```
+$ su -
 # vi /etc/ImageMagick-6/policy.xml
 ```
 
@@ -99,9 +100,9 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 注）この設定は v1.14.0 にて導入されました。
 
 ```
-# cd /var/www/shirasagi
-# cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
-# vi config/cms.yml
+$ cd /var/www/shirasagi
+$ cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
+$ vi config/cms.yml
 
 ### captcha の font の値を変更 ###
   captcha:
@@ -111,7 +112,7 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 なお ImageMagick の場合、以下のコマンドで、設定可能なフォント一覧を確認できます。
 
 ```
-# convert -list font
+$ convert -list font
 ```
 
 ## MongoDB のインストール
@@ -119,64 +120,110 @@ $ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Cent
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ```
-# vi /etc/yum.repos.d/mongodb-org-4.4.repo
+$ su -
+# vi /etc/yum.repos.d/mongodb-org-6.0.repo
 ```
 
 ```
-[mongodb-org-4.4]
+[mongodb-org-6.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
 ```
 
 ```
-# yum install -y --enablerepo=mongodb-org-4.4 mongodb-org
-# systemctl enable mongod
+# yum install -y --enablerepo=mongodb-org-6.0 mongodb-org
+# systemctl enable mongod --now
 ```
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
 
 ## asdf のインストール
 
+1.GitHub から asdf のクローン
+
 ```
-# git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-# vi ~/.bashrc
----(追記)
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
----
-# source ~/.bashrc
+$ su -
+# git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
+```
+
+2.管理グループの設定
+管理者権限がなくても asdf を利用できるように管理グループ asdf を作成し、/usr/local/asdf の操作権限を付与します。
+その後、管理グループに一般ユーザー を追加します。
+
+例)ユーザが ssuser の場合
+
+```
+$ su -
+# groupadd asdf
+# chgrp -R asdf /usr/local/asdf
+# chmod -R g+rwXs /usr/local/asdf
+# gpasswd -a ssuser asdf
+```
+
+3.環境変数の設定
+
+```
+$ su -
+# vi /etc/profile.d/asdf.sh
+```
+
+```
+export ASDF_DIR=/usr/local/asdf
+export ASDF_DATA_DIR=$ASDF_DIR
+
+ASDF_BIN="${ASDF_DIR}/bin"
+ASDF_USER_SHIMS="${ASDF_DATA_DIR}/shims"
+PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
+
+. "${ASDF_DIR}/asdf.sh"
+. "${ASDF_DIR}/completions/asdf.bash"
+```
+
+4.設定反映
+
+```
+# source /etc/profile.d/asdf.sh
 ```
 
 ## Ruby のインストール
 
 ```
 # asdf plugin add ruby
-# asdf install ruby VERSION
-# asdf global ruby VERSION
+# source /opt/rh/devtoolset-11/enable
+# asdf install ruby 3.0.6
+# asdf global ruby 3.0.6
 ```
-
-> `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
 ## Node.js のインストール
 
 ```
 # asdf plugin add nodejs
-# asdf install nodejs VERSION
-# asdf global nodejs VERSION
+# asdf install nodejs 16.19.0
+# asdf global nodejs 16.19.0
 # npm install -g yarn
 ```
-
-> `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
 ## ダウンロード
 
 ### SHIRASAGI
 
+1. インストールディレクトリの権限を一般ユーザーに変更します。
+
+   例)ユーザが ssuser の場合
+
 ```
-# git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
+$ su -
+# mkdir -p /var/www
+# chown -R ssuser /var/www
+```
+
+2. GitHub からクローン
+
+```
+$ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 ```
 
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
@@ -185,12 +232,12 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 ## Web サーバの起動
 
 ```
-# cd /var/www/shirasagi
-# cp -n config/samples/*.{rb,yml} config/
-# source /opt/rh/devtoolset-11/enable
-# bundle install --without development test
-# bin/deploy
-# bundle exec rake unicorn:start
+$ cd /var/www/shirasagi
+$ cp -n config/samples/*.{rb,yml} config/
+$ source /opt/rh/devtoolset-11/enable
+$ bundle install --without development test
+$ bin/deploy
+$ bundle exec rake unicorn:start
 ```
 
 > http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
