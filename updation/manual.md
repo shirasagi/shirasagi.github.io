@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SHIRASAGI の更新
+title: SHIRASAGI の更新(RHEL8系)
 ---
 
 ## ソースコードの更新
@@ -49,26 +49,68 @@ title: SHIRASAGI の更新
 v1.17.0 から Node.js,yarn のインストールが必須になりました。
 そこでバージョン管理ツール（asdf）を使用し Node.js をインストールします。
 
-```
-# git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-# vi ~/.bashrc
----(追記)
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
----
-# source ~/.bashrc
-```
-
-## Node.js 等のインストール
+1.GitHub から asdf のクローン
 
 ```
-# asdf plugin add nodejs
-# asdf install nodejs VERSION
-# asdf global nodejs VERSION
-# npm install -g yarn
+$ su -
+# git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
 ```
 
-> `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
+2.管理グループの設定
+管理者権限がなくても asdf を利用できるように管理グループ asdf を作成し、/usr/local/asdf の操作権限を付与します。
+その後、管理グループに一般ユーザー を追加します。
+
+例)ユーザが ssuser の場合
+
+```
+$ su -
+# groupadd asdf
+# chgrp -R asdf /usr/local/asdf
+# chmod -R g+rwXs /usr/local/asdf
+# gpasswd -a ssuser asdf
+```
+
+3.環境変数の設定
+
+```
+$ su -
+# vi /etc/profile.d/asdf.sh
+```
+
+```
+export ASDF_DIR=/usr/local/asdf
+export ASDF_DATA_DIR=$ASDF_DIR
+
+ASDF_BIN="${ASDF_DIR}/bin"
+ASDF_USER_SHIMS="${ASDF_DATA_DIR}/shims"
+PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
+
+. "${ASDF_DIR}/asdf.sh"
+. "${ASDF_DIR}/completions/asdf.bash"
+```
+
+4.設定反映
+
+```
+# source /etc/profile.d/asdf.sh
+```
+
+## Ruby のインストール
+
+```
+$ asdf plugin add ruby
+$ asdf install ruby 3.1.4
+$ asdf global ruby 3.1.4
+```
+
+## Node.js のインストール
+
+```
+$ asdf plugin add nodejs
+$ asdf install nodejs 20.5.0
+$ asdf global nodejs 20.5.0
+$ npm install -g yarn
+```
 
 ## Gem の更新
 
@@ -124,7 +166,7 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 
 上記のように設定されている場合、以下のように変更してください。
 
-#### ruby を rvm でインストールしている場合
+#### asdf を利用してない場合
 
 新しい `ExecStart=` 行:
 
@@ -132,7 +174,7 @@ ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -
 ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
 ```
 
-#### ruby を asdf でインストールしている場合
+#### asdf でインストールしている場合
 
 新しい `ExecStart=` 行:
 
