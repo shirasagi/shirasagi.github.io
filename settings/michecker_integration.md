@@ -19,7 +19,7 @@ title: miChecker との連携
 手動でインストールされる方は、次の手順でインストールしてください。
 
 1. Java 8 64bit 版をインストール（JRE で構いません）
-2. Google Chrome ブラウザか Chronium ブラウザをインストール
+2. Google Chrome ブラウザか Chronium ブラウザをインストール (下記に注意点あり)
 3. Noto CJK フォントをインストール（Web フォントは不可）
 4. [miChecker のバイナリーをダウンロード](https://github.com/shirasagi/docker-michecker/raw/main/assets/michecker.tar.bz2) し /opt 以下に展開
 
@@ -32,6 +32,11 @@ title: miChecker との連携
 
 詳細は <https://github.com/shirasagi/docker-michecker/blob/main/Dockerfile> を参考に、
 お使いの OS に応じてインストールしてください。
+
+### Google Chrome / Chronium について
+
+最新の Google Chrome / Chronium では michecker が動作しないことが確認されています。
+恐れ入りますが v110 以前の Google Chrome / Chronium をインストールするようにしてください。
 
 ## miChecker のテスト
 
