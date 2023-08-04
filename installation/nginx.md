@@ -182,6 +182,12 @@ location ~* \.svg$ {
     add_header Content-Disposition "attachment";
     try_files $uri @app;
 }
+# download .htm/html files instead of showing inline in browser for protecting from xss.
+# for only belonging to fs directories.
+location ~* /fs/.*\.(htm|html)$ {
+    add_header Content-Disposition "attachment";
+    try_files $uri @app;
+}
 ~~~
 > `/var/www/shirasagi` はインストールしたディレクトリに変更してください。
 
