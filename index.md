@@ -86,6 +86,7 @@ title: SHIRASAGI 開発マニュアル
   - [サイトのデータ移行](features/site_export.html)
   - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
+  - [不適切な公開HTML削除](features/remove_improper_htmls.html)
 
 - グループウェア
 
@@ -145,10 +146,12 @@ title: SHIRASAGI 開発マニュアル
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 
+<!--
 ## 試験中の機能
 
 - CMS
   - [不適切な公開 HTML 削除](experimental/remove_improper_htmls.html)
+-->
 
 ## シラサギ公式サイトの FAQ
 
