@@ -96,7 +96,7 @@ title: SHIRASAGI 開発マニュアル
   - [外国語自動翻訳機能](features/translate.html)
   - [OGP と Twitter Card 設定](settings/ogp.html)
   - [SNS 投稿連携](settings/sns_poster.html)
-  - [LINE 連携](settings/line.html)
+  - [LINE 連携](settings/line/index.html)
   - [気象庁防災情報 XML 連携（PULL 型）](settings/jmaxml_pull.html)
   - [5374 連携](settings/k5374.html)
 

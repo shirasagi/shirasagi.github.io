@@ -16,12 +16,13 @@ title: LINE 連携
 専用メニューからLINEメッセージ作成、配信する機能です。<br>
 セグメント配信に対応しています。
 
-* [LINE メッセージ配信機能](/settings/line_messaging.html)
+* [LINE メッセージ配信機能](/settings/line/messaging.html)
+* [LINE メール取込](/settings/line/mail.html)
 
 ### トーク返信機能
 
 トーク返信に関連する機能です。
 
-* [LINE イベントフック（サービス）](/settings/line_service.html)<br>
-* [LINE リッチメニュー](/settings/line_richmenu.html)
-<!-- * [チャットボット LINE 連携](/settings/chatbot_line.html) -->
+* [LINE イベントフック（サービス）](/settings/line/service.html)<br>
+* [LINE リッチメニュー](/settings/line/richmenu.html)
+<!-- * [チャットボット LINE 連携](/settings/line/chatbot.html) -->

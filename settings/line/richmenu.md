@@ -12,7 +12,9 @@ title: LINE リッチメニュー
 
 ## 設定
 
-[LINE メッセージ配信の設定](/settings/line_messaging.html#設定)を行ってください。
+### LINE
+
+[LINE メッセージ配信の設定](/settings/line/messaging.html#設定)を行ってください。
 
 ## 定期更新
 
