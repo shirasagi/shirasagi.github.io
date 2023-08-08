@@ -212,8 +212,6 @@ $ asdf global nodejs 20.5.0
 $ npm install -g yarn
 ```
 
-> `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
-
 ## SHIRASAGI ダウンロード
 
 1. インストールディレクトリの権限を一般ユーザーに変更します。
