@@ -32,6 +32,7 @@ title: SHIRASAGI 開発マニュアル
 - [バックアップとリストア](updation/backup.html)
 - [Ruby](updation/ruby.html)
 - [MongoDB](updation/mongodb.html)
+  - [v4.4 to v6.0](updation/v4.4tov6.0.html)
 - [SHIRASAGI](updation/manual.html)
   - [オープンデータのレポート機能](updation/opendata_report.html)
   - [全文検索インデックス](updation/elasticsearch_index.html)
@@ -86,7 +87,7 @@ title: SHIRASAGI 開発マニュアル
   - [サイトのデータ移行](features/site_export.html)
   - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
-  - [不適切な公開HTML削除](features/remove_improper_htmls.html)
+  - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
 
 - グループウェア
 
