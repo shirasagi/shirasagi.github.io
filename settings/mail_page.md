@@ -188,7 +188,7 @@ echo "$data" | rake mail_page:import site=www
 
 ※ rvmを使用している場合はrubyの実行PATHを通してください。
 
-３．２ 公開画面にメール本文をPOST込する場合のスクリプト
+３．２ 公開画面にメール本文をPOSTする場合のスクリプト
 
 ~~~
 #!/bin/bash
