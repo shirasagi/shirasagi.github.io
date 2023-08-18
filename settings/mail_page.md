@@ -137,6 +137,18 @@ POST先はメール取込フォルダーの公開側URLになります。
 ２．取り込みコマンドの実行ユーザを作成します。<br />
 sudoがNOPASSWDで利用できるユーザを作成します。以下、mailinfo ユーザとします。
 
+~~~
+# visudo
+~~~
+
+~~~
+#Defaults   !visiblepw
+Defaults visiblepw
+
+# Mail Hook
+Defaults:mailinfo !requiretty
+%mailinfo   ALL=(ALL)   NOPASSWD: ALL
+~~~
 
 ３．受信メールをSHIRASAGIに反映する為のシェルスクリプトを準備します。
 
@@ -155,10 +167,16 @@ sudoがNOPASSWDで利用できるユーザを作成します。以下、mailinfo
 # vi script.sh
 ~~~
 
+
+メール取込インターフェースによって３．１または３．２のいずれかのスクリプトを用意します。
+
+３．１ 標準入力からメール取込する場合のスクリプト
+
 ~~~
 #!/bin/bash
 
-export PATH=$PATH:/usr/local/rvm/wrappers/default;
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 umask 022
 
 data=$( cat - )
@@ -167,6 +185,25 @@ data=$( echo "$data" | sed "s/$/\r/g" )
 cd /var/www/shirasagi
 echo "$data" | rake mail_page:import site=www
 ~~~
+
+※ rvmを使用している場合はrubyの実行PATHを通してください。
+
+３．２ 公開画面にメール本文をPOSTする場合のスクリプト
+
+~~~
+#!/bin/bash
+
+umask 022
+
+data=$( cat - )
+data=$( echo "$data" | sed "s/$/\r/g" )
+
+curl -H 'X-SS-API-Key: XXXX' -X POST -d "data=$data" http://$domain:$port/$node/mail
+~~~
+
+※ XXXX, $domain, $portおよび$nodeは適時読み替えてください。
+
+３．３ スクリプトに実行権限を付与
 
 ~~~
 # chmod 777 script.sh
