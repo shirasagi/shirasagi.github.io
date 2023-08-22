@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 閲覧権限の既定値
+title: 閲覧権限の公開範囲などの既定値
 ---
 
 閲覧権限の公開範囲などの既定値は`config/gws.yml`（存在しない場合は`config/defaults/gws.yml`をコピー）の`readable_setting`以下の設定を適切に設定することで変更することができます。
