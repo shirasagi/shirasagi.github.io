@@ -62,6 +62,12 @@ ServerName (サーバ名、ＩＰアドレス)
   RewriteRule ^.*$ - [L,E=X_attachment]
   Header set Content-Disposition attachment env=X_attachment
 
+  # download .html files belonging to fs directory
+  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_URI} /fs/.*\.(htm|html)$
+  RewriteRule ^.*$ - [L,E=X_attachment]
+  Header set Content-Disposition attachment env=X_attachment
+
   # static
   RewriteEngine on
   RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} -f [OR]
