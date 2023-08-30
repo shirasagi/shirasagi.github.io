@@ -72,6 +72,7 @@ ServerName (サーバ名、ＩＰアドレス)
   # reverse proxy
   AllowEncodedSlashes On
   ProxyRequests Off
+  ProxyPass /assets !
   ProxyPass / http://127.0.0.1:3000/ nocanon
   ProxyPassReverse / http://127.0.0.1:3000/
 </VirtualHost>
