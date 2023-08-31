@@ -7,23 +7,24 @@ title: インストールマニュアル - Ubuntu
 
 以下の Ubuntu で動作を確認しています。
 
-- Ubuntu Server 20.04 LTS/64bit
+- Ubuntu Server 22.04 LTS/64bit
 
 上記以外のバージョンでも動作可能だとは思いますが、自己責任でインストールしてください。
 
 ## パッケージのダウンロード
 
 ```
-$ sudo apt -y install imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git wget
+$ sudo apt -y install apt install build-essential libssl-dev imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git wget software-properties-common ca-certificates lsb-release
 ```
 
 ## MongoDB のインストール
 
 ```
-$ wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-$ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-$ sudo apt update
-$ sudo apt install -y mongodb-org
+      # sudo apt install wget gnupg software-properties-common ca-certificates lsb-release
+# wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc |sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-6.gpg
+# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+# sudo apt update
+# sudo apt install -y mongodb-org
 ```
 
 ### 上記以外のバージョンをご利用の方

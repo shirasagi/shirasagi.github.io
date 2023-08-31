@@ -26,11 +26,11 @@ $ su -
 
 ```
 $ su -
-# dnf -y install epel-release.noarch wget
+# dnf -y install epel-release wget
 # dnf config-manager --disable epel
 # dnf --enablerepo=epel -y update epel-release
 # dnf -y groupinstall "Development tools"
-# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel
+# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl3
 ```
 
 ## ImageMagick のバージョン確認
@@ -128,20 +128,20 @@ $ convert -list font
 
 ```
 $ su -
-# vi /etc/yum.repos.d/mongodb-org-4.4.repo
+# vi /etc/yum.repos.d/mongodb-org-6.0.repo
 ```
 
 ```
-[mongodb-org-4.4]
+[mongodb-org-6.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
 ```
 
 ```
-# dnf install -y --enablerepo=mongodb-org-4.4 mongodb-org
+# dnf install -y --enablerepo=mongodb-org-6.0 mongodb-org
 # systemctl enable mongod --now
 ```
 
@@ -199,22 +199,18 @@ PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
 
 ```
 $ asdf plugin add ruby
-$ asdf install ruby VERSION
-$ asdf global ruby VERSION
+$ asdf install ruby 3.1.4
+$ asdf global ruby 3.1.4
 ```
-
-> `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
 ## Node.js のインストール
 
 ```
 $ asdf plugin add nodejs
-$ asdf install nodejs VERSION
-$ asdf global nodejs VERSION
+$ asdf install nodejs 20.5.0
+$ asdf global nodejs 20.5.0
 $ npm install -g yarn
 ```
-
-> `VERSION`: Node.js のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
 
 ## SHIRASAGI ダウンロード
 
