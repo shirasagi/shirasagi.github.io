@@ -146,6 +146,7 @@ title: SHIRASAGI 開発マニュアル
 
 - [インストール](trouble-shootings/installation.html)
 - [画像認証](trouble-shootings/captcha.html)
+- [メール送信](trouble-shootings/email.html)
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 - [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
