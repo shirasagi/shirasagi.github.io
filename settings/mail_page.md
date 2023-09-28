@@ -104,8 +104,7 @@ Content-Type は一般的なメーラーで作成した UTF-8 と ISO-2022-JP �
 rake コマンドの他に、メール取込フォルダーの公開画面にメール本文をPOSTして、ページとして保存することができます。<br />
 
 ~~~
-# data=$( cat mail.eml )
-# curl -H 'X-SS-API-Key: XXXX' -X POST -d "data=$data" http://$domain:$port/$node/mail
+# cat mail.eml | curl -H 'X-SS-API-Key: XXXX' -X POST -F data=@- http://$domain:$port/$node/mail
 ~~~
 
 POST先はメール取込フォルダーの公開側URLになります。
@@ -198,7 +197,7 @@ umask 022
 data=$( cat - )
 data=$( echo "$data" | sed "s/$/\r/g" )
 
-curl -H 'X-SS-API-Key: XXXX' -X POST -d "data=$data" http://$domain:$port/$node/mail
+echo "$data" | curl -H 'X-SS-API-Key: XXXX' -X POST -F data=@- http://$domain:$port/$node/mail
 ~~~
 
 ※ XXXX, $domain, $portおよび$nodeは適時読み替えてください。
