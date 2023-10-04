@@ -141,6 +141,7 @@ title: SHIRASAGI 開発マニュアル
   - [Rspec w/ Google Chrome](devel/rspec_google_chrome.html)
   - [Rspec実行時に指定できる環境変数](devel/run_rspec_with_env.html)
   - [全文検索機能の開発とテスト](devel/rspec_elasticsearch.html)
+- [Windows11でのシラサギ開発](devel/on_win11.html)
 
 ## トラブルシューティング
 
