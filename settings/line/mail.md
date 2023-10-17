@@ -21,8 +21,7 @@ title: LINE メール取込
 設定を作成後、メールを公開画面にPOSTすることで、LINEメッセージを保存できます。
 
 ~~~
-# data=$( cat mail.eml )
-# curl -H 'X-SS-API-Key: XXXX' -X POST -d "data=$data" http://$domain:$port/$node/mail/$filename
+# cat mail.eml | curl -H 'X-SS-API-Key: XXXX' -X POST -F data=@- http://$domain:$port/$node/mail/$filename
 ~~~
 
 POST先はLINE HUBフォルダーの公開側URLになります。
