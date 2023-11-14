@@ -89,6 +89,10 @@ title: SHIRASAGI 開発マニュアル
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
   - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
 
+- オープンデータ
+
+  - [ハーベスト機能](settings/opendata/harvest.html)
+
 - グループウェア
 
   - [全文検索対象機能](features/gws/indexing.html)
