@@ -3,13 +3,17 @@ layout: default
 title: ハーベスト機能
 ---
 
-他サイトのデータセットのインポート、エクスポートを行うことができます。<br>
-連携先サイトとして、以下が設定できます。
+## ハーベスト機能とは
 
-- シラサギのオープンデータ
-- CKAN
+シラサギオープンデータには他サイトに公開されているデータセットをインポートする機能が実装されています。
+RSS取り込みのように、他サイトのデータセットおよびリソースを定期的にインポートして公開したい場合に利用できます。
+また、登録されているデータセットをAPIにてCKANにエクスポートすることもできます。
 
-## シラサギオープンデータ
+## 連携
+
+シラサギオープンデータもしくはCKANと連携することができます。
+
+### シラサギオープンデータ
 
 オープンデータサイトを立ち上げて、フォルダー属性「オープンデータ/API」を1階層目に作成します。<br>
 以下のURLにアクセス可能となり、このAPIよりデータセットおよびリソースファイルの連携が可能となります。
@@ -19,8 +23,7 @@ title: ハーベスト機能
 - package_show
   - [https://opendata.demo.ss-proj.org/api/package_show](https://opendata.demo.ss-proj.org/api/package_show)
 
-
-## CKAN
+### CKAN
 
 CKANはオープンデータサイトに広く利用されている、オープンソースのデータカタログソフトフェアです。 <br>
 [https://github.com/ckan/ckan](https://github.com/ckan/ckan)
@@ -36,7 +39,6 @@ CKANにはデータセットとリソースの登録機能があり、これら�
   - [http://demo.ckan.org/api/3/action/package_list](http://demo.ckan.org/api/3/action/package_list)
 - package_show
   - [http://demo.ckan.org/api/3/action/package_show](http://demo.ckan.org/api/3/action/package_show)
-
 
 ## 設定
 
