@@ -97,6 +97,7 @@ title: SHIRASAGI 開発マニュアル
 
   - [全文検索対象機能](features/gws/indexing.html)
   - [閲覧権限の公開範囲などの既定値](features/gws/default_readable_setting.html)
+  - [Q&A](features/gws/qa.html)
 
 - CMS 外部連携
   - [外国語自動翻訳機能](features/translate.html)
