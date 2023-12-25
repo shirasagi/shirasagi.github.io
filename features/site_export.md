@@ -15,7 +15,7 @@ title: サイトのデータ移行
 移行元サイトを指定して、ZIPファイルを出力します。
 
 ~~~
-$ rake cms:export_site site=www
+$ bundle exec rake cms:export_site site=www
 
 > === Site Export ===
 > Site name: 移行元サイト名
@@ -46,7 +46,7 @@ ZIPファイルには以下のデータが含まれています。
 管理画面またはコマンド実行から移行先サイトを作成します。
 
 ~~~
-$ rake ss:create_site data='{ name: "移行先サイト", host: "www2", domains: "www2.localhost:3000" }'
+$ bundle exec rake ss:create_site data='{ name: "移行先サイト", host: "www2", domains: "www2.localhost:3000" }'
 ~~~
 
 ### 3. インポート
@@ -54,7 +54,7 @@ $ rake ss:create_site data='{ name: "移行先サイト", host: "www2", domains:
 作成した移行先サイトにデータを投入します。
 
 ~~~
-$ rake cms:import_site site=www2 file=/path/to/site-www.zip
+$ bundle exec rake cms:import_site site=www2 file=/path/to/site-www.zip
 
 > === Site Import ===
 > Site name: 移行先サイト名

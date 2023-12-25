@@ -40,7 +40,7 @@ production:
 ハードリミットを 120 分（= 7200 秒）に変更したい場合、シラサギディレクトリで次のコマンドを実行します。
 
 ~~~
-bin/rake ss:session_lifetime:hard limit=7200
+bundle exec rake ss:session_lifetime:hard limit=7200
 ~~~
 
 > 上記のコマンドは v1.11 以降で使用することができます。v1.10 以前をご利用の方は `mongo` コマンドを用いて直接データベースを修正してください。以下に `mongo` コマンドを用いて 120 分（= 7200 秒）に変更にする実行例を示します。

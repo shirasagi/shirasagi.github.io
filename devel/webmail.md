@@ -532,13 +532,13 @@ $ cp -n config/defaults/webmail.yml config/webmail.yml
 シラサギを起動している場合は次のコマンドを実行しシラサギを停止します。
 
 ~~~shell
-$ bin/rake unicorn:stop
+$ bundle exec rake unicorn:stop
 ~~~
 
 そして次のコマンドを実行し、シラサギを起動します。
 
 ~~~shell
-$ bin/rake unicorn:start
+$ bundle exec rake unicorn:start
 ~~~
 
 シラサギの管理画面へアクセスし、ウェブメールが正しく表示されていることを確認してください。

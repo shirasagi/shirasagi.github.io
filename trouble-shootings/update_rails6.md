@@ -194,7 +194,7 @@ ActionDispatch::HostAuthorization middleware を削除します。
 余談ですが Rails 5.2 では次の middleware が組み込まれています。
 
 ~~~shell
-$ bin/rake middleware
+$ bundle exec rake middleware
 use Rack::Sendfile
 use ActionDispatch::Static
 use ActionDispatch::Executor
@@ -225,7 +225,7 @@ run SS::Application.routes
 Rails 6.0 では次の middleware が組み込まれています。
 
 ~~~shell
-$ bin/rake middleware
+$ bundle exec rake middleware
 use ActionDispatch::HostAuthorization
 use Rack::Sendfile
 use ActionDispatch::Static

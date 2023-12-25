@@ -68,7 +68,7 @@ Nginxのドキュメントルート設定を調整します。(※後項参照)
 ### 1．サブサイト用のサイトを追加します。（管理画面より登録してもOK）
 
 ~~~
-# rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+# bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ~~~
 
 ※ホスト名は既存サイトと重複しないものを設定
@@ -76,7 +76,7 @@ Nginxのドキュメントルート設定を調整します。(※後項参照)
 ### 2．管理ユーザーが無い場合 sysユーザーを登録
 
 ~~~
-# rake ss:create_user data='{ name: "name", uid: "sys", email: "sys@example.jp", password: "pass" }'
+# bundle exec rake ss:create_user data='{ name: "name", uid: "sys", email: "sys@example.jp", password: "pass" }'
 ~~~
 
 ### 3．管理画面にログインし、以下の項目を設定
@@ -87,7 +87,7 @@ Nginxのドキュメントルート設定を調整します。(※後項参照)
 ### 4．自治体サンプルを投入
 
 ~~~
-# rake db:seed name=demo site=www
+# bundle exec rake db:seed name=demo site=www
 ~~~
 
 ※引数 site は1で設定したサイトのホスト名
@@ -97,7 +97,7 @@ Nginxのドキュメントルート設定を調整します。(※後項参照)
 以下の rake task にて単純なパス置換を行うことができます。
 
 ~~~
-rake cms:set_subdir_url site=www
+bundle exec rake cms:set_subdir_url site=www
 ~~~
 
 ※引数 site は1で設定したサイトのホスト名

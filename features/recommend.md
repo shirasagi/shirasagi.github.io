@@ -61,7 +61,7 @@ $ mongo
 以下のタスクを実行することで、類似度が計算されデータベースに保存される。
 
 ~~~
-$ rake recommend:create_similarity_scores site=www
+$ bundle exec rake recommend:create_similarity_scores site=www
 ~~~
 
 スコア計算は、アクセスログ数によっては負荷が高い処理となる。<br />

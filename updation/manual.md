@@ -150,7 +150,7 @@ $ npm install -g yarn
 ## DB の差分更新
 
 ```
-# rake ss:migrate
+# bundle exec rake ss:migrate
 ```
 
 ## Unicorn 起動設定ファイル
@@ -201,7 +201,7 @@ $ su -
 
 ```
 $ cd /var/www/shirasagi
-$ rake unicorn:restart
+$ bundle exec rake unicorn:restart
 ```
 
 Unicorn の再起動には 2, 3 分かかる場合があります。
