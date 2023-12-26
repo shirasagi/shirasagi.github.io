@@ -60,7 +60,7 @@ $ su -
 
 ~~~
 $ cd /var/www/shirasagi
-$ rake unicorn:restart
+$ bundle exec rake unicorn:restart
 ~~~
 
 Unicorn の再起動には 2, 3 分かかる場合があります。

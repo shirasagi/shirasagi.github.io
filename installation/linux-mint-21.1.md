@@ -48,7 +48,7 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi.git /var/www/shiras
 $ cd /var/www/shirasagi
 $ cp -n config/samples/*.{rb,yml} config/
 $ bundle install
-$ rake unicorn:start
+$ bundle exec rake unicorn:start
 
 $ firefox http:/localhost:3000/.mypage &
 ```

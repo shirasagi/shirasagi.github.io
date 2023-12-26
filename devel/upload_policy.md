@@ -51,7 +51,7 @@ in_file にオブジェクトを設定しない場合は明示的なコールが
 無害化済みファイルの取り込みは下記コマンドです。
 
 ```sh
-$ rake ss:sanitizer_restore
+$ bundle exec rake ss:sanitizer_restore
 ```
 
 取り込んだファイルが公開中ステータスの場合 public に書き出します。

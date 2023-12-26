@@ -48,7 +48,7 @@ upload_policy で標準値を設定すると、管理画面（システム設定
 sanitizer_output/ にあるファイルをシラサギに取り込みます。
 
 ```sh
-$ rake ss:sanitizer_restore
+$ bundle exec rake ss:sanitizer_restore
 ```
 
 想定されるファイル名は

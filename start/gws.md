@@ -14,8 +14,8 @@ title: グループウェアの始め方
 (GWSサンプルデータを適用した場合は admin ユーザーに権限が付与されています。)
 
 ~~~
-$ rake gws:set_admin_role user=admin site=シラサギ市
-( rake gws:set_admin_role user=ユーザーID site=グループ名 )
+$ bundle exec rake gws:set_admin_role user=admin site=シラサギ市
+( bundle exec rake gws:set_admin_role user=ユーザーID site=グループ名 )
 ~~~
 
 ## 設定ファイル
@@ -44,7 +44,7 @@ production: &production
 スケジュール、設備などのサンプルデータが投入されます。
 
 ~~~
-$ rake db:seed name=gws
+$ bundle exec rake db:seed name=gws
 ~~~
 
 ## 定期実行

@@ -57,9 +57,9 @@ SHIRASAGI のグループウェアへログインし、「設定 - 組織情報�
 ホスト名が www のサイトで全文検索を設定したとすると、以下のコマンドを実行します。
 
 ~~~shell
-$ bin/rake cms:es:ingest:init site=www
-$ bin/rake cms:es:create_indexes site=www
-$ bin/rake cms:es:feed_all site=www
+$ bundle exec rake cms:es:ingest:init site=www
+$ bundle exec rake cms:es:create_indexes site=www
+$ bundle exec rake cms:es:feed_all site=www
 ~~~
 
 フォルダー属性「標準機能/サイト内検索」のフォルダーの公開画面をブラウザで表示し `*` を検索してみてください。何らかの文書が検索結果に表示されると思います。
@@ -69,9 +69,9 @@ $ bin/rake cms:es:feed_all site=www
 グループ名が「シラサギ市」のグループで全文検索を設定したとすると、以下のコマンドを実行します。
 
 ~~~shell
-$ bin/rake gws:es:ingest:init site=シラサギ市
-$ bin/rake gws:es:create_indexes site=シラサギ市
-$ bin/rake gws:es:feed_all site=シラサギ市
+$ bundle exec rake gws:es:ingest:init site=シラサギ市
+$ bundle exec rake gws:es:create_indexes site=シラサギ市
+$ bundle exec rake gws:es:feed_all site=シラサギ市
 ~~~
 
 グループウェアの「全文検索」メニューをクリックし、「すべて」タブで `*` を検索してみてください。何らかの項目が検索結果に表示されると思います。

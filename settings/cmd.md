@@ -6,13 +6,13 @@ title: 管理コマンド一覧
 ## データベース更新
 
 ~~~
-$ rake ss:migrate
+$ bundle exec rake ss:migrate
 ~~~
 
 ### データベース更新状況の確認
 
 ~~~
-$ rake ss:migrate:status
+$ bundle exec rake ss:migrate:status
 ~~~
 
 データベース更新を実行した後で down と表示されるものがある場合は、以下の特定バージョンのみ適用するコマンドを用いて down のものだけを適用してください。
@@ -22,7 +22,7 @@ $ rake ss:migrate:status
 "20200204000000" のみを適用する例
 
 ~~~
-$ rake ss:migrate:up VERSION=20200204000000
+$ bundle exec rake ss:migrate:up VERSION=20200204000000
 ~~~
 
 
@@ -31,25 +31,25 @@ $ rake ss:migrate:up VERSION=20200204000000
 ユーザーの作成
 
 ~~~
-$ rake ss:create_user data='{ name: "Name", uid: "UID", email: "Email", password: "password" }'
+$ bundle exec rake ss:create_user data='{ name: "Name", uid: "UID", email: "Email", password: "password" }'
 ~~~
 
 システム管理権限の付与（SYS）
 
 ~~~
-$ rake sys:set_admin_role user=admin
+$ bundle exec rake sys:set_admin_role user=admin
 ~~~
 
 サイト管理権限の付与（CMS）
 
 ~~~
-$ rake cms:set_admin_role user=admin site=www
+$ bundle exec rake cms:set_admin_role user=admin site=www
 ~~~
 
 GWS管理権限の付与（GWS）
 
 ~~~
-$ rake gws:set_admin_role user=admin site=シラサギ市
+$ bundle exec rake gws:set_admin_role user=admin site=シラサギ市
 ~~~
 
 ## CMS - コンテンツ管理
@@ -57,43 +57,43 @@ $ rake gws:set_admin_role user=admin site=シラサギ市
 サイトの作成
 
 ~~~
-$ rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
+$ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ~~~
 
 予約公開/非公開
 
 ~~~
-$ rake cms:release_pages
+$ bundle exec rake cms:release_pages
 ~~~
 
 フォルダー書き出し (トップページ, 一覧ページ)
 
 ~~~
-$ rake cms:generate_nodes site=www
+$ bundle exec rake cms:generate_nodes site=www
 ~~~
 
 ページ書き出し
 
 ~~~
-$ rake cms:generate_pages site=www
+$ bundle exec rake cms:generate_pages site=www
 ~~~
 
 メールマガジンの配信
 
 ~~~
-$ rake ezine:deliver
+$ bundle exec rake ezine:deliver
 ~~~
 
 RSS の取り込み
 
 ~~~
-$ rake rss:import_items
+$ bundle exec rake rss:import_items
 ~~~
 
 クローリングリソースの更新（オープンデータ）
 
 ~~~
-$ rake opendata:crawl site=www
+$ bundle exec rake opendata:crawl site=www
 ~~~
 
 ## サンプルデータ
@@ -101,25 +101,25 @@ $ rake opendata:crawl site=www
 自治体サンプル
 
 ~~~
-$ rake db:seed name=demo site=www
+$ bundle exec rake db:seed name=demo site=www
 ~~~
 
 企業サンプル
 
 ~~~
-$ rake db:seed name=company site=www
+$ bundle exec rake db:seed name=company site=www
 ~~~
 
 オープンデータサンプル
 
 ~~~
-$ rake db:seed name=opendata site=www
+$ bundle exec rake db:seed name=opendata site=www
 ~~~
 
 GWS サンプル
 
 ~~~
-$ rake db:seed name=gws
+$ bundle exec rake db:seed name=gws
 ~~~
 
 

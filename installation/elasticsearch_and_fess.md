@@ -248,7 +248,7 @@ group.save
 「シラサギ市」の全文検索が有効になったかどうか、以下のコマンドを実行して確認してみます。
 
 ```shell
-$ bin/rake gws:es:info site=シラサギ市
+$ bundle exec rake gws:es:info site=シラサギ市
 ```
 
 有効になっている場合、次のような JSON が表示されます。
@@ -276,9 +276,9 @@ $ bin/rake gws:es:info site=シラサギ市
 「シラサギ市」の全文検索を初期化するため、以下のコマンドを実行します。
 
 ```shell
-$ bin/rake gws:es:ingest:init site=シラサギ市
-$ bin/rake gws:es:create_indexes site=シラサギ市
-$ bin/rake gws:es:feed_all site=シラサギ市
+$ bundle exec rake gws:es:ingest:init site=シラサギ市
+$ bundle exec rake gws:es:create_indexes site=シラサギ市
+$ bundle exec rake gws:es:feed_all site=シラサギ市
 ```
 
 定期処理で検索インデックスを更新します。
@@ -303,9 +303,9 @@ site.save
 「自治体サンプル」のサイト内検索を初期化するため、以下のコマンドを実行します。
 
 ```shell
-$ bin/rake cms:es:ingest:init site=www
-$ bin/rake cms:es:create_indexes site=www
-$ bin/rake cms:es:feed_all site=www
+$ bundle exec rake cms:es:ingest:init site=www
+$ bundle exec rake cms:es:create_indexes site=www
+$ bundle exec rake cms:es:feed_all site=www
 ```
 
 定期処理で検索インデックスを更新します。
