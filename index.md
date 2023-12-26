@@ -40,6 +40,7 @@ title: SHIRASAGI 開発マニュアル
 ## 利用手順
 
 - [グループウェアの始め方](start/gws.html)
+- [グループウェアの新しいテナントの作成方法](start/gws_new_tenant.html)
 - [ウェブメールの始め方](start/webmail.html)
 
 ## 機能と設定
