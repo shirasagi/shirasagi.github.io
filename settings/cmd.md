@@ -49,7 +49,7 @@ $ bundle exec rake cms:set_admin_role user=admin site=www
 GWS管理権限の付与（GWS）
 
 ~~~
-$ bundle exec  gws:set_admin_role user=admin site=シラサギ市
+$ bundle exec rake gws:set_admin_role user=admin site=シラサギ市
 ~~~
 
 ## CMS - コンテンツ管理
