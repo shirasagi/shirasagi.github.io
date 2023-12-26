@@ -49,7 +49,7 @@ $ bundle exec rake cms:set_admin_role user=admin site=www
 GWS管理権限の付与（GWS）
 
 ~~~
-$ bundle exec  gws:set_admin_role user=admin site=シラサギ市
+$ bundle exec rake gws:set_admin_role user=admin site=シラサギ市
 ~~~
 
 ## CMS - コンテンツ管理
@@ -120,25 +120,4 @@ GWS サンプル
 
 ~~~
 $ bundle exec rake db:seed name=gws
-~~~
-
-
-## 開発 - モジュール管理
-
-インストール
-
-~~~
-$ bin/egg install sample-egg -v 1.0.0
-~~~
-
-アンインストール
-
-~~~
-$ bin/egg uninstall sample-egg
-~~~
-
-圧縮ファイル生成
-
-~~~
-$ bin/egg pack sample-egg -v 1.0.0
 ~~~
