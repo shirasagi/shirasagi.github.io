@@ -121,24 +121,3 @@ GWS サンプル
 ~~~
 $ bundle exec rake db:seed name=gws
 ~~~
-
-
-## 開発 - モジュール管理
-
-インストール
-
-~~~
-$ bin/egg install sample-egg -v 1.0.0
-~~~
-
-アンインストール
-
-~~~
-$ bin/egg uninstall sample-egg
-~~~
-
-圧縮ファイル生成
-
-~~~
-$ bin/egg pack sample-egg -v 1.0.0
-~~~
