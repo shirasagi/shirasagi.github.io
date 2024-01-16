@@ -30,7 +30,7 @@ $ su -
 # dnf config-manager --disable epel
 # dnf --enablerepo=epel -y update epel-release
 # dnf -y groupinstall "Development tools"
-# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl3
+# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel
 ```
 
 ## ImageMagick のバージョン確認
