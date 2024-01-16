@@ -3,7 +3,11 @@ layout: default
 title: インストールマニュアル
 ---
 
-Almalinux 8 向けのインストールマニュアルです。
+RHEL8 系 向けのインストールマニュアルです。
+下記ディストリビューションでの動作検証を行なってます。
+
+RockyLinux 8
+AlmaLinux 8
 
 ## セキュリティ設定
 
@@ -26,7 +30,7 @@ $ su -
 # dnf config-manager --disable epel
 # dnf --enablerepo=epel -y update epel-release
 # dnf -y groupinstall "Development tools"
-# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel
+# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel
 ```
 
 ## ImageMagick のバージョン確認
@@ -124,20 +128,20 @@ $ convert -list font
 
 ```
 $ su -
-# vi /etc/yum.repos.d/mongodb-org-4.4.repo
+# vi /etc/yum.repos.d/mongodb-org-6.0.repo
 ```
 
 ```
-[mongodb-org-4.4]
+[mongodb-org-6.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
 ```
 
 ```
-# dnf install -y --enablerepo=mongodb-org-4.4 mongodb-org
+# dnf install -y --enablerepo=mongodb-org-6.0 mongodb-org
 # systemctl enable mongod --now
 ```
 
