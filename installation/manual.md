@@ -249,7 +249,7 @@ $ bundle exec rake unicorn:start
 
 ```
 $ su -
-# asdf global ruby
+# asdf global ruby 3.1.4
 # cd /usr/local/src
 # wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
 # wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
