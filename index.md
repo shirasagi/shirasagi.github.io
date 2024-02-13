@@ -24,7 +24,7 @@ title: SHIRASAGI 開発マニュアル
   - [Nginx](installation/nginx.html)
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
-  - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWS の全文検索、サイト内検索利用時）
+  - [Elasticsearch & Fess](installation/elasticsearch_and_fess.html) （GWS の全文検索、CMS のサイト内検索利用時）
   - [MongoDB 推奨設定](installation/mongodb-settings.html)
 
 ## アップデート手順
@@ -89,6 +89,7 @@ title: SHIRASAGI 開発マニュアル
   - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
   - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
+  - [サイト内検索](features/cms/elasticsearch.html)
 
 - オープンデータ
 
@@ -101,6 +102,7 @@ title: SHIRASAGI 開発マニュアル
   - [Q&A](features/gws/qa.html)
 
 - CMS 外部連携
+
   - [外国語自動翻訳機能](features/translate.html)
   - [OGP と Twitter Card 設定](settings/ogp.html)
   - [SNS 投稿連携](settings/sns_poster.html)
