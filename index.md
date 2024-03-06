@@ -90,6 +90,7 @@ title: SHIRASAGI 開発マニュアル
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
   - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
   - [サイト内検索](features/cms/elasticsearch.html)
+  - [高度なスライダーの利用](features/cms/advanced_slider.html)
 
 - オープンデータ
 
