@@ -62,6 +62,7 @@ title: SHIRASAGI 開発マニュアル
   - [信頼できる URL の設定](settings/trusted_url.html)
   - [日英（多言語・バイリンガル）対応](features/i18n.html)
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
+  - [接続元IPアドレス](settings/remote_addr.html)
 
 - 認証
 
