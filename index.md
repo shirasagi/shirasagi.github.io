@@ -63,6 +63,7 @@ title: SHIRASAGI 開発マニュアル
   - [日英（多言語・バイリンガル）対応](features/i18n.html)
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
   - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
+  - [接続元IPアドレス](settings/remote_addr.html)
 
 - 認証
 
