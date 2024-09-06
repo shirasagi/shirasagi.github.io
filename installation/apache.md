@@ -77,6 +77,7 @@ ServerName (サーバ名、ＩＰアドレス)
 
   # reverse proxy
   AllowEncodedSlashes On
+  Proxy100Continue Off
   ProxyRequests Off
   ProxyPass /assets !
   ProxyPass / http://127.0.0.1:3000/ nocanon

@@ -62,6 +62,7 @@ title: SHIRASAGI 開発マニュアル
   - [信頼できる URL の設定](settings/trusted_url.html)
   - [日英（多言語・バイリンガル）対応](features/i18n.html)
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
+  - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
   - [接続元IPアドレス](settings/remote_addr.html)
 
 - 認証
@@ -91,6 +92,7 @@ title: SHIRASAGI 開発マニュアル
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
   - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
   - [サイト内検索](features/cms/elasticsearch.html)
+  - [高度なスライダーの利用](features/cms/advanced_slider.html)
 
 - オープンデータ
 
