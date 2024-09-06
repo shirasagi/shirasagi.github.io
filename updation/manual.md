@@ -215,3 +215,11 @@ v1.12.2 から定期実行設定が大きく変更されました。
 
 グループウェアの全文検索をご利用の方は全文検索インデックスの更新が必要です。
 詳しくは[全文検索インデックスの更新](/updation/elasticsearch_index.html)を参照してください。
+
+## DEPRECATION WARNING: Your `secret_key_base` is configured
+
+シラサギを v1.19 へ更新すると、次のような警告がでるようになる場合があります。
+
+> DEPRECATION WARNING: Your `secret_key_base` is configured in `Rails.application.secrets`, which is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /var/www/shirasagi/config/environment.rb:5)
+
+この修正方法を[DEPRECATION WARNING: Your secret_key_base is ...](/trouble-shootings/secret_key_base.html)に記載していますので参考にしてください。
