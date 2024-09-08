@@ -16,7 +16,7 @@ title: SHIRASAGI 開発マニュアル
   - [install.sh](installation/installsh.html)
 - 手動インストール
   - [CentOS](installation/centos7.html)
-  - [RHEL8 系](installation/manual.html)
+  - [RHEL8 系](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
   - [Linux Mint 21.1](installation/linux-mint-21.1.html)
 - ミドルウェア
@@ -33,6 +33,7 @@ title: SHIRASAGI 開発マニュアル
 - [Ruby](updation/ruby.html)
 - [MongoDB](updation/mongodb.html)
   - [v4.4 to v6.0](updation/v4.4tov6.0.html)
+  - [v6.0 to v7.0](updation/v6.0tov7.0.html)
 - [SHIRASAGI](updation/manual.html)
   - [オープンデータのレポート機能](updation/opendata_report.html)
   - [全文検索インデックス](updation/elasticsearch_index.html)

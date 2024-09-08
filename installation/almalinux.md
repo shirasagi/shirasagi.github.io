@@ -15,22 +15,20 @@ AlmaLinux 8
 下記は検証環境用に SELlinux, Firewalld を無効にしています。
 
 ```
-$ su -
-# setenforce 0
-# sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
-# systemctl stop firewalld
-# systemctl disable firewalld
+$ sudo setenforce 0
+$ sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
+$ sudo systemctl stop firewalld
+$ sudo systemctl disable firewalld
 ```
 
 ## パッケージのダウンロード
 
 ```
-$ su -
-# dnf -y install epel-release.noarch wget
-# dnf config-manager --disable epel
-# dnf --enablerepo=epel -y update epel-release
-# dnf -y groupinstall "Development tools"
-# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel
+$ sudo dnf -y install epel-release.noarch wget
+$ sudo dnf config-manager --disable epel
+$ sudo dnf --enablerepo=epel -y update epel-release
+$ sudo dnf -y groupinstall "Development tools"
+$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel
 ```
 
 ## ImageMagick のバージョン確認
@@ -52,8 +50,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 > その場合は下記 policy.xml の変更は必要ありません。
 
 ```
-$ su -
-# vi /etc/ImageMagick-6/policy.xml
+$ sudo vi /etc/ImageMagick-6/policy.xml
 ```
 
 ```
@@ -127,22 +124,21 @@ $ convert -list font
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ```
-$ su -
-# vi /etc/yum.repos.d/mongodb-org-6.0.repo
+$ sudo vi /etc/yum.repos.d/mongodb-org-7.0.repo
 ```
 
 ```
-[mongodb-org-6.0]
+[mongodb-org-7.0]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/
 gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
+enabled=0
+gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
 ```
 
 ```
-# dnf install -y --enablerepo=mongodb-org-6.0 mongodb-org
-# systemctl enable mongod --now
+$ sudo dnf install -y --enablerepo=mongodb-org-7.0 mongodb-org
+$ sudo systemctl enable mongod --now
 ```
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
@@ -152,8 +148,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 1.GitHub から asdf のクローン
 
 ```
-$ su -
-# git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
+sudo git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
 ```
 
 2.管理グループの設定
@@ -163,18 +158,16 @@ $ su -
 例)ユーザが ssuser の場合
 
 ```
-$ su -
-# groupadd asdf
-# chgrp -R asdf /usr/local/asdf
-# chmod -R g+rwXs /usr/local/asdf
-# gpasswd -a ssuser asdf
+$ sudo groupadd asdf
+$ sudo chgrp -R asdf /usr/local/asdf
+$ sudo chmod -R g+rwXs /usr/local/asdf
+$ sudo gpasswd -a ssuser asdf
 ```
 
 3.環境変数の設定
 
 ```
-$ su -
-# vi /etc/profile.d/asdf.sh
+$ sudo vi /etc/profile.d/asdf.sh
 ```
 
 ```
@@ -192,7 +185,7 @@ PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
 4.設定反映
 
 ```
-# source /etc/profile.d/asdf.sh
+$ sudo source /etc/profile.d/asdf.sh
 ```
 
 ## Ruby のインストール
@@ -223,9 +216,8 @@ $ npm install -g yarn
    例)ユーザが ssuser の場合
 
 ```
-$ su -
-# mkdir -p /var/www
-# chown -R ssuser /var/www
+$ sudo mkdir -p /var/www
+$ sudo chown -R ssuser /var/www
 ```
 
 2. GitHub からクローン
@@ -252,29 +244,27 @@ $ bundle exec rake unicorn:start
 ## ふりがな機能のインストール
 
 ```
-$ su -
-# asdf global ruby
-# cd /usr/local/src
-# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
-# wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
-# wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
-# wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+$ cd /usr/local/src
+$ sudo wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
+$ sudo wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
+$ sudo wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
+$ sudo wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
 
-# cd /usr/local/src
-# tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
-# ./configure --enable-utf8-only && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
+$ sudo ./configure --enable-utf8-only && make && make install
 
-# cd /usr/local/src
-# tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
-# patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-# ./configure --with-charset=UTF-8 && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
+$ sudo patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
+$ sudo ./configure --with-charset=UTF-8 && make && make install
 
-# cd /usr/local/src
-# tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
-# ruby extconf.rb && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
+$ ruby extconf.rb && make && make install
 
-# echo "/usr/local/lib" >> /etc/ld.so.conf
-# ldconfig
+$ sudo echo "/usr/local/lib" >> /etc/ld.so.conf
+$ sudo ldconfig
 ```
 
 > mecab ビルド後に `ldconfig` が必要なケースがあります。<br>
@@ -283,32 +273,31 @@ $ su -
 ## 音声読み上げ機能のインストール
 
 ```
-$ su -
-# cd /usr/local/src
-# wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
+$ cd /usr/local/src
+$ sudo wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
    http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
    http://downloads.sourceforge.net/lame/lame-3.99.5.tar.gz \
    http://downloads.sourceforge.net/sox/sox-14.4.1.tar.gz
 
-# cd /usr/local/src
-# tar xvzf hts_engine_API-1.08.tar.gz && cd hts_engine_API-1.08
-# ./configure && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf hts_engine_API-1.08.tar.gz && cd hts_engine_API-1.08
+$ ./configure && make && make install
 
-# cd /usr/local/src
-# tar xvzf open_jtalk-1.07.tar.gz && cd open_jtalk-1.07
-# sed -i "s/#define MAXBUFLEN 1024/#define MAXBUFLEN 10240/" bin/open_jtalk.c
-# sed -i "s/0x00D0 SPACE/0x000D SPACE/" mecab-naist-jdic/char.def
-# ./configure --with-charset=UTF-8 && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf open_jtalk-1.07.tar.gz && cd open_jtalk-1.07
+$ sudo sed -i "s/#define MAXBUFLEN 1024/#define MAXBUFLEN 10240/" bin/open_jtalk.c
+$ sudo sed -i "s/0x00D0 SPACE/0x000D SPACE/" mecab-naist-jdic/char.def
+$ sudo ./configure --with-charset=UTF-8 && make && make install
 
-# cd /usr/local/src
-# tar xvzf lame-3.99.5.tar.gz && cd lame-3.99.5
-# ./configure && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf lame-3.99.5.tar.gz && cd lame-3.99.5
+$ sudo ./configure && make && make install
 
-# cd /usr/local/src
-# tar xvzf sox-14.4.1.tar.gz && cd sox-14.4.1
-# ./configure && make && make install
+$ cd /usr/local/src
+$ sudo tar xvzf sox-14.4.1.tar.gz && cd sox-14.4.1
+$ sudo ./configure && make && make install
 
-# ldconfig
+$ sudo ldconfig
 ```
 
 > 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
@@ -365,6 +354,12 @@ $ bundle exec rake db:seed site=www name=lp
 
 <http://localhost:3000/.mypage> から `admin` / `pass` のアカウントでログインし、
 サイト名をクリックすると、登録したサンプルデータを確認・編集することができます。
+
+#### DBマイグレーションの実行
+
+```
+# bundle exec rake ss:migrate
+```
 
 ### サンプルデータを利用しない
 
