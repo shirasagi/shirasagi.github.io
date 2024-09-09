@@ -6,3 +6,5 @@
 /.jekyll-cache
 /vendor/bundle
 /.tool-versions
+/.DS_Store
+/.obsidian

@@ -14,15 +14,15 @@ title: インストールマニュアル - Ubuntu
 ## パッケージのダウンロード
 
 ```
-$ sudo apt -y install apt install build-essential libssl-dev imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git wget software-properties-common ca-certificates lsb-release
+$ sudo apt -y install build-essential libssl-dev imagemagick libmagickcore-dev libmagickwand-dev gnupg2 git wget software-properties-common ca-certificates lsb-release libyaml-dev
 ```
 
 ## MongoDB のインストール
 
 ```
-      # sudo apt install wget gnupg software-properties-common ca-certificates lsb-release
-# wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc |sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-6.gpg
-# echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+$ sudo apt install wget gnupg software-properties-common ca-certificates lsb-release
+$ suod wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc |sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/mongodb-6.gpg
+$ sudo echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
 # sudo apt update
 # sudo apt install -y mongodb-org
 ```
@@ -37,4 +37,4 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 
 ---
 
-その他のインストール手順は [CentOS](manual.html) を参考にしてください。
+その他のインストール手順は [AlmaLinux](almalinux.html) を参考にしてください。
