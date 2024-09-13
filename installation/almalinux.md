@@ -3,6 +3,7 @@ layout: default
 title: インストールマニュアル
 ---
 
+test
 RHEL8 系 向けのインストールマニュアルです。
 下記ディストリビューションでの動作検証を行なってます。
 
@@ -15,22 +16,20 @@ AlmaLinux 8
 下記は検証環境用に SELlinux, Firewalld を無効にしています。
 
 ```
-$ su -
-# setenforce 0
-# sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
-# systemctl stop firewalld
-# systemctl disable firewalld
+$ sudo setenforce 0
+$ sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
+$ sudo systemctl stop firewalld
+$ sudo systemctl disable firewalld
 ```
 
 ## パッケージのダウンロード
 
 ```
-$ su -
-# dnf -y install epel-release.noarch wget
-# dnf config-manager --disable epel
-# dnf --enablerepo=epel -y update epel-release
-# dnf -y groupinstall "Development tools"
-# dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel
+$ sudo dnf -y install epel-release.noarch wget
+$ sudo dnf config-manager --disable epel
+$ sudo dnf --enablerepo=epel -y update epel-release
+$ sudo dnf -y groupinstall "Development tools"
+$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel
 ```
 
 ## ImageMagick のバージョン確認
@@ -52,8 +51,7 @@ Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
 > その場合は下記 policy.xml の変更は必要ありません。
 
 ```
-$ su -
-# vi /etc/ImageMagick-6/policy.xml
+$ sudo vi /etc/ImageMagick-6/policy.xml
 ```
 
 ```
@@ -127,22 +125,21 @@ $ convert -list font
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ```
-$ su -
-# vi /etc/yum.repos.d/mongodb-org-6.0.repo
+$ sudo vi /etc/yum.repos.d/mongodb-org-7.0.repo
 ```
 
 ```
-[mongodb-org-6.0]
+[mongodb-org-7.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/6.0/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/7.0/x86_64/
 gpgcheck=1
-enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
+enabled=0
+gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
 ```
 
 ```
-# dnf install -y --enablerepo=mongodb-org-6.0 mongodb-org
-# systemctl enable mongod --now
+$ sudo dnf install -y --enablerepo=mongodb-org-7.0 mongodb-org
+$ sudo systemctl enable mongod --now
 ```
 
 MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
@@ -152,8 +149,7 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 1.GitHub から asdf のクローン
 
 ```
-$ su -
-# git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
+# sudo git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
 ```
 
 2.管理グループの設定
@@ -163,18 +159,16 @@ $ su -
 例)ユーザが ssuser の場合
 
 ```
-$ su -
-# groupadd asdf
-# chgrp -R asdf /usr/local/asdf
-# chmod -R g+rwXs /usr/local/asdf
-# gpasswd -a ssuser asdf
+$ sudo groupadd asdf
+$ sudo chgrp -R asdf /usr/local/asdf
+$ sudo chmod -R g+rwXs /usr/local/asdf
+$ sudo gpasswd -a ssuser asdf
 ```
 
 3.環境変数の設定
 
 ```
-$ su -
-# vi /etc/profile.d/asdf.sh
+$ sudo vi /etc/profile.d/asdf.sh
 ```
 
 ```
@@ -192,8 +186,10 @@ PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
 4.設定反映
 
 ```
-# source /etc/profile.d/asdf.sh
+$ source /etc/profile.d/asdf.sh
 ```
+
+> 上記コマンド実行後、環境によっては、`exec $SHELL -l`が必要な場合があります。
 
 ## Ruby のインストール
 
@@ -223,9 +219,8 @@ $ npm install -g yarn
    例)ユーザが ssuser の場合
 
 ```
-$ su -
-# mkdir -p /var/www
-# chown -R ssuser /var/www
+$ sudo mkdir -p /var/www
+$ sudo chown -R ssuser /var/www
 ```
 
 2. GitHub からクローン
@@ -252,8 +247,8 @@ $ bundle exec rake unicorn:start
 ## ふりがな機能のインストール
 
 ```
-$ su -
-# asdf global ruby
+$ sudo su
+# asdf global ruby VERSION
 # cd /usr/local/src
 # wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
 # wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
@@ -283,7 +278,7 @@ $ su -
 ## 音声読み上げ機能のインストール
 
 ```
-$ su -
+$ sudo su
 # cd /usr/local/src
 # wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
    http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
