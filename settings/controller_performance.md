@@ -86,6 +86,34 @@ jq . < /var/log/nginx/access.json
 
 > jq コマンドのインストールについては、適時インターネットなどを参照し、利用しているOSに適した方法でインストールしてください。
 
+### 他の設定
+
+本書通りに設定すると新しいログファイル `/var/log/nginx/access.json` が作成されるようになります。
+通常ではログ・ローテーションの対象になっていないので、お使いのOSのログローテート設定ファイルを確認してください。
+
+なお、通常は logrotate コマンドによるログ・ローテーション処理が定期的に実行されてされており、
+logrotate コマンドの設定ファイルが `/etc/logrotate.conf` や `/etc/logrotate.d/` に見つかります。
+
+AlmaLinux 8 であれば nginx 用のログ・ローテーション設定ファイルが `/etc/logrotate.d/` にあるので、
+このファイルを以下のように変更します。
+
+~~~
+/var/log/nginx/*.log
+/var/log/nginx/*.json {
+        monthly
+        missingok
+        rotate 12
+        compress
+        delaycompress
+        notifempty
+        create 640 nginx adm
+        sharedscripts
+        postrotate
+                [ -f /var/run/nginx.pid ] && kill -USR1 `cat /var/run/nginx.pid`
+        endscript
+}
+~~~
+
 ### jq コマンドによる集計例
 
 静的ファイルの応答など一部のリクエストについては nginx のみで完結し、シラサギにリクエストが送られることはありません。この場合、`x_ss_received_by` が空文字列になりますので、集計の前に jq コマンドを用いて `x_ss_received_by` が入っているログだけを抽出します。
