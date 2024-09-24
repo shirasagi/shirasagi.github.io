@@ -17,7 +17,7 @@ title: SHIRASAGI 開発マニュアル
 - 手動インストール
   - [AlmaLinux](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
-  - [OracleLinux](installation/OracleLinux.html)
+  - [OracleLinux](installation/oraclelinux.html)
 - ミドルウェア
   - [Unicorn](installation/unicorn.html)
   - [Nginx](installation/nginx.html)

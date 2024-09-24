@@ -17,7 +17,7 @@ AlmaLinux 8
 
 ```
 $ sudo setenforce 0
-$ sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g'/etc/selinux/config
+$ sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 $ sudo systemctl stop firewalld
 $ sudo systemctl disable firewalld
 ```
