@@ -90,6 +90,7 @@ title: リファレンス
 | part.full_url | パーツのフルURL
 | part.basename | パーツのURLのベース名
 | part.filename | パーツのファイル名
+| part.depth | パーツの階層
 | part.parent | パーツがフォルダー内にある場合、そのフォルダー
 
 ## page
@@ -106,6 +107,7 @@ title: リファレンス
 | page.full_url | ページのフルURL
 | page.basename | ページのURLのベース名
 | page.filename | ページのファイル名
+| page.depth | ページの階層
 | page.order | ページの並び順
 | page.date | ページの日時
 | page.released | ページの公開日時
@@ -153,6 +155,7 @@ title: リファレンス
 | node.full_url | ノードのフルURL
 | node.basename | ノードのURLのベース名
 | node.filename | ノードのファイル名
+| node.depth | ノードの階層
 | node.order | ノードの並び順
 | node.date | ノードの日時
 | node.current? | ノードが現在の場合 true
@@ -209,7 +212,7 @@ title: リファレンス
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<a href="{{ value.link_url }}">{{ value.link_label | default: value.link_url }}</a>`{% endraw %} と同じです。
 | value.link_url | リンクURL
 | value.link_label | リンクテキスト
-| value.link_target | リンクターゲット。`_blank` か空文字列。 
+| value.link_target | リンクターゲット。`_blank` か空文字列。
 
 ### 複数行入力
 
