@@ -163,7 +163,6 @@ title: SHIRASAGI 開発マニュアル
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 - [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
-- [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
 - [DEPRECATION WARNING: Your secret_key_base is ...](trouble-shootings/secret_key_base.html)
 
 <!--
