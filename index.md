@@ -64,6 +64,7 @@ title: SHIRASAGI 開発マニュアル
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
   - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
   - [接続元IPアドレス](settings/remote_addr.html)
+  - [コントローラーの性能計測と監視](settings/controller_performance.html)
 
 - 認証
 
@@ -161,7 +162,6 @@ title: SHIRASAGI 開発マニュアル
 - [メール送信](trouble-shootings/email.html)
 - [シラサギが過負荷になる（音声読み上げが原因の場合）](trouble-shootings/voice.html)
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
-- [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
 - [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
 - [DEPRECATION WARNING: Your secret_key_base is ...](trouble-shootings/secret_key_base.html)
 
