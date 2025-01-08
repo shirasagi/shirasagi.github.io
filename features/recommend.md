@@ -11,6 +11,8 @@ title: 閲覧履歴とレコメンド
   - 上記スクリプトにてサイト訪問者のアクセスログを収集する。
 - セッション別にトークンを発行し、サイト訪問者を記録する。
 - 管理画面`「サイト設定＞レコメンド機能＞アクセス」`よりアクセスログを確認することができる。
+- オープンデータ利用時、データセットのアクセス数レポートの集計元データとなる。
+  閲覧履歴の収集が無効の場合、データセットのアクセス数レポートは正しく表示されない。
 
 ## 2.レコメンド 仕様
 
@@ -29,6 +31,7 @@ disable: true
 ~~~
 
 ### 有効化
+
 `disable: false` にすると、閲覧履歴の収集が有効になる。
 
 ~~~
@@ -43,18 +46,27 @@ disable: false
 ## DB設定
 
 閲覧履歴の有効化により公開側のアクセスログがデータベースに保存されるようになる。<br />
+
+v1.20以降:
+
+既定では2週間でログが削除される。<br />
+必要に応じて、ログのコレクション `recommend_history_logs` に `TTL index` を設定する。
+
+v1.20より前:
+
 明示的に削除しない限り、ログが溜まり続けるので、<br />
 必要に応じて、ログのコレクション `recommend_history_logs` に `TTL index` を設定する。
 
 ### TTL index 設定
 
+以下の例では、2週間（14日間 = 1209600秒）のログを保持するように設定します。
+
 ~~~
 $ mongo
->use ss
->db.recommend_history_logs.ensureIndex( { "created": 1 }, { expireAfterSeconds: 1209600 } )
+> use ss
+> db.recommend_history_logs.dropIndex({ "created": 1 })
+> db.recommend_history_logs.createIndex({ "created": 1 }, { expireAfterSeconds: 1209600 })
 ~~~
-
-※14日間 (1209600秒) のみログを保持
 
 ## スコア計算タスク
 
