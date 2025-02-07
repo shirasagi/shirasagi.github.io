@@ -14,6 +14,7 @@ title: SHIRASAGI 開発マニュアル
 - 自動インストール
   - [Vagrant](installation/vagrant.html)
   - [install.sh](installation/installsh.html)
+  - [devcontainer (開発・評価用)](installation/devcontainer.html)
 - 手動インストール
   - [AlmaLinux](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
