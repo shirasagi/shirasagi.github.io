@@ -37,6 +37,10 @@ title: Apache のインストール
 ServerName (サーバ名、ＩＰアドレス)
 ~~~
 
+~~~
+AddDefaultCharset UTF-8
+~~~
+
 #### (2) VirtualHost設定
 
 ~~~
