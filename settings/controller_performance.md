@@ -100,13 +100,61 @@ jq . < /var/log/nginx/access.json
 
 > jq コマンドのインストールについては、適時インターネットなどを参照し、利用しているOSに適した方法でインストールしてください。
 
-### 他の設定
+## apache httpdの設定
 
-本書通りに設定すると新しいログファイル `/var/log/nginx/access.json` が作成されるようになります。
+### "X-SS-Received-At" と "X-SS-Received-By" との非公開
+
+`set_received_by` を true に設定するとリクエストを処理したコントローラーとアクションがレスポンスヘッダーに出力されるようになります。
+このままでは実害はないとはいえ世界中にコントローラーとアクションが垂れ流されてしまいますので、apache httpd の設定を変更して、"X-SS-Received-At" と "X-SS-Received-By" とを非公開にします。
+
+"X-SS-Received-At" と "X-SS-Received-By" とを非公開にするには、以下の設定を apache httpd の設定に追加してやります。
+
+~~~
+  Header note X-Ss-Received-At Note-Ss-Received-At
+  Header note X-Ss-Received-By Note-Ss-Received-By
+  Header unset X-Ss-Received-At
+  Header unset X-Ss-Received-By
+~~~
+
+シラサギをシラサギの標準的な構成でインストールしている場合 `/etc/httpd/conf.d/shirasagi.conf` に追記してください。
+
+### "X-Runtime" と "X-SS-Received-By" とをログへ出力
+
+次に X-Runtime と X-SS-Received-By をアクセスログに出力するように apache httpd の設定を変更します。
+コントローラーの性能の集計には jq コマンドを利用するので、アクセスログを JSON 形式で出力するように設定します。
+
+> jq コマンドはJSONから簡単に値を抜き出したり、集計したり、整形して表示したりできるJSON用のコマンドです。
+
+X-Runtime と X-SS-Received-By をJSON形式でアクセスログに出力するには、以下の設定を apache httpd の設定に追加してやります。
+
+{% raw %}
+    LogFormat '{"body_bytes_sent":"%b","host":"%v","referer":"%{Referer}i","remote_addr":"%a","remote_user":"%u","request_length":"%I","request_method":"%m","request_uri":"%U%q","request_time_micro":"%D","server_protocol":"%H","session_id":"%{_ss_session}C","status":"%>s","time":"%{%FT%T}t.%{msec_frac}t%{%z}t","time_unix":"%{%s}t.%{msec_frac}t","user_agent":"%{User-Agent}i","x_forwarded_for":"%{X-Forwarded-For}i","x_forwarded_host":"%{X-Forwarded-Host}i","x_forwarded_proto":"%{X-Forwarded-Proto}i","x_request_id":"%{X-Request-Id}o","x_runtime":"%{X-Runtime}o","x_ss_received_by":"%{Note-SS-Received-By}n","ch_ua":"%{Sec-CH-UA}i","ch_ua_arch":"%{Sec-CH-UA-Arch}i","ch_ua_bitness":"%{Sec-CH-UA-Bitness}i","ch_ua_form_factors":"%{Sec-CH-UA-Form-Factors}i","ch_ua_full_version":"%{Sec-CH-UA-Full-Version}i","ch_ua_full_version_list":"%{Sec-CH-UA-Full-Version-List}i","ch_ua_mobile":"%{Sec-CH-UA-Mobile}i","ch_ua_model":"%{Sec-CH-UA-Model}i","ch_ua_platform":"%{Sec-CH-UA-Platform}i","ch_ua_platform_version":"%{Sec-CH-UA-Platform-Version}i","ch_ua_wow64":"%{Sec-CH-UA-WoW64}i"}' json
+
+    CustomLog "logs/access_json" json
+{% endraw %}
+
+この設定では X-Runtime と X-SS-Received-By 以外に性能監視に役立ちそうな情報を出力するようにしています。
+
+シラサギをシラサギの標準的な構成でインストールしている場合 `/etc/httpd/conf/httpd.conf` に追記してください。
+
+設定できたら apache httpd を reload してください。
+そして、シラサギにアクセスし、以下のコマンドを実行し設定が正しいかどうか確認してください。
+
+~~~
+jq . < /var/log/httpd/access_json
+~~~
+
+> jq コマンドのインストールについては、適時インターネットなどを参照し、利用しているOSに適した方法でインストールしてください。
+
+## logrotateの設定
+
+本書通りに設定すると新しいログファイル `/var/log/httpd/access_json` が作成されるようになります。
 通常ではログ・ローテーションの対象になっていないので、お使いのOSのログローテート設定ファイルを確認してください。
 
 なお、通常は logrotate コマンドによるログ・ローテーション処理が定期的に実行されてされており、
 logrotate コマンドの設定ファイルが `/etc/logrotate.conf` や `/etc/logrotate.d/` に見つかります。
+
+### nginxの場合
 
 AlmaLinux 8 であれば nginx 用のログ・ローテーション設定ファイルが `/etc/logrotate.d/` にあるので、
 このファイルを以下のように変更します。
@@ -128,7 +176,28 @@ AlmaLinux 8 であれば nginx 用のログ・ローテーション設定ファ�
 }
 ~~~
 
-### jq コマンドによる集計例
+### apache httpdの場合
+
+AlmaLinux 8 であれば apache httpd 用のログ・ローテーション設定ファイルが `/etc/logrotate.d/httpd` にあるので、
+このファイルを以下のように変更します。
+
+~~~
+/var/log/httpd/*log
+/var/log/httpd/*json {
+    monthly
+    rotate 12
+    compress
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        /bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
+    endscript
+}
+~~~
+
+## jq コマンドによる集計例
 
 静的ファイルの応答など一部のリクエストについては nginx のみで完結し、シラサギにリクエストが送られることはありません。この場合、`x_ss_received_by` が空文字列になりますので、集計の前に jq コマンドを用いて `x_ss_received_by` が入っているログだけを抽出します。
 
