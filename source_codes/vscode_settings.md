@@ -3,7 +3,9 @@ layout: default
 title: おすすめの VSCode 設定例
 ---
 
-以下は `settings.json` に追加を推奨する設定例です。プロジェクトや好みに合わせて調整してください。
+以下は `settings.json`、`extensions.json` に追加を推奨する設定例です。プロジェクトや好みに合わせて調整してください。
+
+`settings.json`
 
 ```json
 
@@ -18,7 +20,7 @@ title: おすすめの VSCode 設定例
   "editor.defaultFormatter": "vscode.json-language-features",
   "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
-  "editor.rulers": [120],                   // 縦罫線（ガター）を 120 文字目に表示
+  "editor.rulers": [130],                   // 縦罫線（ガター）を 130 文字目に表示
 
   // ──────────────────────────────
   // ファイル操作関連
@@ -30,27 +32,10 @@ title: おすすめの VSCode 設定例
   // ──────────────────────────────
   // 言語別設定
   // ──────────────────────────────
-  "[yaml]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": false
-  },
-  "[html.erb]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": false
-  },
-  "[html]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": false
-  },
   "[markdown]": {
     "files.trimTrailingWhitespace": false   // Markdown のリストなどで末尾空白を残す
   },
   "[javascript]": {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
     "editor.maxTokenizationLineLength": 2500
   },
 
@@ -64,4 +49,16 @@ title: おすすめの VSCode 設定例
   // ──────────────────────────────
   "javascript.updateImportsOnFileMove.enabled": "never"  // ファイル移動時に自動で import パスを更新しない
 }
+```
+
+`extensions.json`
+
+```json
+
+{
+  "recommendations": [
+    "bung87.rails",
+  ]
+}
+
 ```
