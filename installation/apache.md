@@ -82,6 +82,7 @@ AddDefaultCharset UTF-8
   # reverse proxy
   AllowEncodedSlashes On
   Proxy100Continue Off
+  ProxyTimeout 120
   ProxyRequests Off
   ProxyPass /assets !
   ProxyPass / http://127.0.0.1:3000/ nocanon
