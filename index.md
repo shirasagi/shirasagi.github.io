@@ -52,6 +52,7 @@ title: SHIRASAGI 開発マニュアル
     - [OEM 開発](settings/oem.html)
   - [定期実行](settings/cron.html)
   - [非同期実行 / バッググラウンドジョブ](settings/job.html)
+  - [プロキシタイムアウト](settings/proxy_timeout.html)
   - [セッションタイムアウト](settings/session.html)
   - [セッションの secure 化](settings/secure_session.html)
   - [分散構成(同期/非レプリカセット)](settings/repl.html)
