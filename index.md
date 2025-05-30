@@ -64,7 +64,7 @@ title: SHIRASAGI 開発マニュアル
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
   - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
   - [接続元IPアドレス](settings/remote_addr.html)
-  - [コントローラーの性能計測と監視](settings/controller_performance.html)
+  - [コントローラーの性能計測と監視（json形式アクセスログ）](settings/controller_performance.html)
 
 - 認証
 
