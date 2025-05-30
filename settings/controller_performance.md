@@ -146,6 +146,18 @@ jq . < /var/log/httpd/access_json
 
 > jq コマンドのインストールについては、適時インターネットなどを参照し、利用しているOSに適した方法でインストールしてください。
 
+### 注意点
+
+apache httpd は厳密にいうと JSON 形式のログに対応していません。
+`remote_user:""""` や `"request_uri":"/\xc0"` のような JSON として不正なデータを出力します。
+
+不正なJSONデータを適正なJSONデータへ返還してから jq コマンドへ渡してやる必要があります。
+実際には jq コマンドに渡す前に、sed などで加工してやる必要があります。下に sed コマンドで加工する例を示します。
+
+~~~
+sed -e 's/""""/""/g' /var/log/httpd/access_json | sed -e 's#\\x#\\\\x#g' | jq .
+~~~
+
 ## logrotateの設定
 
 本書通りに設定すると新しいログファイル `/var/log/httpd/access_json` が作成されるようになります。
