@@ -12,45 +12,27 @@ title: miChecker との連携
 「みんなのアクセシビリティ評価ツール：miChecker (エムアイチェッカー)Ver.2.0」を Linux 上で動作するように改変したバージョンをインストールします。
 オリジナルの Windows 版の miChecker とシラサギとは連携できないので注意してください。
 
-シラサギでは [Docker 版の miChecker](https://github.com/shirasagi/docker-michecker) を提供しています。
-これをインストールするのがもっとも手っ取り早いですが、Docker のコンテナ内からシラサギの管理画面へアクセス可能でなければなりません。
-この制約が満たせない場合は、以下を参考に手動でインストールしてください。
+シラサギでは Docker 版 miChecke を提供しています。
+次のコマンドを実行し、GitHub Container Registry から Docker 版 miChecke をインストールしてください。
 
-手動でインストールされる方は、次の手順でインストールしてください。
+~~~
+docker pull ghcr.io/shirasagi/michecker:latest
+docker tag ghcr.io/shirasagi/michecker:latest shirasagi/michecker:latest
+~~~
 
-1. Java 8 64bit 版をインストール（JRE で構いません）
-2. Google Chrome ブラウザか Chronium ブラウザをインストール
-3. Noto CJK フォントをインストール（Web フォントは不可）
-4. [miChecker のバイナリーをダウンロード](https://github.com/shirasagi/docker-michecker/raw/main/assets/michecker.tar.bz2) し /opt 以下に展開
+> このコマンドを実行するには、事前に Docker をインストールしておく必要があります。
 
-3 の手順は省略可能で、別のフォント（IPA など）を利用することも可能です。要件に応じて適切なフォントをインストールしてください。
-
-> Noto CJK フォントでも異体字はサポートされているようですが、おそらく異体字に関しては IPA フォントの方が実績があるかと思います。
-> 異体字を正しく正確に表示しなければならない要件で、安心が欲しい場合は IPA フォントをお勧めします。
-
-4 のインストール場所は /opt 以外でも動作するかと思います。
-
-詳細は <https://github.com/shirasagi/docker-michecker/blob/main/Dockerfile> を参考に、
-お使いの OS に応じてインストールしてください。
+> 以前は手動インストールの手順を案内していましたが、
+> michecker を動作させるには古い Google Chrome が必要なため、
+> 現在は Docker 版のみをサポートしております。
 
 ## miChecker のテスト
 
-Docker 版をご利用の方は以下のコマンドを実行、
+以下のコマンドを実行してみてください。
 
 ~~~
 docker run --rm --name michecker -v "$PWD":/home -w /home shirasagi/michecker \
   /opt/michecker/bin/michecker --no-interactive --no-sandbox --lang=ja-JP \
-  --html-checker-output-report=hc-report.json \
-  --lowvision-output-report=lv-report.json \
-  --lowvision-source-image=lv-source.png \
-  --lowvision-output-image=lv-output.png \
-  "https://www.ss-proj.org/"
-~~~
-
-手動でインストールされた方は以下のコマンドを実行してみてください（/opt 以外の場所にインストールされた方は適時実行コマンドを変更）。
-
-~~~
-/opt/michecker/bin/michecker --no-interactive --no-sandbox --lang=ja-JP \
   --html-checker-output-report=hc-report.json \
   --lowvision-output-report=lv-report.json \
   --lowvision-source-image=lv-source.png \
@@ -68,20 +50,10 @@ docker run --rm --name michecker -v "$PWD":/home -w /home shirasagi/michecker \
 シラサギの設定ファイル `config/michecker.yml` （存在しない場合は `config/defaults/michecker.yml` をコピー）をテキストエディタで開きます。
 設定ファイルの先頭部分を次のように変更します。
 
-Docker 版 miChecker をご利用の方:
-
 ~~~
 production: &production
   disable: false
   command: [ "bin/docker-michecker.sh" ]
-~~~
-
-手動でインストールされた方（/opt 以外の場所にインストールされた方は適時実行コマンドを変更）:
-
-~~~
-production: &production
-  disable: false
-  command: [ "/opt/michecker/bin/michecker", "--no-sandbox", "--lang=ja-JP" ]
 ~~~
 
 設定を変更したらシラサギを再起動します。
@@ -91,20 +63,10 @@ production: &production
 安定して運用するため、あるいは不測の事態に備えて、miChecker を実行する際にタイムアウトを設定することをお勧めします。
 タイムアウトを設定するには次の様に設定ファイルを変更します。
 
-Docker 版 miChecker をご利用の方:
-
 ~~~
 production: &production
   disable: false
   command: [ "/usr/bin/timeout", "10m", "bin/docker-michecker.sh" ]
-~~~
-
-手動でインストールされた方（/opt 以外の場所にインストールされた方は適時実行コマンドを変更）:
-
-~~~
-production: &production
-  disable: false
-  command: [ "/usr/bin/timeout", "10m", "/opt/michecker/bin/michecker", "--no-sandbox", "--lang=ja-JP" ]
 ~~~
 
 ここでは 10 分（10m）のタイムアウト設定しています。ご利用の CPU やネットワークの性能によって、適時変更してください。
@@ -136,5 +98,5 @@ miChecker は実行結果を保存し、再アクセスの際には保存した�
 miChecker の実行結果は サイト設定 - ジョブ - miChecker結果 で確認することができます。
 動作に支障がある場合は、miChecker結果を削除することで改善する可能性があります。
 
-Docker 版 miChecker をご利用の方向けの注意事項として、miChecker はシラサギの管理画面のページプレビューへアクセスし DOM ツリーを取得したり、スクリーンショットを取得したりする都合上、Docker コンテナ内からシラサギの管理画面へアクセス可能でなければなりません。
+miChecker はシラサギの管理画面のページプレビューへアクセスし DOM ツリーを取得したり、スクリーンショットを取得したりする都合上、Docker コンテナ内からシラサギの管理画面へアクセス可能でなければなりません。
 Docker コンテナ内からシラサギの管理画面へアクセスできない場合は "No resource with given URL found" のようなエラーが発生します。
