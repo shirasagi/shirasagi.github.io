@@ -37,6 +37,7 @@ title: SHIRASAGI 開発マニュアル
 - [SHIRASAGI](updation/manual.html)
   - [オープンデータのレポート機能](updation/opendata_report.html)
   - [全文検索インデックス](updation/elasticsearch_index.html)
+  - [グループウェア/ワークフロー2への移行](updation/workflow2_migration.html)
 
 ## 利用手順
 
