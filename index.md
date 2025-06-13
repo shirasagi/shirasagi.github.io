@@ -20,7 +20,7 @@ title: SHIRASAGI 開発マニュアル
   - [Ubuntu](installation/ubuntu.html)
   - [OracleLinux](installation/oraclelinux.html)
 - ミドルウェア
-  - [Unicorn](installation/unicorn.html)
+  - [Puma](installation/puma.html)（旧のアプリケーションサーバー: [Unicorn](installation/unicorn.html)）
   - [Nginx](installation/nginx.html)
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
