@@ -111,3 +111,5 @@ vi config/unicorn.rb
 # 初期値は2
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 2)
 ~~~
+
+Puma の場合、2多重以上でリクエストを処理できるので設定変更は必要ありません。

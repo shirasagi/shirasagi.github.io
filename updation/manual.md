@@ -153,58 +153,11 @@ $ npm install -g yarn
 # bundle exec rake ss:migrate
 ```
 
-## Unicorn 起動設定ファイル
-
-OS 起動時に Unicorn を起動する設定が /etc/systemd/system/unicorn.service というファイルにあります。
-古いバージョンの設定ファイルは `ExecStart=` 行が次のように設定されています。
-
-古い `ExecStart=` 行:
-
-```
-ExecStart=/usr/local/rvm/bin/start_unicorn  -c config/unicorn.rb -E production -D
-```
-
-上記のように設定されている場合、以下のように変更してください。
-
-#### asdf を利用してない場合
-
-新しい `ExecStart=` 行:
-
-```
-ExecStart=/usr/local/rvm/wrappers/default/bundle exec unicorn_rails -c config/unicorn.rb -D
-```
-
-#### asdf でインストールしている場合
-
-新しい `ExecStart=` 行:
-
-```
-ExecStart=/bin/bash -lc 'bundle exec unicorn_rails -c config/unicorn.rb -D'
-```
-
 ## Web サーバーに apache httpd をご利用の方
 
 Web サーバーに apache httpd をご利用の方は `config/environments/production.rb` に x-sendfile の設定をしていたかと思います。
 この設定がソースコードの更新時に元に戻ってしまっている可能性がありますので、
 [Apache のインストールの shirasagi の設定を変更する x-sendfile](/installation/apache.html#shirasagiの設定を変更するx-sendfile)を参考に、もう一度 x-sendfile を設定してください。
-
-## Unicorn の再起動
-
-本番サーバーでは root になり次のコマンドを実行:
-
-```
-$ su -
-# systemctl restart unicorn
-```
-
-開発環境では次のコマンドを実行:
-
-```
-$ cd /var/www/shirasagi
-$ bundle exec rake unicorn:restart
-```
-
-Unicorn の再起動には 2, 3 分かかる場合があります。
 
 ## 定期実行設定の更新
 
