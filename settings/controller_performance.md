@@ -60,6 +60,7 @@ X-Runtime と X-SS-Received-By をJSON形式でアクセスログに出力する
                                 ' "request_time": "$request_time",'
                                 ' "server_protocol": "$server_protocol",'
                                 ' "session_id": "$cookie__ss_session",'
+                                ' "set_cookie": "$upstream_http_set_cookie",'
                                 ' "status": "$status",'
                                 ' "time": "$time_iso8601",'
                                 ' "time_unix": "$msec",'
@@ -128,7 +129,7 @@ jq . < /var/log/nginx/access.json
 X-Runtime と X-SS-Received-By をJSON形式でアクセスログに出力するには、以下の設定を apache httpd の設定に追加してやります。
 
 {% raw %}
-    LogFormat '{"body_bytes_sent":"%b","host":"%v","referer":"%{Referer}i","remote_addr":"%a","remote_user":"%u","request_length":"%I","request_method":"%m","request_uri":"%U%q","request_time_micro":"%D","server_protocol":"%H","session_id":"%{_ss_session}C","status":"%>s","time":"%{%FT%T}t.%{msec_frac}t%{%z}t","time_unix":"%{%s}t.%{msec_frac}t","user_agent":"%{User-Agent}i","x_forwarded_for":"%{X-Forwarded-For}i","x_forwarded_host":"%{X-Forwarded-Host}i","x_forwarded_proto":"%{X-Forwarded-Proto}i","x_request_id":"%{X-Request-Id}o","x_runtime":"%{X-Runtime}o","x_ss_received_by":"%{Note-SS-Received-By}n","ch_ua":"%{Sec-CH-UA}i","ch_ua_arch":"%{Sec-CH-UA-Arch}i","ch_ua_bitness":"%{Sec-CH-UA-Bitness}i","ch_ua_form_factors":"%{Sec-CH-UA-Form-Factors}i","ch_ua_full_version":"%{Sec-CH-UA-Full-Version}i","ch_ua_full_version_list":"%{Sec-CH-UA-Full-Version-List}i","ch_ua_mobile":"%{Sec-CH-UA-Mobile}i","ch_ua_model":"%{Sec-CH-UA-Model}i","ch_ua_platform":"%{Sec-CH-UA-Platform}i","ch_ua_platform_version":"%{Sec-CH-UA-Platform-Version}i","ch_ua_wow64":"%{Sec-CH-UA-WoW64}i"}' json
+    LogFormat '{"body_bytes_sent":"%b","host":"%v","referer":"%{Referer}i","remote_addr":"%a","remote_user":"%u","request_length":"%I","request_method":"%m","request_uri":"%U%q","request_time_micro":"%D","server_protocol":"%H","session_id":"%{_ss_session}C","set_cookie":"%{Set-Cookie}o","status":"%>s","time":"%{%FT%T}t.%{msec_frac}t%{%z}t","time_unix":"%{%s}t.%{msec_frac}t","user_agent":"%{User-Agent}i","x_forwarded_for":"%{X-Forwarded-For}i","x_forwarded_host":"%{X-Forwarded-Host}i","x_forwarded_proto":"%{X-Forwarded-Proto}i","x_request_id":"%{X-Request-Id}o","x_runtime":"%{X-Runtime}o","x_ss_received_by":"%{Note-SS-Received-By}n","ch_ua":"%{Sec-CH-UA}i","ch_ua_arch":"%{Sec-CH-UA-Arch}i","ch_ua_bitness":"%{Sec-CH-UA-Bitness}i","ch_ua_form_factors":"%{Sec-CH-UA-Form-Factors}i","ch_ua_full_version":"%{Sec-CH-UA-Full-Version}i","ch_ua_full_version_list":"%{Sec-CH-UA-Full-Version-List}i","ch_ua_mobile":"%{Sec-CH-UA-Mobile}i","ch_ua_model":"%{Sec-CH-UA-Model}i","ch_ua_platform":"%{Sec-CH-UA-Platform}i","ch_ua_platform_version":"%{Sec-CH-UA-Platform-Version}i","ch_ua_wow64":"%{Sec-CH-UA-WoW64}i"}' json
 
     CustomLog "logs/access_json" json
 {% endraw %}
