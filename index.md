@@ -124,6 +124,7 @@ title: SHIRASAGI 開発マニュアル
 - ソースコード
   - [Gems](source_codes/gems.html)
   - [DB 定義](source_codes/db.html)
+  - [おすすめ VScode 設定](source_codes/vscode_settings.html)
 - 基本情報
   - [ディレクトリ構成](devel/directories.html)
   - [JavaScript 構成](devel/javascripts.html)
