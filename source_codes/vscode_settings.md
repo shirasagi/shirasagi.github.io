@@ -38,6 +38,18 @@ title: おすすめの VSCode 設定例
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500
   },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",   // ファイル保存時にprettierフォーマットの実行
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[sass]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
 
   // ──────────────────────────────
   // Git 関連
