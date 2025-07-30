@@ -60,6 +60,12 @@ $ bundle exec rake gws:set_admin_role user=admin site=シラサギ市
 $ bundle exec rake ss:create_site data='{ name: "サイト名", host: "www", domains: "localhost:3000" }'
 ~~~
 
+サイトの削除
+
+~~~
+$ bundle exec rake ss:remove_site site=www
+~~~
+
 予約公開/非公開
 
 ~~~
