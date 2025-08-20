@@ -14,6 +14,7 @@ title: SHIRASAGI 開発マニュアル
 - 自動インストール
   - [Vagrant](installation/vagrant.html)
   - [install.sh](installation/installsh.html)
+  - [devcontainer (開発・評価用)](installation/devcontainer.html)
 - 手動インストール
   - [AlmaLinux](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
@@ -52,6 +53,7 @@ title: SHIRASAGI 開発マニュアル
     - [OEM 開発](settings/oem.html)
   - [定期実行](settings/cron.html)
   - [非同期実行 / バッググラウンドジョブ](settings/job.html)
+  - [プロキシタイムアウト](settings/proxy_timeout.html)
   - [セッションタイムアウト](settings/session.html)
   - [セッションの secure 化](settings/secure_session.html)
   - [分散構成(同期/非レプリカセット)](settings/repl.html)
@@ -64,7 +66,7 @@ title: SHIRASAGI 開発マニュアル
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
   - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
   - [接続元IPアドレス](settings/remote_addr.html)
-  - [コントローラーの性能計測と監視](settings/controller_performance.html)
+  - [コントローラーの性能計測と監視（json形式アクセスログ）](settings/controller_performance.html)
 
 - 認証
 

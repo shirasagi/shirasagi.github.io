@@ -23,6 +23,12 @@ title: Apache のインストール
 # /usr/bin/apxs -cia mod_xsendfile.c
 ~~~
 
+#### (3) mod_securityモジュール
+
+~~~
+# yum install -y mod_security
+~~~
+
 ## Apache の設定を追加する
 
 各設定値は環境に応じて変更してください。
@@ -82,12 +88,33 @@ AddDefaultCharset UTF-8
   # reverse proxy
   AllowEncodedSlashes On
   Proxy100Continue Off
+  ProxyTimeout 120
   ProxyRequests Off
   ProxyPass /assets !
   ProxyPass / http://127.0.0.1:3000/ nocanon
   ProxyPassReverse / http://127.0.0.1:3000/
 </VirtualHost>
 ~~~
+
+#### (3) mod_security の設定
+
+~~~
+# vi /etc/httpd/conf.d/mod_security.conf
+~~~
+
+~~~
+<IfModule mod_security2.c>
+  # enable mod_security
+  SecRuleEngine On
+
+  # request filesize limits within 100MB
+  SecRequestBodyAccess On
+  SecRequestBodyLimit 104857600
+  SecRequestBodyLimitAction Reject
+  SecRequestBodyNoFilesLimit 104857600
+</IfModule>
+~~~
+
 
 ## Apache の起動
 
@@ -96,10 +123,6 @@ AddDefaultCharset UTF-8
 # systemctl start  httpd
 # systemctl enable httpd
 ~~~
-
-> [ CentOS 6 ] <br />
-> service httpd start <br />
-> chkconfig httpd on <br />
 
 ## SHIRASAGIの設定を変更する(X-SendFile)
 
