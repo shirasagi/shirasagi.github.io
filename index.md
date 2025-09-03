@@ -20,7 +20,7 @@ title: SHIRASAGI 開発マニュアル
   - [Ubuntu](installation/ubuntu.html)
   - [OracleLinux](installation/oraclelinux.html)
 - ミドルウェア
-  - [Unicorn](installation/unicorn.html)
+  - [Puma](installation/puma.html)（旧のアプリケーションサーバー: [Unicorn](installation/unicorn.html)）
   - [Nginx](installation/nginx.html)
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
@@ -38,6 +38,7 @@ title: SHIRASAGI 開発マニュアル
   - [オープンデータのレポート機能](updation/opendata_report.html)
   - [全文検索インデックス](updation/elasticsearch_index.html)
   - [グループウェア/ワークフロー2への移行](updation/workflow2_migration.html)
+- [Unicorn](updation/unicorn.html)
 
 ## 利用手順
 
