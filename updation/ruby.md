@@ -89,3 +89,13 @@ $ su -
 ```
 
 Unicorn が完全に停止しないうちに `systemctl start unicorn` コマンドを実行するとエラーになる場合があります。エラーになる場合は、数秒置いてからもう一度実行してみてくだい。
+
+## 関連項目
+
+Rubyのバージョンアップと合わせて、MongoDBのバージョンアップも必要になる場合があります。
+MongoDBのバージョンアップについては以下のドキュメントを参照してください。
+
+- [MongoDBの更新](mongodb.html)
+- [MongoDB 6.0へのアップグレード](v4.4tov6.0.html)
+- [MongoDB 7.0へのアップグレード](v6.0tov7.0.html)
+- [MongoDB 8.0へのアップグレード](v7.0tov8.0.html)
