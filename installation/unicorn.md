@@ -3,6 +3,10 @@ layout: default
 title: Unicorn のインストール
 ---
 
+**SHIRASAGI v1.20 にて、Unicorn は廃止されることが決まりました。**
+**Unicornの廃止時期は未定ですが、2～3年の猶予の後、削除されます。**
+
+
 ## Unicorn
 
 - [Official Site](http://unicorn.bogomips.org/)

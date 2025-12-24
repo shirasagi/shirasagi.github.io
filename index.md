@@ -14,12 +14,13 @@ title: SHIRASAGI 開発マニュアル
 - 自動インストール
   - [Vagrant](installation/vagrant.html)
   - [install.sh](installation/installsh.html)
+  - [devcontainer (開発・評価用)](installation/devcontainer.html)
 - 手動インストール
   - [AlmaLinux](installation/almalinux.html)
   - [Ubuntu](installation/ubuntu.html)
   - [OracleLinux](installation/oraclelinux.html)
 - ミドルウェア
-  - [Unicorn](installation/unicorn.html)
+  - [Puma](installation/puma.html)（旧のアプリケーションサーバー: [Unicorn](installation/unicorn.html)）
   - [Nginx](installation/nginx.html)
   - [Apache](installation/apache.html)
   - [Fuseki](installation/fuseki.html) （オープンデータ利用時）
@@ -37,6 +38,8 @@ title: SHIRASAGI 開発マニュアル
 - [SHIRASAGI](updation/manual.html)
   - [オープンデータのレポート機能](updation/opendata_report.html)
   - [全文検索インデックス](updation/elasticsearch_index.html)
+  - [グループウェア/ワークフロー2への移行](updation/workflow2_migration.html)
+- [Unicorn](updation/unicorn.html)
 
 ## 利用手順
 
@@ -53,6 +56,7 @@ title: SHIRASAGI 開発マニュアル
     - [OEM 開発](settings/oem.html)
   - [定期実行](settings/cron.html)
   - [非同期実行 / バッググラウンドジョブ](settings/job.html)
+  - [プロキシタイムアウト](settings/proxy_timeout.html)
   - [セッションタイムアウト](settings/session.html)
   - [セッションの secure 化](settings/secure_session.html)
   - [分散構成(同期/非レプリカセット)](settings/repl.html)
@@ -65,7 +69,7 @@ title: SHIRASAGI 開発マニュアル
   - [OAuth 2.0 IdP](settings/oauth2_idp.html)
   - [ユーザータイプ（SNSユーザー、LDAPユーザー、SSOユーザー）](settings/user_type.html)
   - [接続元IPアドレス](settings/remote_addr.html)
-  - [コントローラーの性能計測と監視](settings/controller_performance.html)
+  - [コントローラーの性能計測と監視（json形式アクセスログ）](settings/controller_performance.html)
 
 - 認証
 
@@ -124,6 +128,7 @@ title: SHIRASAGI 開発マニュアル
 - ソースコード
   - [Gems](source_codes/gems.html)
   - [DB 定義](source_codes/db.html)
+  - [おすすめ VSCode 設定](source_codes/vscode_settings.html)
 - 基本情報
   - [ディレクトリ構成](devel/directories.html)
   - [JavaScript 構成](devel/javascripts.html)

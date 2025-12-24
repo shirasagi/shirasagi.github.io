@@ -43,6 +43,7 @@ enabled=0
 ~~~
 
 ~~~
+charset UTF-8;
 server_tokens off;
 server_name_in_redirect off;
 etag on;
