@@ -76,6 +76,7 @@ title: SHIRASAGI 開発マニュアル
   - [ログイン](features/login.html)
   - [OAuth 認証](settings/oauth.html)
   - [SAML 認証の疎通確認](settings/saml_sampling.html)
+  - [OpenID Connect 認証の疎通確認](settings/oidc_keycloak.html)
   - [Shibboleth 認証](settings/shibboleth.html)
 
 - CMS
@@ -153,6 +154,8 @@ title: SHIRASAGI 開発マニュアル
   - [ウェブメール開発環境の構築](devel/webmail.html)
   - [Docker を用いたウェブメールテスト環境の構築](devel/webmail_test_with_docker.html)
   - [IMAP のデバッグ](devel/debug_imap.html)
+- 認証基盤
+  - [Keycloack を用いた認証基盤 (IdP) の構築](devel/keycloack.html)
 - テスト
   - [Rspec](devel/rspec/rspec.html)
   - [Rspec の運用](devel/rspec.html)
