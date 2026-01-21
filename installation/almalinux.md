@@ -248,32 +248,30 @@ $ bundle exec rake unicorn:start
 
 ```
 $ sudo su
-# asdf global ruby VERSION
 # cd /usr/local/src
-# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
-# wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
-# wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
-# wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+# git clone --depth 1 https://github.com/taku910/mecab.git
 
-# cd /usr/local/src
-# tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
+# MeCab本体
+# cd /usr/local/src/mecab/mecab
 # ./configure --enable-utf8-only && make && make install
 
-# cd /usr/local/src
-# tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
-# patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-# ./configure --with-charset=UTF-8 && make && make install
-
-# cd /usr/local/src
-# tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
-# ruby extconf.rb && make && make install
-
+# 共有ライブラリの登録
 # echo "/usr/local/lib" >> /etc/ld.so.conf
 # ldconfig
+
+# 辞書（SHIRASAGI用パッチ適用）
+# export PATH=/usr/local/bin:$PATH
+# cd /usr/local/src/mecab/mecab-ipadic
+# curl -fsSLO https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+# patch -p1 < mecab-ipadic-2.7.0-20070801.patch
+# ./configure --with-charset=UTF-8 && make && make install
+
+# Ruby拡張
+# cd /usr/local/src/mecab/mecab/ruby
+# ruby extconf.rb && make && make install
 ```
 
-> mecab ビルド後に `ldconfig` が必要なケースがあります。<br>
-> 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
+> パッチは月の読みを修正するためのものです（例: 1月 → イチガツ）。
 
 ## 音声読み上げ機能のインストール
 
