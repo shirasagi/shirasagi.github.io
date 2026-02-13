@@ -29,7 +29,7 @@ $ sudo dnf -y install epel-release.noarch wget
 $ sudo dnf config-manager --disable epel
 $ sudo dnf --enablerepo=epel -y update epel-release
 $ sudo dnf -y groupinstall "Development tools"
-$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel
+$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel mecab mecab-devel mecab-ipadic
 ```
 
 ## ImageMagick のバージョン確認
@@ -232,48 +232,19 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
 > オープンデータに関する機能をご利用の場合も SHIRASAGI のソースコードをダウンロードしてください。
 
-## Web サーバの起動
-
-```
-$ cd /var/www/shirasagi
-$ cp -n config/samples/*.{rb,yml} config/
-$ bundle install --without development test
-$ bin/deploy
-$ bundle exec rake unicorn:start
-```
-
-> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
-
 ## ふりがな機能のインストール
 
 ```
 $ sudo su
-# asdf global ruby VERSION
 # cd /usr/local/src
-# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
-# wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
-# wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
-# wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
-
-# cd /usr/local/src
-# tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
-# ./configure --enable-utf8-only && make && make install
-
-# cd /usr/local/src
-# tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
-# patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-# ./configure --with-charset=UTF-8 && make && make install
-
-# cd /usr/local/src
+# cp -arp /var/www/shirasagi/vendor/mecab/mecab-ruby-0.996.tar.gz ./
 # tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
 # ruby extconf.rb && make && make install
-
-# echo "/usr/local/lib" >> /etc/ld.so.conf
-# ldconfig
+# cd /var/www/shirasagi
+# cp config/defaults/kana.yml config/
+# sed -i "s#/usr/local/libexec/mecab/mecab-dict-index#/usr/libexec/mecab/mecab-dict-index#" config/kana.yml
+# sed -i "s#/usr/local/lib/mecab/dic/ipadic#/usr/lib64/mecab/dic/ipadic#" config/kana.yml
 ```
-
-> mecab ビルド後に `ldconfig` が必要なケースがあります。<br>
-> 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
 
 ## 音声読み上げ機能のインストール
 
@@ -307,6 +278,20 @@ $ sudo su
 ```
 
 > 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
+
+## Web サーバの起動
+
+```
+$ cd /var/www/shirasagi
+$ cp -n config/samples/*.{rb,yml} config/
+# bundle exec rails credentials:edit
+$ bundle install --without development test
+$ bin/deploy
+$ bundle exec rake unicorn:start
+```
+
+> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。<br>
+> `secret_key_base`関する警告が表示された場合は、[トラブルシューティング](/trouble-shootings/secret_key_base.html)を確認ください。
 
 ## 新規サイトの作成
 
