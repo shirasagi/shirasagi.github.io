@@ -3,6 +3,9 @@ layout: default
 title: 不適切な公開HTML削除
 ---
 
+[移動しました。](/features/cms/consistency_check.html)
+
+<!--
 バージョン1.18.0よりメンテナンス用に公開側に残ってしまった不適切なHTMLを削除するタスクを追加しました。
 
 ## 概要
@@ -74,3 +77,4 @@ ignore_paths:
 > #サイト名
 > remove /var/www/shirasagi/public/sites/w/w/w/_/sample.html
 ~~~
+-->
