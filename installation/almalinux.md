@@ -227,31 +227,7 @@ $ sed -i "s#/usr/local/libexec/mecab/mecab-dict-index#/usr/libexec/mecab/mecab-d
 $ sed -i "s#/usr/local/lib/mecab/dic/ipadic#/usr/lib64/mecab/dic/ipadic#" config/kana.yml
 ```
 
-> ソースからコンパイルする場合には、下記のコマンドを実行してください。
-> ```
-> $ sudo chmod 777 /usr/local/src
-> $ cd /usr/local/src
-> $ wget -O mecab-0.996.tar.gz "https://github.com/katayama-webtips/mecab/raw/refs/heads/main/mecab-0.996.tar.gz"
-> $ wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://github.com/katayama-webtips/mecab/raw/refs/heads/main/mecab-ipadic-2.7.0-20070801.tar.gz"
-> $ wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
-> $ cp -arp /var/www/shirasagi/vendor/mecab/mecab-ruby-0.996.tar.gz ./
-> 
-> $ cd /usr/local/src
-> $ tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
-> $ ./configure --enable-utf8-only && make && make install
-> 
-> $ cd /usr/local/src
-> $ tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
-> $ patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-> $ ./configure --with-charset=UTF-8 && make && make install
-> 
-> $ cd /usr/local/src
-> $ tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
-> $ ruby extconf.rb && make && make install
-> 
-> $ echo "/usr/local/lib" >> /etc/ld.so.conf
-> $ ldconfig
-> ```
+> ソースからコンパイルする場合には、[こちら](/installation/mecab.html)を確認ください。
 
 ## 音声読み上げ機能のインストール
 
@@ -294,7 +270,7 @@ $ bundle exec rails credentials:edit
 $ ./bin/deploy
 ```
 
-> ./bin/deploy でエラーが発生する場合には、`bundle config set force_ruby_platform true` を実行し再度 `bundle install` から実行してください。
+> ./bin/deploy でエラーが発生する場合には、`bundle config set force_ruby_platform true` を実行し再度 `bundle install` から実行してください。<br />
 > `secret_key_base`関する警告が表示された場合は、[トラブルシューティング](/trouble-shootings/secret_key_base.html)を確認ください。
 
 ## Web サーバの起動
