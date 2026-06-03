@@ -29,7 +29,7 @@ $ sudo dnf -y install epel-release.noarch wget
 $ sudo dnf config-manager --disable epel
 $ sudo dnf --enablerepo=epel -y update epel-release
 $ sudo dnf -y groupinstall "Development tools"
-$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel
+$ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel mecab mecab-devel mecab-ipadic
 ```
 
 ## ImageMagick のバージョン確認
@@ -125,20 +125,20 @@ $ convert -list font
 [Official installation](http://docs.mongodb.org/manual/installation/)
 
 ```
-$ sudo vi /etc/yum.repos.d/mongodb-org-7.0.repo
+$ sudo vi /etc/yum.repos.d/mongodb-org-8.0.repo
 ```
 
 ```
-[mongodb-org-7.0]
+[mongodb-org-8.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/7.0/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/8.0/x86_64/
 gpgcheck=1
 enabled=0
-gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
+gpgkey=https://www.mongodb.org/static/pgp/server-8.0.asc
 ```
 
 ```
-$ sudo dnf install -y --enablerepo=mongodb-org-7.0 mongodb-org
+$ sudo dnf install -y --enablerepo=mongodb-org-8.0 mongodb-org
 $ sudo systemctl enable mongod --now
 ```
 
@@ -149,44 +149,25 @@ MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/in
 1.GitHub から asdf のクローン
 
 ```
-# sudo git clone https://github.com/asdf-vm/asdf.git /usr/local/asdf
+$ wget https://github.com/asdf-vm/asdf/releases/download/v0.18.1/asdf-v0.18.1-linux-amd64.tar.gz
+$ tar -xzf asdf-v0.18.1-linux-amd64.tar.gz
+$ sudo mv asdf /usr/local/bin/
 ```
 
-2.管理グループの設定
-管理者権限がなくても asdf を利用できるように管理グループ asdf を作成し、/usr/local/asdf の操作権限を付与します。
-その後、管理グループに一般ユーザー を追加します。
-
-例)ユーザが ssuser の場合
+2.環境変数の設定
 
 ```
-$ sudo groupadd asdf
-$ sudo chgrp -R asdf /usr/local/asdf
-$ sudo chmod -R g+rwXs /usr/local/asdf
-$ sudo gpasswd -a ssuser asdf
-```
-
-3.環境変数の設定
-
-```
-$ sudo vi /etc/profile.d/asdf.sh
+$ vi $HOME/.bashrc
 ```
 
 ```
-export ASDF_DIR=/usr/local/asdf
-export ASDF_DATA_DIR=$ASDF_DIR
-
-ASDF_BIN="${ASDF_DIR}/bin"
-ASDF_USER_SHIMS="${ASDF_DATA_DIR}/shims"
-PATH="${ASDF_BIN}:${ASDF_USER_SHIMS}:${PATH}"
-
-. "${ASDF_DIR}/asdf.sh"
-. "${ASDF_DIR}/completions/asdf.bash"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 ```
 
-4.設定反映
+3.設定反映
 
 ```
-$ source /etc/profile.d/asdf.sh
+$ source $HOME/.bashrc
 ```
 
 > 上記コマンド実行後、環境によっては、`exec $SHELL -l`が必要な場合があります。
@@ -196,7 +177,7 @@ $ source /etc/profile.d/asdf.sh
 ```
 $ asdf plugin add ruby
 $ asdf install ruby VERSION
-$ asdf global ruby VERSION
+$ asdf set ruby VERSION
 ```
 
 > `VERSION`: ruby のバージョンは[README.md](https://github.com/shirasagi/shirasagi/blob/stable/README.md)をご参照ください。
@@ -206,7 +187,7 @@ $ asdf global ruby VERSION
 ```
 $ asdf plugin add nodejs
 $ asdf install nodejs VERSION
-$ asdf global nodejs VERSION
+$ asdf set nodejs VERSION
 $ npm install -g yarn
 ```
 
@@ -232,81 +213,108 @@ $ git clone -b stable https://github.com/shirasagi/shirasagi /var/www/shirasagi
 > v1.4.0 でオープンデータプラグインは、SHIRASAGI にマージされました。
 > オープンデータに関する機能をご利用の場合も SHIRASAGI のソースコードをダウンロードしてください。
 
-## Web サーバの起動
-
-```
-$ cd /var/www/shirasagi
-$ cp -n config/samples/*.{rb,yml} config/
-$ bundle install --without development test
-$ bin/deploy
-$ bundle exec rake unicorn:start
-```
-
-> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
-
 ## ふりがな機能のインストール
 
 ```
-$ sudo su
-# asdf global ruby VERSION
-# cd /usr/local/src
-# wget -O mecab-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE&confirm=t&uuid=585a8a12-a314-4ca2-b3e6-9df561267c5e&at=AKKF8vxZJ7Wpcz3usXa_4TL4-cUH:1682584842486"
-# wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"
-# wget -O mecab-ruby-0.996.tar.gz "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7VUNlczBWVDZJbE0"
-# wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
-
-# cd /usr/local/src
-# tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
-# ./configure --enable-utf8-only && make && make install
-
-# cd /usr/local/src
-# tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
-# patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
-# ./configure --with-charset=UTF-8 && make && make install
-
-# cd /usr/local/src
-# tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
-# ruby extconf.rb && make && make install
-
-# echo "/usr/local/lib" >> /etc/ld.so.conf
-# ldconfig
+$ sudo chmod 777 /usr/local/src
+$ cd /usr/local/src
+$ cp -arp /var/www/shirasagi/vendor/mecab/mecab-ruby-0.996.tar.gz ./
+$ tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
+$ ruby extconf.rb && make && make install
+$ cd /var/www/shirasagi
+$ cp config/defaults/kana.yml config/
+$ sed -i "s#/usr/local/libexec/mecab/mecab-dict-index#/usr/libexec/mecab/mecab-dict-index#" config/kana.yml
+$ sed -i "s#/usr/local/lib/mecab/dic/ipadic#/usr/lib64/mecab/dic/ipadic#" config/kana.yml
 ```
 
-> mecab ビルド後に `ldconfig` が必要なケースがあります。<br>
-> 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
+> ソースからコンパイルする場合には、下記のコマンドを実行してください。
+> ```
+> $ sudo chmod 777 /usr/local/src
+> $ cd /usr/local/src
+> $ wget -O mecab-0.996.tar.gz "https://github.com/katayama-webtips/mecab/raw/refs/heads/main/mecab-0.996.tar.gz"
+> $ wget -O mecab-ipadic-2.7.0-20070801.tar.gz "https://github.com/katayama-webtips/mecab/raw/refs/heads/main/mecab-ipadic-2.7.0-20070801.tar.gz"
+> $ wget https://raw.githubusercontent.com/shirasagi/shirasagi/stable/vendor/mecab/mecab-ipadic-2.7.0-20070801.patch
+> $ cp -arp /var/www/shirasagi/vendor/mecab/mecab-ruby-0.996.tar.gz ./
+> 
+> $ cd /usr/local/src
+> $ tar xvzf mecab-0.996.tar.gz && cd mecab-0.996
+> $ ./configure --enable-utf8-only && make && make install
+> 
+> $ cd /usr/local/src
+> $ tar xvzf mecab-ipadic-2.7.0-20070801.tar.gz && cd mecab-ipadic-2.7.0-20070801
+> $ patch -p1 < ../mecab-ipadic-2.7.0-20070801.patch
+> $ ./configure --with-charset=UTF-8 && make && make install
+> 
+> $ cd /usr/local/src
+> $ tar xvzf mecab-ruby-0.996.tar.gz && cd mecab-ruby-0.996
+> $ ruby extconf.rb && make && make install
+> 
+> $ echo "/usr/local/lib" >> /etc/ld.so.conf
+> $ ldconfig
+> ```
 
 ## 音声読み上げ機能のインストール
 
 ```
-$ sudo su
-# cd /usr/local/src
-# wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
+$ cd /usr/local/src
+$ wget http://downloads.sourceforge.net/hts-engine/hts_engine_API-1.08.tar.gz \
    http://downloads.sourceforge.net/open-jtalk/open_jtalk-1.07.tar.gz \
    http://downloads.sourceforge.net/lame/lame-3.99.5.tar.gz \
    http://downloads.sourceforge.net/sox/sox-14.4.1.tar.gz
 
-# cd /usr/local/src
-# tar xvzf hts_engine_API-1.08.tar.gz && cd hts_engine_API-1.08
-# ./configure && make && make install
+$ cd /usr/local/src
+$ tar xvzf hts_engine_API-1.08.tar.gz && cd hts_engine_API-1.08
+$ ./configure && make && make install
 
-# cd /usr/local/src
-# tar xvzf open_jtalk-1.07.tar.gz && cd open_jtalk-1.07
-# sed -i "s/#define MAXBUFLEN 1024/#define MAXBUFLEN 10240/" bin/open_jtalk.c
-# sed -i "s/0x00D0 SPACE/0x000D SPACE/" mecab-naist-jdic/char.def
-# ./configure --with-charset=UTF-8 && make && make install
+$ cd /usr/local/src
+$ tar xvzf open_jtalk-1.07.tar.gz && cd open_jtalk-1.07
+$ sed -i "s/#define MAXBUFLEN 1024/#define MAXBUFLEN 10240/" bin/open_jtalk.c
+$ sed -i "s/0x00D0 SPACE/0x000D SPACE/" mecab-naist-jdic/char.def
+$ ./configure --with-charset=UTF-8 && make && make install
 
-# cd /usr/local/src
-# tar xvzf lame-3.99.5.tar.gz && cd lame-3.99.5
-# ./configure && make && make install
+$ cd /usr/local/src
+$ tar xvzf lame-3.99.5.tar.gz && cd lame-3.99.5
+$ ./configure && make && make install
 
-# cd /usr/local/src
-# tar xvzf sox-14.4.1.tar.gz && cd sox-14.4.1
-# ./configure && make && make install
+$ cd /usr/local/src
+$ tar xvzf sox-14.4.1.tar.gz && cd sox-14.4.1
+$ ./configure && make && make install
 
-# ldconfig
+$ sudo ldconfig
+```
+> 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
+
+## SHIRASAGI のインストール
+
+```
+$ cd /var/www/shirasagi
+$ cp -n config/samples/*.{yml,rb} config/
+$ bundle install --without development test
+$ bundle exec rails credentials:edit
+$ ./bin/deploy
 ```
 
-> 環境変数 PATH に/usr/local/bin を追記が必要なケースがあります。
+> ./bin/deploy でエラーが発生する場合には、`bundle config set force_ruby_platform true` を実行し再度 `bundle install` から実行してください。
+> `secret_key_base`関する警告が表示された場合は、[トラブルシューティング](/trouble-shootings/secret_key_base.html)を確認ください。
+
+## Web サーバの起動
+
+```
+$ sudo cp -n /var/www/shirasagi/bin/puma.service /etc/systemd/system/puma.service
+$ sudo vi /etc/systemd/system/puma.service
+---
+[Service]
+User=ssuser
+---
+※SHIRASAGI 実行ユーザがssuserの場合
+
+$ sudo systemctl daemon-reload
+$ sudo systemctl start puma
+```
+
+> unicornで起動させる場合は、[こちら][/installation/unicorn.html]を確認ください。
+
+> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。<br>
 
 ## 新規サイトの作成
 
