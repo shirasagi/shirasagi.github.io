@@ -3,7 +3,6 @@ layout: default
 title: インストールマニュアル
 ---
 
-test
 RHEL8 系 向けのインストールマニュアルです。
 下記ディストリビューションでの動作検証を行なってます。
 
@@ -32,93 +31,7 @@ $ sudo dnf -y groupinstall "Development tools"
 $ sudo dnf -y --enablerepo=epel,powertools install ImageMagick ImageMagick-devel openssl-devel libyaml-devel mecab mecab-devel mecab-ipadic
 ```
 
-## ImageMagick のバージョン確認
-
-shirasagi v1.14.0 からは ImageMagick のバージョンが 6.9 以上である必要があります。  
-次のコマンドを実行して ImageMagick のバージョンを確認してください。
-
-```
-$ convert --version | grep Version
-```
-
-```
-Version: ImageMagick 6.9.12-19 Q16 x86_64 2021-07-18 https://imagemagick.org
-```
-
-## ImageMagick のポリシー修正<br>
-
-> ※ImageMagick のバージョンによっては /etc/ImageMagick ディレクトリが存在しない場合があります。<br>
-> その場合は下記 policy.xml の変更は必要ありません。
-
-```
-$ sudo vi /etc/ImageMagick-6/policy.xml
-```
-
-```
-<policymap>
-  <!-- <policy domain="system" name="precision" value="6"/> -->
-  <!-- <policy domain="resource" name="temporary-path" value="/tmp"/> -->
-  <!-- <policy domain="resource" name="memory" value="2GiB"/> -->
-  <!-- <policy domain="resource" name="map" value="4GiB"/> -->
-  <!-- <policy domain="resource" name="area" value="1GB"/> -->
-  <!-- <policy domain="resource" name="disk" value="16EB"/> -->
-  <!-- <policy domain="resource" name="file" value="768"/> -->
-  <!-- <policy domain="resource" name="thread" value="4"/> -->
-  <!-- <policy domain="resource" name="throttle" value="0"/> -->
-  <!-- <policy domain="resource" name="time" value="3600"/> -->
-  <policy domain="coder" rights="none" pattern="EPHEMERAL" />
-  <policy domain="coder" rights="read" pattern="HTTPS" />
-  <policy domain="coder" rights="none" pattern="HTTP" />
-  <policy domain="coder" rights="none" pattern="URL" />
-  <policy domain="coder" rights="none" pattern="FTP" />
-  <policy domain="coder" rights="none" pattern="MVG" />
-  <policy domain="coder" rights="none" pattern="MSL" />
-  <policy domain="coder" rights="none" pattern="TEXT" />
-  <!--policy domain="coder" rights="read | write" pattern="LABEL" /-->
-  <policy domain="path" rights="none" pattern="@*" />
-  <policy domain="coder" rights="read | write" pattern="JPEG" />
-  <policy domain="coder" rights="read | write" pattern="PNG" />
-</policymap>
-```
-
-参考: <https://github.com/diaspora/diaspora/issues/6828>
-
-## ImageMagick の動作確認（画像認証の動作確認）
-
-次のコマンドを実行してみます。
-
-```
-$ convert -fill darkblue -background white -size 100x28 -wave 0x88 -gravity Center -pointsize 22 -implode 0.2 label:3407 jpeg:/dev/null
-```
-
-ただしく設定できている場合、上記のコマンドを実行しても何も出力されません。何も出力されない場合、シラサギで画像認証を利用可能です。
-
-しかし、エラーが出力される場合、このままではシラサギで画像認証を利用することはできません。
-利用している OS などの情報を検索し、エラーを修正する必要があります。
-
-参考: <https://github.com/shirasagi/shirasagi/issues/3200>
-
-## ImageMagick のフォント設定
-
-認証画像は表示できているが、画像が見切れているなどの理由で convert コマンドのフォント指定を変更したい場合 cms.yml にて設定できます。
-
-注）この設定は v1.14.0 にて導入されました。
-
-```
-$ cd /var/www/shirasagi
-$ cp config/defaults/cms.yml config （既に cms.yml をコピーしている場合は不要です。）
-$ vi config/cms.yml
-
-### captchaのfontの値を変更 ###
-  captcha:
-    font: NimbusSans-Bold
-```
-
-なお ImageMagick の場合、以下のコマンドで、設定可能なフォント一覧を確認できます。
-
-```
-$ convert -list font
-```
+> ImageMagick のポリシーを調整する場合は[こちら](installation/imagemagick.html)を参照の上、追加の設定を適用してください。
 
 ## MongoDB のインストール
 
@@ -142,7 +55,7 @@ $ sudo dnf install -y --enablerepo=mongodb-org-8.0 mongodb-org
 $ sudo systemctl enable mongod --now
 ```
 
-MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html) を参照の上、追加の設定を適用してください。
+MongoDB を起動する前に [MongoDB の推奨設定を適用する方法](/installation/mongodb-settings.html)を参照の上、追加の設定を適用してください。
 
 ## asdf のインストール
 
@@ -164,13 +77,15 @@ $ vi $HOME/.bashrc
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 ```
 
+> `.bashrc` の末尾に追加してください。
+
 3. 設定反映
 
 ```
 $ source $HOME/.bashrc
 ```
 
-> 上記コマンド実行後、環境によっては、`exec $SHELL -l`が必要な場合があります。
+> 上記コマンド実行後、環境によっては、`exec $SHELL -l` が必要な場合があります。
 
 ## Ruby のインストール
 
@@ -227,7 +142,7 @@ $ sed -i "s#/usr/local/libexec/mecab/mecab-dict-index#/usr/libexec/mecab/mecab-d
 $ sed -i "s#/usr/local/lib/mecab/dic/ipadic#/usr/lib64/mecab/dic/ipadic#" config/kana.yml
 ```
 
-> ソースからコンパイルする場合には、[こちら](/installation/mecab.html)を確認ください。
+> Mecab をソースからコンパイルする場合には、[こちら](/installation/mecab.html)を確認ください。
 
 ## 音声読み上げ機能のインストール
 
@@ -270,26 +185,30 @@ $ bundle exec rails credentials:edit
 $ ./bin/deploy
 ```
 
-> ./bin/deploy でエラーが発生する場合には、`bundle config set force_ruby_platform true` を実行し再度 `bundle install` から実行してください。<br />
-> `secret_key_base`関する警告が表示された場合は、[トラブルシューティング](/trouble-shootings/secret_key_base.html)を確認ください。
+> `GLIBC_2.29` 関する警告が発生された場合には、`bundle config set force_ruby_platform true` を実行し再度 `bundle install` から実行してください。<br />
+> `secret_key_base` 関する警告が表示された場合は、[トラブルシューティング](/trouble-shootings/secret_key_base.html)を確認ください。
 
 ## Web サーバの起動
 
 ```
 $ sudo cp -n /var/www/shirasagi/bin/puma.service /etc/systemd/system/puma.service
 $ sudo vi /etc/systemd/system/puma.service
----
+```
+
+```
 [Service]
 User=ssuser
----
-※SHIRASAGI 実行ユーザがssuserの場合
+...（省略）
+```
 
+```
 $ sudo systemctl daemon-reload
 $ sudo systemctl start puma
 ```
 
-> unicornで起動させる場合は、[こちら](/installation/unicorn.html)を確認ください。
-> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。<br>
+> `puma.service` の User はシラサギの実行ユーザに合わせてください。<br />
+> unicornで起動させる場合は、[Unicorn のインストール](/installation/unicorn.html)を確認ください。<br />
+> http://localhost:3000/.mypage にアクセスするとログイン画面が表示されます。
 
 ## 新規サイトの作成
 

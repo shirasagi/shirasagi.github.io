@@ -3,7 +3,7 @@ layout: default
 title: インストールマニュアル - Mecab のソースコンパイル
 ---
 
-## Mecab ソースファイルのダウンドードおよびインストール
+## Mecab のソースコンパイル
 
 ```
 $ sudo chmod 777 /usr/local/src
