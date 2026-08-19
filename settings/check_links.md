@@ -57,16 +57,16 @@ SHIRASAGI にはサイト全体を非同期ジョブにてリンクチェック�
 ### 除外URL設定: `<a>` タグや `<img>` タグによる個別設定
 
 `rel="nofollow"` が設定された `<a>` タグのリンクは辿りません。
-`ss-data-rel="nofollow"` が設定された `<a>` タグや `<img>` タグのリンクは辿りません。
-`rel="nofollow"` や `ss-data-rel="nofollow"` を設定することで、リンクチェックの実行時間を短くしたり、
+`data-ss-rel="nofollow"` が設定された `<a>` タグや `<img>` タグのリンクは辿りません。
+`rel="nofollow"` や `data-ss-rel="nofollow"` を設定することで、リンクチェックの実行時間を短くしたり、
 不安定な外部サイトをチェックから除外させることができます。
 
-`rel="nofollow"` と `ss-data-rel="nofollow"` には以下のような違いがあります。
+`rel="nofollow"` と `data-ss-rel="nofollow"` には以下のような違いがあります。
 
 | 設定 | 紳士的なウェブクローラー | シラサギのリンクチェック |
 |------------------|---------|-------|
 | rel="nofollow" | 辿らない | 辿らない |
-| ss-data-rel="nofollow" | 辿る | 辿らない |
+| data-ss-rel="nofollow" | 辿る | 辿らない |
 
 ### 除外URL設定: パターン登録
 
