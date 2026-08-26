@@ -160,6 +160,7 @@ title: SHIRASAGI 開発マニュアル
   - [Rspec実行時に指定できる環境変数](devel/run_rspec_with_env.html)
   - [全文検索機能の開発とテスト](devel/rspec_elasticsearch.html)
 - [Windows11でのシラサギ開発](devel/on_win11.html)
+- [macでのシラサギ開発](devel/on_mac.html)
 
 ## トラブルシューティング
 
