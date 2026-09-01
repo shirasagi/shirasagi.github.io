@@ -293,6 +293,50 @@ title: リファレンス
 ~~~
 {% endraw %}
 
+### 添付ファイル（複数）・画像リスト
+
+`multiple_files_upload`（添付ファイル（複数））と画像リストで使用できます。
+
+| 変数         | 説明 |
+|-------------|--------------------------------------------|
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定値は下を参照。
+| value.file_type | アップロードの種類。`image`（画像リスト）または `attachment`（添付ファイル（複数））の文字列。
+| value.header | 説明文（見出し）
+| value.files | ファイルの配列
+| value.file_labels | ファイルの ID をキー、ファイルのタイトルを値にしたハッシュ
+| value.items | 各ファイルの配列。各要素は `file`（ファイル）、`label`（ファイルのタイトル）、`file_label`（ファイルのタイトルを文字列化したもの）を持つ。
+
+#### value.html
+
+{% raw %}
+~~~
+{% if value.header.size > 0 %}
+  {% if value.file_type == 'image' %}
+    <div class="images-header">{{ value.header | newline_to_br }}</div>
+  {% else %}
+    <div class="attachment-header">{{ value.header | newline_to_br }}</div>
+  {% endif %}
+{% endif %}
+{% if value.items.size > 0 %}
+  {% if value.file_type == 'image' %}
+    <div class="column2">
+      {% for item in value.items %}
+        <div class="column-item">
+          <img src="{{ item.file.url }}" alt="{{ item.file_label }}">
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <ul class="attachment-list">
+      {% for item in value.items %}
+        <li><a href="{{ item.file.url }}">{{ item.label | default: item.file.humanized_name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endif %}
+~~~
+{% endraw %}
+
 ### 見出し入力
 
 | 変数         | 説明 |
