@@ -96,7 +96,7 @@ title: SHIRASAGI 開発マニュアル
   - [サイトのデータ移行](features/site_export.html)
   - [他サイト/サブサイトのページ・フォルダー参照](features/partner_site.html)
   - [特定フォルダー・パーツの無効化](features/disable_route.html)
-  - [不適切な公開 HTML 削除](features/remove_improper_htmls.html)
+  - [不適切な公開 HTML と添付ファイルの削除](features/cms/consistency_check.html)
   - [サイト内検索](features/cms/elasticsearch.html)
   - [高度なスライダーの利用](features/cms/advanced_slider.html)
 
@@ -171,13 +171,6 @@ title: SHIRASAGI 開発マニュアル
 - [Rails 6.1 への更新と Gem の最新化](trouble-shootings/update_rails6.html)
 - [MongoDB 6.0 / Mongoid 8.0 への更新](trouble-shootings/update_mongodb6.html)
 - [DEPRECATION WARNING: Your secret_key_base is ...](trouble-shootings/secret_key_base.html)
-
-<!--
-## 試験中の機能
-
-- CMS
-  - [不適切な公開 HTML 削除](experimental/remove_improper_htmls.html)
--->
 
 ## シラサギ公式サイトの FAQ
 
