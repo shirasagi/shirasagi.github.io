@@ -121,9 +121,9 @@ Puma だけにある USR1（phased restart）
 
 | 状況 | 操作 | 理由 |
 | --- | --- | --- |
-| SHIRASAGI のコード更新 | `systemctl reload puma`（USR2） | 1世代のみでメモリスパイクなし。ただし起動失敗時は落ちるので直後にプロセス確認 |
-| unit の環境変数変更・Ruby 更新・gem 更新・`config/puma.rb` 変更  | `systemctl restart puma` | exec のやり直しでは新しい環境変数を拾わないため reload では不十分 |
-| 無停止性を重視 | `kill -USR1 <master PID>`（phased restart） | 動的ページへのアクセスを無停止で行うため |
+| SHIRASAGI のコード更新・`config/*.yml` 変更・`config/puma.rb` 変更| `systemctl reload puma`（USR2） | 1世代のみでメモリスパイクなし。ただし起動失敗時は落ちるので直後にプロセス確認 |
+| unit の環境変数変更・Ruby 更新・gem 更新・  | `systemctl restart puma` | exec のやり直しでは新しい環境変数を拾わないため reload では不十分 |
+| 無停止性を重視 | `kill -USR1 <master PID>`（phased restart） | 動的ページへのアクセスを無停止で行うため。ただし `config/puma.rb`は再読込されない |
 
 ## 移行前後の構成比較表
 
