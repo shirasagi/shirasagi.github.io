@@ -12,23 +12,20 @@ title: トラブルシューティング - インストール
 # gem install rmagick
 ~~~
 
-## Unicorn が起動できない
+## Application サーバが起動できない
 
 ### エラーログ
+
+エラーログには、Railsアプリの起動失敗、メモリ超過によるプロセスの強制終了（タイムアウト、接続エラーなど）が記録されます。
+
+- Puma の場合
+
+~~~
+$ journalctl -u puma
+~~~
+
+- Unicorn の場合
 
 ~~~
 $ less /var/www/shirasagi/log/unicorn.stderr.log
 ~~~
-
-### pid ファイルが作成できない
-
-pid ファイルのパスを変更してください。
-
-~~~
-$ vi /var/www/shirasagi/config/unicorn.rb
-~~~
-
-~~~
-pid "/tmp/unicorn.pid"
-~~~
-
