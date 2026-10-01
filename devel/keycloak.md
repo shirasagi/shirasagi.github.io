@@ -14,7 +14,7 @@ Red Hat社が開発したJavaベースのオープンソースソフトウェア
 
 以下のサービスを設定します。
 
-- Idp サーバーとして Keycloak
+- IdP サーバーとして Keycloak
 
 対象 OS は Almalinux9 です。他の OS をご利用の方は適時読み替えてください。
 

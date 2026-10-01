@@ -155,7 +155,7 @@ title: SHIRASAGI 開発マニュアル
   - [Docker を用いたウェブメールテスト環境の構築](devel/webmail_test_with_docker.html)
   - [IMAP のデバッグ](devel/debug_imap.html)
 - 認証基盤
-  - [Keycloack を用いた認証基盤 (IdP) の構築](devel/keycloack.html)
+  - [Keycloack を用いた認証基盤 (IdP) の構築](devel/keycloak.html)
 - テスト
   - [Rspec](devel/rspec/rspec.html)
   - [Rspec の運用](devel/rspec.html)

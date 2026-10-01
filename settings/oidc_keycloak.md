@@ -9,7 +9,7 @@ title: OpenID Connect 認証の疎通確認
 ここでは、IdP として keycloak を用意し、シラサギと Keycloak を OIDC で連携し、SSO を実現する設定は以下の通りになります。
 シラサギ側が RP (リライイング・パーティ)、Keycloak 側が IdP (IDプロバイダー) として動作します。
 
-> Keycloak のインストールおよび設定方法は [Keycloack を用いた認証基盤 (IdP) の構築](devel/keycloak.html) を参照下さい。
+> Keycloak のインストールおよび設定方法は [Keycloack を用いた認証基盤 (IdP) の構築](../devel/keycloak.html) を参照下さい。
 
 ## 事前準備
 
