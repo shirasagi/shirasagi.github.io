@@ -139,26 +139,12 @@ Rails.application.config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
 本番サーバーでは root になり次のコマンドを実行:
 
-- Puma の場合
-
 ~~~
 $ su -
 # systemctl restart puma
 ~~~
 
-- Unicorn の場合
-
-~~~
-$ su -
-# systemctl restart unicorn
-~~~
-
-開発環境では次のコマンドを実行:
-
-~~~
-$ cd /var/www/shirasagi
-$ bundle exec rake unicorn:restart
-~~~
+> unicornで再起動させる場合は、[Unicorn のインストール](/installation/unicorn.html)を確認ください。
 
 Application サーバの再起動には 2, 3 分かかる場合があります。
 
