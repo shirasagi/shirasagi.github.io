@@ -17,7 +17,17 @@ title: リンクページ機能
   disable_redirect_link: false
 ~~~
 
-`unicorn` を再起動し、管理画面よりページを編集するとリンクページアドオンが表示され、リダイレクトURLを入力することができます。
+## Application サーバーの再起動
+
+設定を反映させるため、運用環境に合わせて Puma を再起動します。
+
+~~~
+# systemctl restart puma
+~~~
+
+> unicornで再起動させる場合は、[Unicorn のインストール](/installation/unicorn.html)を確認ください。
+
+Application サーバを再起動し、管理画面よりページを編集するとリンクページアドオンが表示され、リダイレクトURLを入力することができます。
 
 ## 外部サイトへのリダイレクト
 

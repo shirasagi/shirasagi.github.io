@@ -28,10 +28,6 @@ enabled=0
 # systemctl enable nginx
 ~~~
 
-> [ CentOS 6 ] <br />
-> service nginx start <br />
-> chkconfig nginx on <br />
-
 ## 標準の設定を追加する
 
 各設定値は環境に応じて変更してください。
@@ -197,8 +193,6 @@ location ~* /fs/.*\.(htm|html)$ {
 ~~~
 # systemctl restart nginx
 ~~~
-> [ CentOS 6 ]
-> service nginx restart
 
 ## 管理画面にBasic認証を設定する
 
@@ -239,7 +233,7 @@ SELlinux, Firewalld が有効な場合はそれぞれについて設定します
 管理用コマンドの導入
 # yum -y install policycoreutils-python
 
-selinux制限許可(SHIRASAI関連ファイル, unicorn)
+selinux制限許可(SHIRASAI関連ファイル, Applicationサーバ)
 # restorecon -RF /var/www/shirasagi/public
 # restorecon -RF /var/www/shirasagi/private
 # semanage port -a -t http_port_t -p tcp 3000
@@ -249,7 +243,7 @@ selinux制限許可(SHIRASAI関連ファイル, unicorn)
 - Firewalld
 
 ~~~
-unicorn 3000番ポートを解放する
+Applicationサーバで使用する 3000番ポートを解放する
 # firewall-cmd --add-port=3000/tcp --permanent
 # firewall-cmd --reload
 ~~~

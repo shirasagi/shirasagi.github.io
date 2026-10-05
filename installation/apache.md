@@ -135,23 +135,18 @@ AddDefaultCharset UTF-8
 Rails.application.config.action_dispatch.x_sendfile_header = "X-Sendfile"
 ~~~
 
-## unicorn の再起動
+## Application サーバの再起動
 
 本番サーバーでは root になり次のコマンドを実行:
 
 ~~~
 $ su -
-# systemctl restart unicorn
+# systemctl restart puma
 ~~~
 
-開発環境では次のコマンドを実行:
+> unicornで再起動させる場合は、[Unicorn のインストール](/installation/unicorn.html)を確認ください。
 
-~~~
-$ cd /var/www/shirasagi
-$ bundle exec rake unicorn:restart
-~~~
-
-Unicorn の再起動には 2, 3 分かかる場合があります。
+Application サーバの再起動には 2, 3 分かかる場合があります。
 
 ## HTTPSサイトとして設定する際の注意点
 SSL証明書の指定を行いHTTPSサイトとして設定する際、上記VirtualHost設定のままでは
