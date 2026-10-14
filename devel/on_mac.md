@@ -308,7 +308,7 @@ $ grep -E 'bin:|dic:|sox:' config/voice.yml
 
 ```
 $ cd ~/Projects/shirasagi
-$ cp -p config/samples/{mongoid,secrets}.yml config/
+$ cp -p config/samples/mongoid.yml config/
 $ cp -p config/defaults/environment.yml config/
 ```
 

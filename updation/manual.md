@@ -126,7 +126,7 @@ $ npm install -g yarn
 
 ```
 # cd /var/www/shirasagi
-# ls config/*.yml | fgrep -v secrets.yml | fgrep -v mongoid.yml
+# ls config/*.yml | fgrep -v mongoid.yml
 ```
 
 何も表示されなければ、独自の設定はありませんので、次のステップへお進みください。
