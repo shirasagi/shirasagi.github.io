@@ -19,7 +19,7 @@ production: &production
   basic_auth: [ "username", "password" ]
 ~~~
 
-また、ユーザーとパスワードは、`secrets.yml` に設定している `secret_key_base` を用いて暗号化することができます。
+また、ユーザーとパスワードは、`credentials.yml.enc` に設定している `secret_key_base` を用いて暗号化することができます。
 下記のコマンドでユーザーとパスワードを暗号化してください。
 
 ~~~

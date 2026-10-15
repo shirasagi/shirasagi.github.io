@@ -11,22 +11,30 @@ title: "DEPRECATION WARNING: Your secret_key_base is ..."
 
 ## 修正方法
 
-シラサギをインストールしたディレクトリで次のコマンドを実行します。
+現在の `secret_key_base` を確認するため、シラサギをインストールしたディレクトリで次のコマンドを実行します。
+
+~~~
+bundle exec rails runner 'puts Rails.application.secret_key_base'
+~~~
+
+この値をメモしておきます。
+
+次にシラサギをインストールしたディレクトリで次のコマンドを実行します。
 
 ~~~
 bundle exec rails credentials:edit
 ~~~
 
-コマンドの実行に成功するとテキストエディタが起動して、secret_key_base を編集できるようになります。
+コマンドの実行に成功するとテキストエディタが起動して、`secret_key_base` を編集できるようになります。
 このコマンドが失敗しテキストエディタが起動しない場合、次のコマンドを実行してみてください。
 
 ~~~
 EDITOR=vi bundle exec rails credentials:edit
 ~~~
 
-テキストエディタとして vi を用い、secret_key_base を編集できる画面が起動します。
+テキストエディタとして vi を用い、`secret_key_base` を編集できる画面が起動します。
 
-起動したテキストエディタで secret_key_base に `config/secrets.yml` と同じものを設定します。
+起動したテキストエディタで `secret_key_base` に先ほどメモしたものとと同じものを設定します。
 
 編集が終了すると `config/master.key` と `config/credentials.yml.enc` が作成されます。
 `config/master.key` は `config/credentials.yml.enc` を暗号化する際に使用した暗号化キーが保存されています。
