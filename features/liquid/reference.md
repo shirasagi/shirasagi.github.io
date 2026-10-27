@@ -27,7 +27,7 @@ title: リファレンス
 <article class="item-{{ page.css_class }} {% if page.new? %}new{% endif %} {% if page.current? %}current{% endif %}">
   <header>
     <time datetime="{{ page.date }}">{{ page.date | ss_date: "long" }}</time>
-    <h2><a href="{{ page.url }}">{{ page.index_name | default: page.name }}</a></h2>
+    <h2><a href="{{ page.url }}">{{ page.index_name | default: page.name | escape }}</a></h2>
   </header>
 </article>
 {% endfor %}
@@ -44,7 +44,7 @@ title: リファレンス
 {% for node in nodes %}
 <article class="item-{{ node.css_class }} {% if node.current? %}current{% endif %}">
   <header>
-     <h2><a href="{{ node.url }}">{{ node.name }}</a></h2>
+     <h2><a href="{{ node.url }}">{{ node.name | escape }}</a></h2>
   </header>
 </article>
 {% endfor %}
@@ -66,7 +66,7 @@ title: リファレンス
 {% for node in nodes %}
 <article class="item-{{ node.css_class }} {% if node.current? %}current{% endif %}">
   <header>
-     <h2><a href="{{ node.url }}">{{ node.name }}</a></h2>
+     <h2><a href="{{ node.url }}">{{ node.name | escape }}</a></h2>
   </header>
 </article>
 {% endfor %}
@@ -85,7 +85,7 @@ title: リファレンス
 |--------|--------------------------------------------|
 | part.html | パーツの HTML
 | part.id | パーツの ID
-| part.name | パーツの名前
+| part.name | パーツの名前。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | part.url | パーツの URL
 | part.full_url | パーツのフルURL
 | part.basename | パーツのURLのベース名
@@ -101,8 +101,8 @@ title: リファレンス
 | 変数    | 説明 |
 |--------|--------------------------------------------|
 | page.id | ページの ID
-| page.name | ページの名前
-| page.index_name | ページの一覧名
+| page.name | ページの名前。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.index_name | ページの一覧名。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | page.url | ページの URL
 | page.full_url | ページのフルURL
 | page.basename | ページのURLのベース名
@@ -117,27 +117,27 @@ title: リファレンス
 | page.css_class | ページの CSS クラス
 | page.new? | ページが新着の場合 true
 | page.current? | ページが現在の場合 true
-| page.summary | ページのサマリー
-| page.description | ページの概要
+| page.summary | ページのサマリー。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.description | ページの概要。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | page.thumb | ページのイメージ
 | page.html | ページの HTML
 | page.values | ページのフォームに入力された入力値
 | page.categories | ページに関連付けられたカテゴリー
-| page.event_name | ページに設定されたイベントタイトル
+| page.event_name | ページに設定されたイベントタイトル。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | page.event_dates | ページに設定されたイベント日
-| page.event_deadline | ページに設定されたイベントの申込締切
+| page.event_deadline | ページに設定されたイベントの申込締切。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | page.event_recurrences | 繰り替えしイベント情報
 | page.map_points | ページに設定された地図の地点
 | page.map_zoom_level | ページに設定された地図のズームレベル
 | page.contact_state | ページに設定された連絡先の表示設定
-| page.contact_group | ページに設定された連絡先の所属
-| page.contact_charge | ページに設定された連絡先の担当
-| page.contact_tel | ページに設定された連絡先の電話番号
-| page.contact_fax | ページに設定された連絡先のファックス番号
-| page.contact_email | ページに設定された連絡先のメールアドレス
-| page.contact_link_url | ページに設定された連絡先のリンクURL
-| page.contact_link_name | ページに設定された連絡先のリンク名
-| page.tags | ページのタグ
+| page.contact_group | ページに設定された連絡先の所属。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_charge | ページに設定された連絡先の担当。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_tel | ページに設定された連絡先の電話番号。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_fax | ページに設定された連絡先のファックス番号。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_email | ページに設定された連絡先のメールアドレス。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_link_url | ページに設定された連絡先のリンクURL。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.contact_link_name | ページに設定された連絡先のリンク名。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| page.tags | ページのタグ。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | page.groups | ページの管理グループ
 | page.summarized_categories | サマリーページを設定したカテゴリー
 
@@ -149,8 +149,8 @@ title: リファレンス
 | 変数    | 説明 |
 |--------|--------------------------------------------|
 | node.id | ノードの ID
-| node.name | ノードの名前
-| node.index_name | ノードの一覧名
+| node.name | ノードの名前。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| node.index_name | ノードの一覧名。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | node.url | ノードの URL
 | node.full_url | ノードのフルURL
 | node.basename | ノードのURLのベース名
@@ -159,8 +159,8 @@ title: リファレンス
 | node.order | ノードの並び順
 | node.date | ノードの日時
 | node.current? | ノードが現在の場合 true
-| node.summary | ノードのサマリー
-| node.description | ノードの概要
+| node.summary | ノードのサマリー。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| node.description | ノードの概要。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | node.released | ノードの公開日時
 | node.updated | ノードの更新日時
 | node.created | ノードの作成日時
@@ -185,7 +185,7 @@ title: リファレンス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| value.name  | ブロックの名称
+| value.name  | ブロックの名称。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするようにしてください。
 | value.alignment | ブロックの配置。`flow`, `center`, `left`, `right` のいずれかの文字列。
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。{% raw %}`{{ value }}`{% endraw %} と同じです。
 | value.type  | ブロックの型を表す文字列
@@ -195,7 +195,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
-| value.value | 入力された文字列
+| value.value | 入力された文字列。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### 日付入力
 
@@ -210,8 +210,8 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<a href="{{ value.link_url }}">{{ value.link_label | default: value.link_url }}</a>`{% endraw %} と同じです。
-| value.link_url | リンクURL
-| value.link_label | リンクテキスト
+| value.link_url | リンクURL。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| value.link_label | リンクテキスト。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | value.link_target | リンクターゲット。`_blank` か空文字列。
 
 ### 複数行入力
@@ -219,28 +219,28 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | newline_to_br | sanitize }}`{% endraw %} と同じです。
-| value.value | 入力された文字列
+| value.value | 入力された文字列。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### ドロップダウン
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
-| value.value | 選択された選択肢
+| value.value | 選択された選択肢。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### ラジオボタン
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
-| value.value | 選択された選択肢
+| value.value | 選択された選択肢。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### チェックボックス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | sanitize }}`{% endraw %} と同じです。
-| value.values | 選択された選択肢（複数）
+| value.values | 選択された選択肢（複数）。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | value.value | {% raw %}`{{ value.values | join: ", " }}`{% endraw %} と同じ文字列
 
 ### ファイルアップロード
@@ -250,17 +250,17 @@ title: リファレンス
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定値は下を参照。
 | value.file_type | アップロードの種類。`image`, `attachment`, `video`, `banner` のいずれかの文字列。
 | value.file | ファイル
-| value.file_label | ファイルのタイトル
-| value.text | （ビデオアップロードの場合のみ有効）ビデオの説明
+| value.file_label | ファイルのタイトル。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| value.text | （ビデオアップロードの場合のみ有効）ビデオの説明。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | value.image_html_type | （画像アップロードの場合のみ有効）画像のリンク形式。`image` または `thumb` のいずれかの文字列。
-| value.link_url | （バナーの場合のみ有効）リンクURL
+| value.link_url | （バナーの場合のみ有効）リンクURL。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 
 #### value.file_type が image の場合の value.html
 
 {% raw %}
 ~~~
-<img src="{{ value.file.url }}" alt="{{ value.file_label || default: value.file.humanized_name }}">
+<img src="{{ value.file.url }}" alt="{{ value.file_label | default: value.file.humanized_name }}">
 ~~~
 {% endraw %}
 
@@ -268,7 +268,7 @@ title: リファレンス
 
 {% raw %}
 ~~~
-<a href="{{ value.file.url }}">{{ value.file_label | default: value.file.name  }} ({{ value.file.extname | upcase }} {{ value.file.size | human_size }})</a>
+<a href="{{ value.file.url }}">{{ value.file_label | default: value.file.name }} ({{ value.file.extname | upcase }} {{ value.file.size | human_size }})</a>
 ~~~
 {% endraw %}
 
@@ -343,15 +343,15 @@ title: リファレンス
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`<{{ value.head }}>{{ value.text | sanitize }}</{{ value.head }}>`{% endraw %} と同じです。
 | value.head  | h1, h2, h3, h4 のいずれか
-| value.text  | 入力された文字列
+| value.text  | 入力された文字列。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### リスト入力
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では<br/>{% raw %}&lt;{{ value.list_type }}><br/>  {% for list in value.lists %}<br/>  &lt;li>{{ list \| sanitize }}&lt;/li><br/>  {% endfor %}<br/>&lt;/{{ value.list_type }}>{% endraw %}<br/>と同じです。
+| value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では<br/>{% raw %}&lt;{{ value.list_type }}><br/>  {% for list in value.lists %}<br/>  &lt;li>{{ list | sanitize }}&lt;/li><br/>  {% endfor %}<br/>&lt;/{{ value.list_type }}>{% endraw %}<br/>と同じです。
 | value.list_type | リスト種類。ol か ul のどちらか。
-| value.lists    | リストが配列で返る。
+| value.lists    | リストが配列で返る。。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ### YouTube埋め込み
 
@@ -368,7 +368,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value }}`{% endraw %} と同じです。
-| value.value | 入力されたHTML
+| value.value | 入力されたHTML。ユーザー入力をそのまま返すので表示する際は `sanitize` でサニタイズするようにしてください。
 | value.files | アップロードされたファイル
 
 ### 表
@@ -376,7 +376,7 @@ title: リファレンス
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
 | value.html  | 設定にしたがって入力値を HTML 化したもので既定値です。既定では {% raw %}`{{ value.value | newline_to_br }}`{% endraw %} と同じです。
-| value.value | 入力されたHTML
+| value.value | 入力されたHTML。ユーザー入力をそのまま返すので表示する際は `sanitize` でサニタイズするようにしてください。
 
 ## groups
 
@@ -386,11 +386,11 @@ title: リファレンス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| group.name  | グループ名
-| group.full_name  | グループ名の "/" を " " に置き換えたもの
-| group.section_name  | グループ名の先頭の要素を除いて "/" を " " に置き換えたもの
-| group.trailing_name  | グループ名からグループ階層を除いた末端の名前
-| group.last_name  | グループ名の最後の要素
+| group.name  | グループ名。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| group.full_name  | グループ名の "/" を " " に置き換えたもの。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| group.section_name  | グループ名の先頭の要素を除いて "/" を " " に置き換えたもの。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| group.trailing_name  | グループ名からグループ階層を除いた末端の名前。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| group.last_name  | グループ名の最後の要素。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 
 ## files
 
@@ -400,10 +400,10 @@ title: リファレンス
 
 | 変数         | 説明 |
 |-------------|--------------------------------------------|
-| file.name   | ファイルの日本語名
-| file.extname | ファイルの拡張子
+| file.name   | ファイルの日本語名。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
+| file.extname | ファイルの拡張子。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | file.size   | ファイルのサイズ
-| file.humanized_name | ファイルの日本語名の可読形式
+| file.humanized_name | ファイルの日本語名の可読形式。ユーザー入力をそのまま返すので表示する際は `escape` でHTMLエンコードするか `sanitize` でサニタイズするようにしてください。
 | file.filename | ファイルの物理名
 | file.basename | ファイルのベース名
 | file.url    | ファイルの URL

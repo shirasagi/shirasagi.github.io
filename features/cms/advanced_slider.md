@@ -44,7 +44,7 @@ title: 高度なスライダーの利用
     style="width: 100%; height: 280px; position: relative;">
   {% for page in pages %}
     <swiper-slide style="width: 520px">
-      <img alt="{{ page.name }}" src="{{ page.thumb.url }}" width="520" height="240" />
+      <img alt="{{ page.name | escape }}" src="{{ page.thumb.url }}" width="520" height="240" />
     </swiper-slide>
   {% endfor %}
   
@@ -114,12 +114,12 @@ title: 高度なスライダーの利用
     <swiper-slide style="width: 280px">
       <a href="{{ page.url }}"
           style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 10px; background-color: #fff; text-decoration: none;">
-        <img alt="{{ page.name }}" src="{{ page.values["画像"].file.url }}"
+        <img alt="{{ page.name | escape }}" src="{{ page.values["画像"].file.url }}"
             width="240" height="176" style="border-radius: 10px;" />
-        <div>{{ page.name }}</div>
+        <div>{{ page.name | escape }}</div>
         <div>
           {% for category in page.categories %}
-          <span style="padding: 5px; border-radius: 10px; font-size: 80%; color: #555; background-color: #bbb">{{ category.name }}</span>
+          <span style="padding: 5px; border-radius: 10px; font-size: 80%; color: #555; background-color: #bbb">{{ category.name | escape }}</span>
           {% endfor %}
         </div>
       </a>

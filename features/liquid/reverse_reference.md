@@ -20,20 +20,20 @@ SHIRASAGI 形式から Liquid 形式への変換表です。
 | #{time.long}        | {% raw %}`{{ page.date | ss_time: "long" }}`{% endraw %}
 | #{time.short}       | {% raw %}`{{ page.date | ss_time: "short" }}`{% endraw %}
 | #{url}              | {% raw %}`{{ page.url }}`{% endraw %}
-| #{name}             | {% raw %}`{{ page.name }}`{% endraw %}
-| #{index_name}       | {% raw %}`{{ page.index_name | default: page.name }}`{% endraw %}
-| #{summary}          | {% raw %}`{{ page.summary }}`{% endraw %}
-| #{html}             | {% raw %}`{{ page.html }}`{% endraw %}
+| #{name}             | {% raw %}`{{ page.name | escape }}`{% endraw %}
+| #{index_name}       | {% raw %}`{{ page.index_name | default: page.name | escape }}`{% endraw %}
+| #{summary}          | {% raw %}`{{ page.summary | sanitize }}`{% endraw %}
+| #{html}             | {% raw %}`{{ page.html | sanitize }}`{% endraw %}
 | #{current}          | {% raw %}`{% if page.current? %}current{% endif %}`{% endraw %}
 | #{new}              | {% raw %}`{% if page.new? %}new{% endif %}`{% endraw %}
 | #{id}               | {% raw %}`{{ page.id }}`{% endraw %}
-| #{group}            | {% raw %}`{{ page.groups[0].last_name }}`{% endraw %}
-| #{groups}           | {% raw %}`{{ page.groups | map: "last_name" | join: ", " }}`{% endraw %}
+| #{group}            | {% raw %}`{{ page.groups[0].last_name | escape }}`{% endraw %}
+| #{groups}           | {% raw %}`{{ page.groups | map: "last_name" | join: ", " | escape }}`{% endraw %}
 | #{img.src}          | {% raw %}`{% assign img_src = page.html | ss_img_src | expand_path: page.parent.url %}`<br />`{{ img_src | default: "/assets/img/dummy.png" }}`{% endraw %}
 | #{thumb.src}        | {% raw %}`{% assign thumb_src = page.thumb.url %}`<br />`{% assign img_src = page.html | ss_img_src | expand_path: page.parent.url %}`<br />`{{ thumb_src | default: img_src | default: "/assets/img/dummy.png" }}`{% endraw %}
-| #{categories}       | {% raw %}`{% for category in page.categories %}`<br/>`<span class="{{ category.filename | replace: "/", "-" }}>`<br />`  <a href="{{ category.url }}">{{ category.name }}</a>`<br />`</span>`<br />`{% endfor %}`{% endraw %}
+| #{categories}       | {% raw %}`{% for category in page.categories %}`<br/>`<span class="{{ category.filename | replace: "/", "-" }}>`<br />`  <a href="{{ category.url }}">{{ category.name | escape }}</a>`<br />`</span>`<br />`{% endfor %}`{% endraw %}
 | #{pages.count}      | {% raw %}`{{ node.pages | size }}`{% endraw %}
-| #{tags}             | {% raw %}`{{ page.tags | join: " " }}`{% endraw %}
+| #{tags}             | {% raw %}`{{ page.tags | join: " " | escape }}`{% endraw %}
 | #{event_dates}      | {% raw %}`{% for event_date_range in page.event_dates %}`<br />`  {% if event_date_range.size == 1 %}`<br />`    <time datetime="{{ event_date_range.first }}">{{ event_date_range.first | ss_date }}</time>`<br />`  {% else %}`<br />`    <time datetime="{{ event_date_range.first }}">{{ event_date_range.first | ss_date }}</time>`<br />`〜`<br />`<time datetime="{{ event_date_range.last }}">{{ event_date_range.last | ss_date }}</time>`<br />`  {% endif %}`<br />`{% endfor %}`{% endraw %}
 | #{event_dates.default} | 上記の `ss_date` の箇所を `ss_date: "default"` へ変更 |
 | #{event_dates.default_full} | 上記の `ss_date` の箇所を `ss_date: "default_full"` へ変更 |
